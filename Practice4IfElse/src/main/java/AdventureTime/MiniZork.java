@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AdventureTime;
 
 
@@ -46,8 +42,36 @@ public class MiniZork {
                     System.out.println("But you alive. Possibly a"
                             + " wise choice.");
                 }
-            } else if (action.equals("stick your hand in")) { }
-        } else if (action.equals("go to the house")) { }
+            } else if (action.equals("stick your hand in")) {
+            System.out.println("A dachsund jumps out and bites your hand! "
+                    + "You don;t get mad though, as the dachsund is cute.");
+            System.out.print("Talk to the dachsund or rub his ears?");
+            action = userInput.nextLine();
+            }
+            if(action.equals("talk to dachsund")){
+                System.out.println("The dachsund tell you why he lives in a "
+                        + "mail box. Turns out, he is an adventurer.");
+            }else if(action.equals("rub his ears")){
+                System.out.println("The dachsund enjoys his ear rub, pulls out"
+                        + "a small wallet, and slips you a couple fifties."
+                        + "Nice!");
+            }
+        } else if (action.equals("go to the house")) { 
+            System.out.print("You meet a talking Corgi. The Corgi is wise.");
+            System.out.println("He knows many things and you can tell he has"
+                    + "great advice to give.");
+            System.out.print("Do you speak with the wise Corgi, or go home?");
+            action = userInput.nextLine();
+        }
+                  if(action.equals("Speak with the wise Corgi")){
+                      System.out.println("Your life is forver enriched by the"
+                              + "wisdom of the Corgi.");
+                  }else if(action.equals("go home")){
+                      System.out.println("Bad life choice! I mean seriously,"
+                              + "that was a talking, wise Corgi! You could have"
+                              + "learned from it. You go home and live an"
+                              + "unsatisfying rest of your life");
+                  }
     }
 }
 
