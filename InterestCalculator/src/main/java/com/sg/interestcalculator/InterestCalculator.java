@@ -32,21 +32,32 @@ public class InterestCalculator {
         //public static double interestCalculator(double prinicple, double interestRate, double numberOfYears) {
         for (int i = 0; i <= numberOfYears; i++) {
 
-            //float total;
             for (int j = 1; j <= 4; j++) {
-                float quarterBalance = (float) (principle * (interestRate / 100));
-                float oneYear = (float) (quarterBalance * 3);
-                //float newBalance = oneYear * numberOfYears;
-                float interestTotal = (float) principle - oneYear;
 
-                System.out.println("month: " + j + " Quarter: " + quarterBalance
-                        + " Year: " + oneYear + "Total Interest: " + interestTotal + ".");
-            }
-            float newBalance = (float) ((principle * (1 + (interestRate / 100)) * numberOfYears));
-            System.out.println("your balance at " + numberOfYears
-                    + "years is: " + newBalance);
+                do {
+                    float quarterBalance1 = (float) (principle * (1 + (interestRate / 100)));
 
-            //try one year at a time, then add
+                    float quarterBalance2 = (float) ((quarterBalance1) * (1 + (interestRate / 100)));
+
+                    float quarterBalance3 = (float) ((quarterBalance2) * (1 + (interestRate / 100)));
+                    float quarterBalance4 = (float) ((quarterBalance3) * (1 + (interestRate / 100)));
+                    float oneYear = (float) (quarterBalance4);
+                    //float newBalance = oneYear * numberOfYears;
+                    float interestTotal = (float) quarterBalance4 - principle;
+
+                    System.out.println(" Quarter1: " + quarterBalance1 + " Quarter2: " + quarterBalance2
+                            + " Quarter3: " + quarterBalance3 + " Quarter1: " + quarterBalance4
+                            + " Year: " + oneYear + " Total Interest: " + interestTotal + ".");
+                    break;
+                } while (j == 4);
+                float newBalance = (float) ((principle * (1 + ((interestRate / 100)) * numberOfYears)));
+                do {
+                    System.out.println("your balance at " + numberOfYears
+                            + "years is: " + newBalance);
+                    break;
+                } while (i == numberOfYears);
+
+            }  //try one year at a time, then add
         }
     }
 }
