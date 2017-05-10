@@ -12,9 +12,9 @@ public class RockPaperScissors {
 
     public static void main(String[] args) {
         int rounds = 0;
-        int userRounds;
+        int userRounds = 0;
         int choice;
-        int rock = 1;
+        int rock = 1;      //make this a switch statement
         int paper = 2;
         int scissors = 3;
         int computer;
@@ -24,21 +24,16 @@ public class RockPaperScissors {
 
         String again;
         Scanner inputReader = new Scanner(System.in);
-        Random compChoice = new Random((3) + 1);
-
-        System.out.print("How may rounds do you want to play? ");
-
-        userRounds = inputReader.nextInt();
+        Random compChoice = new Random();
 
         while (((userRounds > 10) || (userRounds < 1))) {
             System.out.println("Please enter a number of rounds between one and"
                     + "ten.");
-            break;
-        }
-        do {
-            
-            userRounds--;
 
+            userRounds = inputReader.nextInt();
+        }
+        for (int i = 0; i < userRounds; i++) {
+            rounds++;
             System.out.println("Please enter a number to choose either "
                     + "rock (1), paper(2), or scissors(3)");
             choice = inputReader.nextInt();
@@ -48,43 +43,37 @@ public class RockPaperScissors {
             if (choice == rock) {
                 if (computer == scissors) {
                     win++;
-                    rounds++;
+
                     System.out.println("You win! Rock beats scissors");
-                    System.out.println("Wow! That makes for " + win + " wins," + +lose + "loss(es), and " + tie + " ties in "
+                    System.out.println("Wow! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
                             + rounds + " rounds of playing.");
-                    System.out.println("Lets go again! Please enter a number to choose either "
-                            + "rock (1), paper(2), or scissors(3)");
                 } else if (computer == paper) {
                     lose++;
-                    rounds++;
+
                     System.out.println("You lose! Paper beats rock :( ");
                     System.out.println("Tough luck! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
                             + rounds + " rounds of playing.");
-                    System.out.println("Lets go again! Please enter a number to choose either "
-                            + "rock (1), paper(2), or scissors(3)");
+
                 } else if (choice == scissors) {
                     if (computer == paper) {
                         win++;
-                        rounds++;
+
                         System.out.println("You win! Scissors beats paper");
                         System.out.println("Wow! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
                                 + rounds + " rounds of playing.");
-                        System.out.println("Lets go again! Please enter a number to choose either "
-                                + "rock (1), paper(2), or scissors(3)");
+
                     } else if (computer == rock) {
                         lose++;
-                        rounds++;
+
                         System.out.println("You lose! Rock beats scissors :( ");
                         System.out.println("Tough luck! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
                                 + rounds + " rounds of playing.");
-                        System.out.println("Lets go again! Please enter a number to choose either "
-                                + "rock (1), paper(2), or scissors(3)");
 
                     }
                 } else if (choice == paper) {
                     if (computer == rock) {
                         win++;
-                        rounds++;
+
                         System.out.println("You win! Paper beats rock");
                         System.out.println("Wow! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
                                 + rounds + " rounds of playing.");
@@ -92,7 +81,7 @@ public class RockPaperScissors {
                                 + "rock (1), paper(2), or scissors(3)");
                     } else if (computer == scissors) {
                         lose++;
-                        rounds++;
+
                         System.out.println("You lose! Scissors beats paper! :( ");
                         System.out.println("Tough luck!That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
                                 + rounds + " rounds of playing.");
@@ -100,7 +89,7 @@ public class RockPaperScissors {
                                 + "rock (1), paper(2), or scissors(3)");
                     }
 
-                } 
+                }
                 if (choice == computer) {
                     if (choice == paper) {
                         tie++;
@@ -143,18 +132,17 @@ public class RockPaperScissors {
                 }
 
             }
-            do{
-            System.out.println("Want to play again?");
-            again = inputReader.nextLine();
-            if (again.equals("yes")) {
-                System.out.print("How may rounds do you want to play");
-                 userRounds = inputReader.nextInt();
-            }              
-            else if(again.equals("no")) {
-                System.out.println("That was fun, thanks for playing.");
+            do {
+                System.out.println("Want to play again?");
+                again = inputReader.nextLine();
+                if (again.equals("yes")) {
+                    System.out.print("How may rounds do you want to play");
+                    userRounds = inputReader.nextInt();
+                } else if (again.equals("no")) {
+                    System.out.println("That was fun, thanks for playing.");
 
-            }
-            }while(userRounds == 0);
-        }while (userRounds <= 10);
+                }
+            } while (userRounds == 0);
+        }
     }
 }

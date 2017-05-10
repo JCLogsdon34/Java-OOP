@@ -24,8 +24,8 @@ public class HeartConcept {
         min = top / 2;
         max = top * .85f;
 
-        System.out.println("your maximim heart rate is " + top + " ");
-        System.out.println("Your max heart rate should be " + min + " " + "and"
-                + " " + max);
+        System.out.println("Your target maximum heart rate should be " + top + " .");
+        System.out.println("Your target heart rate zone should be between " + min + " " + "and"
+                + " " + max + ".");
     }
 }
