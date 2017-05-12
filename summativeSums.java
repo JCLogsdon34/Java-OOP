@@ -14,12 +14,12 @@ public class summativeSums {
         int[] thirdArray = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130,
             140, 150, 160, 170, 180, 190, 200, -99};
 
-        System.out.println("The sum of the First Array is: " + arraySumm(firstArray));
-        System.out.println("The sum of the Second Array is: " + arraySumm(secondArray));
-        System.out.println("The sum of the Third Array is: " + arraySumm(thirdArray));
+        System.out.println("The sum of the First Array is: " + addSumm(firstArray));
+        System.out.println("The sum of the Second Array is: " + addSumm(secondArray));
+        System.out.println("The sum of the Third Array is: " + addSumm(thirdArray));
     }
 
-    static int arraySumm(int[] anArray) {
+    static int addSumm(int[] anArray) {
 
         int summAdder = 0;
         for (int i = 0; i < anArray.length; i++) {
