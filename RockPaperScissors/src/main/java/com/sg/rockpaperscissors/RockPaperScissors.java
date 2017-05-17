@@ -11,138 +11,108 @@ import java.util.Random;
 public class RockPaperScissors {
 
     public static void main(String[] args) {
-        int rounds = 0;
+        int rounds;
         int userRounds = 0;
-        int choice;
-        int rock = 1;      //make this a switch statement
+        int newUserRounds;
+        int userChoice;
+        int rock = 1;
         int paper = 2;
         int scissors = 3;
-        int computer;
+        int computerChoice;
         int win = 0;
         int tie = 0;
         int lose = 0;
+        int playAgain;
 
-        String again;
         Scanner inputReader = new Scanner(System.in);
-        Random compChoice = new Random();
+        Random compSelection = new Random();
 
-        while (((userRounds > 10) || (userRounds < 1))) {
+        if (((userRounds > 10) || (userRounds < 1))) {
             System.out.println("Please enter a number of rounds between one and"
-                    + "ten.");
-
+                    + " ten.");
             userRounds = inputReader.nextInt();
         }
-        for (int i = 0; i < userRounds; i++) {
-            rounds++;
+        do {
             System.out.println("Please enter a number to choose either "
                     + "rock (1), paper(2), or scissors(3)");
-            choice = inputReader.nextInt();
+            userChoice = inputReader.nextInt();
+            computerChoice = compSelection.nextInt(3) + 1;
+            userRounds--;
+        } while (userRounds > 0);
 
-            computer = compChoice.nextInt(3) + 1;
-
-            if (choice == rock) {
-                if (computer == scissors) {
-                    win++;
-
-                    System.out.println("You win! Rock beats scissors");
-                    System.out.println("Wow! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
-                            + rounds + " rounds of playing.");
-                } else if (computer == paper) {
-                    lose++;
-
-                    System.out.println("You lose! Paper beats rock :( ");
-                    System.out.println("Tough luck! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
-                            + rounds + " rounds of playing.");
-
-                } else if (choice == scissors) {
-                    if (computer == paper) {
+        switch (userChoice) {
+            case 0:
+                if (userChoice == rock) {
+                    if (computerChoice == scissors) {
                         win++;
-
-                        System.out.println("You win! Scissors beats paper");
-                        System.out.println("Wow! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-
-                    } else if (computer == rock) {
+                        System.out.println("You win! Rock beats scissors");
+                        break;
+                    } else if (computerChoice == paper) {
                         lose++;
-
-                        System.out.println("You lose! Rock beats scissors :( ");
-                        System.out.println("Tough luck! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-
-                    }
-                } else if (choice == paper) {
-                    if (computer == rock) {
-                        win++;
-
-                        System.out.println("You win! Paper beats rock");
-                        System.out.println("Wow! That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-                        System.out.println("Lets go again! Please enter a number to choose either "
-                                + "rock (1), paper(2), or scissors(3)");
-                    } else if (computer == scissors) {
-                        lose++;
-
-                        System.out.println("You lose! Scissors beats paper! :( ");
-                        System.out.println("Tough luck!That makes for " + win + " wins," + lose + "loss(es), and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-                        System.out.println("Lets go again! Please enter a number to choose either "
-                                + "rock (1), paper(2), or scissors(3)");
-                    }
-
-                }
-                if (choice == computer) {
-                    if (choice == paper) {
-                        tie++;
-                        System.out.println("Tie! You both chose paper");
-                        System.out.println("That makes for " + win + " wins"
-                                + lose + " loss(es) and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-                    } else if (choice == rock) {
+                        System.out.println("You lose! Paper beats rock :( ");
+                        break;
+                    } else {
                         tie++;
                         System.out.println("Tie! You both chose rock");
-                        System.out.println("That makes for " + win + " wins"
-                                + lose + " loss(es) and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-                    } else if (choice == scissors) {
+                    }
+                }break;
+            case 1:
+                if (userChoice == paper) {
+                    if (computerChoice == rock) {
+                        win++;
+                        System.out.println("You win! Paper beats rock");
+                        break;
+                    } else if (computerChoice == scissors) {
+                        lose++;
+                        System.out.println("You lose! Scissors beats paper! :( ");
+                        break;
+                    } else {
                         tie++;
                         System.out.println("Tie! You both chose paper");
-                        System.out.println("That makes for " + win + " wins"
-                                + lose + " loss(es) and " + tie + " ties in "
-                                + rounds + " rounds of playing.");
-
+                        break;
                     }
-                }
-            }
-            while (userRounds == 0) {
-                if (win > lose) {
-                    System.out.println(" You won more games!");
-                    System.out.println("You won " + win + " times, "
-                            + "lost " + lose + "and tied " + tie + " ."
-                            + " You did all of this in " + rounds + " rounds of playing.");
-                } else if (win < lose) {
-                    System.out.println(" You lost more games! Bummer!");
-                    System.out.println("You lost " + lose + " times, "
-                            + "won " + win + "and tied " + tie + " ."
-                            + " You did all of this in " + rounds + " rounds of playing.");
-                } else if (win == lose) {
-                    System.out.println(" You won and lost an equal amoutn of games.");
-                    System.out.println("You won " + win + " times, "
-                            + "lost " + lose + "and tied " + tie + " ."
-                            + " You did all of this in " + rounds + " rounds of playing.");
-                }
-
-            }
-            do {
-                System.out.println("Want to play again?");
-                again = inputReader.nextLine();
-                if (again.equals("yes")) {
-                    System.out.print("How may rounds do you want to play");
-                    userRounds = inputReader.nextInt();
-                } else if (again.equals("no")) {
-                    System.out.println("That was fun, thanks for playing.");
-
-                }
-            } while (userRounds == 0);
+                }break;
+            case 2:
+                if (userChoice == scissors) {
+                    if (computerChoice == paper) {
+                        win++;
+                        System.out.println("You win! Scissors beats paper");
+                        break;
+                    } else if (computerChoice == rock) {
+                        lose++;
+                        System.out.println("You lose! Rock beats scissors :( ");
+                        break;
+                    } else {
+                        tie++;
+                        System.out.println("Tie! You both chose scissors");
+                        break;
+                    }
+                }break;
         }
+        if (win > lose) {
+            System.out.println(" You won more games!");
+            System.out.println("Want to play again? (1 for yes and 0 for no)");
+            playAgain = inputReader.nextInt();
+           do{
+                System.out.print("How may rounds do you want to play?");
+                newUserRounds = inputReader.nextInt();
+                userRounds += newUserRounds;
+                break;
+            } while (playAgain == 1);
+             if(playAgain!= 1){
+                System.out.println("That was fun, thanks for playing.");
+             }
+        } else if (win < lose) {
+            System.out.println(" You lost more games! Bummer!");
+        } else {
+            System.out.println(" You won and lost an equal amount of games.");
+        }
+        do {
+            rounds = win + lose + tie;
+            System.out.println("You won " + win + " times, "
+                    + "lost " + lose + "and tied " + tie + " time(s)."
+                    + " You did all of this in " + rounds + " rounds of playing.");
+            break;
+        } while (userRounds - rounds == 0);
     }
 }
