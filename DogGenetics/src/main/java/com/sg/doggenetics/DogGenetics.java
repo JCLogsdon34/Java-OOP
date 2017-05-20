@@ -38,6 +38,6 @@ public class DogGenetics {
         System.out.println(Wolfhound + "% Wolfhound");
         System.out.println(Mastiff + "% Mastiff");
 
-        System.out.println(" How Distinguished! ");
+        System.out.println(" What a hound! ");
     }
 }
