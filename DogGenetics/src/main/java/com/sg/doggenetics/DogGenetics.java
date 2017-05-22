@@ -27,7 +27,7 @@ public class DogGenetics {
         int Corgi = dogGenes.nextInt(101 - Dachshund);
         int Dalmation = dogGenes.nextInt(101 - Dachshund - Corgi);
         int Wolfhound = dogGenes.nextInt(101 - Dachshund - Corgi - Dalmation);
-        int Mastiff = dogGenes.nextInt(101 - Dachshund - Corgi
+        int Mastiff = (100 - Dachshund - Corgi
                 - Dalmation - Wolfhound);
 
         System.out.println("It turns out, " + dogName + " is a percent of"
