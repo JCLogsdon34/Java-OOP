@@ -18,7 +18,7 @@ public class DogGenetics {
         System.out.println("Hello! Would you mind giving us your dog's name?");
         dogName = inputReader.nextLine();
 
-        System.out.println("Well, I have this reliable DNA report"
+        System.out.println("Well, I have this highly reliable DNA report"
                 + " about " + dogName + "'s very dignified background.");
 
         Random dogGenes = new Random();
@@ -38,6 +38,6 @@ public class DogGenetics {
         System.out.println(Wolfhound + "% Wolfhound");
         System.out.println(Mastiff + "% Mastiff");
 
-        System.out.println(" What a hound! ");
+        System.out.println(" What a hound!");
     }
 }

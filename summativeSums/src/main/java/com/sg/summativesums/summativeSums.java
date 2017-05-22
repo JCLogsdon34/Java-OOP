@@ -14,9 +14,9 @@ public class summativeSums {
         int[] thirdArray = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130,
             140, 150, 160, 170, 180, 190, 200, -99};
 
-        System.out.println("The sum of the First Array is: " + addSumm(firstArray));
-        System.out.println("The sum of the Second Array is: " + addSumm(secondArray));
-        System.out.println("The sum of the Third Array is: " + addSumm(thirdArray));
+        System.out.println("The sum of the first Array is: " + addSumm(firstArray) + ".");
+        System.out.println("The sum of the second Array is: " + addSumm(secondArray) + ".");
+        System.out.println("The sum of the third Array is: " + addSumm(thirdArray) + ".");
     }
 
     static int addSumm(int[] anArray) {
