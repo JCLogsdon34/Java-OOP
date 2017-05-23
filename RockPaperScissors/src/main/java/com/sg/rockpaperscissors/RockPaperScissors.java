@@ -11,9 +11,8 @@ import java.util.Random;
 public class RockPaperScissors {
 
     public static void main(String[] args) {
-        int rounds = 0;
-        int userRounds = 0;
-        int newUserRounds;
+        int rounds;
+        int userRounds;
         int userChoice;
         int rock = 1;
         int paper = 2;
@@ -27,17 +26,20 @@ public class RockPaperScissors {
         Scanner inputReader = new Scanner(System.in);
         Random compSelection = new Random();
 
-        if (((userRounds > 10) || (userRounds < 1))) {
-            System.out.println("Please enter a number of rounds between one and"
-                    + " ten.");
-            userRounds = inputReader.nextInt();
+        System.out.println("Please enter a number of rounds between one and"
+                + " ten.");
 
-            do {
-                System.out.println("Please enter a number to choose either "
-                        + "rock (1), paper(2), or scissors(3)");
-                userChoice = inputReader.nextInt();
-                computerChoice = compSelection.nextInt(3) + 1;
-                userRounds--;
+        for (userRounds = inputReader.nextInt(); userRounds > 0; userRounds--) {
+            if (((userRounds > 10) || (userRounds < 1))) {
+                System.out.println("Please enter a number of rounds between one and"
+                        + " ten.");
+            } else if (((userRounds > 0) || (userRounds < 11))){
+                do {
+                    System.out.println("Please enter a number to choose either "
+                            + "rock (1), paper(2), or scissors(3)");
+                    userChoice = inputReader.nextInt();
+                    computerChoice = compSelection.nextInt(3) + 1;
+                } while (userRounds > 0);
 
                 switch (userChoice) {
                     case 0:
@@ -79,38 +81,32 @@ public class RockPaperScissors {
                             } else {
                                 tie++;
                                 System.out.println("Tie! You both chose scissors");
-
                             }
                         }
                         break;
                 }
+            }
+            while (userRounds == 0) {
+                rounds = win + lose + tie;
+                System.out.println("You won " + win + " times, "
+                        + "lost " + lose + "and tied " + tie + " time(s)."
+                        + " You did all of this in " + rounds + " rounds of playing.");
                 if (win > lose) {
                     System.out.println(" You won more games!");
                     System.out.println("Want to play again? (1 for yes and 0 for no)");
                     playAgain = inputReader.nextInt();
-                    do {
-                        System.out.print("How may rounds do you want to play?");
-                        newUserRounds = inputReader.nextInt();
-                        userRounds += newUserRounds;
-                        break;
-                    } while (playAgain == 1);
-                    if (playAgain != 1) {
+                    if (playAgain == 1) {
+                        playAgain += userRounds;
+                    } else if (playAgain != 1) {
                         System.out.println("That was fun, thanks for playing.");
                     }
                 } else if (win < lose) {
                     System.out.println(" You lost more games! Bummer!");
-                } else {
+                } else if (win == lose) {
                     System.out.println(" You won and lost an equal amount of games.");
                 }
-                while (userRounds - rounds == 0) {
-                    rounds = win + lose + tie;
-                    System.out.println("You won " + win + " times, "
-                            + "lost " + lose + "and tied " + tie + " time(s)."
-                            + " You did all of this in " + rounds + " rounds of playing.");
-                    break;
-                }
                 break;
-            } while (userRounds > 0);
+            }
         }
     }
 }
