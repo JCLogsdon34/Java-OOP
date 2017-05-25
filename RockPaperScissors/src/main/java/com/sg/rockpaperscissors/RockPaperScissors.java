@@ -53,7 +53,8 @@ public class RockPaperScissors {
                                     tie++;
                                     System.out.println("Tie! You both chose rock");
                                 }
-                            }break;
+                            }
+                            break;
                         case 1:
                             if (userChoice == paper) {
                                 if (computerChoice == rock) {
@@ -66,7 +67,8 @@ public class RockPaperScissors {
                                     tie++;
                                     System.out.println("Tie! You both chose paper");
                                 }
-                            }break;
+                            }
+                            break;
                         case 2:
                             if (userChoice == scissors) {
                                 if (computerChoice == paper) {
@@ -79,34 +81,35 @@ public class RockPaperScissors {
                                     tie++;
                                     System.out.println("Tie! You both chose scissors");
                                 }
-                            }break;
-                    }
-                    while (userRounds == 0) {
-                        rounds = win + lose + tie;
-                        System.out.println("You won " + win + " times, "
-                                + "lost " + lose + "and tied " + tie + " time(s)."
-                                + " You did all of this in " + rounds + " rounds of playing.");
-                        if (win > lose) {
-                            System.out.println(" You won more games!");
-                            System.out.println("Want to play again? Enter 1 for yes or 0 for no.");
-                            playAgain = inputReader.nextInt();
-                            if (playAgain == 1) {
-                                playAgain += userRounds;
-                                break;
-                            } else if (playAgain != 1) {
-                                System.out.println("That was fun, thanks for playing.");
-                                break;
-                            } else {
-                                System.out.println("Please enter 1 for yes or 0 for no.");
                             }
-                        } else if (win < lose) {
-                            System.out.println(" You lost more games! Bummer!");
-                        } else if (win == lose) {
-                            System.out.println(" You won and lost an equal amount of games.");
-                        }
-                        break;
+                            break;
                     }
+                    break;
                 } while (userRounds > 0);
+                
+                rounds = win + lose + tie;
+                System.out.println("You won " + win + " times, "
+                        + "lost " + lose + "and tied " + tie + " time(s)."
+                        + " You did all of this in " + rounds + " rounds of playing.");
+                if (win > lose) {
+                    System.out.println(" You won more games!");
+                    System.out.println("Want to play again? Enter 1 for yes or 0 for no.");
+                    playAgain = inputReader.nextInt();
+                    if (playAgain == 1) {
+                        playAgain += userRounds;
+                        break;
+                    } else if (playAgain != 1) {
+                        System.out.println("That was fun, thanks for playing.");
+                        break;
+                    } else {
+                        System.out.println("Please enter 1 for yes or 0 for no.");
+                    }
+                } else if (win < lose) {
+                    System.out.println(" You lost more games! Bummer!");
+                } else if (win == lose) {
+                    System.out.println(" You won and lost an equal amount of games.");
+                }
+
             }
         }
     }
