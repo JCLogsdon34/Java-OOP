@@ -23,20 +23,20 @@ public class DogGenetics {
 
         Random dogGenes = new Random();
 
-        int Dachshund = dogGenes.nextInt(101);
-        int Corgi = dogGenes.nextInt(101 - Dachshund);
-        int Dalmation = dogGenes.nextInt(101 - Dachshund - Corgi);
-        int Wolfhound = dogGenes.nextInt(101 - Dachshund - Corgi - Dalmation);
-        int Mastiff = (100 - Dachshund - Corgi
-                - Dalmation - Wolfhound);
+        int dachshund = dogGenes.nextInt(101);
+        int corgi = dogGenes.nextInt(101 - dachshund);
+        int dalmation = dogGenes.nextInt(101 - dachshund - corgi);
+        int wolfhound = dogGenes.nextInt(101 - dachshund - corgi - dalmation);
+        int mastiff = (100 - dachshund - corgi
+                - dalmation - wolfhound);
 
         System.out.println("It turns out, " + dogName + " is a percent of"
                 + " each of the following breeds: ");
-        System.out.println(Dachshund + "% Dachsund");
-        System.out.println(Corgi + "% Corgi");
-        System.out.println(Dalmation + "% Dalmation");
-        System.out.println(Wolfhound + "% Wolfhound");
-        System.out.println(Mastiff + "% Mastiff");
+        System.out.println(dachshund + "% Dachsund");
+        System.out.println(corgi + "% Corgi");
+        System.out.println(dalmation + "% Dalmation");
+        System.out.println(wolfhound + "% Wolfhound");
+        System.out.println(mastiff + "% Mastiff");
 
         System.out.println(" What a hound!");
     }
