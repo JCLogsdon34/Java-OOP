@@ -9,9 +9,9 @@ package com.sg.helloworld;
  *
  * @author apprentice
  */
-public class Hello {
-    
-    public void sayHello(){
-        System.out.println("Hello, world!");
+public class App {
+    public static void main(String[] args){
+        Hello myHello = new Hello();
+        myHello.sayHello();
     }
 }

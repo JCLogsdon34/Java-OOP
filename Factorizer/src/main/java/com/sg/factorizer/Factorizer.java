@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Factorizer {
 
-    public static void main(String[] args) {
+    public void getFactor(){
         int userNumber;
         int i =1;
         int factors;
@@ -35,25 +35,7 @@ public class Factorizer {
                 factors = userNumber / i;
             System.out.println(factors);
             
-            }
-                   /* if (factors == userNumber) {
-
-                        System.out.println("Your number is a perfect number");
-                            
-                    } 
-                    if(factors != userNumber){
-                        System.out.println("Your number is not perfect");
-                           
-                    }
-            if(userNumber % 2 == 0){
-                       System.out.println("This is not a prime number");
-                         
-                     }else{
-                    System.out.println("This is a prime numbner");
-                } */
-                  //  System.out.println(factors);
-
-                
+            }            
              if(factors == userNumber) {
 
                         System.out.println("Your number is a perfect number");

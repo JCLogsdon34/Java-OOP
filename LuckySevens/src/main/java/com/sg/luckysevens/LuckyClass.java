@@ -9,7 +9,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class LuckyClass {
-    public static void main(String [] args){
+    
+    public void getLuckyClass(){
         Random clickityClack = new Random((12) + 1);
         Scanner bet = new Scanner(System.in);
                

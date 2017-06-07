@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.helloworld;
+package com.sg.factorizer;
 
 /**
  *
  * @author apprentice
  */
-public class Hello {
-    
-    public void sayHello(){
-        System.out.println("Hello, world!");
+public class App {
+    public static void main(String[] args){
+        Factorizer myFactorizer = new Factorizer();
+        myFactorizer.getFactor();
     }
 }

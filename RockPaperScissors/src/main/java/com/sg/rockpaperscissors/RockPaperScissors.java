@@ -10,7 +10,8 @@ import java.util.Random;
 
 public class RockPaperScissors {
 
-    public static void main(String[] args) {
+    
+    public void getRockPaperScissors(){
         int userRounds = 0;
         String rounds = null;
         int rock = 1;
@@ -93,10 +94,6 @@ public class RockPaperScissors {
                     userAnswer = true;
                 } else if (playAgain.equals("y")) {
                     userAnswer = false;
-                    System.out.println("Please enter a number of rounds between one and"
-                            + " ten.");
-                    rounds = inputReader.nextLine();
-                    userRounds = Integer.parseInt(rounds);
                     win = 0;
                     lose = 0;
                     tie = 0;
