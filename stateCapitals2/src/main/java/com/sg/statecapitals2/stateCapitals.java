@@ -5,47 +5,25 @@
  */
 package com.sg.statecapitals2;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.Map;
 
-/**
- *
- * @author apprentice
- */
+import java.util.Scanner;
+
+
+
 public class stateCapitals {
-    public static void main(String[] args) {
-        Map<String, String> stateCapitals = new HashMap<>();
-        //make capital an object
+    public static void main(String[] args){
+        int sqMiles;
+        String userNumber;
+        Scanner inputReader = new Scanner(System.in);
         
-        stateCapitals.put("Kentucky ", "| Frankfort"); 
-        
-        stateCapitals.put("Tennessee ", "| Nashville"); 
-        
-        stateCapitals.put("Virginia ", "| Richmond"); 
-        
-        stateCapitals.put("North Carolina ", "| Raleigh"); 
-        
-        stateCapitals.put("Louisiana ", "| Baton Rouge"); 
-        
-        System.out.println("My HashMap size is: " + stateCapitals.size());
-          
-        Set<String> keys = stateCapitals.keySet();
-        System.out.println("State Names: ");
-        for(String statesNames : keys){
-            System.out.println(statesNames);
-        }
-        //Collection<String> stateNames = statesNames.keys();
-        Collection<String> capitals = stateCapitals.values(); 
-        
-        for(String caps : capitals){
-            System.out.println(caps);
-        }
-         Capital myCapital = new Capital();
+        Capital myCapital = new Capital();
+         myCapital.getCapital();
          
-     //   System.out.println(myCapital.getFrankfort() + myCapital.getNashville() + myCapital.getRichmond() + myCapital.getRaleigh() +
-     //   myCapital.getBatonRouge());
-    }
+ 
+           System.out.println("Plase enter a population number to determine which state statistics to print");
+            userNumber = inputReader.nextLine();
+            sqMiles = Integer.parseInt(userNumber);
+    
 }
+    }
+

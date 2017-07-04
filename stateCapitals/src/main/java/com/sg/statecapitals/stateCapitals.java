@@ -41,6 +41,7 @@ public class stateCapitals {
 
             System.out.println(caps);
         }
+        
         System.out.println("States and their Capitals:");
         for (String stateNames : keys) {
 
