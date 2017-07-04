@@ -19,7 +19,8 @@ public class userIoMethods {
 
         @Override
         public void print(String message) {
-            System.out.println("Hello and welcome to the interface");
+            message = "Hello and welcome to the interface";
+            
         }
 
         @Override

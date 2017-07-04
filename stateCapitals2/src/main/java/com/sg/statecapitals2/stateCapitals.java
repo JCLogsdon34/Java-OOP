@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
-
+import java.util.Map;
 
 /**
  *
@@ -17,10 +17,8 @@ import java.util.Set;
  */
 public class stateCapitals {
     public static void main(String[] args) {
-        HashMap<String, String> stateCapitals = new HashMap<>();
+        Map<String, String> stateCapitals = new HashMap<>();
         //make capital an object
-       
-
         
         stateCapitals.put("Kentucky ", "| Frankfort"); 
         
