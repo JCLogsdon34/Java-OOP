@@ -13,16 +13,18 @@ import java.util.Set;
 
 public class Capital {
 
-    public void getCapital() {
+    public static void main(String[] args){ 
 
         int sqMiles = 0;
         String userNumber;
         Scanner inputReader = new Scanner(System.in);
 
+        stateCapitals myStateCapitals = new stateCapitals();
+        
         Map<String, Integer> stateCapitals = new HashMap<>();
         //make capital an object
 
-        stateCapitals.put("Kentucky | Frankfort | sqMiles: 17.6 | Pop: ", 25527);
+        stateCapitals.put("Kentucky ", 33333);
 
         stateCapitals.put("Tennessee | Nashville | sqMiles: 527 | Pop: ", 65217);
 
