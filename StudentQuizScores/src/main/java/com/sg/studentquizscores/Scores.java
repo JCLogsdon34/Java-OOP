@@ -33,7 +33,7 @@ public class Scores {
         do{
             
             System.out.println("Do you want to add, remove, or view student informtation?");
-            userResponse = inputReader.nextLine();
+            userResponse = inputReader.next();
             if(userResponse.equals("add")){
                System.out.println("Please enter the first and last name of the student");
                 nameOfStudent = inputReader.nextLine();

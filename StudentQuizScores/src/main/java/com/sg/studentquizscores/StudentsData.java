@@ -5,42 +5,93 @@
  */
 package com.sg.studentquizscores;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Set;
 
-
-public class userIOMethods {
+/**
+ *
+ * @author apprentice
+ */
+public class StudentsData {
     public class userMethods implements studentquizscoresUserIO {
-        
-        public void print(String message) {
-            message = "Hello and welcome to the interface";
-            
+
+        public String print() {
+            String message = "Hello and welcome to the interface";
+            return message;
         }
-        
-        int chrisObject (){
-            
-        int cScores = 0;
-        ListofSocres myListofSocres = new ListofSocres();     
-        
-        myListofSocres.ChrisScores();
-       // this.ChrisScores = cScores;
-        
-        myListofSocres.SavannahScores();
-        //this.SavannahScores = sScores;
-        return cScores; 
-       }
-        
-        int savannahObject(){
-            int sScores = 0;
-            ListofSocres myListofSocres = new ListofSocres();
-            myListofSocres.SavannahScores();
-           //this.SavannahScores = sScores;
-           
-           return sScores;
+
+        public String getStudents(String nameOfStudent, String examScore) {
+            boolean userWork = false;
+            String message = null;
+            String userResponse;
+          
+            Scanner inputReader = new Scanner(System.in);
+
+            HashMap<String, ArrayList<String>> quizscores = new HashMap<String, ArrayList<String>>();           
+
+            Set<String> keys = quizscores.keySet();
+
+            do {
+
+                System.out.println("Do you want to add, remove, or view student informtation?");
+                userResponse = inputReader.next();
+                if (userResponse.equals("add")) {
+                    System.out.println("Please enter the first and last name of the student");
+                    nameOfStudent = inputReader.nextLine();
+                    System.out.println("Please enter that student's exam score");
+                    examScore = inputReader.nextLine();
+
+                    // studentscores.add(nameOfStudent);
+                    quizscores.put(nameOfStudent, new ArrayList<String>());
+
+                } else if (userResponse.equals("remove")) {
+                    System.out.println("Please enter the first and last name of the student");
+                    nameOfStudent = inputReader.nextLine();
+                    System.out.println("Please enter that student's exam score");
+                    examScore = inputReader.nextLine();
+
+                    quizscores.remove(nameOfStudent);
+                    quizscores.remove(examScore);
+                } else if (userResponse.equals("view")) {
+                    System.out.println("Enter a choice of the following"
+                            + " all entries or a certain student?");
+                    userResponse = inputReader.nextLine();
+                    if (userResponse.equals("all entries")) {
+                        for (String k : keys) {
+                            System.out.println("Student: " + k + "Scores" + quizscores.get(k));
+                        }
+                    } else if (userResponse.equals("a certain student")) {
+                        System.out.println("Please enter the first and last name of the student");
+                        nameOfStudent = inputReader.nextLine();
+                        
+                        quizscores.get(nameOfStudent + ".");    
+                            System.out.println("Student: " + nameOfStudent + " " +  quizscores.get(nameOfStudent));
+                        
+                    }
+                }
+
+            } while (userWork = false);
+            return message;
         }
-       
-      
+
+        public String getStudentScores(String nameOfStudent, String examScore) {
+            String message = null;
+            ArrayList<String> studentscores = new ArrayList<>();
+
+            Iterator<String> iter = studentscores.iterator();
+
+            while (iter.hasNext()) {
+                String current = iter.next();
+                System.out.println(current);
+
+                studentscores.size();
+            }
+            return nameOfStudent + examScore;
+        }
+
         public double readDouble(String prompt) {
             double readDouble;
             Scanner inputReader = new Scanner(System.in);
@@ -50,7 +101,6 @@ public class userIOMethods {
             return readDouble;
         }
 
-      
         public double readDouble(String prompt, double min, double max) {
             double readDouble;
             Scanner inputReader = new Scanner(System.in);
@@ -70,7 +120,6 @@ public class userIOMethods {
             return readDouble;
         }
 
-     
         public float readFloat(String prompt) {
             float readFloat;
             Scanner inputReader = new Scanner(System.in);
@@ -80,7 +129,6 @@ public class userIOMethods {
             return readFloat;
         }
 
-        
         public float readFloat(String prompt, float min, float max) {
             float readFloat;
             Scanner inputReader = new Scanner(System.in);
@@ -100,7 +148,6 @@ public class userIOMethods {
             return readFloat;
         }
 
-        
         public int readInt(String userPrompt) {
             int myInt;
             Scanner inputReader = new Scanner(System.in);
@@ -110,7 +157,6 @@ public class userIOMethods {
             return myInt;
         }
 
-       
         public int readInt(String userPrompt, int min, int max) {
             Scanner inputReader = new Scanner(System.in);
             boolean keepGoing = true;
@@ -129,7 +175,6 @@ public class userIOMethods {
             return myInt;
         }
 
-       
         public long readLong(String prompt) {
             long readLong;
             Scanner inputReader = new Scanner(System.in);
@@ -140,7 +185,6 @@ public class userIOMethods {
             return readLong;
         }
 
-    
         public long readLong(String prompt, long min, long max) {
             long readLong;
             Scanner inputReader = new Scanner(System.in);
@@ -151,7 +195,6 @@ public class userIOMethods {
             return readLong;
         }
 
-   
         public String readString(String prompt) {
             String userSentence;
             Scanner inputReader = new Scanner(System.in);
@@ -161,54 +204,9 @@ public class userIOMethods {
 
             return userSentence;
         }
-        public int ChrisScores(){
-        int L = 100;
-        int C = 100;
-        int G = 98;
-            
-        ArrayList<Integer> chrisscores = new ArrayList<>();
-        
-        chrisscores.add(L);
-        
-        chrisscores.add(C);
-        
-        chrisscores.add(G);
-        
-        Iterator<Integer> iter = chrisscores.iterator();
-        
-        while(iter.hasNext()){
-            int current = iter.next();
-            System.out.println(current);
-        }
-        return L + C + G / chrisscores.size();         
+
     }
-    
-    public int SavannahScores(){
-        int L = 98;
-        int C = 80;
-        int G = 93;
-        int k = 99;
-        
-         ArrayList<Integer> savannahscores = new ArrayList<>();
-        
-        savannahscores.add(L);
-        
-        savannahscores.add(C);
-        
-        savannahscores.add(G);
-        
-        savannahscores.add(k);
-        
-        Iterator<Integer> iter = savannahscores.iterator();
-        
-        while(iter.hasNext()){
-            int current = iter.next();
-            System.out.println(current);
-        }
-        return L + C + G + k / savannahscores.size();
-    }
-    }
-    
+
 }
 
 

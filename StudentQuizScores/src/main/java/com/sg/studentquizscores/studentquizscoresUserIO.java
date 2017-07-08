@@ -5,9 +5,15 @@
  */
 package com.sg.studentquizscores;
 
-public interface UserIo {
+
+public interface studentquizscoresUserIO {
+    public interface UserIo {
     
     void print(String message);
+    
+    public String getStudents();
+    
+    public int getStudentScores ();
 
     double readDouble(String prompt);
 
@@ -26,4 +32,6 @@ public interface UserIo {
     long readLong(String prompt, long min, long max);
 
     String readString(String prompt);
+}
+
 }
