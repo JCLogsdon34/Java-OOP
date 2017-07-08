@@ -17,7 +17,28 @@ public class userIOMethods {
             message = "Hello and welcome to the interface";
             
         }
-
+        
+        int chrisObject (){
+        int cScores = 0;
+        ListofSocres myListofSocres = new ListofSocres();     
+        
+        myListofSocres.ChrisScores();
+       // this.ChrisScores = cScores;
+        
+        myListofSocres.SavannahScores();
+        //this.SavannahScores = sScores;
+        return cScores; 
+       }
+        
+        int savannahObject(){
+            int sScores = 0;
+            ListofSocres myListofSocres = new ListofSocres();
+            myListofSocres.SavannahScores();
+           //this.SavannahScores = sScores;
+           
+           return sScores;
+        }
+       
         @Override
         public double readDouble(String prompt) {
             double readDouble;
@@ -35,7 +56,7 @@ public class userIOMethods {
             boolean keepGoing = true;
 
             do {
-                System.out.println("Please enter a number between 10 - 20");
+                System.out.println("Please enter a student whose scores you want to see");
                 readDouble = inputReader.nextDouble();
                 if (readDouble > 20 || readDouble < 10) {
                     keepGoing = true;
