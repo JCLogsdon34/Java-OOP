@@ -5,33 +5,19 @@
  */
 package com.sg.studentquizscores;
 
-
 public interface studentquizscoresUserIO {
+
     public interface UserIo {
-    
-    void print(String message);
-    
-    public String getStudents();
-    
-    public int getStudentScores ();
 
-    double readDouble(String prompt);
+        void print(String message);
 
-    double readDouble(String prompt, double min, double max);
+        public String getUserDirections();
 
-    float readFloat(String prompt);
-
-    float readFloat(String prompt, float min, float max);
-
-    int readInt(String prompt);
-
-    int readInt(String prompt, int min, int max);
-
-    long readLong(String prompt);
-
-    long readLong(String prompt, long min, long max);
-
-    String readString(String prompt);
-}
+        public String getStudents();
+        
+        public String getStudent();
+        
+        void exit(String message);
+    }
 
 }
