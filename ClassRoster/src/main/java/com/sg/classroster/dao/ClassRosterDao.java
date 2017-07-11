@@ -5,6 +5,9 @@
  */
 package com.sg.classroster.dao;
 
+import com.sg.classroster.dto.Student;
+import java.util.List;
+
 
 public interface ClassRosterDao {
      
@@ -19,7 +22,8 @@ public interface ClassRosterDao {
      * @return the Student object previously associated with the given  
      * student id if it exists, null otherwise
      */
-   // Student addStudent(String studentId, Student student);
+    
+   public Student addStudent(String studentId, Student student);
     
     /**
      * Returns a String array containing the student ids of all 
@@ -28,7 +32,8 @@ public interface ClassRosterDao {
      * @return String array containing the ids of all the students 
      * in the roster
      */
-    //List<Student> getAllStudents();
+   
+    List<Student> getAllStudents();
     
     /**
      * Returns the student object associated with the given student id.
@@ -38,7 +43,7 @@ public interface ClassRosterDao {
      * @return the Student object associated with the given student id,  
      * null if no such student exists
      */
-    //Student getStudent(String studentId);
+    Student getStudent(String studentId);
     
     /**
      * Removes from the roster the student associated with the given id. 
@@ -49,5 +54,5 @@ public interface ClassRosterDao {
      * @return Student object that was removed or null if no student 
      * was associated with the given student id
      */
-    //Student removeStudent(String studentId);
+    Student removeStudent(String studentId);
 }

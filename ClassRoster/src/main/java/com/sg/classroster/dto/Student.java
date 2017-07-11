@@ -10,7 +10,7 @@ public class Student {
     
     private String firstName;
     private String lastName;
-    private String studentId;
+    private final String studentId;
     private String cohort; // Java or .Net + cohort month/year
     
     public Student(String studentId) {
