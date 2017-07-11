@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.classroster.dao;
+package com.sg.dvdlibrary.dao;
 
-import com.sg.classroster.dto.Student;
+import com.sg.dvdlibrary.dto.DVD;
+import com.sg.dvdlibrary.ui.DVDView;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,52 +21,57 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClassRosterDaoFileImpl implements ClassRosterDao {
 
+public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
+
+    public DvdLibraryDaoFileImpl() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
-    public Student addStudent(String studentId, Student student)
-            throws ClassRosterDaoException {
-        Student newStudent = students.put(studentId, student);
-        writeRoster();
-        return newStudent;
+    public DVD addDvd(String dvdTitle, DVD dvd)
+            throws DvdLibraryDaoException {
+        DVD newDvd = dvds.put(dvdTitle, dvd);
+        writeLibrary();
+        return newDvd;
     }
 
     @Override
-    public List<Student> getAllStudents()
-            throws ClassRosterDaoException {
+    public List<DVD> getAllDvds()
+            throws DvdLibraryDaoException {
         try {
             loadRoster();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClassRosterDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new ArrayList<Student>(students.values());
+        return new ArrayList<DVD>(dvds.values());
     }
 
     @Override
-    public Student getStudent(String studentId)
-            throws ClassRosterDaoException {
+    public DVD getDvd(String dvdTitle)
+            throws DvdLibraryDaoException {
         try {
             loadRoster();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClassRosterDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return students.get(studentId);
+        return dvds.get(dvdTitle);
     }
 
     @Override
-    public Student removeStudent(String studentId)
-            throws ClassRosterDaoException {
-        Student removedStudent = students.remove(studentId);
-        writeRoster();
-        return removedStudent;
+    public DVD removeDvd(String dvdTitle)
+            throws DvdLibraryDaoException {
+        DVD removedDvd = dvds.remove(dvdTitle);
+        writeLibrary();
+        return removedDvd;
     }
 
-    private Map<String, Student> students = new HashMap<>();
+    private Map<String, DVD> dvds = new HashMap<>();
 
     public static final String ROSTER_FILE = "roster.txt";
     public static final String DELIMITER = "::";
 
-    private void loadRoster() throws ClassRosterDaoException, FileNotFoundException {
+    private void loadRoster() throws DvdLibraryDaoException, FileNotFoundException {
         Scanner scanner;
 
         try {
@@ -74,7 +80,7 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
                     new BufferedReader(
                             new FileReader(ROSTER_FILE)));
         } catch (FileNotFoundException e) {
-            throw new ClassRosterDaoException(
+            throw new DvdLibraryDaoException(
                     "-_- Could not load roster data into memory.", e);
         }
         // currentLine holds the most recent line read from the file
@@ -105,14 +111,15 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
             // NOTE FOR APPRENTICES: We are going to use the student id
             // which is currentTokens[0] as the map key for our student object.
             // We also have to pass the student id into the Student constructor
-            Student currentStudent = new Student(currentTokens[0]);
+            DVD currentDvd = new DVD (currentTokens[0]);
             // Set the remaining vlaues on currentStudent manually
-            currentStudent.setFirstName(currentTokens[1]);
-            currentStudent.setLastName(currentTokens[2]);
-            currentStudent.setCohort(currentTokens[3]);
-
+            currentDvd.setTitle(currentTokens[1]);
+            currentDvd.setReleaseDate(currentTokens[2]);
+            currentDvd.setMpaaRating(currentTokens[3]);
+            currentDvd.setDirectorsName(currentTokens[4]);
+            
             // Put currentStudent into the map using studentID as the key
-            students.put(currentStudent.getStudentId(), currentStudent);
+            dvds.put(currentDvd.getDvdTitle(), currentDvd);
         }
         // close scanner
         scanner.close();
@@ -124,7 +131,7 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
      *
      * @throws ClassRosterDaoException if an error occurs writing to the file
      */
-    private void writeRoster() throws ClassRosterDaoException {
+    private void writeLibrary() throws DvdLibraryDaoException {
         // NOTE FOR APPRENTICES: We are not handling the IOException - but
         // we are translating it to an application specific exception and 
         // then simple throwing it (i.e. 'reporting' it) to the code that
@@ -135,7 +142,7 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
         try {
             out = new PrintWriter(new FileWriter(ROSTER_FILE));
         } catch (IOException e) {
-            throw new ClassRosterDaoException(
+            throw new DvdLibraryDaoException(
                     "Could not save student data.", e);
         }
 
@@ -144,13 +151,14 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
         // get the Collection of Students and iterate over them but we've
         // already created a method that gets a List of Students so
         // we'll reuse it.
-        List<Student> studentList = this.getAllStudents();
-        for (Student currentStudent : studentList) {
+        List<DVD> dvdList = this.getAllDvds();
+        for (DVD currentDvd : dvdList) {
             // write the Student object to the file
-            out.println(currentStudent.getStudentId() + DELIMITER
-                    + currentStudent.getFirstName() + DELIMITER
-                    + currentStudent.getLastName() + DELIMITER
-                    + currentStudent.getCohort());
+            out.println(currentDvd.getDvdTitle() + DELIMITER
+                    + currentDvd.getTitle() + DELIMITER
+                    + currentDvd.getReleaseDate() + DELIMITER
+                    + currentDvd.getMpaaRating()
+                    + currentDvd.getDirectorsName());
             // force PrintWriter to write line to the file
             out.flush();
         }
@@ -158,4 +166,11 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
         out.close();
     }
 
+    @Override
+    public void addDVD(String dvdTitle, DVDView newDVD) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
+
+

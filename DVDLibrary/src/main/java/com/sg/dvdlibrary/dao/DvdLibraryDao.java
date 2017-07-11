@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.classroster.dao;
+package com.sg.dvdlibrary.dao;
 
-import com.sg.classroster.dto.Student;
+import com.sg.dvdlibrary.dto.DVD;
+import com.sg.dvdlibrary.ui.DVDView;
 import java.util.List;
 
-public interface ClassRosterDao {
-
+/**
+ *
+ * @author apprentice
+ */
+public interface DvdLibraryDao {
     /**
      * Adds the given Student to the roster and associates it with the given
      * student id. If there is already a student associated with the given
@@ -22,30 +26,35 @@ public interface ClassRosterDao {
      * id if it exists, null otherwise
      * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
-    Student addStudent(String studentId, Student student)
-            throws ClassRosterDaoException;
+    DVD addDvd(String dvdTitle, DVD dvd)
+            throws DvdLibraryDaoException;
 
     /**
      * Returns a String array containing the student ids of all students in the
      * roster.
      *
      * @return String array containing the ids of all the students in the roster
+     * @throws com.sg.dvdlibrary.dao.DvdLibraryDaoException
+     * @throws com.sg.dvdlibrary.dao.DvdLibraryDaoException
+     * @throws com.sg.dvdlibrary.dao.DvdLibraryDaoException
      * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
-    List<Student> getAllStudents()
-            throws ClassRosterDaoException;
+    List<DVD> getAllDvds()
+            throws DvdLibraryDaoException;
 
     /**
      * Returns the student object associated with the given student id. Returns
      * null if no such student exists
      *
+     * @param dvdTitle
      * @param studentId ID of the student to retrieve
      * @return the Student object associated with the given student id, null if
      * no such student exists
+     * @throws com.sg.dvdlibrary.dao.DvdLibraryDaoException
      * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
-    Student getStudent(String studentId)
-            throws ClassRosterDaoException;
+    DVD getDvd(String dvdTitle)
+            throws DvdLibraryDaoException;
 
     /**
      * Removes from the roster the student associated with the given id. Returns
@@ -55,8 +64,13 @@ public interface ClassRosterDao {
      * @param studentId id of student to be removed
      * @return Student object that was removed or null if no student was
      * associated with the given student id
+     * @throws com.sg.dvdlibrary.dao.DvdLibraryDaoException
      * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
-    Student removeStudent(String studentId)
-            throws ClassRosterDaoException;
+    DVD removeDvd(String dvdTitle)
+            throws DvdLibraryDaoException;
+
+    public void addDVD(String dvdTitle, DVDView newDVD);
 }
+
+
