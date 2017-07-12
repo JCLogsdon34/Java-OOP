@@ -113,10 +113,12 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             // We also have to pass the student id into the Student constructor
             DVD currentDvd = new DVD (currentTokens[0]);
             // Set the remaining vlaues on currentStudent manually
-            currentDvd.setTitle(currentTokens[1]);
+            currentDvd.setDVDTitle(currentTokens[1]);
             currentDvd.setReleaseDate(currentTokens[2]);
             currentDvd.setMpaaRating(currentTokens[3]);
             currentDvd.setDirectorsName(currentTokens[4]);
+            currentDvd.setStudioName(currentTokens[5]);
+            currentDvd.setUserRating(currentTokens[6]);
             
             // Put currentStudent into the map using studentID as the key
             dvds.put(currentDvd.getDvdTitle(), currentDvd);
@@ -155,10 +157,11 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         for (DVD currentDvd : dvdList) {
             // write the Student object to the file
             out.println(currentDvd.getDvdTitle() + DELIMITER
-                    + currentDvd.getTitle() + DELIMITER
                     + currentDvd.getReleaseDate() + DELIMITER
-                    + currentDvd.getMpaaRating()
-                    + currentDvd.getDirectorsName());
+                    + currentDvd.getMpaaRating() + DELIMITER
+                    + currentDvd.getDirectorsName() + DELIMITER
+                    + currentDvd.getStudioName() + DELIMITER
+                    + currentDvd.getUserRating() + DELIMITER);
             // force PrintWriter to write line to the file
             out.flush();
         }

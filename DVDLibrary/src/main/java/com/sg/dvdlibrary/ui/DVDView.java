@@ -33,10 +33,14 @@ public class DVDView {
         String releaseDate= io.readString("Please enter the DVD release date");
         String mpaaRating = io.readString("Please enter the MPAA rating");
         String directorsName = io.readString("Please enter the director's name");
+        String studioName = io.readString("Please enter the production studio's name");
+        String userRating = io.readString("Please enter your rating or note about the DVD");
         DVD currentDvd = new DVD(dvdTitle);
         currentDvd.setReleaseDate(releaseDate);
         currentDvd.setMpaaRating(mpaaRating);
         currentDvd.setDirectorsName(directorsName);
+        currentDvd.setStudioName(studioName);
+        currentDvd.setUserRating(userRating);
         return currentDvd;
     }
 
@@ -54,7 +58,9 @@ public class DVDView {
             io.print(currentDvd.getDvdTitle() + ": "
                     + currentDvd.getReleaseDate() + " "
                     + currentDvd.getMpaaRating()
-                    + currentDvd.getDirectorsName());
+                    + currentDvd.getDirectorsName()
+                    + currentDvd.getStudioName()
+                    + currentDvd.getUserRating());
         }
         io.readString("Please hit enter to continue.");
     }
@@ -73,6 +79,8 @@ public class DVDView {
             io.print(dvd.getReleaseDate());
             io.print(dvd.getMpaaRating());
             io.print(dvd.getDirectorsName());
+            io.print(dvd.getStudioName());
+            io.print(dvd.getUserRating());
             io.print("");
         } else {
             io.print("No such dvd.");

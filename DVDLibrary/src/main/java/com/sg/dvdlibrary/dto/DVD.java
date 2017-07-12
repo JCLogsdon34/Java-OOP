@@ -11,23 +11,24 @@ package com.sg.dvdlibrary.dto;
  */
 public class DVD {
     
-    private String title;
-    private String releaseDate;
+    
     private final String dvdTitle;
+    private String releaseDate;
     private String mpaaRating; // Java or .Net + cohort month/year
+
+    private String userRating;
+    public String getStudioName;
+    private String StudioName;
+
     
     public DVD(String dvdTitle) {
         this.dvdTitle = dvdTitle;
     }
-
-    public String getTitle() {
-        return title;
+    
+    public String getDvdTitle() {
+        return dvdTitle;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+    
     public String getReleaseDate() {
         return releaseDate;
     }
@@ -35,11 +36,7 @@ public class DVD {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-
-    public String getDvdTitle() {
-        return dvdTitle;
-    }
-
+    
     public String getMpaaRating() {
         return mpaaRating;
     }
@@ -47,7 +44,19 @@ public class DVD {
     public void setMpaaRating(String mpaaRating) {
         this.mpaaRating = mpaaRating;
     }   
-
+    public String getStudioName() {
+        return StudioName;
+    }
+    public void setStudioName(String studioName) {
+        this.StudioName = studioName;
+    }    
+    public String getUserRating() {
+        return userRating;
+    }
+    public void setUserRating(String userRating) {
+        this.userRating = userRating;
+    }  
+    
     public String getDVDTitle() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -57,6 +66,10 @@ public class DVD {
     }
 
     public String getDirectorsName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setDVDTitle(String currentToken) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
