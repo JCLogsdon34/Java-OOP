@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.dvdlibrary.controller;
 
 import com.sg.dvdlibrary.dao.DvdLibraryDao;
@@ -13,10 +9,7 @@ import com.sg.dvdlibrary.ui.UserIO;
 import com.sg.dvdlibrary.ui.UserIOConsoleImpl;
 import java.util.List;
 
-/**
- *
- * @author apprentice
- */
+
 public class DvdLibraryController {
     UserIO io = new UserIOConsoleImpl();
     
@@ -31,7 +24,7 @@ public class DvdLibraryController {
 
     public void run() throws DvdLibraryDaoException {
         boolean keepGoing = true;
-        int menuSelection = 0;
+        int menuSelection;
         while (keepGoing) {
             
             menuSelection = getMenuSelection();
@@ -44,7 +37,7 @@ public class DvdLibraryController {
                     createDvd();
                     break;
                 case 3:
-                    viewDVD();
+                    viewDvd();
                     break;
                 case 4:
                     removeDvd();
@@ -65,8 +58,8 @@ public class DvdLibraryController {
 
     private void createDvd() throws DvdLibraryDaoException {
         view.displayCreateDvdBanner();
-        DVDView newDVD = view.getNewDVDInfo();
-        dao.addDVD(newDVD.getDVDTitle(), newDVD);
+        DVDView newDvd = view.getNewDVDInfo();
+        dao.addDvd(newDvd.getDVDTitle(), newDvd);
         view.displayCreateSuccessBanner();
     }
 
@@ -76,7 +69,7 @@ public class DvdLibraryController {
         view.displayDVDList(dvdList);
     }
 
-    private void viewDVD() throws DvdLibraryDaoException {
+    private void viewDvd() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();
         String dvdTitle = view.getDvdTitleChoice();
         DVD dvd = dao.getDvd(dvdTitle);

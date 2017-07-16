@@ -1,46 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.dvdlibrary.dto;
 
-/**
- *
- * @author apprentice
- */
+
 public class DVD {
     
-    
-    private final String dvdTitle;
-    private String releaseDate;
-    private String mpaaRating; // Java or .Net + cohort month/year
+    public String dvdTitle;
+    public String releaseDate;
+    public String directorsName;
+    public String mpaaRating; 
 
-    private String userRating;
+    public String StudioName;
     public String getStudioName;
-    private String StudioName;
+    public String userRating;
+    public String getUserRating;
 
-    
-    public DVD(String dvdTitle) {
-        this.dvdTitle = dvdTitle;
+    public DVD(String currentToken) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
+    
+    public void setDvdTitle(String dvdTitle){
+        this.dvdTitle = dvdTitle;
+    }
     public String getDvdTitle() {
         return dvdTitle;
     }
-    
-    public String getReleaseDate() {
-        return releaseDate;
+    public void setDirectorsName(String directorsName){
+        this.directorsName = directorsName;
     }
-
+    public String getDirectorsName(){
+        return directorsName;
+    }
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-    
+    public String getReleaseDate() {
+        return releaseDate;
+    }
     public String getMpaaRating() {
         return mpaaRating;
     }
-
     public void setMpaaRating(String mpaaRating) {
         this.mpaaRating = mpaaRating;
     }   
@@ -56,20 +55,4 @@ public class DVD {
     public void setUserRating(String userRating) {
         this.userRating = userRating;
     }  
-    
-    public String getDVDTitle() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setDirectorsName(String currentToken) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public String getDirectorsName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void setDVDTitle(String currentToken) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

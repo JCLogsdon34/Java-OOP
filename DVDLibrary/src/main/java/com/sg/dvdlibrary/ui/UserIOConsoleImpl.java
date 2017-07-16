@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.dvdlibrary.ui;
 
 import java.util.Scanner;
@@ -10,10 +6,10 @@ import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
     
+       
         @Override
-        public void print(String message) {
-            message = "Hello and welcome to the interface";
-            
+        public void print(String msg) {
+ 
         }
 
         @Override
@@ -30,19 +26,18 @@ public class UserIOConsoleImpl implements UserIO {
         public double readDouble(String prompt, double min, double max) {
             double readDouble;
             Scanner inputReader = new Scanner(System.in);
-            boolean keepGoing = true;
+            boolean keepGoing = false;
 
             do {
                 System.out.println("Please enter a number between 10 - 20");
                 readDouble = inputReader.nextDouble();
                 if (readDouble > 20 || readDouble < 10) {
-                    keepGoing = true;
-                } else {
                     keepGoing = false;
+                } else {
+                    keepGoing = true;
 
-                    return readDouble;
                 }
-            } while (keepGoing = true);
+            } while (keepGoing = false);
             return readDouble;
         }
 
@@ -51,7 +46,6 @@ public class UserIOConsoleImpl implements UserIO {
             float readFloat;
             Scanner inputReader = new Scanner(System.in);
 
-            System.out.println("Please enter a number (a float)");
             readFloat = inputReader.nextFloat();
             return readFloat;
         }
@@ -60,19 +54,18 @@ public class UserIOConsoleImpl implements UserIO {
         public float readFloat(String prompt, float min, float max) {
             float readFloat;
             Scanner inputReader = new Scanner(System.in);
-            boolean keepGoing = true;
+            boolean keepGoing = false;
 
             do {
-                System.out.println("Please enter a number (float) between 1.618 - 3.14");
                 readFloat = inputReader.nextFloat();
                 if (readFloat > 1.618 || readFloat < 3.14) {
-                    keepGoing = true;
-                } else {
                     keepGoing = false;
+                } else {
+                    keepGoing = true;
 
                     return readFloat;
                 }
-            } while (keepGoing = true);
+            } while (keepGoing = false);
             return readFloat;
         }
 
@@ -81,7 +74,6 @@ public class UserIOConsoleImpl implements UserIO {
             int myInt;
             Scanner inputReader = new Scanner(System.in);
 
-            System.out.println("Please enter a number");
             myInt = inputReader.nextInt();
             return myInt;
         }
@@ -120,10 +112,18 @@ public class UserIOConsoleImpl implements UserIO {
         public long readLong(String prompt, long min, long max) {
             long readLong;
             Scanner inputReader = new Scanner(System.in);
-
-            System.out.println("Please enter a number(long) between (-100) - 200");
-            readLong = inputReader.nextLong();
-
+            boolean keepGoing = false;
+            do {
+                System.out.println("Please enter a number(long) between (-100) - 200");
+                readLong = inputReader.nextLong();
+                if (readLong > 5 || readLong < 1) {
+                    keepGoing = false;
+                } else {
+                    keepGoing = true;
+                    
+                }
+            } while (keepGoing = false);
+            
             return readLong;
         }
 
@@ -132,7 +132,6 @@ public class UserIOConsoleImpl implements UserIO {
             String userSentence;
             Scanner inputReader = new Scanner(System.in);
 
-            System.out.println("Please enter a sentence");
             userSentence = inputReader.nextLine();
 
             return userSentence;
