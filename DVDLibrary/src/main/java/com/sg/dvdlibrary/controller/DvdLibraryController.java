@@ -3,8 +3,8 @@ package com.sg.dvdlibrary.controller;
 
 import com.sg.dvdlibrary.dao.DvdLibraryDao;
 import com.sg.dvdlibrary.dao.DvdLibraryDaoException;
-import com.sg.dvdlibrary.dto.DVD;
-import com.sg.dvdlibrary.ui.DVDView;
+import com.sg.dvdlibrary.dto.Dvd;
+import com.sg.dvdlibrary.ui.DvdView;
 import com.sg.dvdlibrary.ui.UserIO;
 import com.sg.dvdlibrary.ui.UserIOConsoleImpl;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.List;
 public class DvdLibraryController {
     UserIO io = new UserIOConsoleImpl();
     
-    DVDView view;
+    DvdView view;
     DvdLibraryDao dao;
 
-    public DvdLibraryController(DvdLibraryDao dao, DVDView view) {
+    public DvdLibraryController(DvdLibraryDao dao, DvdView view) {
         this.view = view;
         this.dao = dao;
     }
@@ -58,27 +58,27 @@ public class DvdLibraryController {
 
     private void createDvd() throws DvdLibraryDaoException {
         view.displayCreateDvdBanner();
-        DVDView newDvd = view.getNewDVDInfo();
-        dao.addDvd(newDvd.getDVDTitle(), newDvd);
+        Dvd newDvd = view.getNewDvdInfo();
+        dao.addDvd(newDvd.getDvdTitle(), newDvd);
         view.displayCreateSuccessBanner();
     }
 
     private void listDvds() throws DvdLibraryDaoException {
-        view.displayDisplayAllBanner();
-        List<DVD> dvdList = dao.getAllDvds();
-        view.displayDVDList(dvdList);
+        view.displayDisplayDvdBanner();
+        List<Dvd> dvdList = dao.getAllDvds();
+        view.displayDvdList(dvdList);
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();
         String dvdTitle = view.getDvdTitleChoice();
-        DVD dvd = dao.getDvd(dvdTitle);
-        view.DVDTitle(dvd);
+        Dvd dvd = dao.getDvd(dvdTitle);
+        view.displayDvd(dvd);
     }
 
     private void removeDvd() throws DvdLibraryDaoException {
         view.displayRemoveDvdBanner();
-        String dvdTitle = view.getDvdtitleChoice();
+        String dvdTitle = view.getDvdTitleChoice();
         dao.removeDvd(dvdTitle);
         view.displayRemoveSuccessBanner();
     }

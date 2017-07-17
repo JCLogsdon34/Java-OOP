@@ -1,26 +1,28 @@
 
 package com.sg.dvdlibrary.dao;
 
-import com.sg.dvdlibrary.dto.DVD;
-import com.sg.dvdlibrary.ui.DVDView;
+import com.sg.dvdlibrary.dto.Dvd;
+import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
 
 
 public interface DvdLibraryDao {
     
-    DVD addDvd(String dvdTitle, DVD dvd)
+    Dvd addDvd(String dvdTitle, Dvd dvd)
             throws DvdLibraryDaoException;
 
-    List<DVD> getAllDvds()
+    List<Dvd> getAllDvds()
+            throws DvdLibraryDaoException;
+    
+    
+
+    Dvd getDvd(String dvdTitle)
             throws DvdLibraryDaoException;
 
-    DVD getDvd(String dvdTitle)
+    Dvd removeDvd(String dvdTitle)
             throws DvdLibraryDaoException;
 
-    DVD removeDvd(String dvdTitle)
-            throws DvdLibraryDaoException;
-
-    public void addDvd(String dvdTitle, DVDView newDvd);
+    public void addDvd(String dvdTitle, DvdView newDvd);
 
 }
 

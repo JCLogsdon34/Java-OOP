@@ -1,19 +1,19 @@
 
 package com.sg.dvdlibrary.ui;
 
-import com.sg.dvdlibrary.dto.DVD;
+import com.sg.dvdlibrary.dto.Dvd;
 import java.util.List;
 
 
-public class DVDView {
-    
-      private UserIO io;
+public class DvdView {
+       private UserIO io;
 
-    public DVDView(UserIO io) {
+    public DvdView(UserIO io) {
         this.io = io;
-    }
+    } 
 
     public int printMenuAndGetSelection() {
+
         io.print("Main Menu");
         io.print("1. List DVD Titles");
         io.print("2. Create New Dvd");
@@ -21,17 +21,18 @@ public class DVDView {
         io.print("4. Remove a DVD");
         io.print("5. Exit");
 
-        return io.readInt("Please select from the above choices.", 1, 5);
+        return io.readInt("Please select from the above choices.");
+        
     }
 
-    public DVD getNewDvdInfo() {
+    public Dvd getNewDvdInfo() {
         String dvdTitle = io.readString("Please enter DVD title");
         String releaseDate= io.readString("Please enter the DVD release date");
         String mpaaRating = io.readString("Please enter the MPAA rating");
         String directorsName = io.readString("Please enter the director's name");
         String studioName = io.readString("Please enter the production studio's name");
         String userRating = io.readString("Please enter your rating or note about the DVD");
-        DVD currentDvd = new DVD(dvdTitle);
+        Dvd currentDvd = new Dvd();
         currentDvd.setReleaseDate(releaseDate);
         currentDvd.setMpaaRating(mpaaRating);
         currentDvd.setDirectorsName(directorsName);
@@ -46,11 +47,11 @@ public class DVDView {
 
     public void displayCreateSuccessBanner() {
         io.readString(
-                "Student successfully created.  Please hit enter to continue");
+                "DVD successfully created.  Please hit enter to continue");
     }
 
-    public void displayDvdList(List<DVD> dvdList) {
-        for (DVD currentDvd : dvdList) {
+    public void displayDvdList(List<Dvd> dvdList) {
+        for (Dvd currentDvd : dvdList) {
             io.print(currentDvd.getDvdTitle() + ": "
                     + currentDvd.getReleaseDate() + " "
                     + currentDvd.getMpaaRating()
@@ -65,11 +66,11 @@ public class DVDView {
         io.print("=== Display DVD ===");
     }
 
-    public String getSDvdTitleChoice() {
+    public String getDvdTitleChoice() {
         return io.readString("Please enter the DVD Title.");
     }
 
-    public void displayDvd(DVD dvd) {
+    public void displayDvd(Dvd dvd) {
         if (dvd!= null) {
             io.print(dvd.getDvdTitle());
             io.print(dvd.getReleaseDate());
@@ -103,33 +104,5 @@ public class DVDView {
     public void displayErrorMessage(String errorMsg) {
         io.print("=== ERROR ===");
         io.print(errorMsg);
-    }
-
-    public void displayDisplayAllBanner() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public DVDView getNewDVDInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public String getDVDTitle() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public void displayDVDList(List<DVD> dvdList) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public String getDvdTitleChoice() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public void DVDTitle(DVD dvd) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    public String getDvdtitleChoice() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
     
-       
         @Override
         public void print(String msg) {
  
@@ -17,7 +16,6 @@ public class UserIOConsoleImpl implements UserIO {
             double readDouble;
             Scanner inputReader = new Scanner(System.in);
 
-            System.out.println("Please enter a number");
             readDouble = inputReader.nextDouble();
             return readDouble;
         }
@@ -29,7 +27,7 @@ public class UserIOConsoleImpl implements UserIO {
             boolean keepGoing = false;
 
             do {
-                System.out.println("Please enter a number between 10 - 20");
+
                 readDouble = inputReader.nextDouble();
                 if (readDouble > 20 || readDouble < 10) {
                     keepGoing = false;
@@ -52,20 +50,11 @@ public class UserIOConsoleImpl implements UserIO {
 
         @Override
         public float readFloat(String prompt, float min, float max) {
-            float readFloat;
+            float readFloat = 0;
             Scanner inputReader = new Scanner(System.in);
             boolean keepGoing = false;
 
-            do {
-                readFloat = inputReader.nextFloat();
-                if (readFloat > 1.618 || readFloat < 3.14) {
-                    keepGoing = false;
-                } else {
-                    keepGoing = true;
-
-                    return readFloat;
-                }
-            } while (keepGoing = false);
+            
             return readFloat;
         }
 
@@ -73,7 +62,7 @@ public class UserIOConsoleImpl implements UserIO {
         public int readInt(String userPrompt) {
             int myInt;
             Scanner inputReader = new Scanner(System.in);
-
+            
             myInt = inputReader.nextInt();
             return myInt;
         }
@@ -85,7 +74,7 @@ public class UserIOConsoleImpl implements UserIO {
             int myInt = 0;
 
             do {
-                System.out.println("Please enter a number between 1 - 5");
+
                 myInt = inputReader.nextInt();
                 if (myInt > 5 || myInt < 1) {
                     keepGoing = true;
@@ -102,7 +91,6 @@ public class UserIOConsoleImpl implements UserIO {
             long readLong;
             Scanner inputReader = new Scanner(System.in);
 
-            System.out.println("Please enter a number(long)");
             readLong = inputReader.nextLong();
 
             return readLong;
@@ -114,7 +102,7 @@ public class UserIOConsoleImpl implements UserIO {
             Scanner inputReader = new Scanner(System.in);
             boolean keepGoing = false;
             do {
-                System.out.println("Please enter a number(long) between (-100) - 200");
+
                 readLong = inputReader.nextLong();
                 if (readLong > 5 || readLong < 1) {
                     keepGoing = false;
@@ -136,4 +124,4 @@ public class UserIOConsoleImpl implements UserIO {
 
             return userSentence;
         }
-}
+} 

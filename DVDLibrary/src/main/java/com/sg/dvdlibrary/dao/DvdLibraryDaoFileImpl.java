@@ -1,9 +1,7 @@
-
 package com.sg.dvdlibrary.dao;
 
-import com.sg.dvdlibrary.dto.DVD;
-import com.sg.dvdlibrary.ui.DVDView;
-
+import com.sg.dvdlibrary.dto.Dvd;
+import com.sg.dvdlibrary.ui.DvdView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,126 +18,114 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
-    
-    
-
-    
     @Override
-    public DVD addDvd(String dvdTitle, DVD dvd)
+    public Dvd addDvd(String dvdTitle, Dvd dvd)
             throws DvdLibraryDaoException {
-        DVD newDvd = dvds.put(dvdTitle, dvd);
+        Dvd newDvd = dvdRoster.put(dvdTitle, dvd);
         writeLibrary();
         return newDvd;
     }
 
     @Override
-    public List<DVD> getAllDvds()
+    public List<Dvd> getAllDvds()
             throws DvdLibraryDaoException {
         try {
             loadRoster();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new ArrayList<DVD>(dvds.values());
+        return new ArrayList<Dvd>(dvdRoster.values());
     }
 
     @Override
-    public DVD getDvd(String dvdTitle)
+    public Dvd getDvd(String dvdTitle)
             throws DvdLibraryDaoException {
         try {
             loadRoster();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return dvds.get(dvdTitle);
+        return dvdRoster.get(dvdTitle);
     }
 
     @Override
-    public DVD removeDvd(String dvdTitle)
+    public Dvd removeDvd(String dvdTitle)
             throws DvdLibraryDaoException {
-        DVD removedDvd = dvds.remove(dvdTitle);
+        Dvd removedDvd = dvdRoster.remove(dvdTitle);
         writeLibrary();
         return removedDvd;
     }
 
-    private Map<String, DVD> dvds = new HashMap<>();
+    private Map<String, Dvd> dvdRoster = new HashMap<>();
 
-    public static final String ROSTER_FILE = "roster.txt";
+    public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
 
     private void loadRoster() throws DvdLibraryDaoException, FileNotFoundException {
         Scanner scanner;
 
         try {
-            
+
             scanner = new Scanner(
                     new BufferedReader(
-                            new FileReader(ROSTER_FILE)));
+                            new FileReader(LIBRARY_FILE)));
         } catch (FileNotFoundException e) {
             throw new DvdLibraryDaoException(
                     "-_- Could not load roster data into memory.", e);
         }
-       
+
         String currentLine;
-        
+
         String[] currentTokens;
-       
+
         while (scanner.hasNextLine()) {
-       
+
             currentLine = scanner.nextLine();
-           
+
             currentTokens = currentLine.split(DELIMITER);
-            
-            DVD currentDvd = new DVD(currentTokens[0]); 
-            currentDvd.setDvdTitle(currentTokens[1]);
-            currentDvd.setReleaseDate(currentTokens[2]);
-            currentDvd.setMpaaRating(currentTokens[3]);
-            currentDvd.setDirectorsName(currentTokens[4]);
-            currentDvd.setStudioName(currentTokens[5]);
-            currentDvd.setUserRating(currentTokens[6]);
-            
-      
-            dvds.put(currentDvd.getDvdTitle(), currentDvd);
+
+            Dvd currentDvd = new Dvd();
+            currentDvd.setDvdTitle(currentTokens[0]);
+            currentDvd.setReleaseDate(currentTokens[1]);
+            currentDvd.setMpaaRating(currentTokens[2]);
+            currentDvd.setDirectorsName(currentTokens[3]);
+            currentDvd.setStudioName(currentTokens[4]);
+            currentDvd.setUserRating(currentTokens[5]);
+
+            dvdRoster.put(currentDvd.getDvdTitle(), currentDvd);
         }
-      
         scanner.close();
     }
 
-    
     private void writeLibrary() throws DvdLibraryDaoException {
-        
+
         PrintWriter out;
 
         try {
-            out = new PrintWriter(new FileWriter(ROSTER_FILE));
+            out = new PrintWriter(new FileWriter(LIBRARY_FILE));
         } catch (IOException e) {
             throw new DvdLibraryDaoException(
                     "Could not save student data.", e);
         }
 
-        
-        List<DVD> dvdList = this.getAllDvds();
-        for (DVD currentDvd : dvdList) {
-            
+        List<Dvd> dvdList = this.getAllDvds();
+        for (Dvd currentDvd : dvdList) {
+
             out.println(currentDvd.getDvdTitle() + DELIMITER
                     + currentDvd.getReleaseDate() + DELIMITER
                     + currentDvd.getMpaaRating() + DELIMITER
                     + currentDvd.getDirectorsName() + DELIMITER
                     + currentDvd.getStudioName() + DELIMITER
                     + currentDvd.getUserRating() + DELIMITER);
-            
             out.flush();
         }
-        
         out.close();
     }
+
     @Override
-    public void addDvd(String dvdTitle, DVDView newDvd) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public void addDvd(String dvdTitle, DvdView newDvd) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
-
-

@@ -2,8 +2,7 @@
 package com.sg.dvdlibrary.dto;
 
 
-public class DVD {
-    
+public class Dvd {
     public String dvdTitle;
     public String releaseDate;
     public String directorsName;
@@ -14,10 +13,7 @@ public class DVD {
     public String userRating;
     public String getUserRating;
 
-    public DVD(String currentToken) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-    
+
     
     public void setDvdTitle(String dvdTitle){
         this.dvdTitle = dvdTitle;
