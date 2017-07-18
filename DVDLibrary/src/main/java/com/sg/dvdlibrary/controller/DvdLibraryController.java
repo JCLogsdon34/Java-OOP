@@ -1,4 +1,3 @@
-
 package com.sg.dvdlibrary.controller;
 
 import com.sg.dvdlibrary.dao.DvdLibraryDao;
@@ -7,9 +6,8 @@ import com.sg.dvdlibrary.dto.Dvd;
 import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
 
-
 public class DvdLibraryController {
-    
+
     DvdView view;
     DvdLibraryDao dao;
 
@@ -17,15 +15,14 @@ public class DvdLibraryController {
         this.view = view;
         this.dao = dao;
     }
-    
 
     public void run() throws DvdLibraryDaoException {
         boolean keepGoing = true;
         int menuSelection;
         while (keepGoing) {
-            
+
             menuSelection = getMenuSelection();
-            
+
             switch (menuSelection) {
                 case 1:
                     listDvds();

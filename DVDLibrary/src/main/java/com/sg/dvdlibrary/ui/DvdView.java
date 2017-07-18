@@ -16,6 +16,7 @@ public class DvdView {
     public int printMenuAndGetSelection() {
         Scanner inputReader = new Scanner(System.in);
         int userChoice;
+        
         io.print("Main Menu");
         io.print("1. List DVD Titles");
         io.print("2. Create New Dvd");

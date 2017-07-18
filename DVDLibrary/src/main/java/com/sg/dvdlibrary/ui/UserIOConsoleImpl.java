@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
 
-    @Override
+    
     public void print(String msg) {
-
+        
     }
 
+    
     @Override
     public double readDouble(String prompt) {
         double readDouble;
@@ -68,15 +69,16 @@ public class UserIOConsoleImpl implements UserIO {
         return readFloat;
     }
 
-    @Override
+    
     public int readInt(String prompt) {
         int myInt;
         Scanner inputReader = new Scanner(System.in);
-
+        
         myInt = inputReader.nextInt();
         return myInt;
     }
 
+    
     @Override
     public int readInt(String prompt, int min, int max) {
         Scanner inputReader = new Scanner(System.in);
