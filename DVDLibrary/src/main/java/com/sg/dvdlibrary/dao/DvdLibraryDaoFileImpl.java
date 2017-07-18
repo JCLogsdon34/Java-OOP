@@ -1,7 +1,6 @@
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.Dvd;
-import com.sg.dvdlibrary.ui.DvdView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -122,10 +121,5 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             out.flush();
         }
         out.close();
-    }
-
-    @Override
-    public void addDvd(String dvdTitle, DvdView newDvd) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -3,6 +3,7 @@ package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class DvdView {
@@ -10,19 +11,21 @@ public class DvdView {
 
     public DvdView(UserIO io) {
         this.io = io;
-    } 
+    }
 
     public int printMenuAndGetSelection() {
-
+        Scanner inputReader = new Scanner(System.in);
+        int userChoice;
         io.print("Main Menu");
         io.print("1. List DVD Titles");
         io.print("2. Create New Dvd");
         io.print("3. View a DVD");
         io.print("4. Remove a DVD");
         io.print("5. Exit");
-
-        return io.readInt("Please select from the above choices.");
         
+        io.readInt("Please select from the above choices.");
+        userChoice = inputReader.nextInt();
+        return userChoice;
     }
 
     public Dvd getNewDvdInfo() {

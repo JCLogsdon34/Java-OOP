@@ -2,7 +2,6 @@
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.Dvd;
-import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
 
 
@@ -14,16 +13,11 @@ public interface DvdLibraryDao {
     List<Dvd> getAllDvds()
             throws DvdLibraryDaoException;
     
-    
-
     Dvd getDvd(String dvdTitle)
             throws DvdLibraryDaoException;
 
     Dvd removeDvd(String dvdTitle)
             throws DvdLibraryDaoException;
-
-    public void addDvd(String dvdTitle, DvdView newDvd);
-
 }
 
 

@@ -5,13 +5,10 @@ import com.sg.dvdlibrary.dao.DvdLibraryDao;
 import com.sg.dvdlibrary.dao.DvdLibraryDaoException;
 import com.sg.dvdlibrary.dto.Dvd;
 import com.sg.dvdlibrary.ui.DvdView;
-import com.sg.dvdlibrary.ui.UserIO;
-import com.sg.dvdlibrary.ui.UserIOConsoleImpl;
 import java.util.List;
 
 
 public class DvdLibraryController {
-    UserIO io = new UserIOConsoleImpl();
     
     DvdView view;
     DvdLibraryDao dao;

@@ -7,11 +7,9 @@ public class Dvd {
     public String releaseDate;
     public String directorsName;
     public String mpaaRating; 
-
     public String StudioName;
-    public String getStudioName;
     public String userRating;
-    public String getUserRating;
+
 
 
     
