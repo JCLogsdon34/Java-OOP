@@ -2,20 +2,30 @@
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
+import com.sg.dvdlibrary.ui.UserIO;
+import com.sg.dvdlibrary.ui.UserIOConsoleImpl;
+
 import java.util.List;
-import java.util.Scanner;
+
 
 
 public class DvdView {
        private UserIO io;
-
+    private UserIOConsoleImpl ioconsimpl;
+       
+       
     public DvdView(UserIO io) {
         this.io = io;
     }
+    private UserIOConsoleImpl ioimpl;
+    
+    public DvdView(UserIOConsoleImpl ioconsimpl){
+        this.ioconsimpl = ioconsimpl;
+    }
 
     public int printMenuAndGetSelection() {
-        Scanner inputReader = new Scanner(System.in);
-        int userChoice;
+
+        int myInt;
         
         io.print("Main Menu");
         io.print("1. List DVD Titles");
@@ -23,10 +33,11 @@ public class DvdView {
         io.print("3. View a DVD");
         io.print("4. Remove a DVD");
         io.print("5. Exit");
-        
-        io.readInt("Please select from the above choices.");
-        userChoice = inputReader.nextInt();
-        return userChoice;
+        String msg = "Please select from the above choices.";
+           io.readInt(msg);
+         myInt = io.readInt(msg);
+   
+        return myInt;
     }
 
     public Dvd getNewDvdInfo() {

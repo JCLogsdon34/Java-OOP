@@ -20,40 +20,32 @@ import java.util.logging.Logger;
 public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
-    public Dvd addDvd(String dvdTitle, Dvd dvd)
-            throws DvdLibraryDaoException {
+    public Dvd addDvd(String dvdTitle, Dvd dvd) {
         Dvd newDvd = dvdRoster.put(dvdTitle, dvd);
         writeLibrary();
         return newDvd;
     }
 
     @Override
-    public List<Dvd> getAllDvds()
-            throws DvdLibraryDaoException {
-        try {
-            loadRoster();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public List<Dvd> getAllDvds() {
+        loadRoster();
         return new ArrayList<Dvd>(dvdRoster.values());
     }
 
     @Override
-    public Dvd getDvd(String dvdTitle)
-            throws DvdLibraryDaoException {
-        try {
-            loadRoster();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Dvd getDvd(String dvdTitle) {
+
+        loadRoster();
+
         return dvdRoster.get(dvdTitle);
     }
 
     @Override
-    public Dvd removeDvd(String dvdTitle)
-            throws DvdLibraryDaoException {
+    public Dvd removeDvd(String dvdTitle) {
         Dvd removedDvd = dvdRoster.remove(dvdTitle);
+
         writeLibrary();
+
         return removedDvd;
     }
 
@@ -62,8 +54,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
 
-    private void loadRoster() throws DvdLibraryDaoException, FileNotFoundException {
-        Scanner scanner;
+    private void loadRoster() {
+        Scanner scanner = null;
 
         try {
 
@@ -71,8 +63,6 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
                     new BufferedReader(
                             new FileReader(LIBRARY_FILE)));
         } catch (FileNotFoundException e) {
-            throw new DvdLibraryDaoException(
-                    "-_- Could not load roster data into memory.", e);
         }
 
         String currentLine;
@@ -98,15 +88,19 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         scanner.close();
     }
 
-    private void writeLibrary() throws DvdLibraryDaoException {
+    private void writeLibrary() {
 
-        PrintWriter out;
+        PrintWriter out = null;
 
         try {
             out = new PrintWriter(new FileWriter(LIBRARY_FILE));
         } catch (IOException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save student data.", e);
+            try {
+                throw new DvdLibraryDaoException(
+                        "Could not save DVD data.", e);
+            } catch (DvdLibraryDaoException ex) {
+                Logger.getLogger(DvdLibraryDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         List<Dvd> dvdList = this.getAllDvds();

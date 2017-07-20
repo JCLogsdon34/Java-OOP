@@ -5,8 +5,6 @@ import com.sg.dvdlibrary.dao.DvdLibraryDaoException;
 import com.sg.dvdlibrary.dto.Dvd;
 import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DvdLibraryController {
 
@@ -21,7 +19,7 @@ public class DvdLibraryController {
     public void run() {
         boolean keepGoing = true;
         int menuSelection;
-        do {
+        while (keepGoing) {
 
             menuSelection = getMenuSelection();
 
@@ -39,14 +37,12 @@ public class DvdLibraryController {
                     removeDvd();
                     break;
                 case 5:
-                    if (menuSelection == 5) {
-                        keepGoing = false;
-                    }
+                    keepGoing = false;
                     break;
                 default:
                     unknownCommand();
             }
-        } while (keepGoing);
+        }
         exitMessage();
     }
 
@@ -54,50 +50,30 @@ public class DvdLibraryController {
         return view.printMenuAndGetSelection();
     }
 
-    private void createDvd() {
+    private void createDvd() throws DvdLibraryDaoException {
         view.displayCreateDvdBanner();
         Dvd newDvd = view.getNewDvdInfo();
-
-        try {
-            dao.addDvd(newDvd.getDvdTitle(), newDvd);
-        } catch (DvdLibraryDaoException ex) {
-            Logger.getLogger(DvdLibraryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        dao.addDvd(newDvd.getDvdTitle(), newDvd);
         view.displayCreateSuccessBanner();
     }
 
-    private void listDvds() {
+    private void listDvds() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();
-        List<Dvd> dvdList = null;
-        try {
-            dvdList = dao.getAllDvds();
-        } catch (DvdLibraryDaoException ex) {
-            Logger.getLogger(DvdLibraryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        List<Dvd> dvdList = dao.getAllDvds();
         view.displayDvdList(dvdList);
     }
 
-    private void viewDvd() {
+    private void viewDvd() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();
         String dvdTitle = view.getDvdTitleChoice();
-        Dvd dvd = null;
-        try {
-            dvd = dao.getDvd(dvdTitle);
-        } catch (DvdLibraryDaoException ex) {
-            Logger.getLogger(DvdLibraryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Dvd dvd = dao.getDvd(dvdTitle); //try catch exception
         view.displayDvd(dvd);
     }
 
-    private void removeDvd() {
+    private void removeDvd() throws DvdLibraryDaoException {
         view.displayRemoveDvdBanner();
         String dvdTitle = view.getDvdTitleChoice();
-        try {
-            dao.removeDvd(dvdTitle);
-        } catch (DvdLibraryDaoException ex) {
-            Logger.getLogger(DvdLibraryController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.removeDvd(dvdTitle);
         view.displayRemoveSuccessBanner();
     }
 
