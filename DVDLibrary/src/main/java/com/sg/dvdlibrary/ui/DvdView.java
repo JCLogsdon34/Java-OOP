@@ -1,32 +1,19 @@
-
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
-import com.sg.dvdlibrary.ui.UserIO;
-import com.sg.dvdlibrary.ui.UserIOConsoleImpl;
-
+import java.io.IOException;
 import java.util.List;
 
-
-
 public class DvdView {
-       private UserIO io;
-    private UserIOConsoleImpl ioconsimpl;
-       
-       
+
+    private UserIO io;
+
     public DvdView(UserIO io) {
         this.io = io;
-    }
-    private UserIOConsoleImpl ioimpl;
-    
-    public DvdView(UserIOConsoleImpl ioconsimpl){
-        this.ioconsimpl = ioconsimpl;
     }
 
     public int printMenuAndGetSelection() {
 
-        int myInt;
-        
         io.print("Main Menu");
         io.print("1. List DVD Titles");
         io.print("2. Create New Dvd");
@@ -34,15 +21,13 @@ public class DvdView {
         io.print("4. Remove a DVD");
         io.print("5. Exit");
         String msg = "Please select from the above choices.";
-           io.readInt(msg);
-         myInt = io.readInt(msg);
-   
-        return myInt;
+        
+        return io.readInt(msg);
     }
 
     public Dvd getNewDvdInfo() {
         String dvdTitle = io.readString("Please enter DVD title");
-        String releaseDate= io.readString("Please enter the DVD release date");
+        String releaseDate = io.readString("Please enter the DVD release date");
         String mpaaRating = io.readString("Please enter the MPAA rating");
         String directorsName = io.readString("Please enter the director's name");
         String studioName = io.readString("Please enter the production studio's name");
@@ -86,7 +71,7 @@ public class DvdView {
     }
 
     public void displayDvd(Dvd dvd) {
-        if (dvd!= null) {
+        if (dvd != null) {
             io.print(dvd.getDvdTitle());
             io.print(dvd.getReleaseDate());
             io.print(dvd.getMpaaRating());

@@ -21,19 +21,15 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public double readDouble(String prompt, double min, double max) {
         double readDouble;
-
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
 
         do {
-
             readDouble = inputReader.nextDouble();
             if (readDouble > max || readDouble < min) {
                 keepGoing = false;
-
             } else {
                 keepGoing = true;
-
             }
         } while (keepGoing = false);
         return readDouble;
@@ -54,21 +50,16 @@ public class UserIOConsoleImpl implements UserIO {
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
         do {
-
             readFloat = inputReader.nextFloat();
             if (readFloat > max || readFloat < min) {
                 keepGoing = false;
-
             } else {
                 keepGoing = true;
-
             }
         } while (keepGoing = false);
-
         return readFloat;
     }
 
-    
     @Override
     public int readInt(String prompt) {
         int myInt;
@@ -85,14 +76,11 @@ public class UserIOConsoleImpl implements UserIO {
         int myInt = 0;
 
         do {
-
             myInt = inputReader.nextInt();
             if (myInt > max || myInt < min) {
                 keepGoing = false;
-
             } else {
                 keepGoing = true;
-
             }
         } while (keepGoing = false);
         return myInt;
@@ -114,17 +102,13 @@ public class UserIOConsoleImpl implements UserIO {
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
         do {
-
             readLong = inputReader.nextLong();
             if (readLong > max || readLong < min) {
                 keepGoing = false;
-
             } else {
                 keepGoing = true;
-
             }
         } while (keepGoing = false);
-
         return readLong;
     }
 
