@@ -6,7 +6,6 @@ import com.sg.dvdlibrary.dto.Dvd;
 import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
 
-
 public class DvdLibraryController {
 
     DvdView view;
@@ -17,45 +16,23 @@ public class DvdLibraryController {
         this.dao = dao;
     }
 
-    public void run() throws DvdLibraryDaoException  {
+    public void run() throws DvdLibraryDaoException {
         boolean keepGoing = true;
         int menuSelection;
         do {
             menuSelection = getMenuSelection();
             switch (menuSelection) {
                 case 1:
-            {
-                try {
                     listDvds();
-                } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
-            }
                     break;
                 case 2:
-                    try{
                     createDvd();
-                    } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
                     break;
                 case 3:
-                    try{
                     viewDvd();
-                    } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
                     break;
                 case 4:
-                    try{
                     removeDvd();
-                    } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
                     break;
                 case 5:
                     if (menuSelection == 5) {
@@ -80,11 +57,12 @@ public class DvdLibraryController {
 
         try {
             dao.addDvd(newDvd.getDvdTitle(), newDvd);
+        
+        view.displayCreateSuccessBanner();
         } catch (DvdLibraryDaoException e) {
             throw new DvdLibraryDaoException(
                     "Could not save DVD data.", e);
         }
-        view.displayCreateSuccessBanner();
     }
 
     private void listDvds() throws DvdLibraryDaoException {
