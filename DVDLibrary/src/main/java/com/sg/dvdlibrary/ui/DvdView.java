@@ -28,25 +28,22 @@ public class DvdView {
 
     public Dvd getNewDvdInfo() {
         
-        displayCreateDvdBanner();
+        String dvdTitle = null; // = "Please enter DVD title"; 
+        String releaseDate = null; //= "Please enter the DVD release date"; 
+        String mpaaRating = null; // = "Please enter the MPAA rating"; 
+        String directorsName = null; // = "Please enter the director's name"; 
+        String studioName = null; // = "Please enter the production studio's name";
+        String userRating = null; // = "Please enter your rating or note about the DVD"; */
         
-        String dvdTitle = "Please enter DVD title"; 
-        String releaseDate = "Please enter the DVD release date"; 
-        String mpaaRating = "Please enter the MPAA rating"; 
-        String directorsName = "Please enter the director's name"; 
-        String studioName = "Please enter the production studio's name";
-        String userRating = "Please enter your rating or note about the DVD"; 
-        
-        io.readString(dvdTitle);
-        io.readString(releaseDate);
-        io.readString(mpaaRating);
-        io.readString(directorsName);
-        io.readString(studioName);
-        io.readString(userRating);
-        
-        displayCreateSuccessBanner();
+        io.print("Please enter DVD title");
+        io.print("Please enter the DVD release date");
+        io.print("Please enter the MPAA rating");
+        io.print("Please enter the director's name");
+        io.print("Please enter the production studio's name");
+        io.print("Please enter your rating or note about the DVD");
         
         Dvd currentDvd = new Dvd();
+        currentDvd.setDvdTitle(dvdTitle);
         currentDvd.setReleaseDate(releaseDate);
         currentDvd.setMpaaRating(mpaaRating);
         currentDvd.setDirectorsName(directorsName);
@@ -60,7 +57,7 @@ public class DvdView {
     }
 
     public void displayCreateSuccessBanner() {
-        io.readString(
+        io.print(
                 "DVD successfully created.  Please hit enter to continue");
     }
 
@@ -75,7 +72,7 @@ public class DvdView {
                     + currentDvd.getStudioName() + ": "
                     + currentDvd.getUserRating() + " ");
         
-        io.readString("Please hit enter to continue.");
+        io.print("Please hit enter to continue.");
         }
     }
 
@@ -83,12 +80,14 @@ public class DvdView {
         io.print("=== Display DVD ===");
     }
 
-    public String getDvdTitleChoice() {
-        return io.readString("Please enter the DVD Title.");
+    public String getDvdTitleChoice(String prompt) {
+            
+        return io.readString(prompt);
     }
 
     public void displayDvd(Dvd dvd) {
-        getDvdTitleChoice();
+        //String prompt = "Please enter a DVD title";
+        //getDvdTitleChoice(prompt);
         
         if (dvd != null) {
             io.print(dvd.getDvdTitle());
@@ -101,6 +100,7 @@ public class DvdView {
         } else {
             io.print("No such dvd.");
         }
+        
         io.readString("Please hit enter to continue.");
     }
 
@@ -109,7 +109,7 @@ public class DvdView {
     }
 
     public void displayRemoveSuccessBanner() {
-        io.readString("DVD successfully removed. Please hit enter to continue.");
+        io.print("DVD successfully removed. Please hit enter to continue.");
     }
 
     public void displayExitBanner() {

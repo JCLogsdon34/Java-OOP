@@ -73,8 +73,9 @@ public class DvdLibraryController {
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
+        String prompt = "Please enter a DVD title";
         view.displayDisplayDvdBanner();
-        String dvdTitle = view.getDvdTitleChoice();
+        String dvdTitle = view.getDvdTitleChoice(prompt);
         Dvd dvd = dao.getDvd(dvdTitle);
         view.displayDvd(dvd);
     }
@@ -82,7 +83,8 @@ public class DvdLibraryController {
     private void removeDvd() throws DvdLibraryDaoException  {
         try {
             view.displayRemoveDvdBanner();
-            String dvdTitle = view.getDvdTitleChoice();
+            String prompt = "Please enter a DVD title";
+            String dvdTitle = view.getDvdTitleChoice(prompt);
             dao.removeDvd(dvdTitle);
             view.displayRemoveSuccessBanner();
         }catch(DvdLibraryDaoException e){

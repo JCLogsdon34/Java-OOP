@@ -108,10 +108,11 @@ public class UserIOConsoleImpl implements UserIO {
     }
 
     @Override
-    public String readString(String prompt) {
-        String userSentence;
+    public String readString(String prompt) {     
         Scanner inputReader = new Scanner(System.in);
-        userSentence = inputReader.nextLine();
-        return userSentence;
+        
+        prompt = inputReader.nextLine();
+       // System.out.println(prompt);
+        return prompt;
     }
 }
