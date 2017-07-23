@@ -6,14 +6,13 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public void print(String msg) {
-
+        System.out.println(msg);
     }
 
     @Override
     public double readDouble(String prompt) {
         double readDouble;
         Scanner inputReader = new Scanner(System.in);
-
         readDouble = inputReader.nextDouble();
         return readDouble;
     }
@@ -23,7 +22,6 @@ public class UserIOConsoleImpl implements UserIO {
         double readDouble;
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
-
         do {
             readDouble = inputReader.nextDouble();
             if (readDouble > max || readDouble < min) {
@@ -39,7 +37,6 @@ public class UserIOConsoleImpl implements UserIO {
     public float readFloat(String prompt) {
         float readFloat;
         Scanner inputReader = new Scanner(System.in);
-
         readFloat = inputReader.nextFloat();
         return readFloat;
     }
@@ -73,7 +70,7 @@ public class UserIOConsoleImpl implements UserIO {
     public int readInt(String prompt, int min, int max) {
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
-        int myInt = 0;
+        int myInt;
 
         do {
             myInt = inputReader.nextInt();
@@ -90,9 +87,7 @@ public class UserIOConsoleImpl implements UserIO {
     public long readLong(String prompt) {
         long readLong;
         Scanner inputReader = new Scanner(System.in);
-
         readLong = inputReader.nextLong();
-
         return readLong;
     }
 
@@ -116,9 +111,7 @@ public class UserIOConsoleImpl implements UserIO {
     public String readString(String prompt) {
         String userSentence;
         Scanner inputReader = new Scanner(System.in);
-
         userSentence = inputReader.nextLine();
-
         return userSentence;
     }
 }

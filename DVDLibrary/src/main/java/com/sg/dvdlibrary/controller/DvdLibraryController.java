@@ -16,9 +16,10 @@ public class DvdLibraryController {
         this.dao = dao;
     }
 
-    public void run() throws DvdLibraryDaoException {
+    public void run() {
         boolean keepGoing = true;
         int menuSelection;
+      try{
         do {
             menuSelection = getMenuSelection();
             switch (menuSelection) {
@@ -42,9 +43,11 @@ public class DvdLibraryController {
                 default:
                     unknownCommand();
             }
-        } while (keepGoing);
-
+        } while (keepGoing = true);
         exitMessage();
+      }catch(DvdLibraryDaoException e){
+          view.displayErrorMessage(e.getMessage());
+      }
     }
 
     private int getMenuSelection() {
@@ -54,52 +57,37 @@ public class DvdLibraryController {
     private void createDvd() throws DvdLibraryDaoException {
         view.displayCreateDvdBanner();
         Dvd newDvd = view.getNewDvdInfo();
-
-        try {
-            dao.addDvd(newDvd.getDvdTitle(), newDvd);
-        
+        dao.addDvd(newDvd.getDvdTitle(), newDvd);
         view.displayCreateSuccessBanner();
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
     }
 
-    private void listDvds() throws DvdLibraryDaoException {
-        view.displayDisplayDvdBanner();
-        List<Dvd> dvdList = null;
+    private void listDvds() throws DvdLibraryDaoException  {
         try {
+            view.displayDisplayDvdBanner();
+            List<Dvd> dvdList;
             dvdList = dao.getAllDvds();
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
-        view.displayDvdList(dvdList);
+            view.displayDvdList(dvdList);
+        }catch(DvdLibraryDaoException e){
+          view.displayErrorMessage(e.getMessage());
+      }
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();
         String dvdTitle = view.getDvdTitleChoice();
-        Dvd dvd = null;
-        try {
-            dvd = dao.getDvd(dvdTitle);
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
+        Dvd dvd = dao.getDvd(dvdTitle);
         view.displayDvd(dvd);
     }
 
-    private void removeDvd() throws DvdLibraryDaoException {
-        view.displayRemoveDvdBanner();
-        String dvdTitle = view.getDvdTitleChoice();
+    private void removeDvd() throws DvdLibraryDaoException  {
         try {
+            view.displayRemoveDvdBanner();
+            String dvdTitle = view.getDvdTitleChoice();
             dao.removeDvd(dvdTitle);
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
-        view.displayRemoveSuccessBanner();
+            view.displayRemoveSuccessBanner();
+        }catch(DvdLibraryDaoException e){
+          view.displayErrorMessage(e.getMessage());
+      }
     }
 
     private void unknownCommand() {

@@ -1,7 +1,6 @@
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
-import java.io.IOException;
 import java.util.List;
 
 public class DvdView {
@@ -20,18 +19,33 @@ public class DvdView {
         io.print("3. View a DVD");
         io.print("4. Remove a DVD");
         io.print("5. Exit");
+        io.print("Please enter the number of your choice from"
+                + " the above listed options.");
         String msg = "Please select from the above choices.";
         
         return io.readInt(msg);
     }
 
     public Dvd getNewDvdInfo() {
-        String dvdTitle = io.readString("Please enter DVD title");
-        String releaseDate = io.readString("Please enter the DVD release date");
-        String mpaaRating = io.readString("Please enter the MPAA rating");
-        String directorsName = io.readString("Please enter the director's name");
-        String studioName = io.readString("Please enter the production studio's name");
-        String userRating = io.readString("Please enter your rating or note about the DVD");
+        
+        displayCreateDvdBanner();
+        
+        String dvdTitle = "Please enter DVD title"; 
+        String releaseDate = "Please enter the DVD release date"; 
+        String mpaaRating = "Please enter the MPAA rating"; 
+        String directorsName = "Please enter the director's name"; 
+        String studioName = "Please enter the production studio's name";
+        String userRating = "Please enter your rating or note about the DVD"; 
+        
+        io.readString(dvdTitle);
+        io.readString(releaseDate);
+        io.readString(mpaaRating);
+        io.readString(directorsName);
+        io.readString(studioName);
+        io.readString(userRating);
+        
+        displayCreateSuccessBanner();
+        
         Dvd currentDvd = new Dvd();
         currentDvd.setReleaseDate(releaseDate);
         currentDvd.setMpaaRating(mpaaRating);
@@ -51,15 +65,18 @@ public class DvdView {
     }
 
     public void displayDvdList(List<Dvd> dvdList) {
+        displayDisplayDvdBanner();
+        
         for (Dvd currentDvd : dvdList) {
             io.print(currentDvd.getDvdTitle() + ": "
-                    + currentDvd.getReleaseDate() + " "
-                    + currentDvd.getMpaaRating()
-                    + currentDvd.getDirectorsName()
-                    + currentDvd.getStudioName()
-                    + currentDvd.getUserRating());
-        }
+                    + currentDvd.getReleaseDate() + ": "
+                    + currentDvd.getMpaaRating() + ": "
+                    + currentDvd.getDirectorsName() + ": "
+                    + currentDvd.getStudioName() + ": "
+                    + currentDvd.getUserRating() + " ");
+        
         io.readString("Please hit enter to continue.");
+        }
     }
 
     public void displayDisplayDvdBanner() {
@@ -71,6 +88,8 @@ public class DvdView {
     }
 
     public void displayDvd(Dvd dvd) {
+        getDvdTitleChoice();
+        
         if (dvd != null) {
             io.print(dvd.getDvdTitle());
             io.print(dvd.getReleaseDate());
@@ -78,7 +97,7 @@ public class DvdView {
             io.print(dvd.getDirectorsName());
             io.print(dvd.getStudioName());
             io.print(dvd.getUserRating());
-            io.print("");
+            io.print(" ");
         } else {
             io.print("No such dvd.");
         }

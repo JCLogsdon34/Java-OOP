@@ -17,14 +17,14 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException {
-        Dvd newDvd = dvdRoster.put(dvdTitle, dvd);
         try {
-            writeLibrary();
+            Dvd newDvd = dvdRoster.put(dvdTitle, dvd);          
+            writeLibrary();          
+            return newDvd;
         } catch (DvdLibraryDaoException e) {
             throw new DvdLibraryDaoException(
                     "Could not save DVD data.", e);
         }
-        return newDvd;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     private void writeLibrary() throws DvdLibraryDaoException {
 
-        PrintWriter out = null;
+        PrintWriter out;
         try {
             out = new PrintWriter(new FileWriter(LIBRARY_FILE));
         } catch (IOException e) {
