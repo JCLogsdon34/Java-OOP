@@ -18,8 +18,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     @Override
     public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException {
         try {
-            Dvd newDvd = dvdRoster.put(dvdTitle, dvd);          
-            writeLibrary();          
+            Dvd newDvd = dvdRoster.put(dvdTitle, dvd);
+            writeLibrary();
             return newDvd;
         } catch (DvdLibraryDaoException e) {
             throw new DvdLibraryDaoException(

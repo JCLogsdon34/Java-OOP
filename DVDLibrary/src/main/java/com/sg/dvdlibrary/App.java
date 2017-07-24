@@ -10,13 +10,13 @@ import com.sg.dvdlibrary.ui.UserIOConsoleImpl;
 public class App {
 
     public static void main(String[] args) {
-        
-            UserIO myIo = new UserIOConsoleImpl();
-            DvdView myView = new DvdView(myIo);
-            DvdLibraryDao myDao;
-            myDao = new DvdLibraryDaoFileImpl();
-            DvdLibraryController controller
-                    = new DvdLibraryController(myDao, myView);
-            controller.run();
+
+        UserIO myIo = new UserIOConsoleImpl();
+        DvdView myView = new DvdView(myIo);
+        DvdLibraryDao myDao;
+        myDao = new DvdLibraryDaoFileImpl();
+        DvdLibraryController controller
+                = new DvdLibraryController(myDao, myView);
+        controller.run();
     }
 }
