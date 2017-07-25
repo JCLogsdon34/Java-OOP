@@ -19,10 +19,9 @@ public class DvdView {
         io.print("3. View a DVD");
         io.print("4. Remove a DVD");
         io.print("5. Exit");
-        io.print("Please enter the number of your choice from"
-                + " the above listed options.");
-        String msg = "Please select from the above choices.";
-
+        
+        String msg = "Please enter the number of your choice from"
+                + " the above listed options.";
         return io.readInt(msg);
     }
 
@@ -42,7 +41,7 @@ public class DvdView {
         currentDvd.setStudioName(studioName);
         String userRating = io.readString("Please enter your rating or note about the DVD");
         currentDvd.setUserRating(userRating);
-
+        io.readString("Please hit enter to continue");
         return currentDvd;
     }
 
@@ -112,6 +111,7 @@ public class DvdView {
     }
 
     public void displayErrorMessage(String errorMsg) {
+        errorMsg = "Could nto save data";
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }

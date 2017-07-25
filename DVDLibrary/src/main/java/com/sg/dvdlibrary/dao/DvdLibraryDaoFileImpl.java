@@ -18,7 +18,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     @Override
     public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException {
         try {
-            Dvd newDvd = dvdRoster.put(dvdTitle, dvd);
+            Dvd newDvd = dvdLibrary.put(dvdTitle, dvd);
             writeLibrary();
             return newDvd;
         } catch (DvdLibraryDaoException e) {
@@ -35,7 +35,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             throw new DvdLibraryDaoException(
                     "Could not save DVD data.", e);
         }
-        return new ArrayList<>(dvdRoster.values());
+        return new ArrayList<>(dvdLibrary.values());
     }
 
     @Override
@@ -46,13 +46,13 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             throw new DvdLibraryDaoException(
                     "Could not save DVD data.", e);
         }
-        return dvdRoster.get(dvdTitle);
+        return dvdLibrary.get(dvdTitle);
     }
 
     @Override
     public Dvd removeDvd(String dvdTitle) throws DvdLibraryDaoException {
 
-        Dvd removedDvd = dvdRoster.remove(dvdTitle);
+        Dvd removedDvd = dvdLibrary.remove(dvdTitle);
         try {
             writeLibrary();
         } catch (DvdLibraryDaoException e) {
@@ -62,7 +62,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         return removedDvd;
 
     }
-    private Map<String, Dvd> dvdRoster = new HashMap<>();
+    private Map<String, Dvd> dvdLibrary = new HashMap<>();
 
     public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
@@ -89,7 +89,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             currentDvd.setStudioName(currentTokens[4]);
             currentDvd.setUserRating(currentTokens[5]);
 
-            dvdRoster.put(currentDvd.getDvdTitle(), currentDvd);
+            dvdLibrary.put(currentDvd.getDvdTitle(), currentDvd);
         }
         scanner.close();
     }
