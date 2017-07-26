@@ -20,7 +20,7 @@ public class DvdLibraryController {
         boolean keepGoing = true;
         int menuSelection;
         try {
-            do {
+            while (keepGoing = true) {
                 menuSelection = getMenuSelection();
                 switch (menuSelection) {
                     case 1:
@@ -36,14 +36,17 @@ public class DvdLibraryController {
                         removeDvd();
                         break;
                     case 5:
-                        if (menuSelection == 5) {
+                        if (menuSelection != 5) {
+                            keepGoing = true;
+                        } else if (menuSelection == 5) {
                             keepGoing = false;
                         }
                         break;
                     default:
                         unknownCommand();
+                        break;
                 }
-            } while (keepGoing = true);
+            } 
             exitMessage();
         } catch (DvdLibraryDaoException e) {
             view.displayErrorMessage(e.getMessage());
@@ -73,7 +76,7 @@ public class DvdLibraryController {
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
-        String prompt = "Please enter a DVD title";
+        String prompt = null;
         view.displayDisplayDvdBanner();
         String dvdTitle = view.getDvdTitleChoice(prompt);
         Dvd dvd = dao.getDvd(dvdTitle);
@@ -83,7 +86,7 @@ public class DvdLibraryController {
     private void removeDvd() throws DvdLibraryDaoException {
         try {
             view.displayRemoveDvdBanner();
-            String prompt = "Please enter a DVD title";
+            String prompt = null;
             String dvdTitle = view.getDvdTitleChoice(prompt);
             dao.removeDvd(dvdTitle);
             view.displayRemoveSuccessBanner();

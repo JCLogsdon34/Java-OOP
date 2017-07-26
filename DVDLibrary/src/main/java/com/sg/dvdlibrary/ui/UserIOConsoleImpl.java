@@ -3,7 +3,7 @@ package com.sg.dvdlibrary.ui;
 import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
-    Scanner inputReader = new Scanner(System.in);
+    
 
     @Override
     public void print(String msg) {
@@ -12,6 +12,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public double readDouble(String prompt) {
+        Scanner inputReader = new Scanner(System.in);
         double readDouble;
         System.out.println(prompt);
         readDouble = inputReader.nextDouble();
@@ -21,7 +22,7 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public double readDouble(String prompt, double min, double max) {
         double readDouble;
-
+        Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
         do {
             System.out.println(prompt);
@@ -37,6 +38,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public float readFloat(String prompt) {
+        Scanner inputReader = new Scanner(System.in);
         float readFloat;
         System.out.println(prompt);
         readFloat = inputReader.nextFloat();
@@ -46,7 +48,7 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public float readFloat(String prompt, float min, float max) {
         float readFloat;
-
+        Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
         do {
             System.out.println(prompt);
@@ -63,15 +65,16 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public int readInt(String prompt) {
         int myInt;
-        
+        Scanner inputReader = new Scanner(System.in);
         System.out.println(prompt);
+        
         myInt = inputReader.nextInt();
         return myInt;
     }
 
     @Override
     public int readInt(String prompt, int min, int max) {
-
+        Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
         int myInt;
 
@@ -90,19 +93,29 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public long readLong(String prompt) {
         long readLong;
-
+        long userChoices = 0;
+        Scanner inputReader = new Scanner(System.in);
         System.out.println(prompt);
+        if(inputReader.hasNextLine()){
+        userChoices = inputReader.nextLong();
+        inputReader.close();
+        } 
         readLong = inputReader.nextLong();
         return readLong;
     }
 
     @Override
     public long readLong(String prompt, long min, long max) {
+        long userChoices = 0;
         long readLong;
-        
+        Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = false;
         do {
             System.out.println(prompt);
+            if(inputReader.hasNextLine()){
+        userChoices = inputReader.nextLong();
+        inputReader.close();
+        } 
             readLong = inputReader.nextLong();
             if (readLong > max || readLong < min) {
                 keepGoing = false;
@@ -115,9 +128,10 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public String readString(String prompt) {
+        Scanner inputReader = new Scanner(System.in);      
         String userChoices;
         System.out.println(prompt);
-        userChoices = inputReader.nextLine();
-        return userChoices;
+        userChoices = inputReader.nextLine();      
+        return userChoices; 
     }
 }
