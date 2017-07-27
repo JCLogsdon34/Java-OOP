@@ -64,11 +64,12 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public int readInt(String prompt) {
-        int myInt;
+        int myInt = 0;
         Scanner inputReader = new Scanner(System.in);
         System.out.println(prompt);
-        
+        if(inputReader.hasNextLine()){
         myInt = inputReader.nextInt();
+        } 
         return myInt;
     }
 

@@ -17,10 +17,10 @@ public class DvdLibraryController {
     }
 
     public void run() {
-        boolean keepGoing = true;
+        boolean keepGoing = false;
         int menuSelection;
         try {
-            while (keepGoing = true) {
+            while (keepGoing == false) {
                 menuSelection = getMenuSelection();
                 switch (menuSelection) {
                     case 1:
@@ -36,17 +36,13 @@ public class DvdLibraryController {
                         removeDvd();
                         break;
                     case 5:
-                        if (menuSelection != 5) {
-                            keepGoing = true;
-                        } else if (menuSelection == 5) {
-                            keepGoing = false;
-                        }
+                        keepGoing = true;
                         break;
                     default:
                         unknownCommand();
                         break;
                 }
-            } 
+            }
             exitMessage();
         } catch (DvdLibraryDaoException e) {
             view.displayErrorMessage(e.getMessage());
