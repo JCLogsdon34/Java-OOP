@@ -36,6 +36,9 @@ public class DvdLibraryController {
                         removeDvd();
                         break;
                     case 5:
+                         editDvd();
+                         break;
+                    case 6:
                         keepGoing = true;
                         break;
                     default:
@@ -88,6 +91,22 @@ public class DvdLibraryController {
             view.displayRemoveSuccessBanner();
         } catch (DvdLibraryDaoException e) {
             view.displayErrorMessage(e.getMessage());
+        }
+    }
+    
+    
+    private void editDvd() throws DvdLibraryDaoException {
+        
+        try{
+            String dvdTitle = null;
+            view.displayEditDvdBanner();
+            view.getDvdTitleChoice(dvdTitle);           
+            dao.getDvd(dvdTitle);
+            dao.removeDvd(dvdTitle);
+            view.displayEditSuccessBanner();
+        } catch (DvdLibraryDaoException e) {
+            throw new DvdLibraryDaoException(
+                    "Could not save DVD data.", e);
         }
     }
 

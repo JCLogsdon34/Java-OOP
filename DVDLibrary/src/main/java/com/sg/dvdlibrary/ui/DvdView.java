@@ -72,31 +72,31 @@ public class DvdView {
         io.print("=== Display DVD ===");
     }
 
-    public String getDvdTitleChoice(String prompt) {
+    public String getDvdTitleChoice(String dvdTitle) {
         
-        return io.readString(prompt);
+        return io.readString("Please enter a dvdTitle");
     }
 
     public void displayDvd(Dvd dvd) {
       Dvd viewDvd = new Dvd();
 
-           // try{
+            try{
             io.readString(dvd.getDvdTitle());
-            viewDvd.getDvdTitle();
+   
             io.readString(dvd.getReleaseDate());
-            viewDvd.getReleaseDate();
+     
             io.readString(dvd.getMpaaRating());
-            viewDvd.getMpaaRating();
+       
             io.readString(dvd.getDirectorsName());
-            viewDvd.getStudioName();
+          
             io.readString(dvd.getStudioName());
-            viewDvd.getStudioName();
+
             io.readString(dvd.getUserRating());
-            viewDvd.getUserRating();
+
             io.readString(" ");
-       // }catch (NullPointerException e) {
+        }catch (NullPointerException e) {
            io.readString("No such dvd."); 
-        //}
+        }
         io.readString("Please hit enter to continue.");
     }
 
@@ -110,6 +110,12 @@ public class DvdView {
 
     public void displayExitBanner() {
         io.print("Good Bye!!!");
+    }
+    public void displayEditDvdBanner(){
+        io.print("=== Edit a Dvd ===");
+    }
+    public void displayEditSuccessBanner(){
+        io.print("=== Edit Success ===");
     }
 
     public void displayUnknownCommandBanner() {

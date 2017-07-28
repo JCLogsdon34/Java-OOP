@@ -60,8 +60,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
                     "Could not save DVD data.", e);
         }
         return removedDvd;
-
     }
+    
     private Map<String, Dvd> dvdLibrary = new HashMap<>();
 
     public static final String LIBRARY_FILE = "library.txt";
