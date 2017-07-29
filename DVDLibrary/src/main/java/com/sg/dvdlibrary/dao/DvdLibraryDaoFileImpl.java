@@ -69,6 +69,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     public void loadRoster() throws DvdLibraryDaoException {
         Scanner scanner;
+        Dvd currentDvd;
         try {
             scanner = new Scanner(
                     new BufferedReader(
@@ -81,7 +82,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         while (scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentTokens = currentLine.split(DELIMITER);
-            Dvd currentDvd = new Dvd();
+            currentDvd = new Dvd();
             currentDvd.setDvdTitle(currentTokens[0]);
             currentDvd.setReleaseDate(currentTokens[1]);
             currentDvd.setMpaaRating(currentTokens[2]);
@@ -95,7 +96,6 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     }
 
     public void writeLibrary() throws DvdLibraryDaoException {
-
         PrintWriter out;
         try {
             out = new PrintWriter(new FileWriter(LIBRARY_FILE));

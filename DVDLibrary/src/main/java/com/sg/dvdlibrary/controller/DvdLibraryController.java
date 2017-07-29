@@ -57,16 +57,17 @@ public class DvdLibraryController {
     }
 
     private void createDvd() throws DvdLibraryDaoException {
+        Dvd newDvd;
         view.displayCreateDvdBanner();
-        Dvd newDvd = view.getNewDvdInfo();
+        newDvd = view.getNewDvdInfo();
         dao.addDvd(newDvd.getDvdTitle(), newDvd);
         view.displayCreateSuccessBanner();
     }
 
     private void listDvds() throws DvdLibraryDaoException {
+        List<Dvd> dvdList;
         try {
             view.displayDisplayDvdBanner();
-            List<Dvd> dvdList;
             dvdList = dao.getAllDvds();
             view.displayDvdList(dvdList);
         } catch (DvdLibraryDaoException e) {
@@ -75,16 +76,19 @@ public class DvdLibraryController {
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
+        String dvdTitle;
+        Dvd dvd;
         view.displayDisplayDvdBanner();
-        String dvdTitle = view.getDvdTitleChoice();
-        Dvd dvd = dao.getDvd(dvdTitle);
+        dvdTitle = view.getDvdTitleChoice();
+        dvd = dao.getDvd(dvdTitle);
         view.displayDvd(dvd);
     }
 
     private void removeDvd() throws DvdLibraryDaoException {
+        String dvdTitle;
         try {
             view.displayRemoveDvdBanner();
-            String dvdTitle = view.getDvdTitleChoice();
+            dvdTitle = view.getDvdTitleChoice();
             dao.removeDvd(dvdTitle);
             view.displayRemoveSuccessBanner();
         } catch (DvdLibraryDaoException e) {
@@ -93,11 +97,14 @@ public class DvdLibraryController {
     }
 
     private void editDvd() throws DvdLibraryDaoException {
+        String dvdTitle;
+        Dvd currentDvd;
+        Dvd dvd;
         try {
             view.displayEditDvdBanner();
-            String dvdTitle = view.getDvdTitleChoice();
-            Dvd currentDvd = dao.getDvd(dvdTitle);
-            Dvd dvd = view.getDvdForUserEdit(dvdTitle, currentDvd);
+            dvdTitle = view.getDvdTitleChoice();
+            currentDvd = dao.getDvd(dvdTitle);
+            dvd = view.getDvdForUserEdit(dvdTitle, currentDvd);
             dao.addDvd(dvdTitle, dvd);
             view.displayEditSuccessBanner();
         } catch (DvdLibraryDaoException e) {

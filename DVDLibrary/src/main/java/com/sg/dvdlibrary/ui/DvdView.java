@@ -95,7 +95,7 @@ public class DvdView {
     }
 
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
-        boolean keepGoing = true;
+        boolean keepOnKeepingOn = true;
         int userSelection;
         String releaseDate;
         String mpaaRating;
@@ -103,7 +103,7 @@ public class DvdView {
         String userRating;
         Dvd editedDvdInfo = currentDvd;
 
-        while(keepGoing == true) {
+        while(keepOnKeepingOn == true) {
             userSelection = io.readInt("Please select a number from the following editing options: "
                     + "(1)Release Date "
                     + "(2)MPAA Rating "
@@ -132,7 +132,7 @@ public class DvdView {
                     io.print("Your change to the User Notes have been noted");
                     break;
                 case 5:
-                    keepGoing = false;
+                    keepOnKeepingOn = false;
                     break;
                 default:
                     io.print("Invalid Input, please enter one of the numbered chocies");
