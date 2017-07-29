@@ -18,8 +18,9 @@ public class DvdView {
         io.print("2. Create New Dvd");
         io.print("3. View a DVD");
         io.print("4. Remove a DVD");
-        io.print("5. Exit");
-        
+        io.print("5. Edit");
+        io.print("6. Exit");
+
         String msg = "Please enter the number of your choice from"
                 + " the above listed options.";
         return io.readInt(msg);
@@ -63,41 +64,82 @@ public class DvdView {
                     + currentDvd.getDirectorsName() + ": "
                     + currentDvd.getStudioName() + ": "
                     + currentDvd.getUserRating() + " ");
-
-            io.print("Please hit enter to continue.");
         }
+        io.print("Please hit enter to continue.");
     }
 
     public void displayDisplayDvdBanner() {
         io.print("=== Display DVD ===");
     }
 
-    public String getDvdTitleChoice(String dvdTitle) {
-        
+    public String getDvdTitleChoice() {
+
         return io.readString("Please enter a dvdTitle");
     }
 
     public void displayDvd(Dvd dvd) {
-      Dvd viewDvd = new Dvd();
+        Dvd viewDvd = new Dvd();
 
-            try{
+        try {
             io.readString(dvd.getDvdTitle());
-   
             io.readString(dvd.getReleaseDate());
-     
             io.readString(dvd.getMpaaRating());
-       
             io.readString(dvd.getDirectorsName());
-          
             io.readString(dvd.getStudioName());
-
             io.readString(dvd.getUserRating());
-
             io.readString(" ");
-        }catch (NullPointerException e) {
-           io.readString("No such dvd."); 
+        } catch (NullPointerException e) {
+            io.readString("No such dvd.");
         }
         io.readString("Please hit enter to continue.");
+    }
+
+    public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
+        boolean keepGoing = true;
+        int userSelection;
+        String releaseDate;
+        String mpaaRating;
+        String directorsName;
+        String userRating;
+        Dvd editedDvdInfo = currentDvd;
+
+        while(keepGoing == true) {
+            userSelection = io.readInt("Please select a number from the following editing options: "
+                    + "(1)Release Date "
+                    + "(2)MPAA Rating "
+                    + "(3)Director's Name"
+                    + "(4)User Notes"
+                    + "(5)Leave Menu");
+            switch (userSelection) {
+                case 1:
+                    releaseDate = io.readString("Please enter your desired changes for the Release Date");
+                    editedDvdInfo.setReleaseDate(releaseDate);
+                    io.print("Your change to the Release Date has been noted");
+                    break;
+                case 2:
+                    mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
+                    editedDvdInfo.setMpaaRating(mpaaRating);
+                    io.print("Your change to the MPAA Rating has been noted");
+                    break;
+                case 3:
+                    directorsName = io.readString("Please enter your desired changes for the Director's Name");
+                    editedDvdInfo.setDirectorsName(directorsName);
+                    io.print("Your change to the Director's Name has been noted");
+                    break;
+                case 4:
+                    userRating = io.readString("Please enter your desired changes for User Notes");
+                    editedDvdInfo.setUserRating(userRating);
+                    io.print("Your change to the User Notes have been noted");
+                    break;
+                case 5:
+                    keepGoing = false;
+                    break;
+                default:
+                    io.print("Invalid Input, please enter one of the numbered chocies");
+                    break;
+            }
+        } 
+        return editedDvdInfo;
     }
 
     public void displayRemoveDvdBanner() {
@@ -111,10 +153,12 @@ public class DvdView {
     public void displayExitBanner() {
         io.print("Good Bye!!!");
     }
-    public void displayEditDvdBanner(){
+
+    public void displayEditDvdBanner() {
         io.print("=== Edit a Dvd ===");
     }
-    public void displayEditSuccessBanner(){
+
+    public void displayEditSuccessBanner() {
         io.print("=== Edit Success ===");
     }
 
@@ -123,7 +167,7 @@ public class DvdView {
     }
 
     public void displayErrorMessage(String errorMsg) {
-        errorMsg = "Could nto save data";
+        errorMsg = "Could not save data";
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }

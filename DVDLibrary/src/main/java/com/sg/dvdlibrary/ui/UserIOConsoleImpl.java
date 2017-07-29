@@ -3,7 +3,6 @@ package com.sg.dvdlibrary.ui;
 import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
-    
 
     @Override
     public void print(String msg) {
@@ -67,9 +66,9 @@ public class UserIOConsoleImpl implements UserIO {
         int myInt = 0;
         Scanner inputReader = new Scanner(System.in);
         System.out.println(prompt);
-        if(inputReader.hasNextLine()){
-        myInt = inputReader.nextInt();
-        } 
+        if (inputReader.hasNextLine()) {
+            myInt = inputReader.nextInt();
+        }
         return myInt;
     }
 
@@ -97,10 +96,10 @@ public class UserIOConsoleImpl implements UserIO {
         long userChoices = 0;
         Scanner inputReader = new Scanner(System.in);
         System.out.println(prompt);
-        if(inputReader.hasNextLine()){
-        userChoices = inputReader.nextLong();
-        inputReader.close();
-        } 
+        if (inputReader.hasNextLine()) {
+            userChoices = inputReader.nextLong();
+            inputReader.close();
+        }
         readLong = inputReader.nextLong();
         return readLong;
     }
@@ -113,10 +112,10 @@ public class UserIOConsoleImpl implements UserIO {
         boolean keepGoing = false;
         do {
             System.out.println(prompt);
-            if(inputReader.hasNextLine()){
-        userChoices = inputReader.nextLong();
-        inputReader.close();
-        } 
+            if (inputReader.hasNextLine()) {
+                userChoices = inputReader.nextLong();
+                inputReader.close();
+            }
             readLong = inputReader.nextLong();
             if (readLong > max || readLong < min) {
                 keepGoing = false;
@@ -129,10 +128,10 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public String readString(String prompt) {
-        Scanner inputReader = new Scanner(System.in);      
+        Scanner inputReader = new Scanner(System.in);
         String userChoices;
         System.out.println(prompt);
-        userChoices = inputReader.nextLine();      
-        return userChoices; 
+        userChoices = inputReader.nextLine();
+        return userChoices;
     }
 }

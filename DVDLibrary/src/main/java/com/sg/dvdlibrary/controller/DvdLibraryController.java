@@ -36,8 +36,8 @@ public class DvdLibraryController {
                         removeDvd();
                         break;
                     case 5:
-                         editDvd();
-                         break;
+                        editDvd();
+                        break;
                     case 6:
                         keepGoing = true;
                         break;
@@ -75,9 +75,8 @@ public class DvdLibraryController {
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
-        String prompt = null;
         view.displayDisplayDvdBanner();
-        String dvdTitle = view.getDvdTitleChoice(prompt);
+        String dvdTitle = view.getDvdTitleChoice();
         Dvd dvd = dao.getDvd(dvdTitle);
         view.displayDvd(dvd);
     }
@@ -85,28 +84,24 @@ public class DvdLibraryController {
     private void removeDvd() throws DvdLibraryDaoException {
         try {
             view.displayRemoveDvdBanner();
-            String prompt = null;
-            String dvdTitle = view.getDvdTitleChoice(prompt);
+            String dvdTitle = view.getDvdTitleChoice();
             dao.removeDvd(dvdTitle);
             view.displayRemoveSuccessBanner();
         } catch (DvdLibraryDaoException e) {
             view.displayErrorMessage(e.getMessage());
         }
     }
-    
-    
+
     private void editDvd() throws DvdLibraryDaoException {
-        
-        try{
-            String dvdTitle = null;
+        try {
             view.displayEditDvdBanner();
-            view.getDvdTitleChoice(dvdTitle);           
-            dao.getDvd(dvdTitle);
-            dao.removeDvd(dvdTitle);
+            String dvdTitle = view.getDvdTitleChoice();
+            Dvd currentDvd = dao.getDvd(dvdTitle);
+            Dvd dvd = view.getDvdForUserEdit(dvdTitle, currentDvd);
+            dao.addDvd(dvdTitle, dvd);
             view.displayEditSuccessBanner();
         } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
+            view.displayErrorMessage(e.getMessage());
         }
     }
 

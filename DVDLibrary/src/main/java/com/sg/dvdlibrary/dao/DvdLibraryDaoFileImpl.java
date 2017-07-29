@@ -52,8 +52,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     @Override
     public Dvd removeDvd(String dvdTitle) throws DvdLibraryDaoException {
         Dvd removedDvd;
-        try{
-        removedDvd = dvdLibrary.remove(dvdTitle);       
+        try {
+            removedDvd = dvdLibrary.remove(dvdTitle);
             writeLibrary();
         } catch (DvdLibraryDaoException e) {
             throw new DvdLibraryDaoException(
@@ -61,13 +61,13 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         }
         return removedDvd;
     }
-    
+
     private Map<String, Dvd> dvdLibrary = new HashMap<>();
 
     public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
 
-    private void loadRoster() throws DvdLibraryDaoException {
+    public void loadRoster() throws DvdLibraryDaoException {
         Scanner scanner;
         try {
             scanner = new Scanner(
@@ -94,7 +94,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         scanner.close();
     }
 
-    private void writeLibrary() throws DvdLibraryDaoException {
+    public void writeLibrary() throws DvdLibraryDaoException {
 
         PrintWriter out;
         try {
