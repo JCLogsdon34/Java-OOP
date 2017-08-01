@@ -101,9 +101,9 @@ public class DvdView {
         String mpaaRating;
         String directorsName;
         String userRating;
-        Dvd editedDvdInfo = currentDvd;
 
-        while(keepOnKeepingOn == true) {
+
+        while(keepOnKeepingOn) {
             userSelection = io.readInt("Please select a number from the following editing options: "
                     + "(1)Release Date "
                     + "(2)MPAA Rating "
@@ -113,22 +113,22 @@ public class DvdView {
             switch (userSelection) {
                 case 1:
                     releaseDate = io.readString("Please enter your desired changes for the Release Date");
-                    editedDvdInfo.setReleaseDate(releaseDate);
+                    currentDvd.setReleaseDate(releaseDate);
                     io.print("Your change to the Release Date has been noted");
                     break;
                 case 2:
                     mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
-                    editedDvdInfo.setMpaaRating(mpaaRating);
+                    currentDvd.setMpaaRating(mpaaRating);
                     io.print("Your change to the MPAA Rating has been noted");
                     break;
                 case 3:
                     directorsName = io.readString("Please enter your desired changes for the Director's Name");
-                    editedDvdInfo.setDirectorsName(directorsName);
+                    currentDvd.setDirectorsName(directorsName);
                     io.print("Your change to the Director's Name has been noted");
                     break;
                 case 4:
                     userRating = io.readString("Please enter your desired changes for User Notes");
-                    editedDvdInfo.setUserRating(userRating);
+                    currentDvd.setUserRating(userRating);
                     io.print("Your change to the User Notes have been noted");
                     break;
                 case 5:
@@ -139,7 +139,7 @@ public class DvdView {
                     break;
             }
         } 
-        return editedDvdInfo;
+        return currentDvd;
     }
 
     public void displayRemoveDvdBanner() {

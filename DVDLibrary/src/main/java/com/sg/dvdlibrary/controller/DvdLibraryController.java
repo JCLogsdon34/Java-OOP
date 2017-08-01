@@ -19,37 +19,54 @@ public class DvdLibraryController {
     public void run() {
         boolean keepGoing = false;
         int menuSelection;
-        try {
-            while (keepGoing == false) {
-                menuSelection = getMenuSelection();
-                switch (menuSelection) {
-                    case 1:
+
+        while (keepGoing) {
+            menuSelection = getMenuSelection();
+            switch (menuSelection) {
+                case 1:
+                    try {
                         listDvds();
-                        break;
-                    case 2:
+                    } catch (DvdLibraryDaoException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    }
+                    break;
+                case 2:
+                    try {
                         createDvd();
-                        break;
-                    case 3:
+                    } catch (DvdLibraryDaoException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    try {
                         viewDvd();
-                        break;
-                    case 4:
+                    } catch (DvdLibraryDaoException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    }
+                    break;
+                case 4:
+                    try {
                         removeDvd();
-                        break;
-                    case 5:
+                    } catch (DvdLibraryDaoException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    }
+                    break;
+                case 5:
+                    try {
                         editDvd();
-                        break;
-                    case 6:
-                        keepGoing = true;
-                        break;
-                    default:
-                        unknownCommand();
-                        break;
-                }
+                    } catch (DvdLibraryDaoException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    }
+                    break;
+                case 6:
+                    keepGoing = true;
+                    break;
+                default:
+                    unknownCommand();
+                    break;
             }
-            exitMessage();
-        } catch (DvdLibraryDaoException e) {
-            view.displayErrorMessage(e.getMessage());
         }
+        exitMessage();
     }
 
     private int getMenuSelection() {
