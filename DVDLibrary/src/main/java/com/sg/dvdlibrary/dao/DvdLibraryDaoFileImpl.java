@@ -17,48 +17,28 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException {
-        try {
             Dvd newDvd = dvdLibrary.put(dvdTitle, dvd);
             writeLibrary();
-            return newDvd;
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
+            return newDvd;     
     }
 
     @Override
     public List<Dvd> getAllDvds() throws DvdLibraryDaoException {
-        try {
-            loadRoster();
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
+            loadRoster();     
         return new ArrayList<>(dvdLibrary.values());
     }
 
     @Override
     public Dvd getDvd(String dvdTitle) throws DvdLibraryDaoException {
-        try {
             loadRoster();
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
         return dvdLibrary.get(dvdTitle);
     }
 
     @Override
     public Dvd removeDvd(String dvdTitle) throws DvdLibraryDaoException {
         Dvd removedDvd;
-        try {
             removedDvd = dvdLibrary.remove(dvdTitle);
-            writeLibrary();
-        } catch (DvdLibraryDaoException e) {
-            throw new DvdLibraryDaoException(
-                    "Could not save DVD data.", e);
-        }
+            writeLibrary();       
         return removedDvd;
     }
 

@@ -17,7 +17,7 @@ public class DvdLibraryController {
     }
 
     public void run() {
-        boolean keepGoing = false;
+        boolean keepGoing = true;
         int menuSelection;
 
         while (keepGoing) {
@@ -59,7 +59,7 @@ public class DvdLibraryController {
                     }
                     break;
                 case 6:
-                    keepGoing = true;
+                    keepGoing = false;
                     break;
                 default:
                     unknownCommand();
@@ -83,13 +83,9 @@ public class DvdLibraryController {
 
     private void listDvds() throws DvdLibraryDaoException {
         List<Dvd> dvdList;
-        try {
             view.displayDisplayDvdBanner();
             dvdList = dao.getAllDvds();
-            view.displayDvdList(dvdList);
-        } catch (DvdLibraryDaoException e) {
-            view.displayErrorMessage(e.getMessage());
-        }
+            view.displayDvdList(dvdList); 
     }
 
     private void viewDvd() throws DvdLibraryDaoException {
@@ -103,30 +99,22 @@ public class DvdLibraryController {
 
     private void removeDvd() throws DvdLibraryDaoException {
         String dvdTitle;
-        try {
             view.displayRemoveDvdBanner();
             dvdTitle = view.getDvdTitleChoice();
             dao.removeDvd(dvdTitle);
             view.displayRemoveSuccessBanner();
-        } catch (DvdLibraryDaoException e) {
-            view.displayErrorMessage(e.getMessage());
-        }
     }
 
     private void editDvd() throws DvdLibraryDaoException {
         String dvdTitle;
         Dvd currentDvd;
         Dvd dvd;
-        try {
             view.displayEditDvdBanner();
             dvdTitle = view.getDvdTitleChoice();
             currentDvd = dao.getDvd(dvdTitle);
             dvd = view.getDvdForUserEdit(dvdTitle, currentDvd);
             dao.addDvd(dvdTitle, dvd);
             view.displayEditSuccessBanner();
-        } catch (DvdLibraryDaoException e) {
-            view.displayErrorMessage(e.getMessage());
-        }
     }
 
     private void unknownCommand() {

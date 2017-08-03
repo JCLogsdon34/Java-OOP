@@ -80,18 +80,18 @@ public class DvdView {
     public void displayDvd(Dvd dvd) {
         Dvd viewDvd = new Dvd();
 
-        try {
-            io.readString(dvd.getDvdTitle());
-            io.readString(dvd.getReleaseDate());
-            io.readString(dvd.getMpaaRating());
-            io.readString(dvd.getDirectorsName());
-            io.readString(dvd.getStudioName());
-            io.readString(dvd.getUserRating());
-            io.readString(" ");
-        } catch (NullPointerException e) {
-            io.readString("No such dvd.");
+        if(dvd != null){
+            io.print(dvd.getDvdTitle());
+            io.print(dvd.getReleaseDate());
+            io.print(dvd.getMpaaRating());
+            io.print(dvd.getDirectorsName());
+            io.print(dvd.getStudioName());
+            io.print(dvd.getUserRating());
+            io.print(" ");
+        }else{
+            io.print("No such dvd.");
         }
-        io.readString("Please hit enter to continue.");
+        io.print("Please hit enter to continue.");
     }
 
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
