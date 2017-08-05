@@ -27,13 +27,28 @@ public class DvdView {
     }
 
     public Dvd getNewDvdInfo() {
-
+        String dvdTitle = null;
         Dvd currentDvd = new Dvd();
-
-        String dvdTitle = io.readString("Please enter DVD title");
+        boolean value = true;
+        do{
+        if(dvdTitle.isEmpty()){    
+        dvdTitle = io.readString("Please enter DVD title"); 
+        value = true;
+        }else if(!dvdTitle.isEmpty()){
         currentDvd.setDvdTitle(dvdTitle);
+        value = false;
+        }
+        }while(value);
+        int numberYear = 0;
         String releaseDate = io.readString("Please enter the DVD release date");
-        currentDvd.setReleaseDate(releaseDate);
+        numberYear = Integer.parseInt(releaseDate);
+        while(numberYear == 0){
+             releaseDate = io.readString("Please enter the DVD release date");
+        }
+        if (numberYear != 0){
+            currentDvd.setReleaseDate(releaseDate);
+        }
+     
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
         String directorsName = io.readString("Please enter the director's name");
@@ -73,7 +88,7 @@ public class DvdView {
     }
 
     public String getDvdTitleChoice() {
-
+        
         return io.readString("Please enter a dvdTitle");
     }
 

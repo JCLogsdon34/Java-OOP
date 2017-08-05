@@ -76,9 +76,11 @@ public class DvdLibraryController {
     private void createDvd() throws DvdLibraryDaoException {
         Dvd newDvd;
         view.displayCreateDvdBanner();
-        newDvd = view.getNewDvdInfo();
+        newDvd = view.getNewDvdInfo();      
         dao.addDvd(newDvd.getDvdTitle(), newDvd);
+        if(newDvd != null){
         view.displayCreateSuccessBanner();
+        }
     }
 
     private void listDvds() throws DvdLibraryDaoException {

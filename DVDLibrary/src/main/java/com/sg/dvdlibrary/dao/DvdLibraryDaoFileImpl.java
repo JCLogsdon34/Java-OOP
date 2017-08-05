@@ -17,10 +17,20 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException {
-            Dvd newDvd = dvdLibrary.put(dvdTitle, dvd);
-            writeLibrary();
-            return newDvd;     
+            Dvd newDvd = null;
+            loadRoster();
+            dvdLibrary.get(dvdTitle);
+            dvdLibrary.keySet();
+                for(String key: dvdLibrary.keySet()){
+                if(key.contains(dvdTitle)){
+                    System.out.println("You already have this DVD");
+                } 
+            }
+            newDvd = dvdLibrary.put(dvdTitle, dvd);
+            writeLibrary();               
+            return newDvd;  
     }
+    
 
     @Override
     public List<Dvd> getAllDvds() throws DvdLibraryDaoException {
