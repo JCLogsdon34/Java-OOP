@@ -1,6 +1,7 @@
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class DvdView {
@@ -27,28 +28,24 @@ public class DvdView {
     }
 
     public Dvd getNewDvdInfo() {
-        String dvdTitle = null;
         Dvd currentDvd = new Dvd();
-        boolean value = true;
-        do{
-        if(dvdTitle.isEmpty()){    
+        
+        String dvdTitle;
         dvdTitle = io.readString("Please enter DVD title"); 
-        value = true;
-        }else if(!dvdTitle.isEmpty()){
+        if(dvdTitle != null && !dvdTitle.isEmpty()){
         currentDvd.setDvdTitle(dvdTitle);
-        value = false;
         }
-        }while(value);
-        int numberYear = 0;
-        String releaseDate = io.readString("Please enter the DVD release date");
+        int numberYear;
+        try{
+        String releaseDate = io.readString("Please enter an Integer for the year the DVD was released");
         numberYear = Integer.parseInt(releaseDate);
-        while(numberYear == 0){
-             releaseDate = io.readString("Please enter the DVD release date");
-        }
+        
         if (numberYear != 0){
             currentDvd.setReleaseDate(releaseDate);
         }
-     
+        }catch(InputMismatchException e){
+            io.print("Not an Integer, please enter an integer");
+        }
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
         String directorsName = io.readString("Please enter the director's name");
