@@ -1,7 +1,6 @@
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
-import java.util.InputMismatchException;
 import java.util.List;
 
 public class DvdView {
@@ -29,23 +28,30 @@ public class DvdView {
 
     public Dvd getNewDvdInfo() {
         Dvd currentDvd = new Dvd();
-        
-        String dvdTitle;
-        dvdTitle = io.readString("Please enter DVD title"); 
-        if(dvdTitle != null && !dvdTitle.isEmpty()){
-        currentDvd.setDvdTitle(dvdTitle);
-        }
-        int numberYear;
-        try{
-        String releaseDate = io.readString("Please enter an Integer for the year the DVD was released");
-        numberYear = Integer.parseInt(releaseDate);
-        
-        if (numberYear != 0){
-            currentDvd.setReleaseDate(releaseDate);
-        }
-        }catch(InputMismatchException e){
-            io.print("Not an Integer, please enter an integer");
-        }
+        boolean newInput;
+        do {
+            String dvdTitle;
+            dvdTitle = io.readString("Please enter DVD title");
+            if (dvdTitle != null && !dvdTitle.isEmpty()) {
+                currentDvd.setDvdTitle(dvdTitle);
+                newInput = true;
+            } else {
+                newInput = false;
+            }
+        } while (newInput == false);
+        String numberYear;
+        boolean intChecker = false;
+        do {
+            numberYear = io.readString("Please enter a number for the year the DVD was released");
+            try {
+                int releaseDate = Integer.parseInt(numberYear);
+            } catch (NumberFormatException e) {
+                io.readString("That is not an number, please enter a number");
+                intChecker = true;
+            }
+            currentDvd.setReleaseDate(numberYear);
+        } while (intChecker == false);
+
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
         String directorsName = io.readString("Please enter the director's name");
@@ -85,14 +91,14 @@ public class DvdView {
     }
 
     public String getDvdTitleChoice() {
-        
+
         return io.readString("Please enter a dvdTitle");
     }
 
     public void displayDvd(Dvd dvd) {
         Dvd viewDvd = new Dvd();
 
-        if(dvd != null){
+        if (dvd != null) {
             io.print(dvd.getDvdTitle());
             io.print(dvd.getReleaseDate());
             io.print(dvd.getMpaaRating());
@@ -100,7 +106,7 @@ public class DvdView {
             io.print(dvd.getStudioName());
             io.print(dvd.getUserRating());
             io.print(" ");
-        }else{
+        } else {
             io.print("No such dvd.");
         }
         io.print("Please hit enter to continue.");
@@ -114,8 +120,7 @@ public class DvdView {
         String directorsName;
         String userRating;
 
-
-        while(keepOnKeepingOn) {
+        while (keepOnKeepingOn) {
             userSelection = io.readInt("Please select a number from the following editing options: "
                     + "(1)Release Date "
                     + "(2)MPAA Rating "
@@ -124,24 +129,56 @@ public class DvdView {
                     + "(5)Leave Menu");
             switch (userSelection) {
                 case 1:
-                    releaseDate = io.readString("Please enter your desired changes for the Release Date");
-                    currentDvd.setReleaseDate(releaseDate);
-                    io.print("Your change to the Release Date has been noted");
+                    boolean newInput;
+                    do {
+                        releaseDate = io.readString("Please enter your desired changes for the Release Date");
+                        if (releaseDate != null && !releaseDate.isEmpty()) {
+                            currentDvd.setReleaseDate(releaseDate);
+                            io.print("Your change to the Release Date has been noted");
+                            newInput = true;
+                        } else {
+                            newInput = false;
+                        }
+                    } while (newInput == false);
                     break;
                 case 2:
-                    mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
-                    currentDvd.setMpaaRating(mpaaRating);
-                    io.print("Your change to the MPAA Rating has been noted");
+                    boolean inputTry;
+                    do {
+                        mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
+                        if (mpaaRating != null && !mpaaRating.isEmpty()) {
+                            currentDvd.setMpaaRating(mpaaRating);
+                            io.print("Your change to the MPAA Rating has been noted");
+                            inputTry = true;
+                        } else {
+                            inputTry = false;
+                        }
+                    } while (inputTry == false);
                     break;
                 case 3:
-                    directorsName = io.readString("Please enter your desired changes for the Director's Name");
-                    currentDvd.setDirectorsName(directorsName);
-                    io.print("Your change to the Director's Name has been noted");
+                    boolean inputValidate;
+                    do {
+                        directorsName = io.readString("Please enter your desired changes for the Director's Name");
+                        if (directorsName != null && !directorsName.isEmpty()) {
+                            currentDvd.setDirectorsName(directorsName);
+                            io.print("Your change to the Director's Name has been noted");
+                            inputValidate = true;
+                        } else {
+                            inputValidate = false;
+                        }
+                    } while (inputValidate == false);
                     break;
                 case 4:
-                    userRating = io.readString("Please enter your desired changes for User Notes");
-                    currentDvd.setUserRating(userRating);
-                    io.print("Your change to the User Notes have been noted");
+                    boolean inputBool;
+                    do {
+                        userRating = io.readString("Please enter your desired changes for User Notes");
+                        if (userRating != null && !userRating.isEmpty()) {
+                            currentDvd.setUserRating(userRating);
+                            io.print("Your change to the User Notes have been noted");
+                            inputBool = true;
+                        } else {
+                            inputBool = false;
+                        }
+                    } while (inputBool == false);
                     break;
                 case 5:
                     keepOnKeepingOn = false;
@@ -150,7 +187,7 @@ public class DvdView {
                     io.print("Invalid Input, please enter one of the numbered chocies");
                     break;
             }
-        } 
+        }
         return currentDvd;
     }
 
