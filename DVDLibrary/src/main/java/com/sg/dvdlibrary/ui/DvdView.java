@@ -40,18 +40,19 @@ public class DvdView {
             }
         } while (newInput == false);
         String numberYear;
-        boolean intChecker = false;
+        boolean intChecker;
         do {
             numberYear = io.readString("Please enter a number for the year the DVD was released");
-            try {
+                if (numberYear != null && !numberYear.isEmpty()){ 
                 int releaseDate = Integer.parseInt(numberYear);
-            } catch (NumberFormatException e) {
-                io.readString("That is not an number, please enter a number");
+                    currentDvd.setReleaseDate(numberYear);
                 intChecker = true;
-            }
-            currentDvd.setReleaseDate(numberYear);
+                }else{        
+                io.readString("That is not a number, please enter a number");
+                intChecker = false;
+                }
         } while (intChecker == false);
-
+        
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
         String directorsName = io.readString("Please enter the director's name");
@@ -96,9 +97,8 @@ public class DvdView {
     }
 
     public void displayDvd(Dvd dvd) {
-        Dvd viewDvd = new Dvd();
-
         if (dvd != null) {
+            Dvd viewDvd = new Dvd();
             io.print(dvd.getDvdTitle());
             io.print(dvd.getReleaseDate());
             io.print(dvd.getMpaaRating());
