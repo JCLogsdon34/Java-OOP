@@ -2,8 +2,8 @@ package com.sg.dvdlibrary.dto;
 
 public class Dvd {
     
-    public Dvd dvd;
-    public Dvd currentDvd;
+    //public Dvd dvd; 
+    //public Dvd currentDvd;
     public String dvdTitle;
     public String releaseDate;
     public String directorsName;
@@ -11,7 +11,7 @@ public class Dvd {
     public String studioName;
     public String userRating;
 
-    public Dvd getDvd() {
+  /*  public Dvd getDvd() {
         return dvd;
     }
     
@@ -25,7 +25,7 @@ public class Dvd {
     
     public Dvd getCurrentDvd() {
         return currentDvd;      
-    }
+    } */
 
     public void setDvdTitle(String dvdTitle) {
         this.dvdTitle = dvdTitle;
