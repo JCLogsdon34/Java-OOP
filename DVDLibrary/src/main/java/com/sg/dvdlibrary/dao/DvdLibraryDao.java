@@ -6,15 +6,15 @@ import java.util.List;
 public interface DvdLibraryDao {
 
     Dvd addDvd(String dvdTitle, Dvd dvd)
-            throws DvdLibraryDaoException;
+            throws DvdLibraryPersistenceException;
 
     List<Dvd> getAllDvds()
-            throws DvdLibraryDaoException; 
+            throws DvdLibraryPersistenceException; 
     
     Dvd getDvd(String dvdTitle)
-            throws DvdLibraryDaoException;
+            throws DvdLibraryPersistenceException;
 
     Dvd removeDvd(String dvdTitle)
-            throws DvdLibraryDaoException;
+            throws DvdLibraryPersistenceException;
 
 }
