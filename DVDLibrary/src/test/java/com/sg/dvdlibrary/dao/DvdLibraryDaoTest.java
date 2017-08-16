@@ -49,8 +49,19 @@ public class DvdLibraryDaoTest {
      * Test of addDvd method, of class DvdLibraryDao.
      */
     @Test
-    public void testAddDvd() throws Exception {
+    public void testGetDvd() throws Exception {
+        Dvd dvd = new Dvd();
+        dvd.setDvdTitle("Joe");
+        dvd.setDirectorsName("Smith");
+        dvd.setReleaseDate("2017");
+        dvd.setStudioName("Applewood");
+        dvd.setUserRating("A");
         
+        dao.addDvd(dvd.getDvdTitle(), dvd);
+        
+        Dvd fromDao = dao.getDvd(dvd.getDvdTitle());
+        
+        assertEquals(dvd, fromDao); 
     }
 
     /**
@@ -58,25 +69,38 @@ public class DvdLibraryDaoTest {
      */
     @Test
     public void testGetAllDvds() throws Exception {
+        Dvd dvd1 = new Dvd();
+        dvd1.setDvdTitle("Joe");
+        dvd1.setDirectorsName("Smith");
+        dvd1.setReleaseDate("2017");
+        dvd1.setStudioName("Applewood");
+        dvd1.setUserRating("A");
         
+        dao.addDvd(dvd1.getDvdTitle(), dvd1);
+        
+        Dvd dvd2 = new Dvd();
+        dvd2.setDvdTitle("Jill");
+        dvd2.setDirectorsName("Stein");
+        dvd2.setReleaseDate("2016");
+        dvd2.setStudioName("San Francisco");
+        dvd2.setUserRating("B+");
+        
+        dao.addDvd(dvd2.getDvdTitle(), dvd2);
+        
+        dao.removeDvd(dvd1.getDvdTitle());
+        assertEquals(1, dao.getAllDvds().size());
+        assertNull(dao.getDvd(dvd1.getDvdTitle()));
+        
+        dao.removeDvd(dvd2.getDvdTitle());
+        assertEquals(2, dao.getAllDvds().size());
+        assertNull(dao.getDvd(dvd2.getDvdTitle()));
     }
 
-    /**
-     * Test of getDvd method, of class DvdLibraryDao.
-     */
-    @Test
-    public void testGetDvd() throws Exception {
-       
-    }
-
-    /**
-     * Test of removeDvd method, of class DvdLibraryDao.
-     */
     @Test
     public void testRemoveDvd() throws Exception {
         
     }
-
+/*
     public class DvdLibraryDaoImpl implements DvdLibraryDao {
 
         public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryPersistenceException {
@@ -94,6 +118,6 @@ public class DvdLibraryDaoTest {
         public Dvd removeDvd(String dvdTitle) throws DvdLibraryPersistenceException {
             return null;
         }
-    }
+    } */
     
 }
