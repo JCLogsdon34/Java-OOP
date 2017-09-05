@@ -100,7 +100,7 @@ public class DvdLibraryDaoTest {
     public void testRemoveDvd() throws Exception {
         
     }
-/*
+
     public class DvdLibraryDaoImpl implements DvdLibraryDao {
 
         public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryPersistenceException {
@@ -118,6 +118,6 @@ public class DvdLibraryDaoTest {
         public Dvd removeDvd(String dvdTitle) throws DvdLibraryPersistenceException {
             return null;
         }
-    } */
+    } 
     
 }

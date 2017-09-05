@@ -18,10 +18,12 @@ public class GreatParty {
             } else {
                 return false;
             }
-        } else if (cigars >= 40 && cigars <= 60) {
+        } else {
+            if(cigars >= 40 && cigars <= 60) {
             return true;
         } else {
             return false;
         }
     }
+  }
 }

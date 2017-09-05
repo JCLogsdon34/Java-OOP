@@ -12,10 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author apprentice
- */
+
 public class GreatPartyTest {
     
     GreatParty party = new GreatParty();
@@ -40,8 +37,7 @@ public class GreatPartyTest {
     }
 
     @Test
-    public void test30False() {
-        
+    public void test30False() { 
         assertFalse(party.greatParty(30, false));
     }
     
