@@ -3,76 +3,50 @@ package com.sg.addressbook.dto;
 
 
 public class AddressBook {
-    public Address address;
-    public Address currentAddress;
+    
     public String addressTitle;
-    public String releaseDate;
-    public String directorsName;
-    public String mpaaRating;
-    public String studioName;
-    public String userRating;
-
-    public Address getAddress() {
-        return Address;
-    }
-    
-    public void setAddress(Address address) {
-        this.address= address;
-    }
-
-    public void setCurrentAddress(Address currentAddress){
-        this.currentAddress = currentAddress;
-    }
-    
-    public Address getCurrentAddress() {
-        return currentAddress;      
-    }
+    public String streetName;
+    public String occupantFirstName;
+    public String occupantLastName;
+    public String addressState;
 
     public void setAddressTitle(String addressTitle) {
         this.addressTitle = addressTitle;
     }
-
+    
     public String getAddressTitle() {
         return addressTitle;
     }
-
-    public void setDirectorsName(String directorsName) {
-        this.directorsName = directorsName;
+    
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
-    public String getDirectorsName() {
-        return directorsName;
+    public String getStreetName(){
+        return streetName;
+    }
+    
+    public void setOccupantFirstName(String occupantFirstName) {
+        this.occupantFirstName = occupantFirstName;      
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public String getOccupantFirstName() {
+        return occupantFirstName;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public void setOccupantLastName(String occupantLastName) {
+        this.occupantLastName = occupantLastName;
     }
 
-    public void setMpaaRating(String mpaaRating) {
-        this.mpaaRating = mpaaRating;
+    public String getOccupantLastName() {
+        return occupantLastName;
     }
 
-    public String getMpaaRating() {
-        return mpaaRating;
+    public void setAddressState(String addressState) {
+        this.addressState = addressState;
     }
 
-    public void setStudioName(String studioName) {
-        this.studioName = studioName;
-    }
-
-    public String getStudioName() {
-        return studioName;
-    }
-
-    public void setUserRating(String userRating) {
-        this.userRating = userRating;
-    }
-
-    public String getUserRating() {
-        return userRating;
+    public String getAddressState() {
+        return addressState;
     }
 }

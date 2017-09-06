@@ -57,8 +57,6 @@ public class Dvd {
 
     public String getUserRating() {
         return userRating;
-        
-        
     }
 
     @Override

@@ -1,20 +1,21 @@
 
 package com.sg.addressbook.dao;
 
+import com.sg.addressbook.dto.AddressBook;
 import java.util.List;
 
 
 public interface AddressBookDao {
     
-    Address addAddress(String addressTitle, Address address)
+    AddressBook addAddress(String addressTitle, AddressBook address)
             throws AddressBookDaoException;
 
-    List<Address> getAllAddresses()
+    List<AddressBook> getAllAddresses()
             throws AddressBookDaoException;
 
-    Address getAddress(String addressTitle)
+    AddressBook getAddress(String addressTitle)
             throws AddressBookDaoException;
 
-    Address removeAddress(String addressTitle)
+    AddressBook removeAddress(String addressTitle)
             throws AddressBookDaoException;
 }

@@ -1,6 +1,7 @@
 
 package com.sg.addressbook.dao;
 
+import com.sg.addressbook.dto.AddressBook;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,30 +18,21 @@ import java.util.Scanner;
 public class AddressBookDaoFileImpl implements AddressBookDao {
 
     @Override
-    public Address addAddress(String addressTitle, Address address) throws AddressBookDaoException {
-        try {
-            Address newAddress = addressLibrary.put(addressTitle, address);
-            writeLibrary();
-            return newAddress;
-        } catch (AddressBookDaoException e) {
-            throw new AddressBookDaoException(
-                    "Could not save Address Entry data.", e);
-        }
+    public AddressBook addAddress(String addressTitle, AddressBook address) throws AddressBookDaoException {
+        AddressBook newAddress = addressLibrary.put(addressTitle, address);
+        writeLibrary();
+        return newAddress;
     }
 
     @Override
-    public List<Address> getAllAddresses() throws AddressBookDaoException {
-        try {
-            loadRoster();
-        } catch (AddressBookDaoException e) {
-            throw new AddressBookDaoException(
-                    "Could not save Address Entry data.", e);
-        }
+    public List<AddressBook> getAllAddresses() throws AddressBookDaoException {
+        loadRoster();
         return new ArrayList<>(addressLibrary.values());
     }
 
     @Override
-    public Address getAddress(String addressTitle) throws AddressBookDaoException {
+    public AddressBook getAddress(String addressTitle) throws AddressBookDaoException {
+        try{
             loadRoster();
         } catch (AddressBookDaoException e) {
             throw new AddressBookDaoException(
@@ -50,8 +42,8 @@ public class AddressBookDaoFileImpl implements AddressBookDao {
     }
 
     @Override
-    public Address removeAddress(String addressTitle) throws AddressBookDaoException {
-        Address removedAddress;
+    public AddressBook removeAddress(String addressTitle) throws AddressBookDaoException {
+        AddressBook removedAddress;
         try {
             removedAddress = addressLibrary.remove(addressTitle);
             writeLibrary();
@@ -62,14 +54,14 @@ public class AddressBookDaoFileImpl implements AddressBookDao {
         return removedAddress;
     }
 
-    private Map<String, Address> addressLibrary = new HashMap<>();
+    private Map<String, AddressBook> addressLibrary = new HashMap<>();
 
     public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
 
     public void loadRoster() throws AddressBookDaoException {
         Scanner scanner;
-        Dvd currentAddress;
+        AddressBook currentAddress;
         try {
             scanner = new Scanner(
                     new BufferedReader(
@@ -82,13 +74,12 @@ public class AddressBookDaoFileImpl implements AddressBookDao {
         while (scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentTokens = currentLine.split(DELIMITER);
-            currentAddress = new Address();
+            currentAddress = new AddressBook();
             currentAddress.setAddressTitle(currentTokens[0]);
-            currentAddress.setReleaseDate(currentTokens[1]);
-            currentAddress.setMpaaRating(currentTokens[2]);
-            currentAddress.setDirectorsName(currentTokens[3]);
-            currentAddress.setStudioName(currentTokens[4]);
-            currentAddress.setUserRating(currentTokens[5]);
+            currentAddress.setStreetName(currentTokens[1]);
+            currentAddress.setOccupantFirstName(currentTokens[2]);
+            currentAddress.setOccupantLastName(currentTokens[3]);
+            currentAddress.setAddressState(currentTokens[4]);
 
             addressLibrary.put(currentAddress.getAddressTitle(), currentAddress);
         }
@@ -103,19 +94,20 @@ public class AddressBookDaoFileImpl implements AddressBookDao {
             throw new AddressBookDaoException(
                     "Could not save Address Entry data.", e);
         }
-        List<Address> addressList = this.getAllAddresses();
-        for (Address currentAddress : addressList) {
+
+        List<AddressBook> addressList = this.getAllAddresses();
+        for (AddressBook currentAddress : addressList) {
             out.println(currentAddress.getAddressTitle() + DELIMITER
-                    + currentAddress.getReleaseDate() + DELIMITER
-                    + currentAddress.getMpaaRating() + DELIMITER
-                    + currentAddress.getDirectorsName() + DELIMITER
-                    + currentAddress.getStudioName() + DELIMITER
-                    + currentAddress.getUserRating() + DELIMITER);
+                    + currentAddress.getStreetName() + DELIMITER
+                    + currentAddress.getOccupantFirstName() + DELIMITER
+                    + currentAddress.getOccupantLastName() + DELIMITER
+                    + currentAddress.getAddressState());
             out.flush();
         }
         out.close();
     }
 }
+
 
 
     

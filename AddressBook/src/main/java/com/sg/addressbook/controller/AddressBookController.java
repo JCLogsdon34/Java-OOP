@@ -3,6 +3,7 @@ package com.sg.addressbook.controller;
 
 import com.sg.addressbook.dao.AddressBookDao;
 import com.sg.addressbook.dao.AddressBookDaoException;
+import com.sg.addressbook.dto.AddressBook;
 import com.sg.addressbook.ui.AddressBookView;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class AddressBookController {
     }
 
     private void createAddress() throws AddressBookDaoException {
-        Address newAddress;
+        AddressBook newAddress;
         view.displayCreateAddressEntryBanner();
         newAddress = view.getNewAddressInfo();
         dao.addAddress(newAddress.getAddressTitle(), newAddress);
@@ -65,11 +66,11 @@ public class AddressBookController {
     }
 
     private void listAddresses() throws AddressBookDaoException {
-        List<Address> addressList;
+        List<AddressBook> addressList;
         try {
             view.displayDisplayAddressEntryBanner();
             addressList = dao.getAllAddresses();
-            view.displayDvdList(addressList);
+            view.displayAddressList(addressList);
         } catch (AddressBookDaoException e) {
             view.displayErrorMessage(e.getMessage());
         }
@@ -77,7 +78,7 @@ public class AddressBookController {
 
     private void viewAddress() throws AddressBookDaoException {
         String addressTitle;
-        Address address;
+        AddressBook address;
         view.displayDisplayAddressEntryBanner();
         addressTitle = view.getAddressTitleChoice();
         address = dao.getAddress(addressTitle);
@@ -98,14 +99,14 @@ public class AddressBookController {
 
     private void editAddress() throws AddressBookDaoException {
         String addressTitle;
-        Address currentAddress;
-        Address address;
+        AddressBook currentAddress;
+        AddressBook address;
         try {
             view.displayEditAddressEntryBanner();
             addressTitle = view.getAddressTitleChoice();
             currentAddress = dao.getAddress(addressTitle);
             address = view.getAddressForUserEdit(addressTitle, currentAddress);
-            dao.addAddressvd(addressTitle, address);
+            dao.addAddress(addressTitle, address);
             view.displayEditSuccessBanner();
         } catch (AddressBookDaoException e) {
             view.displayErrorMessage(e.getMessage());
