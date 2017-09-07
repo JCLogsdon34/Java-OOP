@@ -13,6 +13,7 @@ public class ClassRosterAuditDaoImpl implements ClassRosterAuditDao {
     public static final String AUDIT_FILE = "audit.txt";
    
  
+    @Override
     public void writeAuditEntry(String entry) {
         PrintWriter out = null;
         

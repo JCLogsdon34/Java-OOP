@@ -120,24 +120,4 @@ public class ClassRosterDaoTest {
         assertEquals(0, dao.getAllStudents().size());
         assertNull(dao.getStudent(student2.getStudentId()));
     }
-
-    public class ClassRosterDaoImpl implements ClassRosterDao {
-
-        public Student addStudent(String studentId, Student student) throws ClassRosterDaoException {
-            return null;
-        }
-
-        public List<Student> getAllStudents() throws ClassRosterDaoException {
-            return null;
-        }
-
-        public Student getStudent(String studentId) throws ClassRosterDaoException {
-            return null;
-        }
-
-        public Student removeStudent(String studentId) throws ClassRosterDaoException {
-            return null;
-        }
-    }
-    
 }

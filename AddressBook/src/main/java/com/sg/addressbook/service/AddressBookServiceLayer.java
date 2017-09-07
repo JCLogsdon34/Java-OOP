@@ -15,7 +15,7 @@ import java.util.List;
  * @author apprentice
  */
 public interface AddressBookServiceLayer {
-            void createAddress(AddressBook address) throws
+        void createAddress(AddressBook address) throws
             AddressBookDuplicateIdException,
             AddressBookDataValidationException,
             AddressBookDaoPersistenceException,
