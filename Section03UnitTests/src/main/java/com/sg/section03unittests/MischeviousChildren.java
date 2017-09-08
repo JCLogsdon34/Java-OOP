@@ -15,6 +15,15 @@ public class MischeviousChildren {
     // areWeInTrouble(false, false) -> true
     // areWeInTrouble(true, false) -> false
     public boolean areWeInTrouble(boolean aSmile, boolean bSmile) {
-        throw new UnsupportedOperationException("Not implemented");
+            if ((aSmile = true) && (bSmile = true)) {
+                return true;
+                 } else if ((aSmile = true) && (bSmile = false)) {
+                    return false;
+            }
+             if ((aSmile = false) && (bSmile = false)) {
+                return true;
+             } else if ((aSmile = true) && (bSmile = false)) {
+            return false;
+             }
     }
 }
