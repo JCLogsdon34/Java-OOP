@@ -1,6 +1,8 @@
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class DvdView {
@@ -41,11 +43,17 @@ public class DvdView {
         } while (newInput == false);
         String numberYear;
         boolean intChecker;
+        
         do {
-            numberYear = io.readString("Please enter a number for the year the DVD was released");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD/mm/yyyy");
+            numberYear = io.readString("Please enter the date that the DVD was released");
+            LocalDate Id = LocalDate.parse(numberYear, formatter);
+            String formatted = Id.format(formatter);
+            //numberYear = Id.toString();
                 if (numberYear != null && !numberYear.isEmpty()){ 
-                int releaseDate = Integer.parseInt(numberYear);
-                    currentDvd.setReleaseDate(numberYear);
+                    // releaseDate was an int before, not needed now
+               // Long releaseDate = Long.parseLong(numberYear);              
+                currentDvd.setReleaseDate(formatted);
                 intChecker = true;
                 }else{        
                 io.readString("That is not a number, please enter a number");
@@ -133,7 +141,13 @@ public class DvdView {
                     do {
                         releaseDate = io.readString("Please enter your desired changes for the Release Date");
                         if (releaseDate != null && !releaseDate.isEmpty()) {
-                            currentDvd.setReleaseDate(releaseDate);
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD/mm/yyyy");
+                                //release date is a string here, 
+                            LocalDate Id = LocalDate.parse(releaseDate, formatter);
+                            String formatted = Id.format(formatter);
+                             
+                           // releaseDate = Id.toString();
+                            currentDvd.setReleaseDate(formatted);
                             io.print("Your change to the Release Date has been noted");
                             newInput = true;
                         } else {
