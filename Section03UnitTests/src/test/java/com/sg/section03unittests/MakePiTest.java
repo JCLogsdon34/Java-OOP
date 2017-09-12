@@ -7,17 +7,22 @@ package com.sg.section03unittests;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
-public class SayHiTest {
+/**
+ *
+ * @author apprentice
+ */
+public class MakePiTest {
     
-    private SayHi sayHi = new SayHi();
+    private MakePi makePi = new MakePi();
     
-    public SayHiTest() {
+    public MakePiTest() {
+        
     }
     
     @BeforeClass
@@ -36,25 +41,15 @@ public class SayHiTest {
     public void tearDown() {
     }
 
-  
+     // Return an int array length n containing the first n digits of pi.
+    //
+    // makePi(3) -> {3, 1, 4}
     @Test
-    public void testBob() {
-        String expectedResult = "HelloBob!";
-        String name = "Bob";
-        assertEquals(expectedResult, sayHi.sayHi(name));
+    public void testMakePi() {
+        int pi = 3;
+        int [] expectedResult = {3,1,4};
+        
+        assertArrayEquals(expectedResult, makePi.makePi(pi));
     }
     
-    @Test
-    public void testAlice(){
-        String expectedResult = "HelloAlice!"; 
-        String name = "Alice";
-        assertEquals(expectedResult, sayHi.sayHi(name));
-    }
-    
-    @Test
-    public void testX(){
-        String expectedResult = "HelloX!";
-        String name = "X";
-        assertEquals(expectedResult, sayHi.sayHi(name));
-    }
 }

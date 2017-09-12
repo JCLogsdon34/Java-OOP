@@ -8,6 +8,8 @@ import com.sg.dvdlibrary.service.DvdLibraryDuplicateIdException;
 import com.sg.dvdlibrary.service.DvdLibraryServiceLayer;
 import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DvdLibraryController {
 
@@ -19,7 +21,7 @@ public class DvdLibraryController {
         this.service = service;
     }
 
-    public void run() throws DvdLibraryDuplicateIdException, DvdLibraryDataValidationException {
+    public void run() {
         boolean keepGoing = true;
         int menuSelection;
 
@@ -36,7 +38,7 @@ public class DvdLibraryController {
                 case 2:
                     try {
                         createDvd();
-                    } catch (DvdLibraryPersistenceException e) {
+                    } catch (DvdLibraryPersistenceException | DvdLibraryDuplicateIdException | DvdLibraryDataValidationException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
                     break;

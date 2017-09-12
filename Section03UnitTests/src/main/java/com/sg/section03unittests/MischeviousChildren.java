@@ -11,18 +11,15 @@ public class MischeviousChildren {
     // areWeInTrouble(false, false) -> true
     // areWeInTrouble(true, false) -> false
     public boolean areWeInTrouble(boolean aSmile, boolean bSmile) {
-        boolean wellAreWe = false;
+        boolean wellAreWe;
 
-        if ((aSmile = true) && (bSmile = true)) {
+        if (((aSmile = true) && (bSmile = true) || (aSmile = false) && (bSmile = false))) {
             wellAreWe = true;
-        } else if ((aSmile = true) && (bSmile = false)) {
+        } else {
+      //  if ((aSmile = true) && (bSmile = false) || (aSmile = false) && (bSmile = true)) {
             wellAreWe = false;
         }
-        if ((aSmile = false) && (bSmile = false)) {
-            wellAreWe = true;
-        } else if ((aSmile = true) && (bSmile = false)) {
-            wellAreWe = false;
-        }
+
         return wellAreWe;
     }
 }

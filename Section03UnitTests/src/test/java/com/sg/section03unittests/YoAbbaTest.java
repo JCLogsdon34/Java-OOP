@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class YoAbbaTest {
     
-    YoAbba abba = new YoAbba();
+    YoAbba yoAbba = new YoAbba();
     
     public YoAbbaTest() {
     }
@@ -49,20 +49,26 @@ public class YoAbbaTest {
     @Test
     public void testHiByeAbba() {
         String expectedResultA = "HiByeByeHi";
-        assertEquals(expectedResultA, abba.abba("HiBye", "ByeHi"));
+        String stringA ="Hi";
+        String stringB ="Bye";
+        assertEquals(expectedResultA,yoAbba.abba(stringA,stringB));
     }
     
     @Test
     public void testYoAliceAbba(){
         String expectedResult = "YoAliceAliceYo";
-        assertEquals(expectedResult, abba.abba("YoAlice", "AliceYo"));
+        String stringA ="Yo";
+        String stringB ="Alice";
+        assertEquals(expectedResult,yoAbba.abba(stringA,stringB));
         
     }
     
     @Test
     public void testWhatUpAbba(){
-        String expectedResult = "WhatUpUpWhat";
-        assertEquals(expectedResult, abba.abba("WhatUp", "UpWhat"));
+        String expectedResult ="WhatUpUpWhat";
+        String stringA ="What";
+        String stringB ="Up";
+        assertEquals(expectedResult,yoAbba.abba(stringA,stringB));
         
     }
     

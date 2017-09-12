@@ -9,6 +9,6 @@ package com.sg.section03unittests;
 public class SayHi {
     
     public String sayHi(String name){
-        return "Hello" + name + "!";
+        return "Hello"+name+"!";
     }
 }

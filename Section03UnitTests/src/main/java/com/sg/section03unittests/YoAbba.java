@@ -15,9 +15,9 @@ public class YoAbba {
     // abba("Yo", "Alice") -> "YoAliceAliceYo"
     // abba("What", "Up") -> "WhatUpUpWhat"
     public String abba(String a, String b) {
-        a = "Hi";
-        b = "Bye";
+    
+        String message=a+b+b+a;
         
-        return a + b + a + b;
+        return message;
     }
 }

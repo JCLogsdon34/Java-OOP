@@ -12,18 +12,16 @@ public class GreatParty {
 // greatParty(70, true) → true
 
     public boolean greatParty(int cigars, boolean isWeekend) {
-        if (isWeekend) {
-            if (cigars >= 40) {
-                return true;
+        boolean funParty;
+        if (isWeekend = true) {
+            if ((cigars >= 40) && (cigars <= 60)) {
+                funParty = true;
             } else {
-                return false;
+                funParty = false;
             }
         } else {
-            if(cigars >= 40 && cigars <= 60) {
-            return true;
-        } else {
-            return false;
+            funParty = false;
         }
-    }
+        return funParty;
   }
 }
