@@ -5,7 +5,7 @@
  */
 package com.sg.section03unittests;
 
-import java.util.Random;
+
 
 
 public class canHazTable {
@@ -23,26 +23,26 @@ public class canHazTable {
     // canHazTable(5, 5) → 1
     public int canHazTable(int yourStyle, int dateStyle) {
        //these have to be less or equal to six
-       Random looks = new Random();
+      // Random looks = new Random();
 
-       yourStyle = looks.nextInt(5 - 1) + 1;
-       dateStyle = looks.nextInt(5 - 1) + 1;
+       //yourStyle = looks.nextInt(5 - 1) + 1;
+       //dateStyle = looks.nextInt(5 - 1) + 1;  
      
-       int differenceInLooks;
-       
-        if(yourStyle - dateStyle >= 2){
+       int differenceInLooks = 0;
+       //two sets of if statements with the table 
+       //and one with the stylishness gauged
+        if(yourStyle - dateStyle >= 8){
             System.out.println("You get a table");
-            return 2;
-        }
-        if((yourStyle - dateStyle < 2) && (yourStyle - dateStyle > 0)){
+            differenceInLooks = 2;
+        } else if((yourStyle - dateStyle < 8) && (yourStyle - dateStyle > 0)){
             System.out.println("You may get a table");
-            return 1;
-        }
-        if(yourStyle - dateStyle < 1){
+            differenceInLooks = 1;
+        }else if(yourStyle - dateStyle < 1){
             System.out.println("You are not getting a table");
-            return 0;
+            differenceInLooks = 0;
         }
-        yourStyle - dateStyle = differenceInLooks;
+    
+        //yourStyle - dateStyle = differenceInLooks;
         return differenceInLooks;
     }
 }
