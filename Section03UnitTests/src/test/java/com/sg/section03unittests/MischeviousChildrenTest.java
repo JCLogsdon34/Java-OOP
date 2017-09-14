@@ -52,26 +52,23 @@ public class MischeviousChildrenTest {
     public void tryTrueTrue(){
         boolean firstBool = true;
         boolean secondBool = true;
-        assertTrue(badKids.areWeInTrouble(firstBool, secondBool));
+        boolean expectedResult = true;
+        assertEquals(expectedResult,badKids.areWeInTrouble(firstBool, secondBool));
     }
     @Test
     public void tryFalseFalse(){
     
         boolean firstBool = false;
         boolean secondBool = false;
-        assertTrue(badKids.areWeInTrouble(firstBool, secondBool));
+        boolean expectedResult = true;
+        assertEquals(expectedResult,badKids.areWeInTrouble(firstBool, secondBool));
     }
     @Test
     public void tryTrueFalse(){
 
         boolean firstBool = true;
         boolean secondBool = false;
-        assertFalse(badKids.areWeInTrouble(firstBool, secondBool));
-    }
-    @Test
-    public void tryFalseTrue(){
-        boolean firstBool = false;
-        boolean secondBool = true;
-        assertFalse(badKids.areWeInTrouble(firstBool, secondBool));
+        boolean expectedResult = false;
+        assertEquals(expectedResult,badKids.areWeInTrouble(firstBool, secondBool));
     }
 }

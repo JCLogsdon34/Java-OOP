@@ -49,30 +49,26 @@ public class SameFirstLastTest {
     @Test
     public void testFirstArray() {
         int [] thisArray = new int[] {1,2,3};
-       
-        int [] expectedResult = thisArray;
+        boolean expectedResult = false;
         
-        assertTrue(sameFirstLast.sameFirstLast(expectedResult));
+        assertEquals(expectedResult,sameFirstLast.sameFirstLast(thisArray));
         
     }
     
     @Test
     public void testSecondArray() {
         int [] thisArray = new int[] {1,2,3,1};
+        boolean expectedResult = true;
+        
+        assertEquals(expectedResult,sameFirstLast.sameFirstLast(thisArray));
        
-        int [] expectedResult = thisArray;
-        
-        assertTrue(sameFirstLast.sameFirstLast(expectedResult));
-        
     }
     
     @Test
     public void testThirdArray() {
         int [] thisArray = new int[] {1,2,1};
-       
-        int [] expectedResult = thisArray;
+       boolean expectedResult = true;
         
-        assertTrue(sameFirstLast.sameFirstLast(expectedResult));
-        
+        assertEquals(expectedResult,sameFirstLast.sameFirstLast(thisArray));
     }
 }

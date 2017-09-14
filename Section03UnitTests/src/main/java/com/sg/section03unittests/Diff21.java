@@ -19,11 +19,14 @@ public class Diff21 {
     // diff21(21) -> 0
     public int diff21(int n) {
         int solution;
+        int difference;
         
         if(n <= 21){
-        solution = Math.abs(n);
+            difference = n - 21;
+        solution = Math.abs(difference);
         } else {
-           solution = (Math.abs(n)) * 2;
+            difference = n - 21;
+           solution = (Math.abs(difference)) * 2;
         }
         return solution;
     }

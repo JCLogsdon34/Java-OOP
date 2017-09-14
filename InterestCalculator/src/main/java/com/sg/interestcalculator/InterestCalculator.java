@@ -5,45 +5,70 @@
  */
 package com.sg.interestcalculator;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class InterestCalculator {
 
     public void getInterestCalculator(){
-        float interestRate;
-        float principle;
-        float numberOfYears;
+        
+        BigDecimalMath myMath = new BigDecimalMath();
 
         Scanner inputReader = new Scanner(System.in);
+        
+        BigDecimal Divisor = new BigDecimal("100");
+        BigDecimal Adder = new BigDecimal("1");
 
         System.out.println("Please enter the following:");
 
         System.out.println("Interest Rate: ");
-        interestRate = inputReader.nextFloat();
+        String interestRateString = inputReader.nextLine();
+        BigDecimal interestRate = new BigDecimal(interestRateString);
 
         System.out.println("Principle: ");
-        principle = inputReader.nextFloat();
-
+        String principleString = inputReader.nextLine();
+        BigDecimal principle = new BigDecimal(principleString);
+       
+        
         System.out.println("Years in the fund: ");
-        numberOfYears = inputReader.nextFloat();
-
+       String numberOfYearsString = inputReader.nextLine();
+       BigDecimal numberOfYears = new BigDecimal(numberOfYearsString);
         //float oneYear;
         System.out.println("You have a starting balance of " + principle);
         //public static double interestCalculator(double prinicple, double interestRate, double numberOfYears) {
-        for (int i = 0; i <= numberOfYears; i++) {
+        
+        /*
+        BigDecimal op1 = new BigDecimal("10");
+        //BigDecimal op2 = new BigDecimal("3");
+        BigDecimal op2 = new BigDecimal("6");
+        
+        System.out.println(myMath.calculate(MathOperator.PLUS, op1, op2));
+        System.out.println(myMath.calculate(MathOperator.MINUS, op1, op2));
+        System.out.println(myMath.calculate(MathOperator.MULTIPLY, op1, op2));
+        System.out.println(myMath.calculate(MathOperator.DIVIDE, op1, op2));
+        */
+
+       /* for (int i = 0; i <= numberOfYears; i++) {
 
             for (int j = 1; j <= 4; j++) {
 
-                do {
-                    float quarterBalance1 = (float) (principle * (1 + (interestRate / 100)));
+                do {  */
+          //          float quarterBalance1 = (float) (principle * (1 + (interestRate / 100)));
+//float mathDivision = (myMath.calculate(MathOperator.Divide,interestRate,100)); 
+//float mathAddition = (myMath.calculate(MathOperator.Add, 1, (myMath.calculate(MathOperator.Divide,interestRate,100))));
+BigDecimal quarterBalance1 = 
+        new BigDecimal((((myMath.calculate(MathOperator.MULTIPLY, principle, 
+        (myMath.calculate(MathOperator.PLUS, Adder, 
+                (myMath.calculate(MathOperator.DIVIDE,interestRate, Divisor)))))))));
 
-                    float quarterBalance2 = (float) ((quarterBalance1) * (1 + (interestRate / 100)));
+BigDecimal quarterBalance2 =  new BigDecimal(((quarterBalance1) 
+        (Adder + (interestRate / Divisor)));
 
-                    float quarterBalance3 = (float) ((quarterBalance2) * (1 + (interestRate / 100)));
-                    float quarterBalance4 = (float) ((quarterBalance3) * (1 + (interestRate / 100)));
-                    float oneYear = (float) (quarterBalance4);
+BigDecimal quarterBalance3 = ((quarterBalance2) * (Adder + (interestRate / Divisor)));
+BigDecimal quarterBalance4 =  ((quarterBalance3) * (Adder + (interestRate / Divisor)));
+BigDecimal oneYear =  (quarterBalance4);
                     //float newBalance = oneYear * numberOfYears;
-                    float interestTotal = (float) quarterBalance4 - principle;
+BigDecimal interestTotal = quarterBalance4 - principle;
 
                     System.out.println(" Quarter1: " + quarterBalance1 + " Quarter2: " + quarterBalance2
                             + " Quarter3: " + quarterBalance3 + " Quarter1: " + quarterBalance4

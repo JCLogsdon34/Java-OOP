@@ -18,14 +18,17 @@ public class SameFirstLast {
     // sameFirstLast({1, 2, 1}) -> true
     public boolean sameFirstLast(int[] numbers) {
         
-        int i = 0;
         boolean truthTeller = false;
-        int myArray[] = new int[i];
-        int num1 = 0;
-        int num2 = 0;
         
-        if((num1 == num2) && (myArray.length >= 1)){
+        int num1 = numbers[0];
+        int num2 = numbers[numbers.length - 1];
+        
+        if (numbers.length >= 1){
+            if(num1 == num2) {
             truthTeller = true;
+            } else if ( num1 != num2){
+               truthTeller = false; 
+            }
         } else {
             truthTeller = false;
         }

@@ -9,12 +9,6 @@ package com.sg.interestcalculator;
  *
  * @author apprentice
  */
-public class App {
-    public static void main(String[] args){
-        InterestCalculator myInterestCalculator = new InterestCalculator();
-        myInterestCalculator.getInterestCalculator();
-        
-        
-        
-    }
+public enum MathOperator {
+    PLUS,MINUS,MULTIPLY,DIVIDE
 }

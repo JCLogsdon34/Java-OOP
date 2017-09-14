@@ -23,6 +23,7 @@ public class MakePi {
         int i;
         int piArray[] = {3,1,4,1,5,9,2,6,5,3,5,9};
         int piForDisplay[] = new int [piArray.length + 1];
+        int num1 = piArray[n];
         
         for(i = 0; i <= n; i++){
           piForDisplay[i] = piArray[i];

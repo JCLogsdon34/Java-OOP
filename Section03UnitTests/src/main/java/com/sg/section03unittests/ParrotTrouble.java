@@ -18,16 +18,21 @@ public class ParrotTrouble {
     public boolean parrotTrouble(boolean isTalking, int hour) {
         boolean loudBirdTrouble = false;
 
-        if (isTalking = true) {
-            if ((hour <= 7) || (hour >= 20)) {
+        if (hour < 7) {
+            if (isTalking == true) {
                 loudBirdTrouble = true;
-            }
-        }
-        if (isTalking = true) {
-            if ((hour >= 7) || (hour <= 20)) {
+            } else if (isTalking == false){
+                loudBirdTrouble = false;
+            } 
+        }else if (hour > 20){
+            if (isTalking == true) {
+                loudBirdTrouble = true;
+            }  else if (isTalking == false){
                 loudBirdTrouble = false;
             }
-        }
+        } else {
+                loudBirdTrouble = false;
+            }
         return loudBirdTrouble;
     }
 }

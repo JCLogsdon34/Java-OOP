@@ -21,12 +21,21 @@ public class SleepingIn {
     public boolean canSleepIn(boolean isWeekday, boolean isVacation) {
         
         boolean sleepIn = false;
-        if ((isVacation = true) || (isWeekday = false)){
+        
+       if(isWeekday = true){
+        if (isVacation = true){
             sleepIn = true;
-        }
-        if((isVacation = false) || (isWeekday = true)){
+        }else{
             sleepIn = false;
         }
+      }
+        if(isWeekday = false){
+           if (isVacation = true){
+            sleepIn = true;
+        }else{
+            sleepIn = false;
+        }
+      }
         return sleepIn;
     }
 }

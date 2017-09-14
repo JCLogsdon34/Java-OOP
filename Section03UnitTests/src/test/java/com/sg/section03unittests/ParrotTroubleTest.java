@@ -52,18 +52,16 @@ public class ParrotTroubleTest {
         boolean birdTrouble = true;
         int hour = 6;
         
-        assertTrue(parrotTrouble.parrotTrouble(expectedResult, hour));
-        
+       assertEquals(expectedResult,parrotTrouble.parrotTrouble(birdTrouble, hour));
     }
     
     @Test
     public void testParrotTroubleSecond() {
-        boolean expectedResult = true;
+        boolean expectedResult = false;
         boolean birdTrouble = true;
         int hour = 7;
         
-        assertFalse(parrotTrouble.parrotTrouble(expectedResult, hour));
-        
+        assertEquals(expectedResult,parrotTrouble.parrotTrouble(birdTrouble, hour));       
     }
     
     @Test
@@ -72,8 +70,7 @@ public class ParrotTroubleTest {
         boolean birdTrouble = false;
         int hour = 6;
         
-        assertFalse(parrotTrouble.parrotTrouble(expectedResult, hour));
-        
+        assertEquals(expectedResult,parrotTrouble.parrotTrouble(birdTrouble, hour));       
     }
     
 }
