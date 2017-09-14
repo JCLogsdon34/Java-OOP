@@ -48,9 +48,9 @@ public class FirstLast6Test {
     @Test
     public void testFirstArray() {
   
-        int [] thisArray = new int[] {1,2,6};
+        int [] expectedResult =  {1,2,6};
        
-        int [] expectedResult = thisArray;
+      //  int [] expectedResult = thisArray;
         assertTrue(firstLast6.firstLast6(expectedResult));
         
       /*  
@@ -65,20 +65,19 @@ method firstLast6. */
     @Test
     public void testSecondArray() {
   
-        int [] thisArray = new int[] {6,1,2,3};
+        int [] expectedResult = {6,1,2,3};
        
-        int [] expectedResult = thisArray;
+       // int [] expectedResult = thisArray;
         assertTrue(firstLast6.firstLast6(expectedResult));
     }
     
     @Test
     public void testThirdArray() {
   
-        int [] thisArray = new int[] {13,6,1,2,3};
+        int [] expectedResult = {13,6,1,2,3};
        
-        int [] expectedResult = thisArray;
         
-        assertTrue(firstLast6.firstLast6(expectedResult));
+        assertFalse(firstLast6.firstLast6(expectedResult));
         
     }
 }

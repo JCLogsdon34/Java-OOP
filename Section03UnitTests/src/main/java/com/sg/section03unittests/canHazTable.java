@@ -28,19 +28,20 @@ public class canHazTable {
        //yourStyle = looks.nextInt(5 - 1) + 1;
        //dateStyle = looks.nextInt(5 - 1) + 1;  
      
-       int differenceInLooks = 0;
+       int differenceInLooks;
        //two sets of if statements with the table 
        //and one with the stylishness gauged
-        if(yourStyle - dateStyle >= 8){
-            System.out.println("You get a table");
+        if((yourStyle >= 8)||(dateStyle >= 8)){
+            //System.out.println("You get a table");
             differenceInLooks = 2;
-        } else if((yourStyle - dateStyle < 8) && (yourStyle - dateStyle > 0)){
-            System.out.println("You may get a table");
+        } else if((yourStyle > 2) && (dateStyle > 2)){
+           // System.out.println("You may get a table");
             differenceInLooks = 1;
-        }else if(yourStyle - dateStyle < 1){
-            System.out.println("You are not getting a table");
+        }else{
+           // System.out.println("You are not getting a table");
             differenceInLooks = 0;
-        }
+        } 
+        
     
         //yourStyle - dateStyle = differenceInLooks;
         return differenceInLooks;

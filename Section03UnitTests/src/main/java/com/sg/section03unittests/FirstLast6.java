@@ -20,20 +20,20 @@ public class FirstLast6 {
         int i = 0;
         boolean truthTeller = false;
         int myArray[] = new int[i];
-        int num1 = 0;
-        int num2 = 0;
+        int num1;
+        int num2;
         
         num1 = myArray[0]; 
         num2 = myArray[myArray.length - 1];
         
-        //for(i = 0; i < 4; i++){
+        for(i = 0; i < 4; i++){
             
             if((num1 == 6 )||(num2 == 6)){
                 truthTeller = true;
             } else {
                 truthTeller = false;
             }
-      //  }
+        }
              return truthTeller;   
     }
 }

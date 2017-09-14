@@ -6,6 +6,7 @@
 package com.sg.section03unittests;
 
 
+
 public class MakePi {
     
     /*public enum piMaker{
@@ -17,6 +18,7 @@ public class MakePi {
     // makePi(3) -> {3,1 4,1,5,9,2,65,3,5,9}
 
     public int[] makePi(int n) {
+//use the double MATH.PI
 
         int i;
         int piArray[] = {3,1,4,1,5,9,2,6,5,3,5,9};

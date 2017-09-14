@@ -49,23 +49,26 @@ public class canHazTableTest {
     // canHazTable(5, 5) → 1
     @Test
     public void test5And10() {
-      
+      int style1 = 5;
+      int style2 = 10;
     int expectedResult = 2;
-        assertEquals(expectedResult, shallowEatery.canHazTable(5, 10));
+        assertEquals(expectedResult, shallowEatery.canHazTable(style1, style2));
     
     }
     
     @Test
     public void test5And2() {
-      
+      int style1 = 5;
+      int style2 = 2;
     int expectedResult = 0;
-        assertEquals(expectedResult, shallowEatery.canHazTable(5, 2));
+        assertEquals(expectedResult, shallowEatery.canHazTable(style1, style2));
     }
     
     @Test
     public void test5And5() {
-      
+      int style1 = 5;
+      int style2 = 5;
     int expectedResult = 1;
-        assertEquals(expectedResult, shallowEatery.canHazTable(5, 5));
+        assertEquals(expectedResult, shallowEatery.canHazTable(style1, style2));
     }
 }
