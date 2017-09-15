@@ -21,7 +21,6 @@ public class CountXX {
         if (indexOfXX > 0) {
             // for (int i = 0; i <= str.length(); i++) {
             do {
-                
                 str = str.substring(indexOfXX + 1);
                 indexOfXX = str.indexOf(xERS);
                 numOfX++;
