@@ -49,7 +49,7 @@ public class MakePiTest {
         int pi = 3;
         int [] expectedResult = {3,1,4};
         
-        assertArrayEquals(expectedResult, makePi.makePi(pi));
+        Assert.assertArrayEquals(expectedResult, makePi.makePi(pi));
     }
     
 }

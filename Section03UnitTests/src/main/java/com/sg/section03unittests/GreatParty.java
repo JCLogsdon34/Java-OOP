@@ -15,14 +15,20 @@ public class GreatParty {
         boolean funParty = false;
 
         if (isWeekend == false) {
-            if ((cigars >= 40) && (cigars <= 60)) {
-                funParty = true;
+            if (cigars > 39) {
+                if (cigars < 61) {
+                    funParty = true;
+                } else {
+                    funParty = false;
+                }
             } else {
                 funParty = false;
             }
         } else if (isWeekend == true) {
-            if (cigars >= 40) {
+            if (cigars > 39) {
                 funParty = true;
+            } else {
+                funParty = false;
             }
         }
         return funParty;

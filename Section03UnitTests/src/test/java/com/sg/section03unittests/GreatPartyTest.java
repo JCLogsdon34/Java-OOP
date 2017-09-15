@@ -71,7 +71,7 @@ public class GreatPartyTest {
 
     @Test
     public void test39True() {
-        boolean expectedResult = true;
+        boolean expectedResult = false;
         int cigars = 39;
         boolean isWeekend = true;
         assertEquals(expectedResult, party.greatParty(cigars, isWeekend));
@@ -139,7 +139,7 @@ public class GreatPartyTest {
 
     @Test
     public void test61False() {
-        boolean expectedResult = true;
+        boolean expectedResult = false;
         int cigars = 61;
         boolean isWeekend = false;
         assertEquals(expectedResult, party.greatParty(cigars, isWeekend));

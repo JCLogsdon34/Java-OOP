@@ -61,14 +61,13 @@ public class CountXXTest {
         String str = "xxx";
         int expectedResult = 2;
         
-       assertEquals(expectedResult, countXX.countXX(str));
-       
+       assertEquals(expectedResult, countXX.countXX(str));      
     }
     
     @Test
     public void testThirdString() {
         String str = "xxxx";
-        int expectedResult = 1;
+        int expectedResult = 3;
         
        assertEquals(expectedResult, countXX.countXX(str));
        

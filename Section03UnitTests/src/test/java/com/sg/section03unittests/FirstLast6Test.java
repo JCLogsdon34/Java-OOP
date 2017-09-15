@@ -17,29 +17,29 @@ import static org.junit.Assert.*;
  * @author apprentice
  */
 public class FirstLast6Test {
-    
+
     private FirstLast6 firstLast6 = new FirstLast6();
-    
+
     public FirstLast6Test() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-     // Given an array of ints, return true if 6 appears as either the 
+    // Given an array of ints, return true if 6 appears as either the 
     // first or last element in the array. The array will be length 1 or more. 
     //
     // firstLast6({1, 2, 6}) -> true
@@ -47,37 +47,34 @@ public class FirstLast6Test {
     // firstLast6({13, 6, 1, 2, 3}) -> false
     @Test
     public void testFirstArray() {
-  
-        int [] expectedResult =  {1,2,6};
-       
-      //  int [] expectedResult = thisArray;
-        assertTrue(firstLast6.firstLast6(expectedResult));
-        
-      /*  
+
+        int[] myArray = {1, 2, 6};
+        boolean expectedResult = true;
+
+        assertEquals(expectedResult, firstLast6.firstLast6(myArray));
+        /*  
 Your expected result needs to be the array you expect to come back. 
 The assert true will compare the two things you passed in, so those two things 
 should be the same type. You currently are passing in a boolean and comparing that
 to an array. Also, you don't need the [] on thisArray when you pass it into the 
 method firstLast6. */
-        
     }
-    
+
     @Test
     public void testSecondArray() {
-  
-        int [] expectedResult = {6,1,2,3};
-       
-       // int [] expectedResult = thisArray;
-        assertTrue(firstLast6.firstLast6(expectedResult));
+
+        int[] thisArray = {6, 1, 2, 3};
+        boolean expectedResult = true;
+
+        assertEquals(expectedResult, firstLast6.firstLast6(thisArray));
     }
-    
+
     @Test
     public void testThirdArray() {
-  
-        int [] expectedResult = {13,6,1,2,3};
-       
-        
-        assertFalse(firstLast6.firstLast6(expectedResult));
-        
+
+        int[] thisArray = {13, 6, 1, 2, 3};
+        boolean expectedResult = false;
+
+        assertEquals(expectedResult, firstLast6.firstLast6(thisArray));
     }
 }
