@@ -19,17 +19,31 @@ public class MakePi {
 
     public int[] makePi(int n) {
 
-        int i = 0;
+        
         int piArray[] = {3,1,4,1,5,9,2,6,5,3,5};
-       // int piForDisplay[] = new int [piArray.length - n];     
-        int num1 = piArray[n];
-            num1 =  piArray[i];
-        while(n != 0){
-       // for(i = 0; i <= piArray.length - n; i++){
-          System.out.println(piArray[i - n]);      
+        int piForDisplay[] = new int [n];     
+        int i = 0;
+        int num1[] = new int [i];
+        int num2[] =  new int [n];
+ //       int num2[] = new int[n];
+        //num1[i] = num1[i] - num2[n];
+        int x = n - piArray.length;
+        num1[i] = piArray.length + x;
+        
+// n was piForDisplay[n]; and i was i = n - piArray.length;
+        for(i = 0; i >= n; i++){
+           // num1[i] = num1[i] - num2[n];
+          num2[n] = num1[i];
+          //piForDisplay[n] = piArray[i];
+        //  piForDisplay[n] = piArray.length + x;
+           while(num2[n] < piArray[i]){
+          piForDisplay[n++] = piArray[i];
+          //  piForDisplay[n] = piArray[i] + x;
+           }
+
+         // System.out.println(piForDisplay[piArray[i]]);      
         //piForDisplay[piArray.length - 1] = n;
         }
-        return piArray;
-    }
-    
+        return piForDisplay;
+    }    
 }
