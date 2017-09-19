@@ -19,11 +19,20 @@ public class CountXX {
         int numOfX = 0;
         int indexOfXX = str.indexOf(xERS);
         if (indexOfXX > -1) {
-        for (int i = 0; i < str.length(); i++) {
-
-            str = str.substring(indexOfXX + 1);
+        for (int i = 0; i <= str.length(); i++) {
+            
+           numOfX++;
+           
+            
             indexOfXX = str.indexOf(xERS);
-            numOfX++;
+            if(indexOfXX % 2 != 0){
+                str = str.substring(indexOfXX + 1);
+                numOfX += 1;
+            } else {
+                str = str.substring(indexOfXX);
+            }
+                
+            
             indexOfXX = str.indexOf(numOfX, indexOfXX);
         }
     }
