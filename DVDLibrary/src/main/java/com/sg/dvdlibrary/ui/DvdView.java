@@ -41,16 +41,19 @@ public class DvdView {
                 newInput = false;
             }
         } while (newInput == false);
-        String numberYear;
-        boolean intChecker;
+       String numberYear = null;
+     //   boolean intChecker;
         
-        do {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD/mm/yyyy");
-            numberYear = io.readString("Please enter the date that the DVD was released");
-            LocalDate Id = LocalDate.parse(numberYear, formatter);
-            String formatted = Id.format(formatter);
-            //numberYear = Id.toString();
-                if (numberYear != null && !numberYear.isEmpty()){ 
+  //      do {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+        //    numberYear = io.readString("Please enter the date that the DVD was released");
+            io.readLocalDate("Please enter a release date dd-mm-yyyy");
+            LocalDate  formatted = LocalDate.parse(numberYear, formatter);
+             numberYear =formatted.toString();
+      //      LocalDate formatted = formatter.format();
+               currentDvd.setReleaseDate(numberYear);
+  
+       /*         if (numberYear != null && !numberYear.isEmpty()){ 
                     // releaseDate was an int before, not needed now
                // Long releaseDate = Long.parseLong(numberYear);              
                 currentDvd.setReleaseDate(formatted);
@@ -59,7 +62,7 @@ public class DvdView {
                 io.readString("That is not a number, please enter a number");
                 intChecker = false;
                 }
-        } while (intChecker == false);
+        } while (intChecker == false);   */
         
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
@@ -123,7 +126,7 @@ public class DvdView {
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
         boolean keepOnKeepingOn = true;
         int userSelection;
-        String releaseDate;
+        LocalDate releaseDate;
         String mpaaRating;
         String directorsName;
         String userRating;
@@ -139,7 +142,7 @@ public class DvdView {
                 case 1:
                     boolean newInput;
                     do {
-                        releaseDate = io.readString("Please enter your desired changes for the Release Date");
+                        releaseDate = io.readLocalDate("Please enter your desired changes for the Release Date");
                         if (releaseDate != null && !releaseDate.isEmpty()) {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD/mm/yyyy");
                                 //release date is a string here, 

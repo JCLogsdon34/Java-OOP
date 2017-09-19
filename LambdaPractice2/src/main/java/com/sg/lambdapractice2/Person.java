@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.lambdapractice;
+package com.sg.lambdapractice2;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;

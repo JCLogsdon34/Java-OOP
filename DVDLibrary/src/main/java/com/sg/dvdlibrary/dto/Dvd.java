@@ -1,11 +1,14 @@
 package com.sg.dvdlibrary.dto;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
+import java.util.stream.LongStream;
 
 public class Dvd {
 
     public String dvdTitle;
-    public String releaseDate;
+    public LocalDate releaseDate;
     public String directorsName;
     public String mpaaRating;
     public String studioName;
@@ -27,13 +30,18 @@ public class Dvd {
         return directorsName;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public String getReleaseDate() {
         return releaseDate;
     }
+    
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }  
+    
+    public Long getDvdAge() {
+        Period p = releaseDate.until(LocalDate.now());
+        return p.getAgeOfDvd();
+    } 
 
     public void setMpaaRating(String mpaaRating) {
         this.mpaaRating = mpaaRating;
@@ -57,7 +65,7 @@ public class Dvd {
 
     public String getUserRating() {
         return userRating;
-    }
+    }  
 
     @Override
     public int hashCode() {
@@ -102,5 +110,5 @@ public class Dvd {
             return false;
         }
         return true;
-    }
+    }   
 }

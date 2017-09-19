@@ -1,5 +1,8 @@
 package com.sg.dvdlibrary.ui;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class UserIOConsoleImpl implements UserIO {
@@ -133,5 +136,17 @@ public class UserIOConsoleImpl implements UserIO {
         System.out.println(prompt);
         userChoices = inputReader.nextLine();
         return userChoices;
+    }
+
+    @Override
+    public LocalDate readLocalDate(String msg) {
+      Scanner inputReader = new Scanner(System.in);
+      String userChoices = null;
+      System.out.println(msg);
+        userChoices = inputReader.next();
+      DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("mm-dd-yyyy");
+      LocalDate parsedDate = LocalDate.parse(userChoices, dateFormat);
+      
+        return parsedDate;
     }
 }

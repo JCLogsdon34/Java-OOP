@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.lambdapractice;
+package com.sg.serverinventory.dto;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 /**
-From Notes about Lambdas
+ *
+ * code along
  */
 public class Server {
+
     private String name;
     private String ip;
     private String manufacturer;
