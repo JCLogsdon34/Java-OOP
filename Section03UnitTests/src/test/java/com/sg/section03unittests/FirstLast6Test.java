@@ -77,4 +77,5 @@ method firstLast6. */
 
         assertEquals(expectedResult, firstLast6.firstLast6(thisArray));
     }
+    ///Comments
 }

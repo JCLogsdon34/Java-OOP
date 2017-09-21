@@ -70,4 +70,5 @@ public class SumDoubleTest {
         int expectedResult = 8;
         assertEquals(expectedResult, sumDouble.sumDouble(a,b));
     }
+    /////Comments
 }

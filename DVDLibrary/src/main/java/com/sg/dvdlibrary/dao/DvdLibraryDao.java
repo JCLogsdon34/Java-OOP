@@ -51,12 +51,11 @@ public interface DvdLibraryDao {
     
     public Map<LocalDate, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(LocalDate releaseDate)
             throws DvdLibraryPersistenceException;
-    
 
     public Map<LocalDate, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(LocalDate releaseDate)
             throws DvdLibraryPersistenceException;
-    
     public double getAverageDvdAge()
             throws DvdLibraryPersistenceException;
+    
 
 }

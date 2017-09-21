@@ -71,4 +71,5 @@ public class SameFirstLastTest {
         
         assertEquals(expectedResult,sameFirstLast.sameFirstLast(thisArray));
     }
+    /////Comments
 }

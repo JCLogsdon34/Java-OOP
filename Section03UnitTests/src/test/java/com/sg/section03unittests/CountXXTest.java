@@ -69,7 +69,7 @@ public class CountXXTest {
         String str = "xxxx";
         int expectedResult = 3;
         
-       assertEquals(expectedResult, countXX.countXX(str));
-       
+       assertEquals(expectedResult, countXX.countXX(str));  
     }
+    ///Comments
 }

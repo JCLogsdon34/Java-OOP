@@ -15,27 +15,24 @@ public class CountXX {
 
     public int countXX(String str) {
 
-        String xERS = "x";
+        int i;
         int numOfX = 0;
-        int indexOfXX = str.indexOf(xERS);
-        if (indexOfXX > -1) {
-        for (int i = 0; i <= str.length(); i++) {
-            
-           numOfX++;
-           
-            
-            indexOfXX = str.indexOf(xERS);
-            if(indexOfXX % 2 != 0){
-                str = str.substring(indexOfXX + 1);
-                numOfX += 1;
-            } else {
-                str = str.substring(indexOfXX);
+        char character = 'x';
+        int length = str.length();
+
+        for (i = 0; i < length; i++) {
+            while (i <= length) {
+                if (str.charAt(i) == character) {
+                    numOfX = numOfX + 1;
+                }
             }
-                
-            
-            indexOfXX = str.indexOf(numOfX, indexOfXX);
         }
-    }
+        if (numOfX % 3 == 0) {
+            numOfX = numOfX - 1;
+        } else if (numOfX % 2 == 0) {
+            numOfX = numOfX - 1;
+        }
         return numOfX;
+        /////Comments
     }
 }

@@ -60,5 +60,5 @@ public class StringTimesTest {
         String expectedResult = "Hi";
         assertEquals(expectedResult, stringTimes.stringTimes("Hi", 1));
     }
-    
+    /////Comments
 }
