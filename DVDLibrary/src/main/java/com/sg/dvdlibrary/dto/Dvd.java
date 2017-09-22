@@ -30,18 +30,18 @@ public class Dvd {
         return directorsName;
     }
 
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
     
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }  
-    
-    public Long getDvdAge() {
+    /*
+    public int getDvdAge() {
         Period p = releaseDate.until(LocalDate.now());
         return p.getAgeOfDvd();
-    } 
+    }  */
 
     public void setMpaaRating(String mpaaRating) {
         this.mpaaRating = mpaaRating;

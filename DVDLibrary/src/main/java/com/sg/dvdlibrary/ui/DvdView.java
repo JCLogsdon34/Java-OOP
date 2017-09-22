@@ -41,29 +41,11 @@ public class DvdView {
                 newInput = false;
             }
         } while (newInput == false);
-       String numberYear = null;
-     //   boolean intChecker;
-        
-  //      do {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-        //    numberYear = io.readString("Please enter the date that the DVD was released");
-            io.readLocalDate("Please enter a release date dd-mm-yyyy");
-            LocalDate  formatted = LocalDate.parse(numberYear, formatter);
-             numberYear =formatted.toString();
-      //      LocalDate formatted = formatter.format();
-               currentDvd.setReleaseDate(numberYear);
-  
-       /*         if (numberYear != null && !numberYear.isEmpty()){ 
-                    // releaseDate was an int before, not needed now
-               // Long releaseDate = Long.parseLong(numberYear);              
-                currentDvd.setReleaseDate(formatted);
-                intChecker = true;
-                }else{        
-                io.readString("That is not a number, please enter a number");
-                intChecker = false;
-                }
-        } while (intChecker == false);   */
-        
+        String numberYear = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+        io.readLocalDate("Please enter a release date dd-mm-yyyy");
+        LocalDate formatted = LocalDate.parse(numberYear, formatter);
+        currentDvd.setReleaseDate(formatted);
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
         String directorsName = io.readString("Please enter the director's name");
@@ -140,23 +122,9 @@ public class DvdView {
                     + "(5)Leave Menu");
             switch (userSelection) {
                 case 1:
-                    boolean newInput;
-                    do {
-                        releaseDate = io.readLocalDate("Please enter your desired changes for the Release Date");
-                        if (releaseDate != null && !releaseDate.isEmpty()) {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD/mm/yyyy");
-                                //release date is a string here, 
-                            LocalDate Id = LocalDate.parse(releaseDate, formatter);
-                            String formatted = Id.format(formatter);
-                             
-                           // releaseDate = Id.toString();
-                            currentDvd.setReleaseDate(formatted);
-                            io.print("Your change to the Release Date has been noted");
-                            newInput = true;
-                        } else {
-                            newInput = false;
-                        }
-                    } while (newInput == false);
+                    releaseDate = io.readLocalDate("Please enter your desired changes for the Release Date");
+                    currentDvd.setReleaseDate(releaseDate);
+                    io.print("Your change to the Release Date has been noted");
                     break;
                 case 2:
                     boolean inputTry;

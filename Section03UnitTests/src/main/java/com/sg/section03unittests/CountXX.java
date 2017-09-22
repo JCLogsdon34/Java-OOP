@@ -16,23 +16,20 @@ public class CountXX {
     public int countXX(String str) {
 
         int i;
+        char myChar = 'x';
+        // char myChars = (char) (myChar + myChar);;
         int numOfX = 0;
-        char character = 'x';
-        int length = str.length();
+        String twoX = "xx";
 
-        for (i = 0; i < length; i++) {
-            while (i <= length) {
-                if (str.charAt(i) == character) {
-                    numOfX = numOfX + 1;
-                }
-            }
-        }
-        if (numOfX % 3 == 0) {
-            numOfX = numOfX - 1;
-        } else if (numOfX % 2 == 0) {
-            numOfX = numOfX - 1;
-        }
+        //     char myNewChar = (char) (myChar + myChar);
+      //  for (i = 0; i <= str.length(); i++) {
+
+            numOfX = str.indexOf(twoX, myChar);
+            numOfX = twoX.length();
+               numOfX = numOfX + 1;
+            numOfX++;
+      //  }
+      //    numOfX = numOfX + 1;              
         return numOfX;
-        /////Comments
     }
 }
