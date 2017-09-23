@@ -15,21 +15,14 @@ public class CountXX {
 
     public int countXX(String str) {
 
-        int i;
-        char myChar = 'x';
-        // char myChars = (char) (myChar + myChar);;
+        int index = str.indexOf("xx");
         int numOfX = 0;
-        String twoX = "xx";
 
-        //     char myNewChar = (char) (myChar + myChar);
-      //  for (i = 0; i <= str.length(); i++) {
-
-            numOfX = str.indexOf(twoX, myChar);
-            numOfX = twoX.length();
-               numOfX = numOfX + 1;
+        while (index != -1) {
             numOfX++;
-      //  }
-      //    numOfX = numOfX + 1;              
+            str = str.substring(index + 1);
+            index = str.indexOf("xx");
+        }
         return numOfX;
     }
 }

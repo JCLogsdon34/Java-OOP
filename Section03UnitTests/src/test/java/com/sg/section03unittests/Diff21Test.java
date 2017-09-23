@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class Diff21Test {
     
-    private Diff21 diff21 = new Diff21();
+     private Diff21 diff21 = new Diff21();
     
     public Diff21Test() {
         

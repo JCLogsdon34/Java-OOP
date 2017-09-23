@@ -9,7 +9,7 @@ package com.sg.section03unittests;
  *
  * @author apprentice
  */
-public class Diff21 {
+public class Diff21{
         // Given an int n, return the absolute value of the difference 
     // between n and 21, except return double the absolute value 
     // of the difference if n is over 21. 
