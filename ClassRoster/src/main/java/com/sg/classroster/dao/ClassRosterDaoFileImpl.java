@@ -38,7 +38,7 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ClassRosterDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new ArrayList<Student>(students.values());
+        return new ArrayList<>(students.values());
     }
 
     @Override
