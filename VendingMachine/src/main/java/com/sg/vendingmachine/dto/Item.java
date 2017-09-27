@@ -12,7 +12,14 @@ public class Item {
     private int itemInventory;
     public String itemCode;
     
-     public void setItemName(String itemName) {
+     public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+     public String getItemCode() {
+        return itemCode;
+    }
+     
+    public void setItemName(String itemName) {
         this.itemName = itemName;
     }
 
@@ -35,16 +42,7 @@ public class Item {
     public int getItemInventory() {
         return itemInventory;
     }
-
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
-    }
-
-    public String getItemCode() {
-        return itemCode;
-    }
- 
-
+/*
     @Override
     public int hashCode() {
         int hash = 7;
@@ -81,4 +79,5 @@ public class Item {
         }
         return true;
     }
+*/
 }

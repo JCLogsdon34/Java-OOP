@@ -2,10 +2,12 @@
 package com.sg.vendingmachine.ui;
 
 import com.sg.vendingmachine.dto.Item;
+import java.math.BigDecimal;
 import java.util.List;
 
 
 public class VendingMachineView {
+    
     private UserIO io;
 
     public VendingMachineView(UserIO io) {
@@ -14,41 +16,48 @@ public class VendingMachineView {
     public int printMenuAndGetSelection() {
         io.print("Main Menu");
         io.print("1. List Items");
-        io.print("2. Create New Item");  //this will need to change
+        io.print("2. Vend Item");  //this will need to change
         io.print("3. View an Item");
-        io.print("4. Remove an item");
+        io.print("4. Administrator Only Options");
         io.print("5. Exit");
 
         return io.readInt("Please select from the above choices.", 1, 5);
     }
 
-    public Item getNewItemInfo() {
+    public String getItemCode() {
         ///use thi smethod for vending
-        String itemName = io.readString("Please enter Item's code");
-        String itemPrice = io.readString("Please enter First Name");
-        String itemInventory = io.readString("Please enter Last Name");
-        String itemCode = io.readString("Please enter Cohort");
-        Item currentStudent = new Item();
-        currentStudent.setItemName(itemName);
-        currentStudent.setItemPrice(itemPrice);
-        currentStudent.setItemInventory();
-        return currentItem;
+        String itemCode = io.readString("Please enter Item's code");
+        
+  //      String itemInventory = io.readString("Please enter Last Name");
+    //    String itemCode = io.readString("Please enter the Item's code");
+     //   Item currentItem = new Item();
+     //   currentItem.setItemName(itemCode);
+   //     currentItem.setItemPrice(itemPrice);
+     //   currentItem.setItemInventory();
+        return itemCode;
+        //currentItem;
+    }
+    
+    public  int getPayment(){
+        int itemPay= io.readInt("Please enter the cost of that item");
+        
+        return itemPay;
     }
 
     ////change this too
-    public void displayCreateItemBanner() {
-        io.print("=== Create Item ===");
+    public void displayVendItemBanner() {
+        io.print("=== Vend Item ===");
     }
 
     ///change this one too
-    public void displayCreateSuccessBanner() {
+    public void displayVendSuccessBanner() {
         io.readString(
-                "Item successfully created.  Please hit enter to continue");
+                "Item successfully vended.  Please hit enter to continue");
     }
 
     public void displayItemList(List<Item> itemList) {
         for (Item currentItem : itemList) {
-            io.print(currentItem.getStudentCode() + ": "
+            io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
                     + currentItem.getItemPrice());
         }
@@ -65,9 +74,9 @@ public class VendingMachineView {
 
     public void displayItem(Item item) {
         if (item != null) {
-            io.print(item.getItemCode());
+            io.print(item.getItemCode() + " ");
             io.print(item.getItemName() + " " + item.getItemPrice());
-            io.print(item.getItemInventory());
+  //          io.print(item.getItemInventory());
             io.print("");
         } else {
             io.print("No such item.");
@@ -75,12 +84,12 @@ public class VendingMachineView {
         io.readString("Please hit enter to continue.");
     }
 
-    public void displayRemoveItemBanner() {
-        io.print("=== Remove Item ===");
+    public void displayPriceItemBanner() {
+        io.print("=== Item Price ===");
     }
 
-    public void displayRemoveSuccessBanner() {
-        io.readString("Item successfully removed. Please hit enter to continue.");
+    public void displayPaymentSuccessBanner() {
+        io.readString("Money successfully paid. Please hit enter to continue.");
     }
 
     public void displayExitBanner() {

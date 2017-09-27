@@ -5,22 +5,19 @@ import com.sg.vendingmachine.dto.Item;
 import java.util.List;
 
 
-public interface VendingMachineDao {
-    
-    Item addItem(String itemName, Item item)
-            throws VendingMachineDaoException,
-            VendingMachinePersistenceException;
+public interface VendingMachineDao {  
+    Item addItem(String itemCode, Item item)
+            throws  VendingMachinePersistenceException;
     
     List<Item> getAllItems()
-            throws VendingMachineDaoException,
-            VendingMachinePersistenceException;
+            throws VendingMachinePersistenceException;
     
-    Item getItem(String itemName)
-            throws VendingMachineDaoException,
-            VendingMachinePersistenceException;
+    Item getItem(String itemCode)
+            throws VendingMachinePersistenceException;
 
-    Item removeItem(String itemName)
-            throws VendingMachineDaoException,
-            VendingMachinePersistenceException;
-
+    Item viewItem(String itemCode)
+            throws VendingMachinePersistenceException;
+    
+    Item updateItem(String itemName)
+            throws VendingMachinePersistenceException;
 }

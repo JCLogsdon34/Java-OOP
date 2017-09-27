@@ -7,19 +7,24 @@ import java.util.List;
 
 public interface VendingMachineServiceLayer {
     
-    void createItem(Item item) throws
+    
+    
+    void vendItem(Item itemCode) throws
           //  VendingMachineDuplicateIdException,
            VendingMachineDataValidationException,
-            VendingMachinePersistenceException; 
+            VendingMachinePersistenceException;   
  
     List<Item> getAllItems() throws
-            VendingMachinePersistenceException; 
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException; 
  
-    Item getItem(String itemName) throws
-            VendingMachinePersistenceException; 
+    Item getItem(String itemCode) throws
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException; 
 
-    Item removeItem(String itemName) throws
-            VendingMachinePersistenceException; 
+    Item removeItem(String itemCode) throws
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException; 
             
     
 }

@@ -1,4 +1,3 @@
-
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
@@ -19,125 +18,142 @@ import java.util.logging.Logger;
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
-    public Item addItem(String itemName, Item item) 
-            throws VendingMachineDaoException {
-        Item newItem = item.put(itemName, item);
-        writeRoster();
+    public Item addItem(String itemCode, Item item)
+            throws VendingMachinePersistenceException {
+        Item newItem = null;
+        loadItems();
+        items.get(itemCode);
+        items.keySet();
+
+        newItem = items.put(item.getItemName(), item);
+        writeItems();
         return newItem;
     }
 
     @Override
     public List<Item> getAllItems()
-            throws VendingMachineDaoException {
-        try {
-            loadRoster();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new ArrayList<>(item.values());
+            throws VendingMachinePersistenceException {
+
+        loadItems();
+
+        return new ArrayList<>(items.values());
     }
 
     @Override
-    public Item getItem(String itemName)
-            throws VendingMachineDaoException, 
-            VendingMachinePersistenceException{
-        try {
-            loadRoster();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return item.get(itemName);
+    public Item getItem(String itemCode)
+            throws VendingMachinePersistenceException {
+
+        loadItems();
+        
+        return items.get(itemCode);
     }
 
     @Override
-    public Item removeItem(String itemName)
-            throws VendingMachineDaoException {
-        Item removedItem = item.remove(itemName);
-        writeRoster();
+    public Item viewItem(String itemCode)
+            throws VendingMachinePersistenceException {
+        Item removedItem = items.remove(itemCode);
+        writeItems();
         return removedItem;
     }
+    
+    @Override
+    public Item updateItem(String itemName)
+            throws VendingMachinePersistenceException {
+        Item itemInventory;
+        Item updatedItem = null;
+        loadItems();
+        
+        
+        writeItems();
+        return updatedItem;
+    }
 
-    private Map<String, Item> item = new HashMap<>();
+    private Map<String, Item> items = new HashMap<>();
 
-    public static final String ROSTER_FILE = "item.txt";
+    public static final String ITEMS_FILE = "Items.txt";
     public static final String DELIMITER = "::";
 
-    private void loadRoster() 
-            throws VendingMachineDaoException, FileNotFoundException {
+    private void loadItems()
+            throws VendingMachinePersistenceException, FileNotFoundException {
+        
         Scanner scanner;
-
+        Item currentItem;
         try {
             scanner = new Scanner(
                     new BufferedReader(
-                            new FileReader(ROSTER_FILE)));
+                            new FileReader(ITEMS_FILE)));
         } catch (FileNotFoundException e) {
-            throw new VendingMachineDaoException(
-                    "-_- Could not load roster data into memory.", e);
+            throw new VendingMachinePersistenceException(
+                    "-_- Could not load Item data into memory.", e);
         }
+        
         String currentLine;
-        // currentTokens holds each of the parts of the currentLine after it has
-        // been split on our DELIMITER
-        // NOTE FOR APPRENTICES: In our case we use :: as our delimiter.  If
-        // currentLine looks like this:
-        // 1234::Joe::Smith::Java-September2013
-        // then currentTokens will be a string array that looks like this:__________________________________
-        // |    |   |     |                  |
-        // |1234|Joe|Smith|Java-September2013|
-        // |    |   |     |                  |
-        // -----------------------------------
-        //  [0]  [1]  [2]         [3]
         String[] currentTokens;
-        // Go through ROSTER_FILE line by line, decoding each line into a 
-        // Item object.
-        // Process while we have more lines in the file
         while (scanner.hasNextLine()) {
-    
             currentLine = scanner.nextLine();
-            // break up the line into tokens
             currentTokens = currentLine.split(DELIMITER);
-            // Create a new Item object and put it into the map of items
-            // NOTE FOR APPRENTICES: We are going to use the student id
-            // which is currentTokens[0] as the map key for our student object.
-            // We also have to pass the item id into the Item constructor
-            Item currentItem = new Item(currentTokens[0]);
-            // Set the remaining vlaues on currentStudent manually
-            currentItem.setItemName(currentTokens[1]);
-            currentItem.setItemPrice(currentTokens[2]);
-            currentItem.setItemCode(currentTokens[3]);
-              // Or in this case itemName
-            // Put currentStudent into the map using studentID as the key
-            item.put(currentItem.getItemName(), currentItem);
+            currentItem = new Item();
+            currentItem.setItemName(currentTokens[0]);
+            currentItem.setItemPrice(currentTokens[1]);
+            currentItem.setItemCode(currentTokens[2]);
+
+            items.put(currentItem.getItemName(), currentItem);
         }
         scanner.close();
     }
-    /**
-     * Writes all students in the roster out to a ROSTER_FILE. See loadInventory
-     * for file format.
-     * @throws VendingMachineDaoException if an error occurs writing to the file
-     */
-    private void writeRoster() 
-            throws VendingMachineDaoException {
-       
+
+    private void writeItems()
+            throws VendingMachinePersistenceException {
+
         PrintWriter out;
         try {
-            out = new PrintWriter(new FileWriter(ROSTER_FILE));
+            out = new PrintWriter(new FileWriter(ITEMS_FILE));
         } catch (IOException e) {
-            throw new VendingMachineDaoException(
+            throw new VendingMachinePersistenceException(
                     "Could not save item data.", e);
         }
-        // Write out the Student objects to the roster file.
-        // NOTE TO THE APPRENTICES: We could just grab the student map,
-        // get the Collection of Students and iterate over them but we've
-        // already created a method that gets a List of Students so
-        // we'll reuse it.
+        
+        //maybe itemCode and itemName should be static
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
             out.println(currentItem.getItemName() + DELIMITER
                     + currentItem.getItemPrice() + DELIMITER
+                    //not sure about showing ItemInventory
                     + currentItem.getItemInventory() + DELIMITER
-                    + currentItem.getItemCode());
+                    + currentItem.getItemCode() + DELIMITER);
             out.flush();
         }
         out.close();
     }
 }
+// currentTokens holds each of the parts of the currentLine after it has
+// been split on our DELIMITER
+// NOTE FOR APPRENTICES: In our case we use :: as our delimiter.  If
+// currentLine looks like this:
+// 1234::Joe::Smith::Java-September2013
+// then currentTokens will be a string array that looks like this:__________________________________
+// |    |   |     |                  |
+// |1234|Joe|Smith|Java-September2013|
+// |    |   |     |                  |
+// -----------------------------------
+//  [0]  [1]  [2]         [3]
+// Go through ROSTER_FILE line by line, decoding each line into a 
+// Item object.
+// Process while we have more lines in the file
+// Create a new Item object and put it into the map of items
+// NOTE FOR APPRENTICES: We are going to use the student id
+// which is currentTokens[0] as the map key for our student object.
+// We also have to pass the item id into the Item constructor
+
+/**
+ * Writes all students in the roster out to a ROSTER_FILE. See loadInventory for
+ * file format.
+ *
+ * @throws VendingMachineDaoException if an error occurs writing to the file
+ */
+// Write out the Item objects to the Items file.
+// NOTE TO THE APPRENTICES: We could just grab the student map,
+// get the Collection of Items and iterate over them but we've
+// already created a method that gets a List of Items so
+// we'll reuse it.
+            // Put currentStudent into the map using itemCode as the key
