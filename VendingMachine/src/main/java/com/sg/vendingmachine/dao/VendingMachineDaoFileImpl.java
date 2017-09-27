@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
@@ -71,7 +69,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     private Map<String, Item> items = new HashMap<>();
 
     public static final String ITEMS_FILE = "Items.txt";
-    public static final String DELIMITER = "::";
+    public static final String DELIMITER = ":::";
 
     private void loadItems()
             throws VendingMachinePersistenceException, FileNotFoundException {
@@ -156,4 +154,4 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 // get the Collection of Items and iterate over them but we've
 // already created a method that gets a List of Items so
 // we'll reuse it.
-            // Put currentStudent into the map using itemCode as the key
+            
