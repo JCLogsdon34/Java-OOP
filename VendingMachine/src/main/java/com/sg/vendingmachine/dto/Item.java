@@ -6,9 +6,10 @@ import java.util.Objects;
 
 
 public class Item {
+    
     public String itemName;
-    public BigDecimal itemPrice;
-    public int itemInventory;
+    public String itemPrice;   ///This needs to be BigDecimal
+    private int itemInventory;
     public String itemCode;
     
      public void setItemName(String itemName) {
@@ -19,11 +20,11 @@ public class Item {
         return itemName;
     }
 
-    public void setItemPrice(BigDecimal itemPrice) {
+    public void setItemPrice(String itemPrice) {
         this.itemPrice = itemPrice;
     }
 
-    public BigDecimal getItemPrice() {
+    public String getItemPrice() {
         return itemPrice;
     }
 

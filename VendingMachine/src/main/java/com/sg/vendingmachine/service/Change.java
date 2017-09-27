@@ -2,6 +2,6 @@
 package com.sg.vendingmachine.service;
 
 
-public class VendingMachineServiceLayerTest {
+public class Change {
     
 }

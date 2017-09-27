@@ -36,7 +36,9 @@ public interface ClassRosterDao {
             throws ClassRosterDaoException;
 
     /**
-     * Returns the student object associated with the given student id. Returns
+     * Returns the student object associated with the given student id. ReturnsList<Student> getAllStudents()
+            throws ClassRosterDaoException;
+
      * null if no such student exists
      *
      * @param studentId ID of the student to retrieve
