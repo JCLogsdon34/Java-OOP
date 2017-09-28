@@ -1,10 +1,11 @@
 
 package com.sg.vendingmachine.controller;
 
-import com.sg.vendingmachine.dao.VendingMachineDao;
+
 import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.VendingMachineServiceLayer;
 import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIoConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;
@@ -13,15 +14,19 @@ import java.util.List;
 
 
 public class VendingMachineController {
-    VendingMachineView view;
-    VendingMachineDao dao;
+    VendingMachineView myView;
+//    VendingMachineDao dao;
+    private VendingMachineServiceLayer service;
 
-    public VendingMachineController(VendingMachineDao dao, VendingMachineView view) {
-        this.view = view;
-        this.dao = dao;
+    public VendingMachineController(VendingMachineServiceLayer service, VendingMachineView myView) {
+        this.myView = myView;
+   //     this.dao = dao;
+        this.service = service;
     }
 
     private UserIO io = new UserIoConsoleImpl();
+
+ 
 
     public void run() {
         boolean keepGoing = true;
@@ -51,37 +56,37 @@ public class VendingMachineController {
             }
             exitMessage();
         } catch (VendingMachinePersistenceException | VendingMachineDaoException e) {
-            view.displayErrorMessage(e.getMessage());
+            myView.displayErrorMessage(e.getMessage());
         }
     }
 
     private int getMenuSelection()
             throws VendingMachineDaoException , VendingMachinePersistenceException{
-        return view.printMenuAndGetSelection();
+        return myView.printMenuAndGetSelection();
     }
 
 
     private void listItems()
             throws VendingMachineDaoException, VendingMachinePersistenceException {
    //     view.displayDisplayAllBanner();
-        List<Item> itemList = dao.getAllItems();
-        view.displayItemList(itemList);
+        List<Item> itemList = service.getAllItems();
+        myView.displayItemList(itemList);
     }
 
     private void vendItem() 
             throws VendingMachineDaoException, VendingMachinePersistenceException {
  //       view.displayDisplayStudentBanner();
-        String itemChoice = view.getItemCode();
-        Item itemCode = dao.getItem(itemChoice);
-        view.displayItem(itemCode);
+        String itemChoice = myView.getItemCode();
+        Item itemCode = service.getItem(itemChoice);
+        myView.displayItem(itemCode);
         //not sure about this one
     }
 
     private void viewItem()
             throws VendingMachineDaoException, VendingMachinePersistenceException {
     //    view.displayRemoveStudentBanner();
-        String itemCode = view.getItemCodeChoice();
-        dao.viewItem(itemCode);
+        String itemCode = myView.getItemCodeChoice();
+        service.purchaseItem(itemCode);
     //    view.displayVendingSuccessBanner();
     }
     
@@ -89,17 +94,17 @@ public class VendingMachineController {
         BigDecimal allMoneyInMachine;
         Item itemInventory;
         
-        List<Item> itemList = dao.getAllItems();
+        List<Item> itemList = service.getAllItems();
         
         
     }
 
     private void unknownCommand() {
-        view.displayUnknownCommandBanner();
+        myView.displayUnknownCommandBanner();
     }
 
     private void exitMessage() {
-        view.displayExitBanner();
+        myView.displayExitBanner();
     }
 
 }

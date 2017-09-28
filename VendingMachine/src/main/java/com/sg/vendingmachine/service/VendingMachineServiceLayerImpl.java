@@ -21,6 +21,10 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         this.dao = dao;    
         this.view = view;
     }
+
+    public VendingMachineServiceLayerImpl(VendingMachineDao myDao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public void vendItem(Item itemCode)
@@ -68,7 +72,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
     ///maybe convert this to vend an item, by code
     @Override
-    public Item removeItem(String itemName) 
+    public Item updateItem(String itemName) 
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
         Item updatedItem = null;
@@ -97,6 +101,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                     "");
         }
       
+    @Override
       public void purchaseItem(String itemCode){
           view.getItemCodeChoice();
           view.getItemCode();

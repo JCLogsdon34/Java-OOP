@@ -22,9 +22,12 @@ public interface VendingMachineServiceLayer {
             VendingMachinePersistenceException,
             VendingMachineDataValidationException; 
 
-    Item removeItem(String itemCode) throws
+    Item updateItem(String itemCode) throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException; 
-            
+    
+     void purchaseItem(String itemCode) throws
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException; 
     
 }

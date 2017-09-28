@@ -19,7 +19,9 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     public Item addItem(String itemCode, Item item)
             throws VendingMachinePersistenceException {
         Item newItem = null;
+        
         loadItems();
+        
         items.get(itemCode);
         items.keySet();
 
@@ -59,6 +61,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             throws VendingMachinePersistenceException {
         Item itemInventory;
         Item updatedItem = null;
+        
         loadItems();
         
         
@@ -115,10 +118,10 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
             out.println(currentItem.getItemName() + DELIMITER
-                    + currentItem.getItemPrice() + DELIMITER
+      //              + currentItem.getItemPrice() + DELIMITER
                     //not sure about showing ItemInventory
-                    + currentItem.getItemInventory() + DELIMITER
-                    + currentItem.getItemCode() + DELIMITER);
+                    + currentItem.getItemInventory() + DELIMITER);
+       //             + currentItem.getItemCode() + DELIMITER);
             out.flush();
         }
         out.close();
