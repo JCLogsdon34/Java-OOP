@@ -20,12 +20,7 @@ public interface VendingMachineServiceLayer {
     Item getItem(String itemCode) throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException;
-
-    Item updateItem(String itemCode) throws
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException;
-    
+       
     void getMoneyInMachine(BigDecimal itemPaid) throws
             VendingMachineNoItemInInventoryException,
             VendingMachineInsufficientFundsException,

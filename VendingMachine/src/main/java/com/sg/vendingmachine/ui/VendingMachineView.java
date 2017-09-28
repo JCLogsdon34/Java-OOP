@@ -25,10 +25,14 @@ public class VendingMachineView {
         return io.readInt("Please select from the above choices.", 1, 5);
     }
   
-    public Item getItemCode(Item itemCode) {
+    public Item getItemCode(String itemCode) {
         ///use thi smethod for vending
-    
-        for (Item currentItem : itemCode) {
+        Item itemCode1 = null;
+        Item currentItem = new Item();
+        //set equal to an item already present
+        
+        
+        for (currentItem :  itemCode) {
             io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
                     + currentItem.getItemPrice() + " "
@@ -36,11 +40,11 @@ public class VendingMachineView {
         }
   //      String itemInventory = io.readString("Please enter Last Name");
     //    String itemCode = io.readString("Please enter the Item's code");
-     //   Item currentItem = new Item();
+        
      //   currentItem.setItemName(itemCode);
    //     currentItem.setItemPrice(itemPrice);
      //   currentItem.setItemInventory();
-        return itemCode;
+        return itemCode1;
         //currentItem;
     }
     

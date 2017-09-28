@@ -31,10 +31,10 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         
-        items.get(itemCode);
+        itemCode = items.get(itemCode, item);
         items.keySet();  //do I need this?
         
-        itemCode = items.get(item.getItemPrice(), item);
+        
         
         writeItems();
         
@@ -63,6 +63,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         } catch (FileNotFoundException e) {
             Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
         }
+        
         
         return items.get(itemCode);
     }
