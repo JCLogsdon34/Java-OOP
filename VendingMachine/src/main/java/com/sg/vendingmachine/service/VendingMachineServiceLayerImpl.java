@@ -1,4 +1,3 @@
-
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachineDao;
@@ -11,45 +10,82 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
     VendingMachineDao dao;
     VendingMachineView view;
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineView view) {
-        this.dao = dao;    
+        this.dao = dao;
         this.view = view;
+
     }
 
-    public VendingMachineServiceLayerImpl(VendingMachineDao myDao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Override
-    public void vendItem(Item itemCode)
-            throws VendingMachineDataValidationException,
-            VendingMachinePersistenceException {
-
-        
-        if (dao.getItem(itemCode.getItemCode()) != null) {
+    public void purchaseItem() throws VendingMachineInsufficientFundsException,
+            VendingMachinePersistenceException, VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException {
+        ///should this method's purpose allow it to be here / or int he controller
+        String itemCode = null;
+        String itemPrice = null;
+        BigDecimal bigPrice;
+        view.getItemCode();
+        if (dao.getItem(view.getItemCode()) != null) {
             throw new VendingMachinePersistenceException(
                     "ERROR: Could not vend.  Item"
-                    + itemCode.getItemCode()
+                    + view.getItemCode()
+                    + " code is invalid");
+        }
+        //should I really handle this exception here? 
+        //and if not here, then where?
+        BigDecimal itemPaid = view.getPayment();
+        bigPrice = new BigDecimal(itemPrice);
+        if(itemPaid == bigPrice) {
+            vendItem(itemCode);           
+        }else if (itemPaid != bigPrice) {
+            if (itemPaid < bigPrice) {
+                throw new VendingMachineInsufficientFundsException(
+                        "ERROR: Could not vend.  Money"
+                        + view.getPayment()
+                        + " paid was not sufficient");
+            } else if (itemPaid > bigPrice) {
+                refundMoney(itemPaid, itemPrice);
+            }        
+        }
+    }
+
+    //use to update inventory and vend
+    @Override
+    public void vendItem(String itemCode)
+            throws VendingMachineDataValidationException,
+            VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
+        int itemInventory;
+        view.displayVendItemBanner();
+
+        dao.updateItem(itemCode);
+
+        if (itemInventory == 0) {
+            throw new VendingMachineNoItemInInventoryException(
+                    "ERROR: Could not vend.  Item"
+                    + view.getItemCode()
                     + " is sold out");
-        } 
-        validateItemData(itemCode);
-        dao.addItem(itemCode.getItemCode(), itemCode); 
-    }   
+        } else if (itemInventory > 0) {
+            itemInventory = itemInventory - 1;
+            /* validateItemData(itemCode);
+        dao.addItem(itemCode.getItemCode(), itemCode);   */
+            
+            view.displayItem(itemCode);
+            view.displayVendSuccessBanner();
+        }
+    }
 
     @Override
-    public List<Item> getAllItems() 
+    public List<Item> getAllItems()
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
         try {
             //validateItemData(itemCode);
-             dao.getAllItems();
-            
+            dao.getAllItems();
+
         } catch (VendingMachinePersistenceException e) {
             Logger.getLogger(VendingMachineServiceLayerImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -60,35 +96,23 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     public Item getItem(String itemCode)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
-        
+
         try {
             Item getItem;
             getItem = dao.getItem(itemCode);
-            
+
         } catch (VendingMachinePersistenceException e) {
             Logger.getLogger(VendingMachineServiceLayerImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return dao.getItem(itemCode);
     }
-    ///maybe convert this to vend an item, by code
-    @Override
-    public Item updateItem(String itemName) 
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException {
-        Item updatedItem = null;
-        try {
-            updatedItem = dao.updateItem(itemName);       
-        } catch (VendingMachinePersistenceException e) {
-            Logger.getLogger(VendingMachineServiceLayerImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return updatedItem;
-    }
-    
-      private void validateItemData(Item item) throws
-            VendingMachineDataValidationException,
-            VendingMachineDataValidationException{
+   
 
-       /* if (item.getItemName() == null
+    private void validateItemData(Item item) throws
+            VendingMachineDataValidationException,
+            VendingMachineDataValidationException {
+
+        /* if (item.getItemName() == null
                 || item.getItemName().trim().length() == 0
                 || item.getItemPrice() == null
                 || item.getItemPrice().trim().length() == 0
@@ -96,20 +120,18 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                 || item.getItemInventory().trim().length() == 0
                 || item.getItemCode() == null
                 || item.getItemCode().trim().length() == 0) {   */
-
-            throw new VendingMachineDataValidationException(
-                    "");
-        }
-      
-    @Override
-      public void purchaseItem(String itemCode){
-          view.getItemCodeChoice();
-          view.getItemCode();
-          
-      }
-      
-      public void refundMoney(BigDecimal refund){
-          
-      }
+        throw new VendingMachineDataValidationException(
+                "");
     }
 
+    public void refundMoney(BigDecimal itemPaid, String itemPrice) {
+
+    }
+
+    @Override
+    public void getMoneyInMachine(BigDecimal itemPaid) {
+        BigDecimal allMoneyStored;
+        BigDecimal storeCash;
+
+    }
+}

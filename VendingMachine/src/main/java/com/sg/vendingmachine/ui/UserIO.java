@@ -1,9 +1,16 @@
 
 package com.sg.vendingmachine.ui;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 public interface UserIO {
     
     void print(String message);
+    
+    LocalDate readLocalDate(String msg);
+    
+    BigDecimal readBigDecimal(String msg);
 
     double readDouble(String prompt);
 

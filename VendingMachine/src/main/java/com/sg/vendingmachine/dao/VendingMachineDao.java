@@ -2,11 +2,14 @@
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.VendingMachineDataValidationException;
+import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import java.util.List;
 
 
 public interface VendingMachineDao {  
-    Item addItem(String itemCode, Item item)
+    
+    Item getItemPrice(String itemCode, Item item)
             throws  VendingMachinePersistenceException;
     
     List<Item> getAllItems()
@@ -19,5 +22,7 @@ public interface VendingMachineDao {
             throws VendingMachinePersistenceException;
     
     Item updateItem(String itemName)
-            throws VendingMachinePersistenceException;
+            throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException;
 }

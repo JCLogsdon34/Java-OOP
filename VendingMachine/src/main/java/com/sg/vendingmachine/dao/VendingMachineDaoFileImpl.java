@@ -1,6 +1,9 @@
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.VendingMachineDataValidationException;
+import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
+import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,29 +15,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
-    public Item addItem(String itemCode, Item item)
+    public Item getItemPrice(String itemCode, Item item)
             throws VendingMachinePersistenceException {
-        Item newItem = null;
-        
-        loadItems();
+        Item itemPrice = null;
+        ///usde this to pull up the item price and serivce to compare
+        try {
+            loadItems();
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         
         items.get(itemCode);
-        items.keySet();
-
-        newItem = items.put(item.getItemName(), item);
+        items.keySet();  //do I need this?
+        
+        itemCode = items.get(item.getItemPrice(), item);
+        
         writeItems();
-        return newItem;
+        
+        return itemPrice;
     }
 
     @Override
     public List<Item> getAllItems()
             throws VendingMachinePersistenceException {
 
-        loadItems();
+        try {
+            loadItems();
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
 
         return new ArrayList<>(items.values());
     }
@@ -42,12 +57,17 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     @Override
     public Item getItem(String itemCode)
             throws VendingMachinePersistenceException {
-
-        loadItems();
+        
+        try {
+            loadItems();
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         
         return items.get(itemCode);
     }
 
+    
     @Override
     public Item viewItem(String itemCode)
             throws VendingMachinePersistenceException {
@@ -57,15 +77,22 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     }
     
     @Override
-    public Item updateItem(String itemName)
-            throws VendingMachinePersistenceException {
-        Item itemInventory;
+    public Item updateItem(String itemCode)
+            throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException {
+        
+        int itemInventory;
         Item updatedItem = null;
         
-        loadItems();
-        
+        try {
+            loadItems();
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         
         writeItems();
+        
         return updatedItem;
     }
 
