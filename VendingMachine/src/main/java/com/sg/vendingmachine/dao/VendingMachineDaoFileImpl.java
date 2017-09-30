@@ -2,7 +2,6 @@ package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
-import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -21,24 +20,16 @@ import java.util.logging.Logger;
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
-    public Item getItemPrice(String itemCode, Item item)
+    public Item getItemPrice(String itemCode)
             throws VendingMachinePersistenceException {
-        Item itemPrice = null;
-        ///usde this to pull up the item price and serivce to compare
+      
         try {
             loadItems();
         } catch (FileNotFoundException e) {
             Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         
-        itemCode = items.get(itemCode, item);
-        items.keySet();  //do I need this?
-        
-        
-        
-        writeItems();
-        
-        return itemPrice;
+        return items.get(itemCode);  
     }
 
     @Override
@@ -57,15 +48,13 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     @Override
     public Item getItem(String itemCode)
             throws VendingMachinePersistenceException {
-        
+       
         try {
             loadItems();
         } catch (FileNotFoundException e) {
             Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        
-        
-        return items.get(itemCode);
+        }              
+        return items.get(itemCode);       
     }
 
     
@@ -85,6 +74,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         
         int itemInventory;
         Item updatedItem = null;
+        
         
         try {
             loadItems();
@@ -125,7 +115,8 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             currentItem.setItemName(currentTokens[0]);
             currentItem.setItemPrice(currentTokens[1]);
             currentItem.setItemCode(currentTokens[2]);
-
+      // customer does not need to see the inventory
+     // currentItem.setItemInventory(currentTokens[3]);
             items.put(currentItem.getItemName(), currentItem);
         }
         scanner.close();

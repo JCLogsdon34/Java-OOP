@@ -14,45 +14,65 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     VendingMachineDao dao;
     VendingMachineView view;
+    Change change;
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineView view) {
         this.dao = dao;
         this.view = view;
+        this.change = change;
 
     }
 
-    public void purchaseItem() throws VendingMachineInsufficientFundsException,
+    public void checkTheCash(int itemPaid, Item currentItem) throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException, VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        ///should this method's purpose allow it to be here / or int he controller
-        String itemCode = null;
-        String itemPrice = null;
+
+        boolean vendThis = false;
+        Item itemPrice;
         String chosenItem;
-        BigDecimal bigPrice;
-        chosenItem = view.getItemCodeChoice();
-        
-        if (chosenItem != null) {
-            throw new VendingMachinePersistenceException(
-                    "ERROR: Could not vend.  Item"
-                    + chosenItem
-                    + " code is invalid");
-        }
-        //should I really handle this exception here? 
-        //and if not here, then where?
-        BigDecimal itemPaid = view.getPayment();
-        bigPrice = new BigDecimal(itemPrice);
-        
-        if(itemPaid == bigPrice) {
-            vendItem(itemCode);           
-        }else if (itemPaid != bigPrice) {
-            if (itemPaid < bigPrice) {
+        //chosenItem = getItem(itemCode);
+
+        itemPrice = getItemPrice(itemCode);
+
+        while (vendThis == false) {
+            //change this, it can not talk to the view directly  
+            int whichOption = 0;
+            whichOption = change.getCashInfo(itemPaid, itemPrice);
+            change.getEachInPennies(itemPaid);
+
+            //move to change    
+            Switch(whichOption) {
+            
+            case 1:
+                 if(whichOption = 1);
+              vendThis = true;
+              vendItem(itemCode);             
+                break;
+            case 2:   
+            whichOption = 2;
+            if (itemPaid < itemPrice) {
                 throw new VendingMachineInsufficientFundsException(
                         "ERROR: Could not vend.  Money"
-                        + bigPrice
+                        + bigPaid
                         + " paid was not sufficient");
-            } else if (itemPaid > bigPrice) {
-                refundMoney(itemPaid, itemPrice);
-            }        
+                vendThis = false;
+            }
+                break;
+            case 3:
+            whichOption = 3;
+             if (itemPaid > itemPrice) {
+                refundMoney(bigPaid, itemPrice);
+                vendThis = true;
+                break;
+            }
+            default:
+                throw new VendingMachineInsufficientFundsException(
+                        "ERROR: Could not vend.  Money"
+                        + bigPaid
+                        + " paid was not sufficient");
+                vendThis = false;
+                break;
+            }
         }
     }
 
@@ -62,11 +82,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
         int itemInventory = 0;
-        String chosenItem;
-        
-        view.displayVendItemBanner();
-        chosenItem = view.getItemCodeChoice();
-        dao.updateItem(itemCode);
+        Item chosenItem = null;
 
         if (itemInventory == 0) {
             throw new VendingMachineNoItemInInventoryException(
@@ -76,11 +92,13 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         } else if (itemInventory > 0) {
             itemInventory = itemInventory - 1;
             /* validateItemData(itemCode);
-        dao.addItem(itemCode.getItemCode(), itemCode);   */
             
-     //       view.displayItem(itemCode);
-            view.displayVendSuccessBanner();
+        dao.addItem(itemCode.getItemCode(), itemCode);   */
+
+            //       view.displayItem(itemCode);
+            //change these no view          
         }
+        chosenItem = dao.updateItem(itemCode);
     }
 
     @Override
@@ -102,16 +120,8 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
 
-        try {
-            Item getItem;
-            getItem = dao.getItem(itemCode);
-
-        } catch (VendingMachinePersistenceException e) {
-            Logger.getLogger(VendingMachineServiceLayerImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
         return dao.getItem(itemCode);
     }
-   
 
     private void validateItemData(Item item) throws
             VendingMachineDataValidationException,
@@ -129,19 +139,11 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                 "");
     }
 
-    public void refundMoney(BigDecimal itemPaid, String itemPrice) {
+    public int refundMoney(int itemPaid, String itemPrice) {
+        int itemPriceInt;
+        int amountRefunded = 0;
 
-    }
-
-    @Override
-    public void getMoneyInMachine(BigDecimal itemPaid) throws
-            VendingMachineNoItemInInventoryException,
-            VendingMachineInsufficientFundsException,
-            VendingMachineDataValidationException,
-            VendingMachinePersistenceException {
-        
-        BigDecimal allMoneyStored;
-        BigDecimal storeCash;
-
+        itemPriceInt = Integer.parseInt(itemPrice);
+        return amountRefunded;
     }
 }

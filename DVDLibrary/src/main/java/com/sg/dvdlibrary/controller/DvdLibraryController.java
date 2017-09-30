@@ -7,8 +7,6 @@ import com.sg.dvdlibrary.service.DvdLibraryDuplicateIdException;
 import com.sg.dvdlibrary.service.DvdLibraryServiceLayer;
 import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DvdLibraryController {
 

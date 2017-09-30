@@ -8,8 +8,8 @@ import java.util.List;
 
 
 public interface VendingMachineDao {  
-    
-    Item getItemPrice(String itemCode, Item item)
+    //this one did contain Item item in the parameter
+    Item getItemPrice(String itemCode)
             throws  VendingMachinePersistenceException;
     
     List<Item> getAllItems()

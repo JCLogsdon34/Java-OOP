@@ -3,7 +3,6 @@ package com.sg.vendingmachine.ui;
 
 import com.sg.vendingmachine.dto.Item;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -18,21 +17,21 @@ public class VendingMachineView {
         io.print("Main Menu");
         io.print("1. List Items");
         io.print("2. Vend Item");  //this will need to change
-  //      io.print("3. View an Item");
-        io.print("3. Administrator Only Options");
-        io.print("4. Exit");
+        io.print("3. View an Item");
+        io.print("4. Administrator Only Options");
+        io.print("5. Exit");
 
         return io.readInt("Please select from the above choices.", 1, 5);
     }
   
-    public Item getItemCode(String itemCode) {
+    public String getItemByCode() {
         ///use thi smethod for vending
-        Item itemCode1 = null;
+        String itemCode = io.readString("Please enter the Item's code");
         Item currentItem = new Item();
         //set equal to an item already present
+        String itemName;
         
-        
-        for (currentItem :  itemCode) {
+        for (currentItem : itemCode) {
             io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
                     + currentItem.getItemPrice() + " "
@@ -44,7 +43,7 @@ public class VendingMachineView {
      //   currentItem.setItemName(itemCode);
    //     currentItem.setItemPrice(itemPrice);
      //   currentItem.setItemInventory();
-        return itemCode1;
+        return itemCode;
         //currentItem;
     }
     
@@ -66,28 +65,22 @@ public class VendingMachineView {
     }
 
     
-     public Item getItemForAdminOptions(String itemCode, Item currentItem) {
+     public int getItemForAdminOptions(String itemCode, Item currentItem) {
         boolean keepOnKeepingOn = true;
         int userSelection;
         String itemName;
-        int itemInventory;
-        BigDecimal moneyInMachine;
+        int itemInventory = 0;
         
         while (keepOnKeepingOn) {
             userSelection = io.readInt("Please select a number from the following editing options: "
-                    + "(1)Look at money collected "
-                    + "(2)Inventories"
-             //       + "(3)Change Price"
-                    + "(3)Leave Menu"        
+
+                    + "(1)Inventories"
+                    + "(2)Leave Menu"        
             );
+            
             switch (userSelection) {
+
                 case 1:
-                    moneyInMachine = io.readBigDecimal("Please enter your desired changes for the Release Date");
-                 //   currentItem.setItemInventory;
-                    //add way to empty money from machine
-                    io.print("Your change to the Money in the machine has been noted");
-                    break;
-                case 2:
                     boolean inputTry;
                     do {
                         itemName = io.readString("Please enter the item code for the"
@@ -104,33 +97,7 @@ public class VendingMachineView {
                         }
                     } while (inputTry == false);
                     break;
-              /*  case 3:
-                    boolean inputValidate;
-                    do {
-                        directorsName = io.readString("Please enter your desired changes for the Director's Name");
-                        if (directorsName != null && !directorsName.isEmpty()) {
-                            currentItem.setDirectorsName(directorsName);
-                            io.print("Your change to the Director's Name has been noted");
-                            inputValidate = true;
-                        } else {
-                            inputValidate = false;
-                        }
-                    } while (inputValidate == false); 
-                    break;    
-                case 4:
-                    boolean inputBool;
-                    do {
-                        userRating = io.readString("Please enter your desired changes for User Notes");
-                        if (userRating != null && !userRating.isEmpty()) {
-                            currentItem.setUserRating(userRating);
-                            io.print("Your change to the User Notes have been noted");
-                            inputBool = true;
-                        } else {
-                            inputBool = false;
-                        }
-                    } while (inputBool == false);
-                    break;  */
-                case 3:
+                case 2:
                     keepOnKeepingOn = false;
                     break;
                 default:
@@ -138,20 +105,23 @@ public class VendingMachineView {
                     break;
             }
         }
-        return currentItem;
+        return itemInventory;
     }
-/*
-    public void displayItem(String itemCode) {
-        if (itemCode != null) {
-            io.print(item.getItemCode() + " ");
-            io.print(item.getItemName() + " " + item.getItemPrice());
+
+    public void displayItem(Item currentItem) {
+        if (currentItem != null) {
+            Item viewItem = new Item();
+            io.print(currentItem.getItemName());
+            io.print(currentItem.getItemCode());
+            io.print(currentItem.getItemCode());
+            io.print(currentItem.getItemPrice());
   //          io.print(item.getItemInventory());
             io.print("");
         } else {
             io.print("No such item.");
         }
         io.readString("Please hit enter to continue.");
-    } */
+    } 
      public void displayDisplayItemBanner() {
         io.print("=== Display Item ===");
     }

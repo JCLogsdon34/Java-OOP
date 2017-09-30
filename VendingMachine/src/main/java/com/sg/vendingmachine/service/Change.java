@@ -1,6 +1,7 @@
 
 package com.sg.vendingmachine.service;
 
+import com.sg.vendingmachine.dto.Item;
 import java.math.BigDecimal;
 
 
@@ -54,21 +55,31 @@ public class Change {
         this.eachInPennies = eachInPennies;         
     }
     
-    public int getEachInPennies(BigDecimal itemPaid){
+    public int getEachInPennies(){
         
        int nickelWorthPennies = 5;
        int dimeWorthPennies = 10;
        int quarterWorthPennies = 25;
        
-       int inPennies = itemPaid % penny;
-       int inNickels = itemPaid % nickel;
-       int inDime = itemPaid % dime;
-       int inQuarter = itemPaid % quarter;
+       
        
     /*   if(itemPaid % quarter == 0)
       maybe use this to check payment?
       and to check refunds and money Paid */
        
         return eachInPennies;
+    }
+   
+    public int getCashInfo(int itemPaid, String itemPrice) {
+        int whichOption = 0;
+        int itemPriceInt;
+        itemPriceInt = Integer.parseInt(itemPrice);
+        
+    /*    int inPennies = itemPaid / penny;
+       int inNickels = itemPaid % nickel;
+       int inDime = itemPaid % dime;
+       int inQuarter = itemPaid % quarter;   */
+    
+    return whichOption;
     }
 }

@@ -4,6 +4,8 @@ import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
+import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
+import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import com.sg.vendingmachine.service.VendingMachineServiceLayer;
 import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIoConsoleImpl;
@@ -21,7 +23,7 @@ public class VendingMachineController {
 
     public VendingMachineController(VendingMachineServiceLayer service, VendingMachineView myView) {
         this.myView = myView;
-        //     this.dao = dao;
+        //    this.dao = dao;
         this.service = service;
     }
 
@@ -53,7 +55,9 @@ public class VendingMachineController {
                         viewItem();
                         break;
                     case 4:
-                        machineMoney();
+                        getAdminOptions();
+                        break;
+                    case 5:
                         keepGoing = false;
                         break;
                     default:
@@ -80,44 +84,69 @@ public class VendingMachineController {
         myView.displayItemList(itemList);
     }
 
-    private void purchaseItem() {
-        myView.getItemCodeChoice();
-        myView.getItemCode();
+    private void purchaseItem() throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException {
+        myView.displayVendItemBanner();
+        String itemCode;
+        Item currentItem;
+        itemCode = myView.getItemCodeChoice();    
+        if (itemCode != null) {
+            throw new VendingMachinePersistenceException(
+                    "ERROR: Could not vend.  Item"
+                    + itemCode
+                    + " code is invalid");
+        }
+        itemCode = myView.getItemByCode();
+        currentItem = service.getItem(itemCode);
+        BigDecimal itemPaid = myView.getPayment();
+                   service.checkTheCash(itemPaid, currentItem);
+        
+        
+        myView.displayVendSuccessBanner();
     }
 
     private void vendItem()
-            //Tie everything together here I think
-            throws VendingMachineDaoException, VendingMachinePersistenceException, VendingMachineDataValidationException {
-        //       view.displayDisplayStudentBanner();
+            throws VendingMachineDaoException,
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException,
+            VendingMachineInsufficientFundsException {
 
-        String itemChoice = myView.getItemCode();
-        Item itemCode = service.getItem(itemChoice);
-     //   myView.displayItem(itemCode);
-        //not sure about this one
+        Item chosenItem;
+        //combine with purchase item
+
+        chosenItem = myView.getItemByCode();
+        service.getItem(chosenItem);
+        service.vendItem(chosenItem);
+        //   myView.displayItem(itemCode);
     }
 
     private void viewItem()
             throws VendingMachineDaoException, VendingMachinePersistenceException, VendingMachineDataValidationException {
-        //    view.displayRemoveStudentBanner();
-        String itemCode = myView.getItemCodeChoice();
+        myView.displayDisplayItemBanner();
+        String itemCode;
+        Item currentItem;
+        itemCode = myView.getItemByCode();
+        currentItem = service.getItem(itemCode);
+        myView.displayItem(currentItem);
         //   service.purchaseItem(itemCode);
         //    view.displayVendingSuccessBanner();
     }
 
-    private void machineMoney()
+    private void getAdminOptions()
             throws VendingMachineDaoException, VendingMachinePersistenceException,
             VendingMachineDataValidationException {
-        String optionChoice;
+        int optionChoice;
         String itemCode = null;
         Item currentItem = null;
-        BigDecimal allMoneyInMachine;
         int itemInventory;
         List<Item> itemList = service.getAllItems();
         myView.displayAdminOptionsBanner();
-        itemCode = myView.getItemCode();
+        itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
+
         optionChoice = myView.getItemForAdminOptions(itemCode, currentItem);
-        currentItem = service.getItem(itemCode);
+        //write this menu down in the view 
 
         myView.displayAdminChangeSuccessBanner();
 
