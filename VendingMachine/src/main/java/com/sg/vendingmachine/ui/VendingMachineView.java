@@ -27,10 +27,10 @@ public class VendingMachineView {
     public String getItemByCode() {
         ///use thi smethod for vending
         String itemCode = io.readString("Please enter the Item's code");
-        Item currentItem = new Item();
+
         //set equal to an item already present
         String itemName;
-        
+        Item currentItem = new Item();
         for (currentItem : itemCode) {
             io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
@@ -66,9 +66,7 @@ public class VendingMachineView {
     
     public BigDecimal getPayment(){
         String itemPay= io.readString("Please enter the cost of that item");
-        BigDecimal itemPaid = new BigDecimal(itemPay);
-        
-        
+        BigDecimal itemPaid = new BigDecimal(itemPay);  
         return itemPaid;
     }
 
@@ -82,7 +80,7 @@ public class VendingMachineView {
     }
 
     
-     public int getItemForAdminOptions(String itemCode, Item currentItem) {
+     public Item getItemForAdminOptions(String itemCode, Item currentItem) {
         boolean keepOnKeepingOn = true;
         int userSelection;
         String itemName;
@@ -90,30 +88,30 @@ public class VendingMachineView {
         
         while (keepOnKeepingOn) {
             userSelection = io.readInt("Please select a number from the following editing options: "
-                    
-                    + "(1)Inventories"
+                    + "(1)View an Inventory"
                     + "(2)Leave Menu"        
             );
             
             switch (userSelection) {
 
                 case 1:
-                    boolean inputTry;
+                    boolean inputsTry;
                     do {
-                        itemName = io.readString("Please enter the item code for the"
+                     /*   itemName = io.readString("Please enter the item code for the"
                                 + "item whose inventory you want to examine.");
-                        
-                        itemInventory = io.readInt("Please enter your desired changes for the MPAA Rating");
+                       */ 
+                        itemInventory = io.readInt("Please enter your desired changes for the Inventory");
                         if (itemInventory != 0) {
                             ///print all inventories then a specific one
                             currentItem.setItemInventory(itemInventory);
                             io.print("Your change to the Inventory has been noted");
-                            inputTry = true;
+                            inputsTry = true;
                         } else {
-                            inputTry = false;
+                            io.print("You have made no changes to this item's inventory");
+                            inputsTry = false;
                         }
-                    } while (inputTry == false);
-                    break;
+                    } while (inputsTry == false);
+                    break;             
                 case 2:
                     keepOnKeepingOn = false;
                     break;
@@ -122,7 +120,7 @@ public class VendingMachineView {
                     break;
             }
         }
-        return itemInventory;
+        return currentItem;
     }
 
     public void displayItem(Item currentItem) {

@@ -72,15 +72,12 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {        
         int itemInventory;
-        Item updatedItem = null;
-        
-        
+        Item updatedItem = null;    
         try {
             loadItems();
         } catch (FileNotFoundException e) {
             Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        
+        }       
         writeItems();
         
         return updatedItem;
@@ -136,10 +133,9 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
             out.println(currentItem.getItemName() + DELIMITER
-      //              + currentItem.getItemPrice() + DELIMITER
+
                     //not sure about showing ItemInventory
                     + currentItem.getItemInventory() + DELIMITER);
-       //             + currentItem.getItemCode() + DELIMITER);
             out.flush();
         }
         out.close();

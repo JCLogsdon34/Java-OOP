@@ -30,50 +30,28 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
         boolean vendThis = false;
         Item itemPrice;
-        String chosenItem;
         //chosenItem = getItem(itemCode);
 
         itemPrice = dao.getItemPrice(itemCode);
 
         while (vendThis == false) {
             //change this, it can not talk to the view directly  
-            int whichOption = 0;
-            Change change = new Change();
             whichOption = change.getCashInfo(itemPaid, itemPrice);
             change.getEachInPennies(itemPaid);
 
             //move to change    
-            Switch(whichOption) {
-            
-            case 1:
-                 if(whichOption = 1);
-              vendThis = true;
-              vendItem(itemCode);             
-                break;
-            case 2:   
-            whichOption = 2;
             if (itemPaid < itemPrice) {
                 throw new VendingMachineInsufficientFundsException(
                         "ERROR: Could not vend.  Money"
                         + bigPaid
                         + " paid was not sufficient");
                 vendThis = false;
-            }
-                break;
-            case 3:
-            whichOption = 3;
-             if (itemPaid > itemPrice) {
+            } else if (itemPaid > itemPrice) {
                 refundMoney(bigPaid, itemPrice);
                 vendThis = true;
-                break;
-            }
-            default:
-                throw new VendingMachineInsufficientFundsException(
-                        "ERROR: Could not vend.  Money"
-                        + bigPaid
-                        + " paid was not sufficient");
-                vendThis = false;
-                break;
+            } else if (itemPaid == itemPrice){
+                vendItem(itemCode);
+                vendThis = true;
             }
         }
     }
@@ -85,8 +63,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         Item currentItem;
         int itemInventory = 0;
         currentItem = getItem(itemCode);
-        
-        
+
         if (itemInventory == 0) {
             throw new VendingMachineNoItemInInventoryException(
                     "ERROR: Could not vend.  Item"
@@ -142,11 +119,14 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                 "");
     }
 
-    public int refundMoney(int itemPaid, String itemPrice) {
+    public int refundMoney(BigDecimal itemPaid, String itemPrice) {
         int itemPriceInt;
         int amountRefunded = 0;
+        int itemPaidInt;
 
+        itemPaidInt = Integer.parseInt(itemPaid);
         itemPriceInt = Integer.parseInt(itemPrice);
+
         return amountRefunded;
     }
 }

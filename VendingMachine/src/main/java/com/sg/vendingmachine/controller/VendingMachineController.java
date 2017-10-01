@@ -79,8 +79,10 @@ public class VendingMachineController {
     }
 
     private void listItems()
-            throws VendingMachineDaoException, VendingMachinePersistenceException, VendingMachineDataValidationException {
-        //     view.displayDisplayAllBanner();
+            throws VendingMachineDaoException, 
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException {
+        myView.displayDisplayItemBanner();
         List<Item> itemList = service.getAllItems();
         myView.displayItemList(itemList);
     }
@@ -92,6 +94,7 @@ public class VendingMachineController {
         myView.displayVendItemBanner();
         String itemCode;
         Item currentItem;
+        // getting the item choice section
         itemCode = myView.getItemCodeChoice();    
         if (itemCode != null) {
             throw new VendingMachinePersistenceException(
@@ -99,9 +102,10 @@ public class VendingMachineController {
                     + itemCode
                     + " code is invalid");
         } else {                
-        itemCode = myView.getItemByCode();
         currentItem = service.getItem(itemCode);
+        // payment section
         BigDecimal itemPaid = myView.getPayment();
+        //maybe handle this in the view, or call it from there
         service.checkTheCash(itemPaid, currentItem, itemCode);
         ///how should I handle what is next. 
         // Maybe return a bool, then break it up with a if - else
@@ -130,20 +134,16 @@ public class VendingMachineController {
     private void getAdminOptions()
             throws VendingMachineDaoException, VendingMachinePersistenceException,
             VendingMachineDataValidationException {
-        int optionChoice;
+
         String itemCode = null;
         Item currentItem = null;
-        int itemInventory;
-        List<Item> itemList = service.getAllItems();
+        
         myView.displayAdminOptionsBanner();
+        List<Item> itemList = service.getAllItems();       
         itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
-
-        optionChoice = myView.getItemForAdminOptions(itemCode, currentItem);
-        //write this menu down in the view 
-
+        currentItem = myView.getItemForAdminOptions(itemCode, currentItem);
         myView.displayAdminChangeSuccessBanner();
-
     }
 
     private void unknownCommand() {
