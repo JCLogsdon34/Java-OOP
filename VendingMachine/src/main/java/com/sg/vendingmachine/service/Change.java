@@ -11,6 +11,8 @@ public class Change {
     public int dime;
     public int penny;
     private int eachInPennies;
+    
+    
  
     
      public void setQuarter(int quarter) {
@@ -70,7 +72,7 @@ public class Change {
         return eachInPennies;
     }
    
-    public int getCashInfo(int itemPaid, String itemPrice) {
+    public int getCashInfo(BigDecimal itemPaid, String itemPrice) {
         int whichOption = 0;
         int itemPriceInt;
         itemPriceInt = Integer.parseInt(itemPrice);

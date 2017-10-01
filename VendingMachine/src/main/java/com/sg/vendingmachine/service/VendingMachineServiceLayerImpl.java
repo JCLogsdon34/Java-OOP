@@ -23,7 +23,8 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     }
 
-    public void checkTheCash(int itemPaid, Item currentItem) throws VendingMachineInsufficientFundsException,
+    @Override
+    public void checkTheCash(BigDecimal itemPaid, Item currentItem, String itemCode) throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException, VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
@@ -32,11 +33,12 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         String chosenItem;
         //chosenItem = getItem(itemCode);
 
-        itemPrice = getItemPrice(itemCode);
+        itemPrice = dao.getItemPrice(itemCode);
 
         while (vendThis == false) {
             //change this, it can not talk to the view directly  
             int whichOption = 0;
+            Change change = new Change();
             whichOption = change.getCashInfo(itemPaid, itemPrice);
             change.getEachInPennies(itemPaid);
 
@@ -76,18 +78,19 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         }
     }
 
-    //use to update inventory and vend
     @Override
-    public void vendItem(String itemCode)
+    public Item vendItem(String itemCode)
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
+        Item currentItem;
         int itemInventory = 0;
-        Item chosenItem = null;
-
+        currentItem = getItem(itemCode);
+        
+        
         if (itemInventory == 0) {
             throw new VendingMachineNoItemInInventoryException(
                     "ERROR: Could not vend.  Item"
-                    + chosenItem
+                    + currentItem
                     + " is sold out");
         } else if (itemInventory > 0) {
             itemInventory = itemInventory - 1;
@@ -98,7 +101,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             //       view.displayItem(itemCode);
             //change these no view          
         }
-        chosenItem = dao.updateItem(itemCode);
+        return dao.updateItem(currentItem);
     }
 
     @Override

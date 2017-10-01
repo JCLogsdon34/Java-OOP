@@ -2,11 +2,12 @@ package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface VendingMachineServiceLayer {
 
-    void vendItem(String itemCode) throws
+    Item vendItem(String itemCode) throws
             VendingMachineNoItemInInventoryException,
             VendingMachineInsufficientFundsException,
             VendingMachineDataValidationException,
@@ -19,6 +20,12 @@ public interface VendingMachineServiceLayer {
     Item getItem(String itemCode) throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException;
+    
+    void checkTheCash(BigDecimal itemPaid, Item currentItem, String itemCode) 
+            throws VendingMachineInsufficientFundsException,
+            VendingMachinePersistenceException, 
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException;
        
     void getMoneyInMachine(int itemPaid) throws
             VendingMachineNoItemInInventoryException,

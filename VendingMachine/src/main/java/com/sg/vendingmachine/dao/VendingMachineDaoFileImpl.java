@@ -67,11 +67,10 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     }
     
     @Override
-    public Item updateItem(String itemCode)
+    public Item updateItem(Item currentItem)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
-        
+            VendingMachineNoItemInInventoryException {        
         int itemInventory;
         Item updatedItem = null;
         

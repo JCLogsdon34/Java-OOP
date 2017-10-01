@@ -47,6 +47,23 @@ public class VendingMachineView {
         //currentItem;
     }
     
+    
+    /*
+    itemName = io.readString("Please enter the item code for the"
+                                + "item whose inventory you want to examine.");
+                        
+                        itemInventory = io.readInt("Please enter your desired changes for the MPAA Rating");
+                        if (itemInventory != 0) {
+                            ///print all inventories then a specific one
+                            currentItem.setItemInventory(itemInventory);
+                            io.print("Your change to the Inventory has been noted");
+                            inputTry = true;
+                        } else {
+                            inputTry = false;
+                        }
+                    } while (inputTry == false);
+    */
+    
     public BigDecimal getPayment(){
         String itemPay= io.readString("Please enter the cost of that item");
         BigDecimal itemPaid = new BigDecimal(itemPay);
@@ -73,7 +90,7 @@ public class VendingMachineView {
         
         while (keepOnKeepingOn) {
             userSelection = io.readInt("Please select a number from the following editing options: "
-
+                    
                     + "(1)Inventories"
                     + "(2)Leave Menu"        
             );
