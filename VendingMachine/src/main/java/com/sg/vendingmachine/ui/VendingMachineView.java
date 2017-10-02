@@ -64,10 +64,10 @@ public class VendingMachineView {
                     } while (inputTry == false);
     */
     
-    public BigDecimal getPayment(){
-        String itemPay= io.readString("Please enter the cost of that item");
-        BigDecimal itemPaid = new BigDecimal(itemPay);  
-        return itemPaid;
+    public String getPayment(){
+        String itemPay= io.readString("Please enter the cost of that item");        
+        int itemPaid = Integer.parseInt(itemPay);
+        return itemPay;
     }
 
     public void displayItemList(List<Item> itemList) {

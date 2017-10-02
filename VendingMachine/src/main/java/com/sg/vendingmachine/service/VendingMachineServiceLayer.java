@@ -21,7 +21,7 @@ public interface VendingMachineServiceLayer {
             VendingMachinePersistenceException,
             VendingMachineDataValidationException;
     
-    void checkTheCash(BigDecimal itemPaid, Item currentItem, String itemCode) 
+    void checkTheCash(int itemPaid, Item currentItem, String itemCode) 
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException, 
             VendingMachineDataValidationException,

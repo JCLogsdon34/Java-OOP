@@ -72,10 +72,11 @@ public class Change {
         return eachInPennies;
     }
    
-    public int getCashInfo(BigDecimal itemPaid, Item itemPrice) {
+    public int getCashInfo(int itemPaid, Item itemPrice) {
         int whichOption = 0;
         int itemPriceInt;
- 
+        
+       
         
     /*    int inPennies = itemPaid / penny;
        int inNickels = itemPaid % nickel;

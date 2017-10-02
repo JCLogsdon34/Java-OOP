@@ -20,7 +20,7 @@ public class App {
         VendingMachineDao myDao = new VendingMachineDaoFileImpl();
         VendingMachineServiceLayer myService = new VendingMachineServiceLayerImpl(myDao, myView);
         VendingMachineController controller
-                = new VendingMachineController(myService, myView);
+                = new VendingMachineController(myService, myView, myDao);
         controller.run();
         
     }

@@ -22,7 +22,8 @@ public class VendingMachineController {
     VendingMachineDao dao;
     private VendingMachineServiceLayer service;
 
-    public VendingMachineController(VendingMachineServiceLayer service, VendingMachineView myView) {
+    public VendingMachineController(VendingMachineServiceLayer service, 
+            VendingMachineView myView, VendingMachineDao dao) {
         this.myView = myView;
            this.dao = dao;
         this.service = service;
@@ -91,10 +92,11 @@ public class VendingMachineController {
             VendingMachineDataValidationException,
             VendingMachineInsufficientFundsException,
             VendingMachineNoItemInInventoryException {
+        
         myView.displayVendItemBanner();
         String itemCode;
         Item currentItem;
-        // getting the item choice section
+ // getting the item choice section
         itemCode = myView.getItemCodeChoice();    
         if (itemCode != null) {
             throw new VendingMachinePersistenceException(
@@ -103,8 +105,9 @@ public class VendingMachineController {
                     + " code is invalid");
         } else {                
         currentItem = service.getItem(itemCode);
-        // payment section
-        BigDecimal itemPaid = myView.getPayment();
+        myView.displayPriceItemBanner();
+ // payment section
+        int itemPaid = myView.getPayment();
         //maybe handle this in the view, or call it from there
         service.checkTheCash(itemPaid, currentItem, itemCode);
         ///how should I handle what is next. 
