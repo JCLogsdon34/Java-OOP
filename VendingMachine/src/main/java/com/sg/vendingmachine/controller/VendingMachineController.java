@@ -96,6 +96,8 @@ public class VendingMachineController {
         myView.displayVendItemBanner();
         String itemCode;
         Item currentItem;
+        String itemMoney;
+        String itemPrice;
  // getting the item choice section
         itemCode = myView.getItemCodeChoice();    
         if (itemCode != null) {
@@ -105,19 +107,18 @@ public class VendingMachineController {
                     + " code is invalid");
         } else {                
         currentItem = service.getItem(itemCode);
-        myView.displayPriceItemBanner();
+        myView.displayPriceItemBanner();       
  // payment section
-        int itemPaid = myView.getPayment();
-        //maybe handle this in the view, or call it from there
-        service.checkTheCash(itemPaid, currentItem, itemCode);
-        ///how should I handle what is next. 
-        // Maybe return a bool, then break it up with a if - else
- 
-        service.vendItem(itemCode);
-        dao.updateItem(currentItem);
-        ///write a new method for updateing an item, pull the inventory up
-        myView.displayItem(currentItem);  
+        itemMoney = myView.getPayment();
         
+        int itemPaid = Integer.parseInt(itemMoney);
+        //why convert to an int twice?
+        itemPrice = dao.getItemPrice(itemCode);       
+  // Vend Item section       
+        service.vendItem(itemCode);
+        dao.updateItem(itemCode, currentItem);
+        ///write a new method for updateing an item, pull the inventory up
+        myView.displayItem(currentItem);         
         myView.displayVendSuccessBanner();
         }
     }
@@ -127,7 +128,7 @@ public class VendingMachineController {
         myView.displayDisplayItemBanner();
         String itemCode;
         Item currentItem;
-        itemCode = myView.getItemByCode();
+        itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
         myView.displayItem(currentItem);
         //   service.purchaseItem(itemCode);

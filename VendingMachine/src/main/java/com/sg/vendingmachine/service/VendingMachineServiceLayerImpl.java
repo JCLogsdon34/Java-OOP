@@ -24,40 +24,16 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
     @Override
-    public void checkTheCash(int itemPaid, Item currentItem, String itemCode) throws VendingMachineInsufficientFundsException,
-            VendingMachinePersistenceException, VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
-
-        boolean vendThis = false;
-        Item itemPrice;
-        //chosenItem = getItem(itemCode);
-
-        
-    }
-
-    @Override
-    public Item vendItem(String itemCode)
+    public int vendItem(String itemCode)
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
         Item currentItem;
         int itemInventory = 0;
         currentItem = getItem(itemCode);
-
-        if (itemInventory == 0) {
-            throw new VendingMachineNoItemInInventoryException(
-                    "ERROR: Could not vend.  Item"
-                    + currentItem
-                    + " is sold out");
-        } else if (itemInventory > 0) {
-            itemInventory = itemInventory - 1;
             /* validateItemData(itemCode);
             
-        dao.addItem(itemCode.getItemCode(), itemCode);   */
-
-            //       view.displayItem(itemCode);
-            //change these no view          
-        }
-        return dao.updateItem(currentItem);
+        dao.addItem(itemCode.getItemCode(), itemCode);   */         
+        return itemInventory;
     }
 
     @Override
@@ -96,40 +72,5 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                 || item.getItemCode().trim().length() == 0) {   */
         throw new VendingMachineDataValidationException(
                 "");
-    }
-
-    public int refundMoney(String itemPaid, String itemPrice, Item currentItem) throws VendingMachineInsufficientFundsException {
-        int itemPriceInt;
-        int amountRefunded = 0;
-        int itemPaidInt;
-        int userRefund;
-        boolean vendThis = false;
-   //     Item itemPrice;
-
-        itemPaidInt = Integer.parseInt(itemPaid);
-        itemPriceInt = Integer.parseInt(itemPrice);
-  
-        itemPrice = dao.getItemPrice(itemCode);
-    //    while (vendThis == false) {
-            //change this, it can not talk to the view directly  
-            change.getCashInfo(itemPaid, itemPrice);
-    //      change.getEachInPennies(itemPaid);
-            //move to change    
-            if (itemPaidInt < itemPriceInt) {
-                throw new VendingMachineInsufficientFundsException(
-                        "ERROR: Could not vend.  Money"
-                        + itemPaid
-                        + " paid was not sufficient");
-       //         vendThis = false;
-            } else if (itemPaidInt > itemPriceInt) {
- 
-                userRefund = itemPaidInt - itemPriceInt;
-                vendThis = true;
-            } else if (itemPaidInt == itemPriceInt){
-                vendItem(currentItem);
-                vendThis = true;
-            }
-   //     }
-        return amountRefunded;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VendingMachineDao {  
     //this one did contain Item item in the parameter
-    Item getItemPrice(String itemCode)
+    String getItemPrice(String itemCode)
             throws  VendingMachinePersistenceException;
     
     List<Item> getAllItems()
@@ -21,7 +21,7 @@ public interface VendingMachineDao {
     Item viewItem(String itemCode)
             throws VendingMachinePersistenceException;
     
-    Item updateItem(Item currentItem)
+    void updateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException;

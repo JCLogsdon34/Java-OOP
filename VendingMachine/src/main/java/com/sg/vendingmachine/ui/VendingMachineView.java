@@ -2,6 +2,7 @@
 package com.sg.vendingmachine.ui;
 
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -23,31 +24,7 @@ public class VendingMachineView {
 
         return io.readInt("Please select from the above choices.", 1, 5);
     }
-  
-    public String getItemByCode() {
-        ///use thi smethod for vending
-        String itemCode = io.readString("Please enter the Item's code");
-
-        //set equal to an item already present
-        String itemName;
-        Item currentItem = new Item();
-        for (currentItem : itemCode) {
-            io.print(currentItem.getItemCode() + ": "
-                    + currentItem.getItemName() + " "
-                    + currentItem.getItemPrice() + " "
-                    + currentItem.getItemInventory());
-        }
-  //      String itemInventory = io.readString("Please enter Last Name");
-    //    String itemCode = io.readString("Please enter the Item's code");
-        
-     //   currentItem.setItemName(itemCode);
-   //     currentItem.setItemPrice(itemPrice);
-     //   currentItem.setItemInventory();
-        return itemCode;
-        //currentItem;
-    }
-    
-    
+   
     /*
     itemName = io.readString("Please enter the item code for the"
                                 + "item whose inventory you want to examine.");
@@ -66,7 +43,7 @@ public class VendingMachineView {
     
     public String getPayment(){
         String itemPay= io.readString("Please enter the cost of that item");        
-        int itemPaid = Integer.parseInt(itemPay);
+    //    int itemPaid = Integer.parseInt(itemPay);
         return itemPay;
     }
 
@@ -84,7 +61,7 @@ public class VendingMachineView {
         boolean keepOnKeepingOn = true;
         int userSelection;
         String itemName;
-        int itemInventory = 0;
+        String itemInventory;
         
         while (keepOnKeepingOn) {
             userSelection = io.readInt("Please select a number from the following editing options: "
@@ -97,11 +74,8 @@ public class VendingMachineView {
                 case 1:
                     boolean inputsTry;
                     do {
-                     /*   itemName = io.readString("Please enter the item code for the"
-                                + "item whose inventory you want to examine.");
-                       */ 
-                        itemInventory = io.readInt("Please enter your desired changes for the Inventory");
-                        if (itemInventory != 0) {
+                        itemInventory = io.readString("Please enter your desired changes for the Inventory");
+                        if (itemInventory != null) {
                             ///print all inventories then a specific one
                             currentItem.setItemInventory(itemInventory);
                             io.print("Your change to the Inventory has been noted");
@@ -137,6 +111,44 @@ public class VendingMachineView {
         }
         io.readString("Please hit enter to continue.");
     } 
+    
+    public int refundMoney(int itemPrice, int itemPaid) throws VendingMachineInsufficientFundsException {
+
+        int userRefund = 0;
+
+        //      itemPrice = dao.getItemPrice(itemPrice);
+        //    while (vendThis == false) {
+        //change this, it can not talk to the view directly  
+        //           change.getCashInfo(itemPaid, itemPrice);
+        //      change.getEachInPennies(itemPaid);
+        //move to change  
+        
+        if (itemPaid < itemPrice) {
+            throw new VendingMachineInsufficientFundsException(
+                    "ERROR: Could not vend.  Money"
+                    + itemPaid
+                    + " paid was not sufficient");
+        } else if (itemPaid > itemPrice) {
+ ///////add a step for the change           
+            userRefund = itemPaid - itemPrice;
+            io.print("Your refund is: " + userRefund);
+        } 
+        return userRefund;
+    }
+    
+    public void displayVendSuccessBanner() {
+        io.readString(
+                "Item successfully vended.  Please hit enter to continue");
+    }
+
+    public String getItemCodeChoice() {
+        return io.readString("Please enter the Item Code.");
+    }
+    
+    public void displayPaymentSuccessBanner() {
+        io.readString("Money successfully paid. Please hit enter to continue.");
+    }
+    
      public void displayDisplayItemBanner() {
         io.print("=== Display Item ===");
     }
@@ -153,22 +165,8 @@ public class VendingMachineView {
         io.print("=== Changes Successful ===");
     }
 
-    
-    public void displayVendSuccessBanner() {
-        io.readString(
-                "Item successfully vended.  Please hit enter to continue");
-    }
-
-    public String getItemCodeChoice() {
-        return io.readString("Please enter the Item Code.");
-    }
-
     public void displayPriceItemBanner() {
         io.print("=== Item Price ===");
-    }
-
-    public void displayPaymentSuccessBanner() {
-        io.readString("Money successfully paid. Please hit enter to continue.");
     }
 
     public void displayExitBanner() {

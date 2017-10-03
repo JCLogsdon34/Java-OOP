@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VendingMachineServiceLayer {
 
-    Item vendItem(String itemCode) throws
+    int vendItem(String itemCode) throws
             VendingMachineNoItemInInventoryException,
             VendingMachineInsufficientFundsException,
             VendingMachineDataValidationException,
@@ -20,16 +20,11 @@ public interface VendingMachineServiceLayer {
     Item getItem(String itemCode) throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException;
-    
-    void checkTheCash(int itemPaid, Item currentItem, String itemCode) 
+    /*
+    void checkTheCash(String itemPaid, Item currentItem, String itemCode) 
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException, 
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException;
-       
-    void getMoneyInMachine(int itemPaid) throws
-            VendingMachineNoItemInInventoryException,
-            VendingMachineInsufficientFundsException,
-            VendingMachineDataValidationException,
-            VendingMachinePersistenceException;
+     */
 }

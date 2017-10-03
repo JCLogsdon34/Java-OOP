@@ -9,7 +9,7 @@ public class UserIoConsoleImpl implements UserIO {
 
     @Override
     public void print(String message) {
-        message = "Hello and welcome to the interface";
+        System.out.println(message);
 
     }
 
@@ -99,11 +99,13 @@ public class UserIoConsoleImpl implements UserIO {
 
     @Override
     public int readInt(String userPrompt) {
+        String number;
         int myInt;
         Scanner inputReader = new Scanner(System.in);
 
-        System.out.println("Please enter a number");
-        myInt = inputReader.nextInt();
+        System.out.println(userPrompt);
+        number = inputReader.nextLine();
+        myInt = Integer.parseInt(number);
         return myInt;
     }
 
@@ -114,7 +116,7 @@ public class UserIoConsoleImpl implements UserIO {
         int myInt = 0;
 
         do {
-            System.out.println("Please enter a number between 1 - 5");
+            System.out.println(userPrompt);
             myInt = inputReader.nextInt();
             if (myInt > 5 || myInt < 1) {
                 keepGoing = true;
@@ -131,7 +133,7 @@ public class UserIoConsoleImpl implements UserIO {
         long readLong;
         Scanner inputReader = new Scanner(System.in);
 
-        System.out.println("Please enter a number(long)");
+        System.out.println(prompt);
         readLong = inputReader.nextLong();
 
         return readLong;
@@ -153,7 +155,7 @@ public class UserIoConsoleImpl implements UserIO {
         String userSentence;
         Scanner inputReader = new Scanner(System.in);
 
-        System.out.println("Please enter a sentence");
+        System.out.println(prompt);
         userSentence = inputReader.nextLine();
 
         return userSentence;
