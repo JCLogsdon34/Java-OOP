@@ -1,88 +1,70 @@
-
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dto.Item;
+import static com.sg.vendingmachine.service.Coins.DIME;
+import static com.sg.vendingmachine.service.Coins.NICKEL;
+import static com.sg.vendingmachine.service.Coins.PENNY;
+import static com.sg.vendingmachine.service.Coins.QUARTER;
 import java.math.BigDecimal;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Change {
-    public int quarter;
-    public int nickel;   ///This needs to be BigDecimal
-    public int dime;
-    public int penny;
-    private int eachInPennies;
     
-    
- 
-    
-     public void setQuarter(int quarter) {
-        this.quarter = quarter;
-    }
-     public int getQuarter() {
+    private final Map<Coins, Integer> changeWorth = getCoins();
 
-        int quarterWorth = (25 * penny);
-        return quarterWorth;
+    /*  public void getChange() {
+        this.changeWorth = new changeWorth;   
     }
-     
-    public void setNickel(int nickel) {
-        this.nickel = nickel;
+     */
+    private static Map<Coins, Integer> getCoins() {
+        Map<Coins, Integer> cashMoney = new HashMap<>();
+        for (Coins x : Coins.values()) {
+            cashMoney.put(x, Integer.MIN_VALUE);
+        }
+        return cashMoney;
     }
 
-    public int getNickel() {
-        
-        int nickelWorth = (5 * penny);        
-        return nickelWorth;
+    public void getCoins(Coins denomination, int worth) {
+        changeWorth.put(denomination, worth + getMoneyIn(denomination));
     }
 
-    public void setDime(int dime) {
-        this.dime = dime;
+    public int getMoneyIn(Coins denomination) {
+        return changeWorth.get(denomination);
     }
 
-    public int getDime() {
-        
-        int dimeWorth = (10 * penny);
-        return dimeWorth;
-    }
+    public Map<Coins, Integer> getCoinWorth(int itemRefund) {
+        List<Coins> denomination = Arrays.asList(Coins.values());
 
-    public void setPenny(int penny) {
-        this.penny = penny;
-    }
+        Map<Coins, Integer> cashMoney = new HashMap<>();
+        cashMoney.put(QUARTER, 25);
+        cashMoney.put(DIME, 10);
+        cashMoney.put(NICKEL, 5);
+        cashMoney.put(PENNY, 1);
 
-    public int getPenny() {
-        penny = (int) .01;
-        return penny;
+        for (Coins x : denomination) {
+            do{                
+                itemRefund = itemRefund - x.valueInPennies;              
+                cashMoney.put(x, cashMoney.get(x) + 1);
+                getCoins(x, -1);
+            }while((getMoneyIn(x) > 0) && (itemRefund >= x.valueInPennies));
+        }
+        return cashMoney;
     }
     
-    public void setEachInPennies(int quarter, int nichel, int dime){
-        this.eachInPennies = eachInPennies;         
-    }
-    
-    public int getEachInPennies(){
-        
-       int nickelWorthPennies = 5;
-       int dimeWorthPennies = 10;
-       int quarterWorthPennies = 25;
-       
-       
-       
-    /*   if(itemPaid % quarter == 0)
-      maybe use this to check payment?
-      and to check refunds and money Paid */
-       
-        return eachInPennies;
-    }
-   
-    public int getCashInfo(int itemPaid, Item itemPrice) {
-        int whichOption = 0;
+    public int getCashInfo(String itemPaid, String itemPrice) {
         int itemPriceInt;
+        int itemPaidInt;
+        int itemRefund;
         
-       
+        itemPriceInt = Integer.parseInt(itemPrice);
+        itemPaidInt = Integer.parseInt(itemPrice);
         
-    /*    int inPennies = itemPaid / penny;
-       int inNickels = itemPaid % nickel;
-       int inDime = itemPaid % dime;
-       int inQuarter = itemPaid % quarter;   */
-    
-    return whichOption;
+        itemRefund = itemPaidInt - itemPriceInt;
+        
+        return itemRefund;
     }
+
 }

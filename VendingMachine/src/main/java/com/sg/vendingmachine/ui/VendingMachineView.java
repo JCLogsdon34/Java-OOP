@@ -2,9 +2,12 @@
 package com.sg.vendingmachine.ui;
 
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.Coins;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class VendingMachineView {
@@ -41,9 +44,9 @@ public class VendingMachineView {
                     } while (inputTry == false);
     */
     
-    public String getPayment(){
-        String itemPay= io.readString("Please enter the cost of that item");        
-    //    int itemPaid = Integer.parseInt(itemPay);
+    public String getPayment(String itemPrice){
+        io.print(itemPrice + "is the cost of that item");
+        String itemPay= io.readString("Please enter the cost of that item in coins");        
         return itemPay;
     }
 
@@ -112,28 +115,11 @@ public class VendingMachineView {
         io.readString("Please hit enter to continue.");
     } 
     
-    public int refundMoney(int itemPrice, int itemPaid) throws VendingMachineInsufficientFundsException {
+    public void refundMoney(Map<Coins, Integer> cashRefund) 
+            throws VendingMachineInsufficientFundsException {
+         
+            io.print("Your refund is: " + cashRefund);
 
-        int userRefund = 0;
-
-        //      itemPrice = dao.getItemPrice(itemPrice);
-        //    while (vendThis == false) {
-        //change this, it can not talk to the view directly  
-        //           change.getCashInfo(itemPaid, itemPrice);
-        //      change.getEachInPennies(itemPaid);
-        //move to change  
-        
-        if (itemPaid < itemPrice) {
-            throw new VendingMachineInsufficientFundsException(
-                    "ERROR: Could not vend.  Money"
-                    + itemPaid
-                    + " paid was not sufficient");
-        } else if (itemPaid > itemPrice) {
- ///////add a step for the change           
-            userRefund = itemPaid - itemPrice;
-            io.print("Your refund is: " + userRefund);
-        } 
-        return userRefund;
     }
     
     public void displayVendSuccessBanner() {
@@ -149,12 +135,16 @@ public class VendingMachineView {
         io.readString("Money successfully paid. Please hit enter to continue.");
     }
     
-     public void displayDisplayItemBanner() {
+    public void displayDisplayItemBanner() {
         io.print("=== Display Item ===");
     }
      
+    public void displayVendingItem(){
+         io.print("=== Vending In Progress ===");
+    }
+     
       public void displayVendItemBanner() {
-        io.print("=== Vend Item ===");
+        io.print("=== Vend Item Successful ===");
     }
     
     public void displayAdminOptionsBanner() {
@@ -167,6 +157,10 @@ public class VendingMachineView {
 
     public void displayPriceItemBanner() {
         io.print("=== Item Price ===");
+    }
+    
+    public void displayNoChangeBanner(){
+        io.print("No change due");
     }
 
     public void displayExitBanner() {

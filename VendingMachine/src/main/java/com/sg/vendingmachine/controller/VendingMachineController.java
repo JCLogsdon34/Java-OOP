@@ -4,6 +4,7 @@ import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.Coins;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
@@ -12,7 +13,9 @@ import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIoConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,18 +35,13 @@ public class VendingMachineController {
     private UserIO io = new UserIoConsoleImpl();
 
     public void run() {
+        
         boolean keepGoing = true;
         int menuSelection = 0;
 
         try {
-            service.getAllItems();
-        } catch (VendingMachinePersistenceException | VendingMachineDataValidationException e) {
-            Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
-        }
-
-        try {
             while (keepGoing) {
-
+            service.getAllItems();
                 menuSelection = getMenuSelection();
 
                 switch (menuSelection) {
@@ -94,29 +92,51 @@ public class VendingMachineController {
             VendingMachineNoItemInInventoryException {
         
         myView.displayVendItemBanner();
+         Map<Coins, Integer> cashRefund = new HashMap<>();
         String itemCode;
         Item currentItem;
         String itemMoney;
         String itemPrice;
- // getting the item choice section
+        int notEnough;
+        int userRefundInt;
+ 
+        
+ // the item choice section
         itemCode = myView.getItemCodeChoice();    
-        if (itemCode != null) {
+        if (itemCode == null) {
             throw new VendingMachinePersistenceException(
                     "ERROR: Could not vend.  Item"
                     + itemCode
                     + " code is invalid");
         } else {                
+
         currentItem = service.getItem(itemCode);
-        myView.displayPriceItemBanner();       
- // payment section
-        itemMoney = myView.getPayment();
+        myView.displayPriceItemBanner();    
+        itemPrice = dao.getItemPrice(itemCode);  
         
-        int itemPaid = Integer.parseInt(itemMoney);
-        //why convert to an int twice?
-        itemPrice = dao.getItemPrice(itemCode);       
-  // Vend Item section       
+ // payment section
+        itemMoney = myView.getPayment(itemPrice);
+
+        BigDecimal itemPayment = new BigDecimal(itemMoney);
+        BigDecimal itemPriceBig = new BigDecimal(itemPrice);
+
+        notEnough = service.checkTheCash(itemPriceBig, itemPayment);
+            if(notEnough == 1){
+                cashRefund = service.returnChange(itemMoney, itemPrice);
+                myView.refundMoney(cashRefund);
+            } else if ( notEnough == -1){
+                userRefundInt = 0;
+                BigDecimal userRefund = new BigDecimal(userRefundInt);
+                myView.displayNoChangeBanner();
+            }    
+  // Vend Item section 
+        myView.displayVendingItem();
         service.vendItem(itemCode);
+      /*
+        Blend these two methods somehow
+       */      
         dao.updateItem(itemCode, currentItem);
+        
         ///write a new method for updateing an item, pull the inventory up
         myView.displayItem(currentItem);         
         myView.displayVendSuccessBanner();

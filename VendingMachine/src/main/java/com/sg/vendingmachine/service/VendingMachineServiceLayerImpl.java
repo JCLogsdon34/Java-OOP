@@ -6,7 +6,9 @@ import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.ui.VendingMachineView;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,11 +24,44 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         this.change = change;
 
     }
+    
+    @Override
+    public int checkTheCash(BigDecimal itemPrice, BigDecimal itemPaid) 
+            throws VendingMachineInsufficientFundsException{
+        int notEnough = 0;
+        if (itemPaid.compareTo(itemPrice) < 0) {
+            notEnough = -1;
+            throw new VendingMachineInsufficientFundsException(
+                    "ERROR: Could not vend.  Money"
+                    + itemPaid
+                    + " paid was not sufficient");
+        }else if(itemPaid.compareTo(itemPrice) > 0){
+            notEnough = 1;
+        }   
+        return notEnough;
+    }
+    
+    @Override
+    public Map<Coins,Integer> returnChange(String itemPaid, String itemPrice) 
+            throws VendingMachineInsufficientFundsException,
+            VendingMachinePersistenceException, 
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException{
 
+        Map<Coins, Integer> cashRefund = new HashMap<>();
+        
+            int itemRefund = change.getCashInfo(itemPrice, itemPaid);
+               cashRefund =  change.getCoinWorth(itemRefund);
+        
+        return cashRefund;
+         
+    }
+    
     @Override
     public int vendItem(String itemCode)
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
+        
         Item currentItem;
         int itemInventory = 0;
         currentItem = getItem(itemCode);
