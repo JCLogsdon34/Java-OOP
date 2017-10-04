@@ -64,13 +64,18 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     @Override
     public Item viewItem(String itemCode)
             throws VendingMachinePersistenceException {
+        try {
+            loadItems();
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         Item currentItem = items.get(itemCode);
        // writeItems();
         return currentItem;
     }
     
     @Override
-    public void updateItem(String itemCode, Item currentItem)
+    public void vendAndUpdateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {        
@@ -148,9 +153,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
             out.println(currentItem.getItemName() + DELIMITER
-
-            
-                    + currentItem.getItemInventory() + DELIMITER);
+                   + currentItem.getItemInventory() + DELIMITER);
             out.flush();
         }
         out.close();

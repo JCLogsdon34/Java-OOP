@@ -25,23 +25,23 @@ public class VendingMachineController {
     VendingMachineDao dao;
     private VendingMachineServiceLayer service;
 
-    public VendingMachineController(VendingMachineServiceLayer service, 
+    public VendingMachineController(VendingMachineServiceLayer service,
             VendingMachineView myView, VendingMachineDao dao) {
         this.myView = myView;
-           this.dao = dao;
+        this.dao = dao;
         this.service = service;
     }
 
     private UserIO io = new UserIoConsoleImpl();
 
     public void run() {
-        
+
         boolean keepGoing = true;
         int menuSelection = 0;
 
         try {
             while (keepGoing) {
-            service.getAllItems();
+                listItems();
                 menuSelection = getMenuSelection();
 
                 switch (menuSelection) {
@@ -78,7 +78,7 @@ public class VendingMachineController {
     }
 
     private void listItems()
-            throws VendingMachineDaoException, 
+            throws VendingMachineDaoException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException {
         myView.displayDisplayItemBanner();
@@ -89,62 +89,55 @@ public class VendingMachineController {
     private void purchaseItem() throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineInsufficientFundsException,
-            VendingMachineNoItemInInventoryException {
-        
-        myView.displayVendItemBanner();
-         Map<Coins, Integer> cashRefund = new HashMap<>();
+            VendingMachineNoItemInInventoryException,
+            VendingMachineDaoException {
+
+        Map<Coins, Integer> cashRefund = new HashMap<>();
         String itemCode;
         Item currentItem;
         String itemMoney;
         String itemPrice;
         int notEnough;
-        int userRefundInt;
- 
-        
- // the item choice section
-        itemCode = myView.getItemCodeChoice();    
-        if (itemCode == null) {
+
+        // the item choice section
+        listItems();
+        itemCode = myView.getItemCodeChoice();
+        if (itemCode != null) {
             throw new VendingMachinePersistenceException(
                     "ERROR: Could not vend.  Item"
                     + itemCode
                     + " code is invalid");
-        } else {                
+        } else {
+            currentItem = service.getItem(itemCode);
+            myView.displayPriceItemBanner();
+            itemPrice = dao.getItemPrice(itemCode);
 
-        currentItem = service.getItem(itemCode);
-        myView.displayPriceItemBanner();    
-        itemPrice = dao.getItemPrice(itemCode);  
-        
- // payment section
-        itemMoney = myView.getPayment(itemPrice);
-
-        BigDecimal itemPayment = new BigDecimal(itemMoney);
-        BigDecimal itemPriceBig = new BigDecimal(itemPrice);
-
-        notEnough = service.checkTheCash(itemPriceBig, itemPayment);
-            if(notEnough == 1){
+            // payment section
+            itemMoney = myView.getPayment(itemPrice);
+            BigDecimal itemPayment = new BigDecimal(itemMoney);
+            BigDecimal itemPriceBig = new BigDecimal(itemPrice);
+            notEnough = service.checkTheCash(itemPriceBig, itemPayment);
+            if (notEnough == 1) {
                 cashRefund = service.returnChange(itemMoney, itemPrice);
                 myView.refundMoney(cashRefund);
-            } else if ( notEnough == -1){
-                userRefundInt = 0;
-                BigDecimal userRefund = new BigDecimal(userRefundInt);
+            } else if (notEnough == -1) {
                 myView.displayNoChangeBanner();
-            }    
-  // Vend Item section 
-        myView.displayVendingItem();
-        service.vendItem(itemCode);
-      /*
-        Blend these two methods somehow
-       */      
-        dao.updateItem(itemCode, currentItem);
-        
-        ///write a new method for updateing an item, pull the inventory up
-        myView.displayItem(currentItem);         
-        myView.displayVendSuccessBanner();
+            }
+            // Vend Item section 
+            myView.displayVendingItem();
+            //    service.vendItem(itemCode);      
+            dao.vendAndUpdateItem(itemCode, currentItem);
+            ///write a new method for updateing an item, pull the inventory up
+            myView.displayItem(currentItem);
+            myView.displayVendSuccessBanner();
         }
     }
 
     private void viewItem()
-            throws VendingMachineDaoException, VendingMachinePersistenceException, VendingMachineDataValidationException {
+            throws VendingMachineDaoException, 
+            VendingMachinePersistenceException, 
+            VendingMachineDataValidationException {
+        
         myView.displayDisplayItemBanner();
         String itemCode;
         Item currentItem;
@@ -161,9 +154,9 @@ public class VendingMachineController {
 
         String itemCode = null;
         Item currentItem = null;
-        
+
         myView.displayAdminOptionsBanner();
-        List<Item> itemList = service.getAllItems();       
+        List<Item> itemList = service.getAllItems();
         itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
         currentItem = myView.getItemForAdminOptions(itemCode, currentItem);

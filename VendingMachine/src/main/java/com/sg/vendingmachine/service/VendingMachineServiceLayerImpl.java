@@ -1,7 +1,6 @@
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachineDao;
-import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.ui.VendingMachineView;
@@ -21,13 +20,11 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineView view) {
         this.dao = dao;
         this.view = view;
-        this.change = change;
-
     }
-    
+
     @Override
-    public int checkTheCash(BigDecimal itemPrice, BigDecimal itemPaid) 
-            throws VendingMachineInsufficientFundsException{
+    public int checkTheCash(BigDecimal itemPrice, BigDecimal itemPaid)
+            throws VendingMachineInsufficientFundsException {
         int notEnough = 0;
         if (itemPaid.compareTo(itemPrice) < 0) {
             notEnough = -1;
@@ -35,29 +32,28 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                     "ERROR: Could not vend.  Money"
                     + itemPaid
                     + " paid was not sufficient");
-        }else if(itemPaid.compareTo(itemPrice) > 0){
+        } else if (itemPaid.compareTo(itemPrice) > 0) {
             notEnough = 1;
-        }   
+        }
         return notEnough;
     }
-    
+
     @Override
-    public Map<Coins,Integer> returnChange(String itemPaid, String itemPrice) 
+    public Map<Coins, Integer> returnChange(String itemPaid, String itemPrice)
             throws VendingMachineInsufficientFundsException,
-            VendingMachinePersistenceException, 
+            VendingMachinePersistenceException,
             VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException{
+            VendingMachineNoItemInInventoryException {
 
         Map<Coins, Integer> cashRefund = new HashMap<>();
-        
-            int itemRefund = change.getCashInfo(itemPrice, itemPaid);
-               cashRefund =  change.getCoinWorth(itemRefund);
-        
+
+        int itemRefund = change.getCashInfo(itemPrice, itemPaid);
+        cashRefund = change.getCoinWorth(itemRefund);
+
         return cashRefund;
-         
     }
-    
-    @Override
+
+    /*   @Override
     public int vendItem(String itemCode)
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
@@ -67,10 +63,10 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         currentItem = getItem(itemCode);
             /* validateItemData(itemCode);
             
-        dao.addItem(itemCode.getItemCode(), itemCode);   */         
+        dao.addItem(itemCode.getItemCode(), itemCode);          
         return itemInventory;
     }
-
+     */
     @Override
     public List<Item> getAllItems()
             throws VendingMachinePersistenceException,
@@ -89,23 +85,19 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     public Item getItem(String itemCode)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
-
+ 
         return dao.getItem(itemCode);
     }
 
-    private void validateItemData(Item item) throws
+    private void validateItemData(Item currentItem) throws
             VendingMachineDataValidationException,
             VendingMachineDataValidationException {
 
-        /* if (item.getItemName() == null
-                || item.getItemName().trim().length() == 0
-                || item.getItemPrice() == null
-                || item.getItemPrice().trim().length() == 0
-                || item.getItemInventory() == null
-                || item.getItemInventory().trim().length() == 0
-                || item.getItemCode() == null
-                || item.getItemCode().trim().length() == 0) {   */
-        throw new VendingMachineDataValidationException(
-                "");
+        if (currentItem.getItemCode() == null
+                || currentItem.getItemCode().trim().length() == 0) 
+                
+            throw new VendingMachineDataValidationException(
+                    "Invalid Code Entry, try again");
+        }
     }
-}
+

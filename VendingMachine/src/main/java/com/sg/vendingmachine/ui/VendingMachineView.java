@@ -58,12 +58,10 @@ public class VendingMachineView {
         }
         io.readString("Please hit enter to continue.");
     }
-
-    
+ 
      public Item getItemForAdminOptions(String itemCode, Item currentItem) {
         boolean keepOnKeepingOn = true;
         int userSelection;
-        String itemName;
         String itemInventory;
         
         while (keepOnKeepingOn) {
@@ -107,7 +105,7 @@ public class VendingMachineView {
             io.print(currentItem.getItemCode());
             io.print(currentItem.getItemCode());
             io.print(currentItem.getItemPrice());
-  //          io.print(item.getItemInventory());
+            io.print(currentItem.getItemInventory());
             io.print("");
         } else {
             io.print("No such item.");
@@ -118,7 +116,7 @@ public class VendingMachineView {
     public void refundMoney(Map<Coins, Integer> cashRefund) 
             throws VendingMachineInsufficientFundsException {
          
-            io.print("Your refund is: " + cashRefund);
+            io.print("Your refund is: " + cashRefund + ".");
 
     }
     
@@ -128,7 +126,11 @@ public class VendingMachineView {
     }
 
     public String getItemCodeChoice() {
-        return io.readString("Please enter the Item Code.");
+        String itemEntry;
+        String itemCode;
+        itemEntry = io.readString("Please enter the Item Code.");
+        itemCode = itemEntry.toUpperCase();
+        return itemCode;
     }
     
     public void displayPaymentSuccessBanner() {
@@ -175,9 +177,4 @@ public class VendingMachineView {
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }
-
-    public void displayDisplayAllBanner() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
