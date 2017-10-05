@@ -45,11 +45,10 @@ public class Change {
         cashMoney.put(PENNY, 1);
 
         for (Coins x : denomination) {
-            do{                
-                itemRefund = itemRefund - x.valueInPennies;              
+           if((getMoneyIn(x) > 0) && (itemRefund >= x.valueInPennies));               
+               itemRefund = itemRefund % x.valueInPennies;              
                 cashMoney.put(x, cashMoney.get(x) + 1);
                 getCoins(x, -1);
-            }while((getMoneyIn(x) > 0) && (itemRefund >= x.valueInPennies));
         }
         return cashMoney;
     }
