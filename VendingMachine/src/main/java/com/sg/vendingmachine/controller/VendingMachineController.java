@@ -12,7 +12,6 @@ import com.sg.vendingmachine.service.VendingMachineServiceLayer;
 import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIoConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -38,34 +37,52 @@ public class VendingMachineController {
         boolean keepGoing = true;
         int menuSelection = 0;
 
-        try {
-            while (keepGoing) {
+        while (keepGoing) {
+            try {
                 listItems();
-                menuSelection = getMenuSelection();
-
-                switch (menuSelection) {
-                    case 1:
-                        listItems();
-                        break;
-                    case 2:
-                        purchaseItem();
-                        break;
-                    case 3:
-                        viewItem();
-                        break;
-                    case 4:
-                        keepGoing = false;
-                        break;
-                    default:
-                        unknownCommand();
-                }
+            } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
+                Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
             }
-            exitMessage();
-        } catch (VendingMachinePersistenceException | VendingMachineDaoException e) {
-            myView.displayErrorMessage(e.getMessage());
-        } catch (VendingMachineDataValidationException | VendingMachineInsufficientFundsException | VendingMachineNoItemInInventoryException e) {
-            Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+            try {
+                menuSelection = getMenuSelection();
+            } catch (VendingMachineDaoException | VendingMachinePersistenceException e) {
+                Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+            }
+
+            switch (menuSelection) {
+                case 1: {
+                    try {
+                        listItems();
+                    } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
+                        Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+                break;
+                case 2: {
+                    try {
+                        purchaseItem();
+                    } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineInsufficientFundsException | VendingMachineNoItemInInventoryException | VendingMachineDaoException e) {
+                        Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+                break;
+                case 3: {
+                    try {
+                        viewItem();
+                    } catch (VendingMachineDaoException | VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
+                        Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
+                break;
+                case 4:
+                    keepGoing = false;
+                    break;
+                default:
+                    unknownCommand();
+            }
         }
+        exitMessage();
+
     }
 
     private int getMenuSelection()
@@ -74,10 +91,10 @@ public class VendingMachineController {
     }
 
     private void listItems()
-            throws VendingMachineDaoException,
-            VendingMachinePersistenceException,
+            throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
+        
         myView.displayDisplayItemBanner();
         List<Item> itemList = service.getAllItems();
         myView.displayItemList(itemList);
@@ -103,7 +120,7 @@ public class VendingMachineController {
         myView.displayPriceItemBanner();
         itemPrice = service.getItemPriceByCode(itemCode);
 
- // payment section
+        // payment section
         itemMoney = myView.getPayment(itemPrice);
         service.checkTheCash(itemPrice, itemMoney);
         myView.refundMoney(cashRefund);

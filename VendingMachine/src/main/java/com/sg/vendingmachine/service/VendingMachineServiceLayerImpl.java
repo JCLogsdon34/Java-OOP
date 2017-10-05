@@ -1,7 +1,6 @@
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachineDao;
-import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.ui.VendingMachineView;
@@ -9,8 +8,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
@@ -98,11 +96,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachineDataValidationException{
         String itemPrice = null;
         
-        try {          
-            itemPrice = dao.getItemPrice(itemCode);                      
-        } catch (VendingMachineDaoException e) {
-            Logger.getLogger(VendingMachineServiceLayerImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
+        itemPrice = dao.getItemPriceByCode(itemCode);
         return itemPrice;
     }
 

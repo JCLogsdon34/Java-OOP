@@ -14,29 +14,10 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     List <Item> itemList = new ArrayList<>();
     
     public VendingMachineDaoStubImpl() {
-        onlyItem = new Item();
-        onlyItem.setItemCode("Chef's");
-        onlyItem.setItemName("R22");
-        onlyItem.setItemPrice("2.00");
-        
-        itemList.add(onlyItem);
+  
     }
 
 
-    public Item additem(String itemCode, Item onlyItem)
-            throws VendingMachineDaoException {
-        if(itemCode.equals(onlyItem.getItemCode())){
-            return onlyItem;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Item> getAllItems() 
-            throws VendingMachinePersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public Item getItem(String itemCode)
@@ -60,7 +41,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     }
 
     @Override
-    public String getItemPrice(String itemCode) throws VendingMachinePersistenceException {
+    public String getItemPriceByCode(String itemCode) throws VendingMachinePersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -70,7 +51,12 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     }
 
     @Override
-    public void vendAndUpdateItem(String itemCode, Item currentItem) throws VendingMachinePersistenceException, VendingMachineDataValidationException, VendingMachineNoItemInInventoryException {
+    public void vendAndUpdateItem(String itemCode, Item currentItem) throws VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Item> getAllItems() throws VendingMachinePersistenceException, VendingMachineDataValidationException, VendingMachineNoItemInInventoryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -2,6 +2,7 @@
 package com.sg.vendingmachine.dto;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 
 
@@ -9,7 +10,7 @@ public class Item {
     
     public String itemName;
     public String itemPrice;   ///This needs to be BigDecimal
-    private String itemInventory;
+    public String itemInventory;
     public String itemCode;
     
      public void setItemCode(String itemCode) {
@@ -42,7 +43,7 @@ public class Item {
     public String getItemInventory() {
         return itemInventory;
     }
-/*
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -79,5 +80,4 @@ public class Item {
         }
         return true;
     }
-*/
 }

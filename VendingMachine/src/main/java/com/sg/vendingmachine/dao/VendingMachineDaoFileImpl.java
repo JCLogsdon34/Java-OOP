@@ -1,7 +1,6 @@
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
-import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,110 +13,97 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Set;
 
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
-    public String getItemPrice(String itemCode)
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineDaoException{
-            Item currentItem = new Item();
-            String itemPrice;
-                 
-        try {
-            loadItems();
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        currentItem = items.get(itemCode);
-        itemPrice = currentItem.getItemPrice();
+    public String getItemPriceByCode(String itemCode)
+            throws VendingMachinePersistenceException {
 
+        Item primoItem = new Item();
+        String itemPrice = null;
+
+        Items.get(itemCode);
+        Items.keySet();
+        for (String key : Items.keySet()) {
+            if (key.contains(itemCode)) {
+                primoItem = getItem(key);
+                // itemPrice = getItem(itemCode);
+                itemPrice = primoItem.itemPrice;
+            }
+        }
         return itemPrice;
     }
 
     @Override
     public List<Item> getAllItems()
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
+            throws VendingMachinePersistenceException {
 
-        try {
-            loadItems();
-        } catch (NullPointerException | FileNotFoundException e) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
+        loadItems();
 
-        return new ArrayList<>(items.values());
+        return new ArrayList<>(Items.values());
     }
 
     @Override
     public Item getItem(String itemCode)
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
-       
-        try {
-            loadItems();
-        } catch (NullPointerException | FileNotFoundException e) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return items.get(itemCode);       
+            throws VendingMachinePersistenceException {
+
+        loadItems();
+
+        return Items.get(itemCode);
     }
 
-    
     @Override
     public Item viewItem(String itemCode)
             throws VendingMachinePersistenceException {
-        try {
-            loadItems();
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        Item currentItem = items.get(itemCode);
+
+        loadItems();
+
+        Item currentItem = Items.get(itemCode);
         return currentItem;
     }
-    
+
     @Override
     public void vendAndUpdateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {        
-        String itemInventory = null;
-        int itemInventoryParsed;
-      //Item updatedItem = null;  
-      //currentItem = getItem(itemCode);
-        try {
-            loadItems();
-        } catch (NullPointerException | FileNotFoundException e) {
-            Logger.getLogger(VendingMachineDaoFileImpl.class.getName()).log(Level.SEVERE, null, e);
-        }  
-        
-        currentItem = items.get(itemCode);
-        itemInventory = currentItem.getItemInventory();
-        itemInventoryParsed = Integer.parseInt(itemInventory);
-        if (itemInventoryParsed <= 0) {
+            VendingMachineNoItemInInventoryException {
+
+        String itemInventory;
+        String itemInventoryUpdated;
+        int itemInventoryParsed = 0;
+        int itemParsedUpdate;
+        //currentItem = getItem(itemCode);
+
+        loadItems();
+
+        Set<String> keys = Items.keySet();
+        for (String k : keys) {
+                Items.get(k);
+                itemInventory = Items.get(itemCode).getItemInventory();
+                itemInventoryParsed = Integer.parseInt(itemInventory);
+            
+        }
+        if (itemInventoryParsed < 1) {
             throw new VendingMachineNoItemInInventoryException(
-                    "ERROR: Could not vend.  Item"
-                    + currentItem.getItemName()
+                    "ERROR: Could not vend.  Item "
+                    + itemCode
                     + " is sold out");
-        }    
-        itemInventoryParsed--;
-        itemInventory = Integer.toString(itemInventoryParsed);
-        items.put(itemCode, currentItem);
-        writeItems();
+        } 
+            itemParsedUpdate = itemInventoryParsed - 1;
+            itemInventoryUpdated = Integer.toString(itemParsedUpdate);
+            Items.put(itemCode, currentItem);
+            writeItems();
     }
 
-    private Map<String, Item> items = new HashMap<>();
+    private Map<String, Item> Items = new HashMap<>();
 
     public static final String ITEMS_FILE = "Items.txt";
     public static final String DELIMITER = "::";
 
     private void loadItems()
-            throws VendingMachinePersistenceException, FileNotFoundException {
-        
+            throws VendingMachinePersistenceException {
+
         Scanner scanner;
         Item currentItem;
         try {
@@ -128,7 +114,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             throw new VendingMachinePersistenceException(
                     "-_- Could not load Item data into memory.", e);
         }
-        
         String currentLine;
         String[] currentTokens;
         while (scanner.hasNextLine()) {
@@ -139,13 +124,12 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             currentItem.setItemPrice(currentTokens[1]);
             currentItem.setItemCode(currentTokens[2]);
             currentItem.setItemInventory(currentTokens[3]);
-            items.put(currentItem.getItemName(), currentItem);
+            Items.put(currentItem.getItemCode(), currentItem);
         }
         scanner.close();
     }
 
-    private void writeItems()
-            throws VendingMachinePersistenceException, VendingMachineDataValidationException, VendingMachineNoItemInInventoryException {
+    private void writeItems() throws VendingMachinePersistenceException {
 
         PrintWriter out;
         try {
@@ -154,14 +138,14 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             throw new VendingMachinePersistenceException(
                     "Could not save item data.", e);
         }
-        
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
             out.println(currentItem.getItemName() + DELIMITER
-                   + currentItem.getItemInventory() + DELIMITER);
+                    + currentItem.getItemCode() + DELIMITER
+                    + currentItem.getItemPrice() + DELIMITER
+                    + currentItem.getItemInventory() + DELIMITER);
             out.flush();
         }
         out.close();
     }
 }
-            

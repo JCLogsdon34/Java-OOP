@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
@@ -46,11 +42,8 @@ public class VendingMachineDaoFileImplTest {
     }
     
     @Test
-    public void testGetItemPrice()
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException,
-            VendingMachineDaoException{
+    public void testGetItemPriceByCode()
+            throws VendingMachinePersistenceException{
 
      String itemCode = "L31";
    //String testPrice;
@@ -61,7 +54,7 @@ public class VendingMachineDaoFileImplTest {
        
     // testPrice = dao.getItemPrice(itemCode);
      
-        assertEquals(expectedResult, dao.getItemPrice(itemCode));
+        assertEquals(expectedResult, dao.getItemPriceByCode("L31"));
     }
 
     @Test
@@ -100,28 +93,38 @@ public class VendingMachineDaoFileImplTest {
 
     @Test
     public void testVendAndUpdateItem() throws
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
+            VendingMachinePersistenceException, 
+            VendingMachineDataValidationException, 
             VendingMachineNoItemInInventoryException{
         
         String itemCode1 = "R45";
         String itemCode2 = "V61";
-        String itemInventory1 = null;
-        String itemInventory2 = null;
-        String expectedResult = "4";
+        String itemInventory1;
+        int itemInventoryI;
+      //String itemInventory2 = null;
+      //String expectedResult = "4";
         Item newItem = new Item();
-        Item primoItem = new Item();
+      //Item primoItem = new Item();
 
         newItem = dao.getItem(itemCode1);
         dao.vendAndUpdateItem(itemCode1, newItem);
-        itemInventory1 = dao.getItem(itemCode1).getItemInventory();
-        int itemInventoryI = Integer.parseInt(itemInventory1);
         
+        itemInventory1 = dao.getItem(itemCode1).getItemInventory();
+        itemInventoryI = Integer.parseInt(itemInventory1);
+      
+        /*
         primoItem = dao.getItem(itemCode2);
         dao.vendAndUpdateItem(itemCode2, primoItem);
         itemInventory2 = dao.getItem(itemCode2).getItemInventory();
         int itemInventoryII = Integer.parseInt(itemInventory2);
-
-        assertEquals(itemInventoryI, itemInventoryII);
+        */
+        assertEquals(4, Integer.parseInt(itemInventory1));
     }
 }
+/*
+Ale-8-1::1.25::R45::5
+Cheer-Wine::1.25::L31::5
+Coca-Cola::1.00::H29::5
+Double-Cola::1.25::G93::5
+Dr.Enuf::1.25::V61::5
+*/
