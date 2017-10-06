@@ -5,7 +5,6 @@ import static com.sg.vendingmachine.service.Coins.DIME;
 import static com.sg.vendingmachine.service.Coins.NICKEL;
 import static com.sg.vendingmachine.service.Coins.PENNY;
 import static com.sg.vendingmachine.service.Coins.QUARTER;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,7 @@ public class Change {
     private static Map<Coins, Integer> getCoins() {
         Map<Coins, Integer> cashMoney = new HashMap<>();
         for (Coins x : Coins.values()) {
-            cashMoney.put(x, Integer.MIN_VALUE);
+            cashMoney.put(x, 0);
         }
         return cashMoney;
     }
@@ -45,8 +44,8 @@ public class Change {
         cashMoney.put(PENNY, 1);
 
         for (Coins x : denomination) {
-           if((getMoneyIn(x) > 0) && (itemRefund >= x.valueInPennies));               
-               itemRefund = itemRefund % x.valueInPennies;              
+           while((getMoneyIn(x) > -1) && (itemRefund > x.valueInPennies));               
+               itemRefund = itemRefund % x.valueInPennies;
                 cashMoney.put(x, cashMoney.get(x) + 1);
                 getCoins(x, -1);
         }

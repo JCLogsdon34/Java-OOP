@@ -1,5 +1,5 @@
-Ale-8-1::1.25::R45::5
-Cheer-Wine::1.25::L31::5
-Coca-Cola::1.00::H29::5
-Double-Cola::1.25::G93::5
-Dr.Enuf::1.25::V61::5
+G93::Double-Cola::1.25::5
+V61::Dr.Enuf::1.15::5
+R45::Ale-8-1::1.10::5
+L31::Cheer-Wine::1.25::5
+H29::Coca-Cola::1.00::5

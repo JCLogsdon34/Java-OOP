@@ -54,7 +54,7 @@ public class VendingMachineDaoFileImplTest {
        
     // testPrice = dao.getItemPrice(itemCode);
      
-        assertEquals(expectedResult, dao.getItemPriceByCode("L31"));
+        assertEquals(expectedResult, dao.getItemPriceByCode(itemCode));
     }
 
     @Test
@@ -107,18 +107,15 @@ public class VendingMachineDaoFileImplTest {
       //Item primoItem = new Item();
 
         newItem = dao.getItem(itemCode1);
-        dao.vendAndUpdateItem(itemCode1, newItem);
-        
-        itemInventory1 = dao.getItem(itemCode1).getItemInventory();
-        itemInventoryI = Integer.parseInt(itemInventory1);
       
+        assertEquals(4, dao.vendAndUpdateItem(itemCode1, newItem));
         /*
         primoItem = dao.getItem(itemCode2);
         dao.vendAndUpdateItem(itemCode2, primoItem);
         itemInventory2 = dao.getItem(itemCode2).getItemInventory();
         int itemInventoryII = Integer.parseInt(itemInventory2);
         */
-        assertEquals(4, Integer.parseInt(itemInventory1));
+     //   assertEquals(4, Integer.parseInt(itemInventory1));
     }
 }
 /*

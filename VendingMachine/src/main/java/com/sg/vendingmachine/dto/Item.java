@@ -1,17 +1,15 @@
 
 package com.sg.vendingmachine.dto;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
-
 
 public class Item {
     
+    public String itemCode;
     public String itemName;
     public String itemPrice;   ///This needs to be BigDecimal
     public String itemInventory;
-    public String itemCode;
+    
+    //maybe use two of thesee getters for each
     
      public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
@@ -19,7 +17,7 @@ public class Item {
      public String getItemCode() {
         return itemCode;
     }
-     
+    
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
@@ -35,6 +33,12 @@ public class Item {
     public String getItemPrice() {
         return itemPrice;
     }
+    
+  /*  public String getItemPriceByCode(String itemCode){
+        
+        return itemPrice;
+    }
+   */
 
     public void setItemInventory(String itemInventory) {
         this.itemInventory = itemInventory;
@@ -43,7 +47,12 @@ public class Item {
     public String getItemInventory() {
         return itemInventory;
     }
-
+    /*
+    public String getItemInventoryByCode(String itemCode){
+        return itemInventory;
+    }
+    */
+    /*
     @Override
     public int hashCode() {
         int hash = 7;
@@ -80,4 +89,5 @@ public class Item {
         }
         return true;
     }
+*/
 }

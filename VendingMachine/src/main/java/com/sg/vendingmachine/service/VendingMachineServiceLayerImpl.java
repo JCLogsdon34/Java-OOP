@@ -58,17 +58,17 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
        @Override
-    public int vendItem(String itemCode)
+    public String vendItem(String itemCode)
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException, 
             VendingMachineNoItemInInventoryException {
         
         Item currentItem;
-        int itemInventory = 0;
+        String itemInventory;
         
         currentItem = getItem(itemCode);
         validateItemData(currentItem);
-        dao.vendAndUpdateItem(itemCode, currentItem);           
+        itemInventory = dao.vendAndUpdateItem(itemCode, currentItem);           
         return itemInventory;
     }
      
@@ -100,11 +100,11 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         return itemPrice;
     }
 
-    private void validateItemData(Item currentItem) throws
+    private void validateItemData(Item item) throws
             VendingMachineDataValidationException {
 
-        if (currentItem.getItemCode() == null
-                || currentItem.getItemCode().trim().length() == 0) 
+        if (item.getItemCode() == null
+                || item.getItemCode().trim().length() == 0) 
                 
             throw new VendingMachineDataValidationException(
                     "Invalid Code Entry, try again");

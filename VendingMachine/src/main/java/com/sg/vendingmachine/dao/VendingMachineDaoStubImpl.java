@@ -1,6 +1,6 @@
 
 package com.sg.vendingmachine.dao;
-
+/*
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
@@ -60,7 +60,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
-    
+    */
 
 
 

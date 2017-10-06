@@ -4,10 +4,12 @@ package com.sg.vendingmachine.dao;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
+import java.math.BigDecimal;
 import java.util.List;
 
 
 public interface VendingMachineDao {  
+
 
     String getItemPriceByCode(String itemCode)
             throws VendingMachinePersistenceException;
@@ -25,7 +27,7 @@ public interface VendingMachineDao {
     Item viewItem(String itemCode)
             throws VendingMachinePersistenceException;
     
-    void vendAndUpdateItem(String itemCode, Item currentItem)
+    String vendAndUpdateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException;
    

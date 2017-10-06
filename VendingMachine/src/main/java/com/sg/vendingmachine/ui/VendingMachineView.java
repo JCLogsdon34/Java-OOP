@@ -5,7 +5,6 @@ import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.Coins;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,8 @@ public class VendingMachineView {
         for (Item currentItem : itemList) {
             io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
-                    + currentItem.getItemPrice());
+                    + currentItem.getItemPrice()
+                    + currentItem.getItemInventory());
         }
         io.readString("Please hit enter to continue.");
     }
@@ -46,7 +46,6 @@ public class VendingMachineView {
         if (currentItem != null) {
             Item viewItem = new Item();
             io.print(currentItem.getItemName());
-            io.print(currentItem.getItemCode());
             io.print(currentItem.getItemCode());
             io.print(currentItem.getItemPrice());
             io.print(currentItem.getItemInventory());
@@ -73,13 +72,23 @@ public class VendingMachineView {
     public String getItemCodeChoice() throws VendingMachinePersistenceException {
         String itemEntry;
         String itemCode;
-        itemEntry = io.readString("Please enter the Item Code.");
-        if (itemEntry == null) {
+        Item currentItem = new Item();
+        boolean newInput;
+        do {
+            itemEntry = io.readString("Please enter the Item Code.");
+            if (itemEntry == null) {
             throw new VendingMachinePersistenceException(
                     "ERROR: Could not vend.  Item"
                     + itemEntry
-                    + " code is invalid");
+                    + " code is invalid");          
         }
+            if (!itemEntry.isEmpty()) {
+                currentItem.getItemCode();
+                newInput = true;
+            } else {
+                newInput = false;
+            }
+        } while (newInput == false);
         itemCode = itemEntry.toUpperCase();
         return itemCode;
     }

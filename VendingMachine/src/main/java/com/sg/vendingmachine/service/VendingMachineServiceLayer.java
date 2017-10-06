@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface VendingMachineServiceLayer {
 
-    int vendItem(String itemCode) throws
+    String vendItem(String itemCode) throws
             VendingMachineNoItemInInventoryException,
             VendingMachineInsufficientFundsException,
             VendingMachineDataValidationException,

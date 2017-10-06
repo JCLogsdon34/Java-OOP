@@ -1,6 +1,5 @@
 package com.sg.vendingmachine.controller;
 
-import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
@@ -29,8 +28,6 @@ public class VendingMachineController {
         this.myView = myView;
         this.service = service;
     }
-
-    private UserIO io = new UserIoConsoleImpl();
 
     public void run() {
 
@@ -86,7 +83,9 @@ public class VendingMachineController {
     }
 
     private int getMenuSelection()
-            throws VendingMachineDaoException, VendingMachinePersistenceException {
+            throws VendingMachineDaoException, 
+            VendingMachinePersistenceException {
+        
         return myView.printMenuAndGetSelection();
     }
 
@@ -111,7 +110,6 @@ public class VendingMachineController {
         Item currentItem;
         String itemMoney;
         String itemPrice;
-        int notEnough;
 
         // the item choice section
         listItems();
