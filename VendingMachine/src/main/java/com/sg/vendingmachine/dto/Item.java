@@ -3,14 +3,15 @@ package com.sg.vendingmachine.dto;
 
 
 public class Item {
-    
+
     public String itemCode;
     public String itemName;
     public String itemPrice;   ///This needs to be BigDecimal
     public String itemInventory;
     
-    //maybe use two of thesee getters for each
+    //maybe use an Item getter and setter?
     
+
      public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
@@ -33,13 +34,6 @@ public class Item {
     public String getItemPrice() {
         return itemPrice;
     }
-    
-  /*  public String getItemPriceByCode(String itemCode){
-        
-        return itemPrice;
-    }
-   */
-
     public void setItemInventory(String itemInventory) {
         this.itemInventory = itemInventory;
     }
@@ -47,11 +41,7 @@ public class Item {
     public String getItemInventory() {
         return itemInventory;
     }
-    /*
-    public String getItemInventoryByCode(String itemCode){
-        return itemInventory;
-    }
-    */
+    
     /*
     @Override
     public int hashCode() {

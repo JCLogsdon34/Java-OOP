@@ -8,15 +8,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
@@ -74,25 +70,25 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
         String itemInventory;
         String itemInventoryUpdated;
-        BigDecimal itemInventoryParsed;
-        BigDecimal itemParsedUpdate;
-        Item newItem;
-        MathContext mc = new MathContext(1);
+        int itemInventoryParsed;
+        int itemParsedUpdate;
+  //      Item newItem;
+ //       MathContext mc = new MathContext(1);
         //  newItem = Items.get(itemCode);
 
-        newItem = Items.get(itemCode);
-        itemInventory = newItem.getItemInventory();
+        item = Items.get(itemCode);
+        itemInventory = item.getItemInventory();
 
-        itemInventoryParsed = new BigDecimal(itemInventory);
+        itemInventoryParsed = Integer.parseInt(itemInventory);
 
-        if (itemInventoryParsed.compareTo(BigDecimal.ZERO) < 0) {
+        if (itemInventoryParsed < 0) {
             throw new VendingMachineNoItemInInventoryException(
                     "ERROR: Could not vend.  Item "
                     + itemCode
                     + " is sold out");
         }
-        // itemParsedUpdate = itemInventoryParsed - 1;
-        itemParsedUpdate = itemInventoryParsed.subtract(itemInventoryParsed, mc);
+
+        itemParsedUpdate = (itemInventoryParsed - 1);
 
         itemInventoryUpdated = String.valueOf(itemParsedUpdate);
         item.setItemInventory(itemInventoryUpdated);
@@ -106,11 +102,12 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     public static final String ITEMS_FILE = "Items.txt";
     public static final String DELIMITER = "::";
 
-    public void loadItems()
+    private void loadItems()
             throws VendingMachinePersistenceException {
 
         Scanner scanner;
         Item currentItem;
+
         try {
             scanner = new Scanner(
                     new BufferedReader(
@@ -120,9 +117,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
                     "-_- Could not load Item data into memory.", e);
         }
         String currentLine;
-        String[] currentTokens;
-        
-        currentTokens = new String[]{};
+        String[] currentTokens = new String[]{};
         
         while (scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
@@ -133,14 +128,12 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             currentItem.setItemName(currentTokens[1]);
             currentItem.setItemPrice(currentTokens[2]);
             currentItem.setItemInventory(currentTokens[3]);
-
-            Items.put(currentItem.getItemCode(), currentItem);
         
         }
         scanner.close();
     }
 
-    public void writeItems() throws VendingMachinePersistenceException {
+    private void writeItems() throws VendingMachinePersistenceException {
 
         PrintWriter out;
         try {
@@ -151,10 +144,10 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         }
         List<Item> itemList = this.getAllItems();
         for (Item currentItem : itemList) {
-            out.println(currentItem.getItemCode()
-                    + currentItem.getItemName()
-                    + currentItem.getItemPrice()
-                    + currentItem.getItemInventory());
+            out.println(currentItem.getItemCode() + DELIMITER
+                    + currentItem.getItemName() + DELIMITER
+                    + currentItem.getItemPrice() + DELIMITER
+                    + currentItem.getItemInventory() + DELIMITER);
             out.flush();
         }
         out.close();
