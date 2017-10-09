@@ -4,19 +4,15 @@ package com.sg.vendingmachine.dto;
 
 public class Item {
 
-    public String itemCode;
     public String itemName;
     public String itemPrice;   ///This needs to be BigDecimal
+    public String itemCode;
     public String itemInventory;
     
     //maybe use an Item getter and setter?
-    
 
-     public void setItemCode(String itemCode) {
+    public Item(String itemCode) {
         this.itemCode = itemCode;
-    }
-     public String getItemCode() {
-        return itemCode;
     }
     
     public void setItemName(String itemName) {
@@ -34,6 +30,11 @@ public class Item {
     public String getItemPrice() {
         return itemPrice;
     }
+    
+    public String getItemCode() {
+        return itemCode;
+    }
+    
     public void setItemInventory(String itemInventory) {
         this.itemInventory = itemInventory;
     }

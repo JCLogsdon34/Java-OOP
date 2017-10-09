@@ -64,12 +64,14 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachineNoItemInInventoryException {
         
         Item currentItem;
-        String itemInventory;
+        int itemInventory;
+        String itemInventoryString;
         
         currentItem = getItem(itemCode);
         validateItemData(currentItem);
-        itemInventory = dao.vendAndUpdateItem(itemCode, currentItem);           
-        return itemInventory;
+        itemInventory = dao.vendAndUpdateItem(itemCode, currentItem); 
+        itemInventoryString = Integer.toString(itemInventory);
+        return itemInventoryString;
     }
      
     @Override

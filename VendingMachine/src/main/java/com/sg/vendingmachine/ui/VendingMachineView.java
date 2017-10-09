@@ -44,9 +44,8 @@ public class VendingMachineView {
 
     public void displayItem(Item currentItem) {
         if (currentItem != null) {
-            Item viewItem = new Item();
-            io.print(currentItem.getItemName());
             io.print(currentItem.getItemCode());
+            io.print(currentItem.getItemName());
             io.print(currentItem.getItemPrice());
             io.print(currentItem.getItemInventory());
             io.print("");
@@ -71,8 +70,8 @@ public class VendingMachineView {
 
     public String getItemCodeChoice() throws VendingMachinePersistenceException {
         String itemEntry;
-        String itemCode;
-        Item currentItem = new Item();
+        String itemCode = null;
+        Item currentItem = new Item(itemCode);
         boolean newInput;
         do {
             itemEntry = io.readString("Please enter the Item Code.");

@@ -1,4 +1,3 @@
-
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
@@ -40,20 +39,18 @@ public class VendingMachineDaoFileImplTest {
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void testGetItemPriceByCode()
-            throws VendingMachinePersistenceException{
+            throws VendingMachinePersistenceException {
 
-     String itemCode = "L31";
-   //String testPrice;
-     String expectedResult = "1.25"; 
-   //Item currentItem = new Item();
-     
-    // currentItem = dao.getItem(itemCode);
-       
-    // testPrice = dao.getItemPrice(itemCode);
-     
+        String itemCode = "L31";
+        //String testPrice;
+        String expectedResult = "1.25";
+
+        //Item currentItem = new Item();
+        // currentItem = dao.getItem(itemCode);
+        // testPrice = dao.getItemPrice(itemCode);
         assertEquals(expectedResult, dao.getItemPriceByCode(itemCode));
     }
 
@@ -61,61 +58,48 @@ public class VendingMachineDaoFileImplTest {
     public void testGetAllItems()
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException{
-     
+            VendingMachineNoItemInInventoryException {
+
         assertEquals(5, dao.getAllItems().size());
     }
 
     @Test
-    public void testGetItem() 
+    public void testGetItem()
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException
-            {
-        String itemCode = "V61";
-        Item primoItem = new Item();
-    //    String itemName = "Dr.Enuf";
-        primoItem = dao.getItem(itemCode);
-
-        assertEquals(primoItem, dao.getItem(itemCode));
-
-    }
-  
-    @Test
-    public void testViewItem() throws VendingMachinePersistenceException, 
-            VendingMachineDataValidationException, 
             VendingMachineNoItemInInventoryException {
-       // String itemCode = "V61";
-       Item newItem = dao.getItem("V61");
-        
-        assertEquals(newItem, dao.viewItem("V61"));
+
+        String itemCode = "V61";
+        Item item = new Item(itemCode);
+        item = dao.getItem(itemCode);
+
+        assertEquals(item.itemInventory, dao.getItem(itemCode).itemInventory);
+    }
+
+    @Test
+    public void testViewItem() throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException {
+        String itemCode = "V61";
+        String itemName = "Dr.Enuf";
+
+        assertEquals(itemName, dao.viewItem(itemCode).getItemName());
     }
 
     @Test
     public void testVendAndUpdateItem() throws
-            VendingMachinePersistenceException, 
-            VendingMachineDataValidationException, 
-            VendingMachineNoItemInInventoryException{
-        
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException {
+
         String itemCode1 = "R45";
         String itemCode2 = "V61";
-        String itemInventory1;
-        int itemInventoryI;
-      //String itemInventory2 = null;
-      //String expectedResult = "4";
-        Item newItem = new Item();
-      //Item primoItem = new Item();
+
+        Item newItem = new Item(itemCode1);
 
         newItem = dao.getItem(itemCode1);
-      
+
         assertEquals(4, dao.vendAndUpdateItem(itemCode1, newItem));
-        /*
-        primoItem = dao.getItem(itemCode2);
-        dao.vendAndUpdateItem(itemCode2, primoItem);
-        itemInventory2 = dao.getItem(itemCode2).getItemInventory();
-        int itemInventoryII = Integer.parseInt(itemInventory2);
-        */
-     //   assertEquals(4, Integer.parseInt(itemInventory1));
     }
 }
 /*
@@ -124,4 +108,4 @@ Cheer-Wine::1.25::L31::5
 Coca-Cola::1.00::H29::5
 Double-Cola::1.25::G93::5
 Dr.Enuf::1.25::V61::5
-*/
+ */
