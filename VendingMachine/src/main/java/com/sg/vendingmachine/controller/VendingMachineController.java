@@ -110,6 +110,7 @@ public class VendingMachineController {
         Item currentItem;
         String itemMoney;
         String itemPrice;
+        BigDecimal userRefund;
 
         // the item choice section
         listItems();
@@ -120,7 +121,8 @@ public class VendingMachineController {
 
         // payment section
         itemMoney = myView.getPayment(itemPrice);
-        service.checkTheCash(itemPrice, itemMoney);
+        userRefund = service.checkTheCash(itemPrice, itemMoney);
+        cashRefund = service.returnChange(userRefund);
         myView.refundMoney(cashRefund);
         myView.displayNoChangeBanner();
 // Vend Item section 

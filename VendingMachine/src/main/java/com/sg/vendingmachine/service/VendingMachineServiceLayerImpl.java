@@ -1,5 +1,6 @@
 package com.sg.vendingmachine.service;
 
+import com.sg.vendingmachine.dao.VendingMachineAuditDao;
 import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
@@ -12,51 +13,52 @@ import java.util.Map;
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
+    private VendingMachineAuditDao auditDao;
     VendingMachineDao dao;
-    VendingMachineView view;
     Change change;
 
-    public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineView view) {
+    public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineAuditDao auditDao) {
         this.dao = dao;
-        this.view = view;
+        this.auditDao = auditDao;
     }
 
     @Override
-    public void checkTheCash(String itemMoney, String itemPrice)
+    public BigDecimal checkTheCash(String itemMoney, String itemPrice)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException, 
             VendingMachineDataValidationException, 
             VendingMachineNoItemInInventoryException {
         
         Map<Coins, Integer> cashRefund = new HashMap<>();
-        int notEnough = 0;
         
-        BigDecimal itemPayment = new BigDecimal(itemMoney);
+        BigDecimal itemPaidBig = new BigDecimal(itemMoney);
         BigDecimal itemPriceBig = new BigDecimal(itemPrice);
-        if (itemPayment.compareTo(itemPriceBig) < 0) {
-            notEnough = -1;
-            throw new VendingMachineInsufficientFundsException(
-                    "ERROR: Could not vend.  Money"
-                    + itemMoney
-                    + " paid was not sufficient");
-            } 
-               cashRefund = returnChange(itemMoney, itemPrice);
+        BigDecimal userRefund;
+        
+            
+          userRefund = change.getCashInfo(itemPriceBig, itemPaidBig);
+
+        auditDao.writeAuditEntry(
+            "Money " + cashRefund + " returned as change to user.");
+    
+        return userRefund;
     }
 
     @Override
-    public Map<Coins, Integer> returnChange(String itemPaid, String itemPrice)
+    public Map<Coins, Integer> returnChange(BigDecimal userRefund)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        BigDecimal itemRefund;
+        
+        Map<Coins, Integer> changeRefund = new HashMap<>();
 
-        Map<Coins, Integer> cashRefund = new HashMap<>();
-
-        itemRefund = change.getCashInfo(itemPrice, itemPaid);
-        cashRefund = change.getCoinWorth(itemRefund);
-
-        return cashRefund;
+        if(userRefund.compareTo(BigDecimal.ZERO) > 0){
+        changeRefund = change.getCoinWorth(userRefund);
+        } else {
+            changeRefund = null;
+        }
+        return changeRefund;
     }
 
        @Override
@@ -73,6 +75,10 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         validateItemData(currentItem);
         itemInventory = dao.vendAndUpdateItem(itemCode, currentItem); 
         itemInventoryString = Integer.toString(itemInventory);
+        
+        
+        auditDao.writeAuditEntry(
+            "Item " + currentItem.getItemCode() + " Inventory Sent for Vending.");
         return itemInventoryString;
     }
      
@@ -111,7 +117,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                 || item.getItemCode().trim().length() == 0) 
                 
             throw new VendingMachineDataValidationException(
-                    "Invalid Code Entry, try again");
+                    "Error: Invalid Item Code Entry, try again");
         }
     }
 

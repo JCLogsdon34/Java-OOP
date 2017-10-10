@@ -2,7 +2,6 @@ package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +28,13 @@ public interface VendingMachineServiceLayer {
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException;
 
-    Map<Coins, Integer> returnChange(String itemPaid, String itemPrice)
+    Map<Coins, Integer> returnChange(BigDecimal userRefund)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException;
 
-    void checkTheCash(String itemMoney, String itemPrice)
+    BigDecimal checkTheCash(String itemMoney, String itemPrice)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,

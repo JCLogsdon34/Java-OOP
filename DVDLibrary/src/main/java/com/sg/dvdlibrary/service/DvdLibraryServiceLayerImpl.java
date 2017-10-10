@@ -12,7 +12,7 @@ public class DvdLibraryServiceLayerImpl implements
     DvdLibraryDao dao;
     private DvdLibraryAuditDao auditDao;
 
-    public DvdLibraryServiceLayerImpl(DvdLibraryDao dao) {
+    public DvdLibraryServiceLayerImpl(DvdLibraryDao dao, DvdLibraryAuditDao auditDao) {
         this.dao = dao;
         this.auditDao = auditDao;
     }

@@ -16,7 +16,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     public VendingMachineDaoStubImpl() {
         onlyItem = new Item("W63");
         onlyItem.setItemName("Samuel L. Jackson");
-        onlyItem.setItemPrice("1.05");
+        onlyItem.setItemPrice("3.05");
         onlyItem.setItemInventory("5");
         
         itemList.add(onlyItem);
@@ -73,11 +73,10 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     public String getItemPriceByCode(String itemCode) throws VendingMachinePersistenceException {
         Item item = new Item(itemCode);
         String itemPrice = null;
-
         
-    //    item = 
-    
-    //            itemPrice = item.itemPrice;
+        item = getItem(itemCode);
+
+        itemPrice = item.itemPrice;
 
         return itemPrice;
     }

@@ -87,15 +87,18 @@ public class Change {
         return cashMoney;
     }
 
-    public BigDecimal getCashInfo(String itemPaid, String itemPrice) {
+    public BigDecimal getCashInfo(BigDecimal itemPaidBig, BigDecimal itemPriceBig) throws VendingMachineInsufficientFundsException {
 
         BigDecimal itemRefund;
+        
+        if (itemPaidBig.compareTo(itemPriceBig) < 0) {
+            throw new VendingMachineInsufficientFundsException(
+                    "ERROR: Could not vend.  Money"
+                    + itemPaidBig
+                    + " paid was not sufficient");
+        }
+            itemRefund = itemPaidBig.subtract(itemPriceBig);
 
-        BigDecimal itemPriceBig = new BigDecimal(itemPrice);
-        BigDecimal itemPaidBig = new BigDecimal(itemPrice);
-
-        itemRefund = itemPaidBig.subtract(itemPriceBig);
         return itemRefund;
     }
-
 }
