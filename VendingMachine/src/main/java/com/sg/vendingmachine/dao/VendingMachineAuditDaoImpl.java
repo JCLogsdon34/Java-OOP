@@ -20,8 +20,8 @@ public class VendingMachineAuditDaoImpl  implements VendingMachineAuditDao {
         
         try {
             out = new PrintWriter(new FileWriter(AUDIT_FILE, true));
-        } catch (IOException ex) {
-            Logger.getLogger(VendingMachineAuditDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            Logger.getLogger(VendingMachineAuditDaoImpl.class.getName()).log(Level.SEVERE, null, e);
         }
 
         LocalDateTime timestamp = LocalDateTime.now();

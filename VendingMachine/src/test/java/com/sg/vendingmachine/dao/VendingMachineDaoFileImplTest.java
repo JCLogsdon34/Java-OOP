@@ -42,7 +42,8 @@ public class VendingMachineDaoFileImplTest {
 
     @Test
     public void testGetItemPriceByCode()
-            throws VendingMachinePersistenceException {
+            throws VendingMachinePersistenceException, 
+            VendingMachineDataValidationException {
 
         String itemCode = "L31";
         String expectedResult = "1.25";
@@ -70,6 +71,20 @@ public class VendingMachineDaoFileImplTest {
         item = dao.getItem(itemCode);
 
         assertEquals(item.itemInventory, dao.getItem(itemCode).itemInventory);
+    }
+    
+    @Test
+    public void testGetItemNothingHere()
+            throws VendingMachinePersistenceException,
+            VendingMachineNoItemInInventoryException {
+
+        String itemCode = "VB61";
+        Item item = new Item(itemCode);
+        try{
+        item = dao.getItem(itemCode);
+        fail("Data Validation did not throw");
+        }catch(VendingMachineDataValidationException e){
+        }       
     }
 
     @Test

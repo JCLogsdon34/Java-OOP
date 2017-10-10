@@ -87,7 +87,8 @@ public class Change {
         return cashMoney;
     }
 
-    public BigDecimal getCashInfo(BigDecimal itemPaidBig, BigDecimal itemPriceBig) throws VendingMachineInsufficientFundsException {
+    public BigDecimal getCashInfo(BigDecimal itemPaidBig, BigDecimal itemPriceBig) 
+            throws VendingMachineInsufficientFundsException {
 
         BigDecimal itemRefund;
         
@@ -96,9 +97,9 @@ public class Change {
                     "ERROR: Could not vend.  Money"
                     + itemPaidBig
                     + " paid was not sufficient");
-        }
+        }else{
             itemRefund = itemPaidBig.subtract(itemPriceBig);
-
-        return itemRefund;
+        }
+        return itemRefund; 
     }
 }

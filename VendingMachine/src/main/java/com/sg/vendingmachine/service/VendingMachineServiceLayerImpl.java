@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
@@ -24,23 +25,24 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     @Override
     public BigDecimal checkTheCash(String itemMoney, String itemPrice)
-            throws VendingMachineInsufficientFundsException,
-            VendingMachinePersistenceException, 
-            VendingMachineDataValidationException, 
-            VendingMachineNoItemInInventoryException {
-        
+            throws 
+            VendingMachinePersistenceException,
+            VendingMachineDataValidationException,
+            VendingMachineNoItemInInventoryException,
+            VendingMachineInsufficientFundsException {
+
         Map<Coins, Integer> cashRefund = new HashMap<>();
-        
+
         BigDecimal itemPaidBig = new BigDecimal(itemMoney);
         BigDecimal itemPriceBig = new BigDecimal(itemPrice);
-        BigDecimal userRefund;
-        
-            
-          userRefund = change.getCashInfo(itemPriceBig, itemPaidBig);
+        BigDecimal userRefund = null;
+
+            /////still throws NPE 
+            userRefund = change.getCashInfo(itemPriceBig, itemPaidBig);
 
         auditDao.writeAuditEntry(
-            "Money " + cashRefund + " returned as change to user.");
-    
+                "Money " + cashRefund + " returned as change to user.");
+
         return userRefund;
     }
 
@@ -50,44 +52,40 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        
-        Map<Coins, Integer> changeRefund = new HashMap<>();
 
-        if(userRefund.compareTo(BigDecimal.ZERO) > 0){
+        Map<Coins, Integer> changeRefund = new HashMap<>();
+        //NPE still thrown
         changeRefund = change.getCoinWorth(userRefund);
-        } else {
-            changeRefund = null;
-        }
+
         return changeRefund;
     }
 
-       @Override
+    @Override
     public String vendItem(String itemCode)
             throws VendingMachineDataValidationException,
-            VendingMachinePersistenceException, 
+            VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException {
-        
+
         Item currentItem;
         int itemInventory;
         String itemInventoryString;
-        
+
         currentItem = getItem(itemCode);
         validateItemData(currentItem);
-        itemInventory = dao.vendAndUpdateItem(itemCode, currentItem); 
+        itemInventory = dao.vendAndUpdateItem(itemCode, currentItem);
         itemInventoryString = Integer.toString(itemInventory);
-        
-        
+
         auditDao.writeAuditEntry(
-            "Item " + currentItem.getItemCode() + " Inventory Sent for Vending.");
+                "Item " + currentItem.getItemCode() + " Inventory Sent for Vending.");
         return itemInventoryString;
     }
-     
+
     @Override
     public List<Item> getAllItems()
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-       
+
         return dao.getAllItems();
     }
 
@@ -96,28 +94,26 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
- 
+
         return dao.getItem(itemCode);
     }
-    
+
     @Override
-    public String getItemPriceByCode(String itemCode) 
-            throws VendingMachinePersistenceException, 
-            VendingMachineDataValidationException{
-        String itemPrice = null;
-        
-        itemPrice = dao.getItemPriceByCode(itemCode);
-        return itemPrice;
+    public String getItemPriceByCode(String itemCode)
+            throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException {
+
+        //throws NPE
+        return dao.getItemPriceByCode(itemCode);
     }
 
     private void validateItemData(Item item) throws
             VendingMachineDataValidationException {
 
         if (item.getItemCode() == null
-                || item.getItemCode().trim().length() == 0) 
-                
+                || item.getItemCode().trim().length() == 0) {
             throw new VendingMachineDataValidationException(
                     "Error: Invalid Item Code Entry, try again");
         }
     }
-
+}

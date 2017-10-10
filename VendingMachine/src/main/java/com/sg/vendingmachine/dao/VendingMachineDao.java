@@ -12,7 +12,8 @@ public interface VendingMachineDao {
 
 
     String getItemPriceByCode(String itemCode)
-            throws VendingMachinePersistenceException;
+            throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException;
     
     List<Item> getAllItems()
             throws VendingMachinePersistenceException,
@@ -29,6 +30,7 @@ public interface VendingMachineDao {
     
     int vendAndUpdateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
-            VendingMachineNoItemInInventoryException;
+            VendingMachineNoItemInInventoryException,
+            VendingMachineDataValidationException;
    
 }

@@ -9,8 +9,7 @@ public class VendingMachineInsufficientFundsException extends Exception{
         super(message);
     }
 
-    public VendingMachineInsufficientFundsException(String message,
-            Throwable cause) {
+    public VendingMachineInsufficientFundsException(String message, Throwable cause) {
         super(message, cause);
     }
     

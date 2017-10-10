@@ -1,6 +1,7 @@
 package com.sg.vendingmachine.dao;
 
 import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,7 +19,8 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
     public String getItemPriceByCode(String itemCode)
-            throws VendingMachinePersistenceException {
+            throws VendingMachinePersistenceException,
+            VendingMachineDataValidationException{
 
         Item primoItem = new Item(itemCode);
         String itemPrice;
