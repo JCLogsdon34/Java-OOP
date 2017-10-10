@@ -51,9 +51,7 @@ public class ClassRosterServiceLayerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of createStudent method, of class ClassRosterServiceLayer.
-     */
+    
     @Test
     public void testCreateStudent() throws Exception {
         Student student = new Student("0002");

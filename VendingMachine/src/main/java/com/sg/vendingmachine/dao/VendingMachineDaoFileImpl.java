@@ -25,8 +25,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
         primoItem = Items.get(itemCode);
 
-        // for (String key : Items.keySet()) {
-        // if (key.contains(itemCode)) {
         itemPrice = primoItem.itemPrice;
 
         return itemPrice;
@@ -69,7 +67,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         int itemInventoryParsed;
         int itemParsedUpdate;
  //       MathContext mc = new MathContext(1);
-        //  newItem = Items.get(itemCode);
 
         item = Items.get(itemCode);
         itemInventory = item.getItemInventory();

@@ -1,6 +1,6 @@
 
 package com.sg.vendingmachine.dao;
-/*
+
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
@@ -14,7 +14,12 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     List <Item> itemList = new ArrayList<>();
     
     public VendingMachineDaoStubImpl() {
-  
+        onlyItem = new Item("W63");
+        onlyItem.setItemName("Samuel L. Jackson");
+        onlyItem.setItemPrice("1.05");
+        onlyItem.setItemInventory("5");
+        
+        itemList.add(onlyItem);
     }
 
 
@@ -30,18 +35,55 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
         }
     }
 
+    @Override
+    public int vendAndUpdateItem(String itemCode, Item item) 
+             throws VendingMachinePersistenceException,
+            VendingMachineNoItemInInventoryException {
+        String itemInventory;
+        String itemInventoryUpdated;
+        int itemInventoryParsed;
+        int itemParsedUpdate;
 
-    public Item removeItem(String itemCode) 
-             throws VendingMachinePersistenceException {
+        item = getItem(itemCode);
+        itemInventory = item.getItemInventory();
+
+        itemInventoryParsed = Integer.parseInt(itemInventory);
+
+        if (itemInventoryParsed < 0) {
+            throw new VendingMachineNoItemInInventoryException(
+                    "ERROR: Could not vend.  Item "
+                    + itemCode
+                    + " is sold out");
+        }
+
+        itemParsedUpdate = (itemInventoryParsed - 1);
+
+        itemInventoryUpdated = String.valueOf(itemParsedUpdate);
+        item.setItemInventory(itemInventoryUpdated);
+
       if(itemCode.equals(onlyItem.getItemCode())){
-            return onlyItem;
+          
+            return itemInventoryParsed;
         } else {
-            return null;
+            return 0;
         }
     }
 
     @Override
     public String getItemPriceByCode(String itemCode) throws VendingMachinePersistenceException {
+        Item item = new Item(itemCode);
+        String itemPrice = null;
+
+        
+    //    item = 
+    
+    //            itemPrice = item.itemPrice;
+
+        return itemPrice;
+    }
+
+    @Override
+    public List<Item> getAllItems() throws VendingMachinePersistenceException, VendingMachineDataValidationException, VendingMachineNoItemInInventoryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -49,18 +91,8 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     public Item viewItem(String itemCode) throws VendingMachinePersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void vendAndUpdateItem(String itemCode, Item currentItem) throws VendingMachinePersistenceException, VendingMachineNoItemInInventoryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Item> getAllItems() throws VendingMachinePersistenceException, VendingMachineDataValidationException, VendingMachineNoItemInInventoryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
-    */
+    
 
 
 

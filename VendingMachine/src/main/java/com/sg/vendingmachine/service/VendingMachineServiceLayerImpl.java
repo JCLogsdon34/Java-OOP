@@ -30,6 +30,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         
         Map<Coins, Integer> cashRefund = new HashMap<>();
         int notEnough = 0;
+        
         BigDecimal itemPayment = new BigDecimal(itemMoney);
         BigDecimal itemPriceBig = new BigDecimal(itemPrice);
         if (itemPayment.compareTo(itemPriceBig) < 0) {
@@ -48,10 +49,11 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
+        BigDecimal itemRefund;
 
         Map<Coins, Integer> cashRefund = new HashMap<>();
 
-        int itemRefund = change.getCashInfo(itemPrice, itemPaid);
+        itemRefund = change.getCashInfo(itemPrice, itemPaid);
         cashRefund = change.getCoinWorth(itemRefund);
 
         return cashRefund;

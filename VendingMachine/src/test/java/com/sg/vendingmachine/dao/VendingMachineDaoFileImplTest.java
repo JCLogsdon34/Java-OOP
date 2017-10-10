@@ -45,12 +45,8 @@ public class VendingMachineDaoFileImplTest {
             throws VendingMachinePersistenceException {
 
         String itemCode = "L31";
-        //String testPrice;
         String expectedResult = "1.25";
 
-        //Item currentItem = new Item();
-        // currentItem = dao.getItem(itemCode);
-        // testPrice = dao.getItemPrice(itemCode);
         assertEquals(expectedResult, dao.getItemPriceByCode(itemCode));
     }
 
