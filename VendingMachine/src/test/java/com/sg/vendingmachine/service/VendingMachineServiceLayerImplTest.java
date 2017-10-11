@@ -146,9 +146,9 @@ public class VendingMachineServiceLayerImplTest {
         String expectedInventory = "1";
         Item item = new Item(itemCode);
 
-        item = dao.getItem(itemCode);
- //this was a straight fail, Inventory was 5
-        assertEquals(expectedInventory, dao.getItem(itemCode).itemInventory);
+        item = service.getItem(itemCode);
+ //this was a straight fail, Inventory was 5//checked
+        assertEquals(expectedInventory, service.getItem(itemCode).itemInventory);
        // assertNotNull(item);
     }
 

@@ -68,7 +68,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         String itemInventoryUpdated;
         int itemInventoryParsed;
         int itemParsedUpdate;
- //       MathContext mc = new MathContext(1);
 
         item = Items.get(itemCode);
         itemInventory = item.getItemInventory();
@@ -137,8 +136,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         }
         
         List<Item> itemList = this.getAllItems();
-        
-        
+             
         for (Item currentItem : itemList) {
             out.println(currentItem.getItemCode() + DELIMITER
                     + currentItem.getItemName() + DELIMITER

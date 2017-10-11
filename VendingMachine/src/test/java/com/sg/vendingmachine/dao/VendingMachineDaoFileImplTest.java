@@ -78,7 +78,7 @@ public class VendingMachineDaoFileImplTest {
             throws VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException {
 
-        String itemCode = "VB61";
+        String itemCode = "B61";  //insert something for char count, for code
         Item item = new Item(itemCode);
         try{
         item = dao.getItem(itemCode);

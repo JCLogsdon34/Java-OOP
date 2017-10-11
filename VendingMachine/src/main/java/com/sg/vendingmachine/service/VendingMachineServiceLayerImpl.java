@@ -9,8 +9,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
@@ -35,15 +34,15 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
         BigDecimal itemPaidBig = new BigDecimal(itemMoney);
         BigDecimal itemPriceBig = new BigDecimal(itemPrice);
-        BigDecimal userRefund = null;
+        
 
-            /////still throws NPE 
-            userRefund = change.getCashInfo(itemPriceBig, itemPaidBig);
+            /////still throws NPE//checked 
+         //   change.getCashInfo(itemPriceBig, itemPaidBig);
 
         auditDao.writeAuditEntry(
                 "Money " + cashRefund + " returned as change to user.");
 
-        return userRefund;
+        return  change.getCashInfo(itemPriceBig, itemPaidBig);
     }
 
     @Override
@@ -55,9 +54,9 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
         Map<Coins, Integer> changeRefund = new HashMap<>();
         //NPE still thrown
-        changeRefund = change.getCoinWorth(userRefund);
+       changeRefund = change.getCoinWorth(userRefund);
 
-        return changeRefund;
+        return change.getCoinWorth(userRefund);
     }
 
     @Override

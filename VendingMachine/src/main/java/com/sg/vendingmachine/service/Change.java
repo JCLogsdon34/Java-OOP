@@ -34,6 +34,9 @@ public class Change {
 
     public Map<Coins, Integer> getCoinWorth(BigDecimal itemRefund) {
         List<Coins> denomination = Arrays.asList(Coins.values());
+        
+        
+        
         BigDecimal quartersOut;
         BigDecimal dimesOut;
         BigDecimal nickelsOut;
@@ -44,45 +47,29 @@ public class Change {
         BigDecimal dimes = new BigDecimal(10);
         BigDecimal nickels = new BigDecimal(5);
         BigDecimal pennies = new BigDecimal(1);
-      /*  BigDecimal remainderInQ;
-          BigDecimal remainder1 = dimes.remainder(new BigDecimal(10));
-        BigDecimal remainder2 = nickels.remainder(new BigDecimal(5));
-        BigDecimal remainder3 = pennies.remainder(new BigDecimal(1));
-         */
+
         Map<Coins, Integer> cashMoney = new HashMap<>();
         cashMoney.put(QUARTER, 25);
         cashMoney.put(DIME, 10);
         cashMoney.put(NICKEL, 5);
-        cashMoney.put(PENNY, 1);
+        cashMoney.put(PENNY, 1); 
 
         for (Coins x : denomination) {
 
-           /* switch(){
-                    
-            */ 
-            while (itemRefund.remainder(quarters).compareTo(BigDecimal.ZERO) == 0) {
-
-                quartersOut = itemRefund.divide(quarters, 2, RoundingMode.HALF_UP);
-                cashMoney.put(QUARTER, 25);
-            }
-            while (itemRefund.remainder(dimes).compareTo(BigDecimal.ZERO) == 0) {
-
-                dimesOut = itemRefund.divide(dimes, 2, RoundingMode.HALF_UP);
-                cashMoney.put(DIME, 10);
-            }
-            while (itemRefund.remainder(nickels).compareTo(BigDecimal.ZERO) == 0) {
-
-                nickelsOut = itemRefund.divide(nickels, 2, RoundingMode.HALF_UP);
-                cashMoney.put(NICKEL, 5);
-            }
-            while (itemRefund.remainder(pennies).compareTo(BigDecimal.ZERO) == 0) {
-
-                penniesOut = itemRefund.divide(pennies, 2, RoundingMode.HALF_UP);
-                cashMoney.put(PENNY, 1);
-            }
-
+                quartersOut = itemRefund.remainder(quarters);
+                itemRefund = itemRefund.subtract(quartersOut);
+            
+                dimesOut = itemRefund.remainder(dimes); 
+                itemRefund = itemRefund.subtract(dimesOut);
+                
+                nickelsOut = itemRefund.remainder(nickels);
+                itemRefund = itemRefund.subtract(nickelsOut);
+                
+                penniesOut = itemRefund.remainder(pennies);
+                itemRefund = itemRefund.subtract(penniesOut);
+            
             cashMoney.put(x, cashMoney.get(x) + 1);
-            getCoins(x, -1);
+            getCoins(x, 0);
         }
         return cashMoney;
     }
@@ -97,7 +84,7 @@ public class Change {
                     "ERROR: Could not vend.  Money"
                     + itemPaidBig
                     + " paid was not sufficient");
-        }else{
+        }else {
             itemRefund = itemPaidBig.subtract(itemPriceBig);
         }
         return itemRefund; 
