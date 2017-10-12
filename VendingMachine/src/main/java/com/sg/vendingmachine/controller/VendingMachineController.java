@@ -3,18 +3,13 @@ package com.sg.vendingmachine.controller;
 import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
-import com.sg.vendingmachine.service.Coins;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import com.sg.vendingmachine.service.VendingMachineServiceLayer;
-import com.sg.vendingmachine.ui.UserIO;
-import com.sg.vendingmachine.ui.UserIoConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,9 +78,9 @@ public class VendingMachineController {
     }
 
     private int getMenuSelection()
-            throws VendingMachineDaoException, 
+            throws VendingMachineDaoException,
             VendingMachinePersistenceException {
-        
+
         return myView.printMenuAndGetSelection();
     }
 
@@ -93,7 +88,7 @@ public class VendingMachineController {
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        
+
         myView.displayDisplayItemBanner();
         List<Item> itemList = service.getAllItems();
         myView.displayItemList(itemList);
@@ -105,12 +100,12 @@ public class VendingMachineController {
             VendingMachineNoItemInInventoryException,
             VendingMachineDaoException {
 
-        Map<Coins, Integer> cashRefund = new HashMap<>();
+        List <String> cashRefund;
         String itemCode;
         Item currentItem;
         String itemMoney;
         String itemPrice;
-        BigDecimal userRefund;
+        int userRefund;
 
         // the item choice section
         listItems();
@@ -118,10 +113,15 @@ public class VendingMachineController {
         currentItem = service.getItem(itemCode);
         myView.displayPriceItemBanner();
         itemPrice = service.getItemPriceByCode(itemCode);
-
-        // payment section
         itemMoney = myView.getPayment(itemPrice);
+        
+        // payment section 
         userRefund = service.checkTheCash(itemPrice, itemMoney);
+     //   do{
+ 
+     //       itemMoney = myView.getPayment(itemPrice);
+      //      userRefund = service.checkTheCash(itemPrice, itemMoney);   
+     //   } while (userRefund < 0);
         cashRefund = service.returnChange(userRefund);
         myView.refundMoney(cashRefund);
         myView.displayNoChangeBanner();
@@ -130,6 +130,7 @@ public class VendingMachineController {
         service.vendItem(itemCode);
         myView.displayItem(currentItem);
         myView.displayVendSuccessBanner();
+        exitMessage();
     }
 
     private void viewItem()

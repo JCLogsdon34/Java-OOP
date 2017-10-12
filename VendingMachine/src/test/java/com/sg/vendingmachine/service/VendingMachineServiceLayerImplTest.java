@@ -1,14 +1,15 @@
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachineAuditDao;
+import com.sg.vendingmachine.dao.VendingMachineAuditDaoImpl;
 import com.sg.vendingmachine.dao.VendingMachineAuditDaoStubImpl;
 import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoStubImpl;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,18 +18,28 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class VendingMachineServiceLayerImplTest {
-
-    VendingMachineDao dao = new VendingMachineDaoStubImpl();
-    VendingMachineAuditDao auditDao = new VendingMachineAuditDaoStubImpl();
-    VendingMachineServiceLayer service = new VendingMachineServiceLayerImpl(dao, auditDao);
     
+    private VendingMachineDao dao = new VendingMachineDaoStubImpl();
+    private VendingMachineAuditDao auditDao = new VendingMachineAuditDaoImpl();
+    private VendingMachineServiceLayer service = new VendingMachineServiceLayerImpl(dao, auditDao);
+
     public VendingMachineServiceLayerImplTest() {
-
+     //  service = new VendingMachineServiceLayerImpl(dao, auditDao);
     }
+    
 
+    
     @BeforeClass
     public static void setUpClass() {
+    /*  Item onlyItem;
+        List<Item> itemList = new ArrayList<>();
+        onlyItem = new Item("W63");
+        onlyItem.setItemName("Samuel L. Jackson");
+        onlyItem.setItemPrice("3.05");
+        onlyItem.setItemInventory("5");
 
+        itemList.add(onlyItem);
+      */
     }
 
     @AfterClass
@@ -52,7 +63,7 @@ public class VendingMachineServiceLayerImplTest {
         String userPayment = "3.05";
         String itemCode = "W63";
 
-        String itemPrice = service.getItemPriceByCode(itemCode);
+        String itemPrice = dao.getItemPriceByCode(itemCode);
 
         BigDecimal userPaid = new BigDecimal(userPayment);
         BigDecimal itemWorth = new BigDecimal(itemPrice);
@@ -68,10 +79,11 @@ public class VendingMachineServiceLayerImplTest {
 
         String userPayment = "2.05";
         String itemPrice1 = "3.05";
-        BigDecimal userRefund;
+        int userRefund;
 
         try {
-            //still not throw exception
+            //throws
+            //but throws NFE now
             userRefund = service.checkTheCash(userPayment, itemPrice1);
             fail("expected VendingMachineInsufficientFundsException was not thrown");
         } catch (VendingMachineInsufficientFundsException e) {
@@ -86,13 +98,13 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachineDataValidationException,
             VendingMachineInsufficientFundsException {
 
-        BigDecimal itemRefund = new BigDecimal("1.50");
-        Map<Coins, Integer> cashMoney = new HashMap<>();
-// NPE checked again
+        int itemRefund = (int) 1.50;
+        List <String> cashMoney = new ArrayList<>(itemRefund);
+// out of memory java heap space
         cashMoney = service.returnChange(itemRefund);
 
-        BigDecimal itemRefund1 = new BigDecimal("1.50");
-        Map<Coins, Integer> cashMoney1 = new HashMap<>();
+        int itemRefund1 = (int) 1.50;
+        List <String> cashMoney1 = new ArrayList<>(itemRefund1);
 
         cashMoney1 = service.returnChange(itemRefund1);
 
@@ -108,21 +120,20 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        BigDecimal itemRefund;
-        BigDecimal itemRefund1;
+        int itemRefund;
+        int itemRefund1;
         String itemPrice = "1.25";
         String itemPaid = "1.50";
         String itemPrice1 = "1.05";
         String itemPaid1 = "1.30";
 
-        Map<Coins, Integer> cashRefund = new HashMap<>();
+        List<String> cashRefund = new ArrayList<>();
 
-/// NPE still thrown
+/// NFE throws
         itemRefund = service.checkTheCash(itemPrice, itemPaid);
         cashRefund = service.returnChange(itemRefund);
-               
-        
-        Map<Coins, Integer> cashRefund1 = new HashMap<>();
+
+        List <String> cashRefund1 = new ArrayList<>();
         itemRefund1 = service.checkTheCash(itemPrice1, itemPaid1);
         cashRefund1 = service.returnChange(itemRefund1);
 
@@ -134,7 +145,7 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        assertEquals(1, dao.getAllItems().size());
+        assertEquals(1, service.getAllItems().size());
     }
 
     @Test
@@ -142,25 +153,26 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        String itemCode = "W63";
-        String expectedInventory = "1";
+        String itemCode = "L31";
+        String expectedInventory = "5";
         Item item = new Item(itemCode);
 
         item = service.getItem(itemCode);
- //this was a straight fail, Inventory was 5//checked
+        //this was a straight fail, Inventory was 5//checked
+        ///now this throws NPE
         assertEquals(expectedInventory, service.getItem(itemCode).itemInventory);
-       // assertNotNull(item);
     }
 
     @Test
     public void testGetItemNothing() throws VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException {
-        String itemCode1 = "JJ2";
+        String itemCode1 = "JJF2";
 
         try {
-            //no throws
+            //no throws\
+            //catch this exception in the service layer
+            //still not throwing
             Item item = service.getItem(itemCode1);
-            item = dao.getItem(itemCode1);
             fail("Bad item code did not cause VendingMachineDataValidationException"
                     + "to be thrown");
         } catch (VendingMachineDataValidationException e) {
@@ -174,15 +186,10 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        String itemPrice = null;
         String itemPriceExpected = "3.05";
         String itemCode = "W63";
-        /* Item item = new Item(itemCode);
-        
-        item = dao.getItem(itemCode);
-         */
-        itemPrice = dao.getItemPriceByCode(itemCode);
+
 //checked NPE again
-        assertEquals(itemPriceExpected, dao.getItemPriceByCode(itemCode));
+        assertEquals(itemPriceExpected, service.getItemPriceByCode(itemCode));
     }
 }

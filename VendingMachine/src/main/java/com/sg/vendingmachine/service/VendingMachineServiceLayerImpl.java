@@ -1,21 +1,22 @@
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachineAuditDao;
+import com.sg.vendingmachine.dao.VendingMachineAuditDaoImpl;
 import com.sg.vendingmachine.dao.VendingMachineDao;
+import com.sg.vendingmachine.dao.VendingMachineDaoFileImpl;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
-import com.sg.vendingmachine.ui.VendingMachineView;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
-    private VendingMachineAuditDao auditDao;
-    VendingMachineDao dao;
-    Change change;
+    private VendingMachineAuditDao auditDao = new VendingMachineAuditDaoImpl();
+    private VendingMachineDao dao = new VendingMachineDaoFileImpl();
+    Change change = new Change();
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineAuditDao auditDao) {
         this.dao = dao;
@@ -23,40 +24,43 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
     @Override
-    public BigDecimal checkTheCash(String itemMoney, String itemPrice)
-            throws 
+    public int checkTheCash(String itemMoney, String itemPrice)
+            throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException,
             VendingMachineInsufficientFundsException {
 
-        Map<Coins, Integer> cashRefund = new HashMap<>();
+        /////throws NumberFormatException
+        int itemRefund;
 
-        BigDecimal itemPaidBig = new BigDecimal(itemMoney);
-        BigDecimal itemPriceBig = new BigDecimal(itemPrice);
-        
+        itemRefund = change.getCashInfo(itemPrice, itemMoney);
 
-            /////still throws NPE//checked 
-         //   change.getCashInfo(itemPriceBig, itemPaidBig);
-
+        List<String> coinsRefund = new ArrayList<>(itemRefund);
+        if (itemRefund < 0) {
+            throw new VendingMachineInsufficientFundsException(
+                    "ERROR: Could not vend.  Money"
+                    + itemRefund
+                    + " paid was not sufficient");
+        }
         auditDao.writeAuditEntry(
-                "Money " + cashRefund + " returned as change to user.");
+                "Money " + itemRefund + " returned as change to user.");
 
-        return  change.getCashInfo(itemPriceBig, itemPaidBig);
+        return itemRefund;
     }
 
     @Override
-    public Map<Coins, Integer> returnChange(BigDecimal userRefund)
+    public List<String> returnChange(int userRefund)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        Map<Coins, Integer> changeRefund = new HashMap<>();
-        //NPE still thrown
-       changeRefund = change.getCoinWorth(userRefund);
+        List<String> changeRefund = new ArrayList<>(userRefund);
+        //out of memory java heap space
+        changeRefund = change.coinsOut(userRefund);
 
-        return change.getCoinWorth(userRefund);
+        return changeRefund;
     }
 
     @Override
@@ -70,7 +74,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         String itemInventoryString;
 
         currentItem = getItem(itemCode);
-        validateItemData(currentItem);
+        validateItemData(itemCode);
         itemInventory = dao.vendAndUpdateItem(itemCode, currentItem);
         itemInventoryString = Integer.toString(itemInventory);
 
@@ -94,6 +98,8 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
+        validateItemData(itemCode);
+
         return dao.getItem(itemCode);
     }
 
@@ -102,15 +108,16 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
 
-        //throws NPE
         return dao.getItemPriceByCode(itemCode);
     }
 
-    private void validateItemData(Item item) throws
+    private void validateItemData(String itemCode) throws
             VendingMachineDataValidationException {
 
-        if (item.getItemCode() == null
-                || item.getItemCode().trim().length() == 0) {
+        if (itemCode == null
+                || itemCode.trim().length() == 0
+                || itemCode.length() > 3) {
+            //improve this
             throw new VendingMachineDataValidationException(
                     "Error: Invalid Item Code Entry, try again");
         }

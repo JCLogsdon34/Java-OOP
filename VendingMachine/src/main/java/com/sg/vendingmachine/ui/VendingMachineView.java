@@ -2,7 +2,6 @@ package com.sg.vendingmachine.ui;
 
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
-import com.sg.vendingmachine.service.Coins;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
 import java.util.List;
@@ -55,7 +54,7 @@ public class VendingMachineView {
         io.readString("Please hit enter to continue.");
     }
 
-    public void refundMoney(Map<Coins, Integer> cashRefund)
+    public void refundMoney(List <String> cashRefund)
             throws VendingMachineInsufficientFundsException {
         if(cashRefund == null){
               displayNoChangeBanner();
