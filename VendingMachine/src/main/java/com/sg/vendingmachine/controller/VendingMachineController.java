@@ -105,27 +105,30 @@ public class VendingMachineController {
         Item currentItem;
         String itemMoney;
         String itemPrice;
-        int userRefund;
+        double itemMoneyParsed;
+        double itemPriceParsed;
+        BigDecimal userRefund;
 
-        // the item choice section
         listItems();
         itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
         myView.displayPriceItemBanner();
+        do{
         itemPrice = service.getItemPriceByCode(itemCode);
-        itemMoney = myView.getPayment(itemPrice);
+        itemPriceParsed = Double.parseDouble(itemPrice);
         
-        // payment section 
-        userRefund = service.checkTheCash(itemPrice, itemMoney);
-     //   do{
- 
-     //       itemMoney = myView.getPayment(itemPrice);
-      //      userRefund = service.checkTheCash(itemPrice, itemMoney);   
-     //   } while (userRefund < 0);
-        cashRefund = service.returnChange(userRefund);
+        itemMoney = myView.getPayment(itemPrice);    
+        itemMoneyParsed = Double.parseDouble(itemMoney);
+        try{   
+        userRefund = service.checkTheCash(itemPrice, itemMoney);   
+        }catch (VendingMachineInsufficientFundsException e){
+    }
+        if(itemMoneyParsed < itemPriceParsed){
+            myView.displayNotEnoughMessage(itemMoney);
+        }
+        }while(itemMoneyParsed < itemPriceParsed);
+        cashRefund = service.returnChange(itemPrice, itemMoney);
         myView.refundMoney(cashRefund);
-        myView.displayNoChangeBanner();
-// Vend Item section 
         myView.displayVendingItem();
         service.vendItem(itemCode);
         myView.displayItem(currentItem);
@@ -145,8 +148,6 @@ public class VendingMachineController {
         itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
         myView.displayItem(currentItem);
-        //   service.purchaseItem(itemCode);
-        //    view.displayVendingSuccessBanner();
     }
 
     private void unknownCommand() {

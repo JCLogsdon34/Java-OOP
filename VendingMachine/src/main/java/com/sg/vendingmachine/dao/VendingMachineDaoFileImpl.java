@@ -46,6 +46,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             throws VendingMachinePersistenceException {
         loadItems();
         
+        
         return Items.get(itemCode);
     }
 
@@ -59,7 +60,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
     public int vendAndUpdateItem(String itemCode, Item item)
-            throws VendingMachinePersistenceException,
+            throws VendingMachinePersistenceException, 
             VendingMachineNoItemInInventoryException {
 
         loadItems();
@@ -70,22 +71,22 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
         int itemParsedUpdate;
 
         item = Items.get(itemCode);
+
         itemInventory = item.getItemInventory();
-
         itemInventoryParsed = Integer.parseInt(itemInventory);
-
-        if (itemInventoryParsed < 0) {
-            throw new VendingMachineNoItemInInventoryException(
-                    "ERROR: Could not vend.  Item "
+         if(itemInventoryParsed < 1){
+            throw new VendingMachineNoItemInInventoryException
+                ("ERROR: Could not vend.  Item "
                     + itemCode
                     + " is sold out");
         }
+
 
         itemParsedUpdate = (itemInventoryParsed - 1);
 
         itemInventoryUpdated = String.valueOf(itemParsedUpdate);
         item.setItemInventory(itemInventoryUpdated);
- //  the problem    Items.put(itemInventoryUpdated, item);
+
         writeItems();
         return itemParsedUpdate;
     }

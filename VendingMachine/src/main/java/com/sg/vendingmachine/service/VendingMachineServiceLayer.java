@@ -28,13 +28,13 @@ public interface VendingMachineServiceLayer {
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException;
 
-    List<String> returnChange(int userRefund)
+    List<String> returnChange(String itemMoney, String itemPrice)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException;
 
-    int checkTheCash(String itemMoney, String itemPrice)
+    BigDecimal checkTheCash(String itemMoney, String itemPrice)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,

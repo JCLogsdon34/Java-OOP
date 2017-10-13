@@ -8,9 +8,7 @@ import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
@@ -24,41 +22,40 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
     @Override
-    public int checkTheCash(String itemMoney, String itemPrice)
+    public BigDecimal checkTheCash(String itemPrice, String itemMoney)
             throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException,
             VendingMachineInsufficientFundsException {
 
-        /////throws NumberFormatException
-        int itemRefund;
-
-        itemRefund = change.getCashInfo(itemPrice, itemMoney);
-
-        List<String> coinsRefund = new ArrayList<>(itemRefund);
-        if (itemRefund < 0) {
+       BigDecimal itemRefund;
+       BigDecimal itemMoneyBig = new BigDecimal(itemMoney);
+       BigDecimal itemPaidBig = new BigDecimal(itemPrice);
+            itemRefund = itemMoneyBig.subtract(itemPaidBig);         
+       if (itemRefund.compareTo(BigDecimal.ZERO) < 1) {
+           
             throw new VendingMachineInsufficientFundsException(
                     "ERROR: Could not vend.  Money"
                     + itemRefund
                     + " paid was not sufficient");
         }
-        auditDao.writeAuditEntry(
-                "Money " + itemRefund + " returned as change to user.");
-
-        return itemRefund;
-    }
+     return itemRefund; 
+       }
 
     @Override
-    public List<String> returnChange(int userRefund)
+    public List<String> returnChange(String itemPrice, String itemMoney)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        List<String> changeRefund = new ArrayList<>(userRefund);
-        //out of memory java heap space
-        changeRefund = change.coinsOut(userRefund);
+        List<String> changeRefund = new ArrayList<>();
+
+        changeRefund = change.coinsOut(itemPrice, itemMoney);
+        
+        auditDao.writeAuditEntry(
+                "Money " + changeRefund + " returned as change to user.");
 
         return changeRefund;
     }
@@ -72,6 +69,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         Item currentItem;
         int itemInventory;
         String itemInventoryString;
+        
 
         currentItem = getItem(itemCode);
         validateItemData(itemCode);
@@ -97,9 +95,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-
-        validateItemData(itemCode);
-
+        
         return dao.getItem(itemCode);
     }
 
@@ -115,11 +111,18 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachineDataValidationException {
 
         if (itemCode == null
-                || itemCode.trim().length() == 0
-                || itemCode.length() > 3) {
-            //improve this
+                || itemCode.trim().length() == 0)
+
             throw new VendingMachineDataValidationException(
                     "Error: Invalid Item Code Entry, try again");
         }
-    }
+    /*                || getItemCode(itemCode) == null
+                || student.getLastName().trim().length() == 0
+                || student.getStudentId() == null
+                || student.getStudentId().trim().length() == 0
+                || student.getCohort() == null
+                || student.getCohort().trim().length() == 0)
+               // || itemCode.trim().length() > 4) {
+  {
+*/
 }

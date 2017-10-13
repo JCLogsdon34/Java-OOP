@@ -3,3 +3,239 @@
 2017-10-11T10:25:36.319 : Money {} returned as change to user.
 2017-10-11T11:49:54.393 : Money {} returned as change to user.
 2017-10-11T11:49:54.618 : Money {} returned as change to user.
+2017-10-12T11:02:44.996 : Money [] returned as change to user.
+2017-10-12T11:02:45.211 : Money [] returned as change to user.
+2017-10-12T11:14:37.368 : Money [] returned as change to user.
+2017-10-12T11:14:37.652 : Money [] returned as change to user.
+2017-10-12T11:17:08.289 : Money [] returned as change to user.
+2017-10-12T11:17:08.449 : Money [] returned as change to user.
+2017-10-12T11:48:27.143 : Money [Quarter] returned as change to user.
+2017-10-12T11:48:27.371 : Money [Quarter] returned as change to user.
+2017-10-12T11:48:27.408 : Money [] returned as change to user.
+2017-10-12T11:48:27.409 : Money [] returned as change to user.
+2017-10-12T11:56:41.625 : Money [Quarter] returned as change to user.
+2017-10-12T11:56:41.880 : Money [Quarter] returned as change to user.
+2017-10-12T11:56:41.930 : Money [] returned as change to user.
+2017-10-12T11:56:41.931 : Money [] returned as change to user.
+2017-10-12T11:58:37.627 : Money [Quarter] returned as change to user.
+2017-10-12T11:58:37.770 : Money [Quarter] returned as change to user.
+2017-10-12T11:58:37.811 : Money [] returned as change to user.
+2017-10-12T11:58:37.812 : Money [] returned as change to user.
+2017-10-12T12:05:11.437 : Money [Quarter] returned as change to user.
+2017-10-12T12:05:11.791 : Money [Quarter] returned as change to user.
+2017-10-12T12:05:11.832 : Money [] returned as change to user.
+2017-10-12T12:05:11.833 : Money [] returned as change to user.
+2017-10-12T12:46:17.124 : Money [Quarter] returned as change to user.
+2017-10-12T12:46:17.333 : Money [Quarter] returned as change to user.
+2017-10-12T12:46:17.373 : Money [] returned as change to user.
+2017-10-12T12:46:17.373 : Money [] returned as change to user.
+2017-10-12T12:54:39.553 : Money [Quarter] returned as change to user.
+2017-10-12T12:54:39.768 : Money [Quarter] returned as change to user.
+2017-10-12T14:12:06.837 : Money [Dime] returned as change to user.
+2017-10-12T14:12:07.045 : Money [Dime] returned as change to user.
+2017-10-12T14:12:07.116 : Money [] returned as change to user.
+2017-10-12T14:12:07.117 : Money [] returned as change to user.
+2017-10-12T14:15:51.729 : Money [Dime] returned as change to user.
+2017-10-12T14:15:52.038 : Money [Dime] returned as change to user.
+2017-10-12T14:15:52.074 : Money [] returned as change to user.
+2017-10-12T14:15:52.079 : Money [] returned as change to user.
+2017-10-12T14:25:28.305 : Money [Dime] returned as change to user.
+2017-10-12T14:25:28.466 : Money [Dime] returned as change to user.
+2017-10-12T14:25:28.498 : Money [] returned as change to user.
+2017-10-12T14:25:28.498 : Money [] returned as change to user.
+2017-10-12T14:27:20.177 : Money [Dime] returned as change to user.
+2017-10-12T14:27:20.337 : Money [Dime] returned as change to user.
+2017-10-12T14:27:20.364 : Money [] returned as change to user.
+2017-10-12T14:27:20.369 : Money [] returned as change to user.
+2017-10-12T14:28:43.530 : Money [Dime] returned as change to user.
+2017-10-12T14:28:43.790 : Money [Dime] returned as change to user.
+2017-10-12T14:28:43.823 : Money [] returned as change to user.
+2017-10-12T14:28:43.824 : Money [] returned as change to user.
+2017-10-12T14:32:50.680 : Money [Dime] returned as change to user.
+2017-10-12T14:32:50.827 : Money [Dime] returned as change to user.
+2017-10-12T14:32:50.854 : Money [] returned as change to user.
+2017-10-12T14:32:50.855 : Money [] returned as change to user.
+2017-10-12T15:41:02.775 : Money [Dime] returned as change to user.
+2017-10-12T15:41:02.949 : Money [Dime] returned as change to user.
+2017-10-12T15:41:02.965 : Money [] returned as change to user.
+2017-10-12T15:41:02.965 : Money [] returned as change to user.
+2017-10-12T16:00:42.640 : Money [Dime] returned as change to user.
+2017-10-12T16:00:42.771 : Money [Dime] returned as change to user.
+2017-10-12T16:00:42.780 : Money [] returned as change to user.
+2017-10-12T16:00:42.780 : Money [] returned as change to user.
+2017-10-12T16:09:09.569 : Money [Dime] returned as change to user.
+2017-10-12T16:09:09.820 : Money [Dime] returned as change to user.
+2017-10-12T16:09:09.849 : Money [] returned as change to user.
+2017-10-12T16:09:09.850 : Money [] returned as change to user.
+2017-10-12T16:10:04.302 : Money [Dime] returned as change to user.
+2017-10-12T16:10:04.568 : Money [Dime] returned as change to user.
+2017-10-12T16:10:04.597 : Money [] returned as change to user.
+2017-10-12T16:10:04.598 : Money [] returned as change to user.
+2017-10-12T16:16:31.813 : Money [Dime] returned as change to user.
+2017-10-12T16:16:32.038 : Money [Dime] returned as change to user.
+2017-10-12T16:16:32.063 : Money [] returned as change to user.
+2017-10-12T16:16:32.063 : Money [] returned as change to user.
+2017-10-12T16:21:51.490 : Money [Dime] returned as change to user.
+2017-10-12T16:21:51.682 : Money [Dime] returned as change to user.
+2017-10-12T16:21:51.716 : Money [] returned as change to user.
+2017-10-12T16:21:51.717 : Money [] returned as change to user.
+2017-10-12T16:23:39.484 : Money [Dime] returned as change to user.
+2017-10-12T16:23:39.644 : Money [Dime] returned as change to user.
+2017-10-12T16:23:39.681 : Money [] returned as change to user.
+2017-10-12T16:23:39.681 : Money [] returned as change to user.
+2017-10-12T16:39:17.909 : Money [Dime] returned as change to user.
+2017-10-12T16:39:18.088 : Money [Dime] returned as change to user.
+2017-10-12T16:39:18.117 : Money [] returned as change to user.
+2017-10-12T16:39:18.118 : Money [] returned as change to user.
+2017-10-12T16:41:07.909 : Money [Dime] returned as change to user.
+2017-10-12T16:41:08.058 : Money [Dime] returned as change to user.
+2017-10-12T16:42:18.618 : Money [Dime] returned as change to user.
+2017-10-12T16:42:18.850 : Money [Dime] returned as change to user.
+2017-10-12T16:44:49.600 : Money [Dime] returned as change to user.
+2017-10-12T16:44:49.757 : Money [Dime] returned as change to user.
+2017-10-12T16:48:02.138 : Money [] returned as change to user.
+2017-10-12T16:48:02.294 : Money [] returned as change to user.
+2017-10-12T16:48:02.325 : Money [Dime] returned as change to user.
+2017-10-12T16:48:02.326 : Money [Dime] returned as change to user.
+2017-10-12T16:49:57.524 : Money [] returned as change to user.
+2017-10-12T16:49:57.801 : Money [] returned as change to user.
+2017-10-12T16:49:57.864 : Money [Dime] returned as change to user.
+2017-10-12T16:49:57.866 : Money [Dime] returned as change to user.
+2017-10-12T16:52:02.713 : Money [] returned as change to user.
+2017-10-12T16:52:03.017 : Item G93 Inventory Sent for Vending.
+2017-10-12T16:55:12.632 : Money [Dime] returned as change to user.
+2017-10-12T16:55:12.987 : Item H29 Inventory Sent for Vending.
+2017-10-12T17:05:57.703 : Money [] returned as change to user.
+2017-10-12T17:05:58.072 : Money [] returned as change to user.
+2017-10-12T17:05:58.094 : Money [Dime] returned as change to user.
+2017-10-12T17:05:58.095 : Money [Dime] returned as change to user.
+2017-10-12T17:07:13.594 : Money [] returned as change to user.
+2017-10-12T17:07:13.895 : Item L31 Inventory Sent for Vending.
+2017-10-12T17:10:40.161 : Money [Quarter] returned as change to user.
+2017-10-12T17:10:40.468 : Item R45 Inventory Sent for Vending.
+2017-10-12T17:32:04.311 : Money [] returned as change to user.
+2017-10-12T17:32:04.581 : Money [] returned as change to user.
+2017-10-12T17:32:04.596 : Money [] returned as change to user.
+2017-10-12T17:32:04.597 : Money [] returned as change to user.
+2017-10-12T17:32:35.777 : Money [Quarter] returned as change to user.
+2017-10-12T17:32:36.145 : Item V61 Inventory Sent for Vending.
+2017-10-12T17:36:36.609 : Money [] returned as change to user.
+2017-10-12T17:36:36.799 : Money [] returned as change to user.
+2017-10-12T17:38:16.488 : Money [] returned as change to user.
+2017-10-12T17:38:16.856 : Money [] returned as change to user.
+2017-10-12T17:45:12.696 : Money [] returned as change to user.
+2017-10-12T17:45:12.973 : Money [] returned as change to user.
+2017-10-12T17:45:12.985 : Money [] returned as change to user.
+2017-10-12T17:45:12.986 : Money [] returned as change to user.
+2017-10-12T17:45:51.455 : Money [] returned as change to user.
+2017-10-12T17:45:51.719 : Item L31 Inventory Sent for Vending.
+2017-10-12T18:04:35.041 : Money [] returned as change to user.
+2017-10-12T18:04:35.312 : Money [] returned as change to user.
+2017-10-12T18:04:35.330 : Money [] returned as change to user.
+2017-10-12T18:04:35.331 : Money [] returned as change to user.
+2017-10-12T18:21:11.424 : Money [] returned as change to user.
+2017-10-12T18:21:11.650 : Money [] returned as change to user.
+2017-10-12T18:21:11.671 : Money [] returned as change to user.
+2017-10-12T18:21:11.673 : Money [] returned as change to user.
+2017-10-12T18:23:48.196 : Money [] returned as change to user.
+2017-10-12T18:23:48.507 : Item H29 Inventory Sent for Vending.
+2017-10-12T18:33:51.879 : Money [] returned as change to user.
+2017-10-12T18:34:08.036 : Item H29 Inventory Sent for Vending.
+2017-10-12T18:40:59.636 : Money [] returned as change to user.
+2017-10-12T18:40:59.805 : Money [] returned as change to user.
+2017-10-12T18:40:59.845 : Money [] returned as change to user.
+2017-10-12T18:40:59.845 : Money [] returned as change to user.
+2017-10-12T18:41:35.997 : Money [] returned as change to user.
+2017-10-12T18:41:36.290 : Item H29 Inventory Sent for Vending.
+2017-10-12T19:01:16.257 : Money [] returned as change to user.
+2017-10-12T19:01:16.549 : Money [] returned as change to user.
+2017-10-12T19:01:16.566 : Money [Quarter] returned as change to user.
+2017-10-12T19:01:16.566 : Money [Quarter] returned as change to user.
+2017-10-12T19:02:00.570 : Money [Quarter, Quarter] returned as change to user.
+2017-10-12T19:02:01.083 : Item V61 Inventory Sent for Vending.
+2017-10-12T19:13:11.168 : Money [] returned as change to user.
+2017-10-12T19:13:11.535 : Money [] returned as change to user.
+2017-10-12T19:13:11.549 : Money [Quarter] returned as change to user.
+2017-10-12T19:13:11.552 : Money [Quarter] returned as change to user.
+2017-10-12T19:13:46.283 : Money [Quarter, Quarter] returned as change to user.
+2017-10-12T19:13:46.797 : Item H29 Inventory Sent for Vending.
+2017-10-12T19:14:32.354 : Money [Quarter, Quarter, Quarter] returned as change to user.
+2017-10-12T19:14:32.355 : Item H29 Inventory Sent for Vending.
+2017-10-12T19:14:48.287 : Money [Quarter, Quarter, Quarter] returned as change to user.
+2017-10-12T19:22:40.283 : Money [] returned as change to user.
+2017-10-12T19:22:40.602 : Money [] returned as change to user.
+2017-10-12T19:22:40.610 : Item R45 Inventory Sent for Vending.
+2017-10-12T19:25:34.681 : Money [] returned as change to user.
+2017-10-12T19:25:34.975 : Item G93 Inventory Sent for Vending.
+2017-10-12T19:28:04.224 : Money [] returned as change to user.
+2017-10-12T19:28:04.532 : Item V61 Inventory Sent for Vending.
+2017-10-12T19:34:33.841 : Money [] returned as change to user.
+2017-10-12T19:34:34.025 : Money [] returned as change to user.
+2017-10-12T19:34:34.037 : Money [] returned as change to user.
+2017-10-12T19:34:34.038 : Money [Quarter] returned as change to user.
+2017-10-12T19:34:34.039 : Money [Quarter] returned as change to user.
+2017-10-12T19:35:07.416 : Money [] returned as change to user.
+2017-10-12T19:35:07.710 : Money [] returned as change to user.
+2017-10-12T19:35:07.717 : Item H29 Inventory Sent for Vending.
+2017-10-12T19:38:57.232 : Money [] returned as change to user.
+2017-10-12T19:38:57.544 : Item L31 Inventory Sent for Vending.
+2017-10-12T19:44:20.308 : Money [] returned as change to user.
+2017-10-12T19:44:20.464 : Money [] returned as change to user.
+2017-10-12T19:44:20.503 : Money [Quarter] returned as change to user.
+2017-10-12T19:44:20.504 : Money [Quarter] returned as change to user.
+2017-10-12T19:44:56.156 : Money [] returned as change to user.
+2017-10-12T19:44:56.464 : Item R45 Inventory Sent for Vending.
+2017-10-12T19:52:30.636 : Money [] returned as change to user.
+2017-10-12T19:52:30.922 : Money [] returned as change to user.
+2017-10-12T19:52:30.955 : Money [Quarter] returned as change to user.
+2017-10-12T19:52:30.956 : Money [Quarter] returned as change to user.
+2017-10-12T20:04:24.678 : Money [] returned as change to user.
+2017-10-12T20:04:24.836 : Money [] returned as change to user.
+2017-10-12T20:04:24.883 : Money [Quarter] returned as change to user.
+2017-10-12T20:04:24.883 : Money [Quarter] returned as change to user.
+2017-10-12T20:15:26.366 : Money [] returned as change to user.
+2017-10-12T20:15:26.540 : Money [] returned as change to user.
+2017-10-12T20:15:26.573 : Money [Quarter] returned as change to user.
+2017-10-12T20:15:26.575 : Money [Quarter] returned as change to user.
+2017-10-12T20:22:18.335 : Money [] returned as change to user.
+2017-10-12T20:22:18.639 : Item G93 Inventory Sent for Vending.
+2017-10-12T20:26:48.243 : Money [] returned as change to user.
+2017-10-12T20:26:48.407 : Money [] returned as change to user.
+2017-10-12T20:26:48.419 : Money [Quarter] returned as change to user.
+2017-10-12T20:26:48.419 : Money [Quarter] returned as change to user.
+2017-10-12T20:32:12.056 : Money [] returned as change to user.
+2017-10-12T20:32:12.241 : Money [] returned as change to user.
+2017-10-12T20:32:12.253 : Money [Quarter] returned as change to user.
+2017-10-12T20:32:12.254 : Money [Quarter] returned as change to user.
+2017-10-12T20:35:08.909 : Money [] returned as change to user.
+2017-10-12T20:35:09.216 : Item V61 Inventory Sent for Vending.
+2017-10-12T20:38:09.907 : Money [] returned as change to user.
+2017-10-12T20:38:10.093 : Money [] returned as change to user.
+2017-10-12T20:38:10.109 : Money [Quarter] returned as change to user.
+2017-10-12T20:38:10.109 : Money [Quarter] returned as change to user.
+2017-10-12T20:38:47.885 : Money [] returned as change to user.
+2017-10-12T20:38:48.171 : Item G93 Inventory Sent for Vending.
+2017-10-12T20:44:38.810 : Money [] returned as change to user.
+2017-10-12T20:44:38.986 : Money [] returned as change to user.
+2017-10-12T20:44:38.997 : Money [Quarter] returned as change to user.
+2017-10-12T20:44:38.998 : Money [Quarter] returned as change to user.
+2017-10-12T20:45:12.160 : Money [] returned as change to user.
+2017-10-12T20:45:12.446 : Item V61 Inventory Sent for Vending.
+2017-10-12T20:47:44.890 : Money [] returned as change to user.
+2017-10-12T20:47:45.072 : Money [] returned as change to user.
+2017-10-12T20:47:45.086 : Money [Quarter] returned as change to user.
+2017-10-12T20:47:45.087 : Money [Quarter] returned as change to user.
+2017-10-12T20:48:20.899 : Money [] returned as change to user.
+2017-10-12T20:48:21.229 : Item V61 Inventory Sent for Vending.
+2017-10-12T20:53:15.024 : Money [] returned as change to user.
+2017-10-12T20:53:15.175 : Money [] returned as change to user.
+2017-10-12T20:53:15.190 : Money [Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-12T20:53:15.191 : Money [Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-12T20:54:10.571 : Money [] returned as change to user.
+2017-10-12T20:54:11.060 : Item G93 Inventory Sent for Vending.
+2017-10-12T21:00:19.989 : Money [] returned as change to user.
+2017-10-12T21:00:20.480 : Money [] returned as change to user.
+2017-10-12T21:00:20.511 : Money [Nickel, Nickel, Nickel, Nickel, Nickel, Nickel] returned as change to user.
+2017-10-12T21:00:20.512 : Money [Nickel, Nickel, Nickel, Nickel, Nickel, Nickel] returned as change to user.
+2017-10-12T21:01:17.728 : Money [] returned as change to user.
+2017-10-12T21:01:17.987 : Item R45 Inventory Sent for Vending.

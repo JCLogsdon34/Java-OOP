@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class VendingMachineDaoFileImplTest {
 
-    private VendingMachineDao dao = new VendingMachineDaoFileImpl();
+    private VendingMachineDao dao = new VendingMachineDaoStubImpl();
 
     public VendingMachineDaoFileImplTest() {
 
@@ -45,8 +45,8 @@ public class VendingMachineDaoFileImplTest {
             throws VendingMachinePersistenceException, 
             VendingMachineDataValidationException {
 
-        String itemCode = "L31";
-        String expectedResult = "1.25";
+        String itemCode = "W63";
+        String expectedResult = "3.05";
 
         assertEquals(expectedResult, dao.getItemPriceByCode(itemCode));
     }
@@ -57,7 +57,7 @@ public class VendingMachineDaoFileImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        assertEquals(5, dao.getAllItems().size());
+        assertEquals(2, dao.getAllItems().size());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class VendingMachineDaoFileImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        String itemCode = "V61";
+        String itemCode = "W63";
         Item item = new Item(itemCode);
         item = dao.getItem(itemCode);
 
@@ -76,14 +76,16 @@ public class VendingMachineDaoFileImplTest {
     @Test
     public void testGetItemNothingHere()
             throws VendingMachinePersistenceException,
-            VendingMachineNoItemInInventoryException {
+            VendingMachineNoItemInInventoryException,
+            VendingMachineDataValidationException {
 
-        String itemCode = "BJ61";  //insert something for char count, for code
-        Item item = new Item(itemCode);
+        String itemCode = "W64"; 
+        int myInt;
         try{
-        item = dao.getItem(itemCode);
-        fail("Data Validation did not throw");
-        }catch(VendingMachineDataValidationException e){
+        myInt = dao.vendAndUpdateItem(itemCode, dao.getItem(itemCode));
+        fail("No item in the inventory did not throw");
+        }catch(VendingMachineNoItemInInventoryException e){
+            return;
         }       
     }
 
@@ -91,8 +93,8 @@ public class VendingMachineDaoFileImplTest {
     public void testViewItem() throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-        String itemCode = "V61";
-        String itemName = "Dr.Enuf";
+        String itemCode = "W63";
+        String itemName = "Samuel L. Jackson";
 
         assertEquals(itemName, dao.viewItem(itemCode).getItemName());
     }
@@ -103,20 +105,12 @@ public class VendingMachineDaoFileImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        String itemCode1 = "R45";
-        String itemCode2 = "V61";
+        String itemCode1 = "W63";
 
         Item newItem = new Item(itemCode1);
 
         newItem = dao.getItem(itemCode1);
 
-        assertEquals(4, dao.vendAndUpdateItem(itemCode1, newItem));
+        assertEquals(5, dao.vendAndUpdateItem(itemCode1, newItem));
     }
 }
-/*
-Ale-8-1::1.25::R45::5
-Cheer-Wine::1.25::L31::5
-Coca-Cola::1.00::H29::5
-Double-Cola::1.25::G93::5
-Dr.Enuf::1.25::V61::5
- */

@@ -4,8 +4,8 @@ import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class VendingMachineView {
 
@@ -22,11 +22,11 @@ public class VendingMachineView {
         io.print("3. View an Item");
         io.print("4. Exit");
 
-        return io.readInt("Please select from the above choices.", 1, 5);
+        return io.readInt("Please select from the above choices.", 1, 4);
     }
 
     public String getPayment(String itemPrice) {
-        io.print(itemPrice + "is the cost of that item");
+        io.print(itemPrice + " is the cost of that item");
         String itemPay = io.readString("Please enter the cost of that item in coins");
         return itemPay;
     }
@@ -35,7 +35,8 @@ public class VendingMachineView {
         for (Item currentItem : itemList) {
             io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
-                    + currentItem.getItemPrice()
+                    + currentItem.getItemPrice() + " "
+                    + "Number In Stock" + " "
                     + currentItem.getItemInventory());
         }
         io.readString("Please hit enter to continue.");
@@ -54,12 +55,16 @@ public class VendingMachineView {
         io.readString("Please hit enter to continue.");
     }
 
-    public void refundMoney(List <String> cashRefund)
+    public void refundMoney(List<String> cashRefund)
             throws VendingMachineInsufficientFundsException {
-        if(cashRefund == null){
-              displayNoChangeBanner();
+        io.print("Your refund is: ");
+
+        for(String item : cashRefund){
+            io.print(item);
         }
-        io.print("Your refund is: " + cashRefund + ".");
+        if (cashRefund.isEmpty()) {
+            displayNoChangeBanner();
+        }
     }
 
     public void displayVendSuccessBanner() {
@@ -75,11 +80,11 @@ public class VendingMachineView {
         do {
             itemEntry = io.readString("Please enter the Item Code.");
             if (itemEntry == null) {
-            throw new VendingMachinePersistenceException(
-                    "ERROR: Could not vend.  Item"
-                    + itemEntry
-                    + " code is invalid");          
-        }
+                throw new VendingMachinePersistenceException(
+                        "ERROR: Could not vend.  Item"
+                        + itemEntry
+                        + " code is invalid");
+            }
             if (!itemEntry.isEmpty()) {
                 currentItem.getItemCode();
                 newInput = true;
@@ -134,5 +139,9 @@ public class VendingMachineView {
     public void displayErrorMessage(String errorMsg) {
         io.print("=== ERROR ===");
         io.print(errorMsg);
+    }
+    public void displayNotEnoughMessage(String itemMoney){
+        io.print("=== ERROR ===");
+        io.print(itemMoney + " is not enough for that item.");
     }
 }
