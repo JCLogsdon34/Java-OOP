@@ -95,6 +95,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
+        validateItemData(itemCode);
         
         return dao.getItem(itemCode);
     }
@@ -112,17 +113,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
         if (itemCode == null
                 || itemCode.trim().length() == 0)
-
             throw new VendingMachineDataValidationException(
                     "Error: Invalid Item Code Entry, try again");
         }
-    /*                || getItemCode(itemCode) == null
-                || student.getLastName().trim().length() == 0
-                || student.getStudentId() == null
-                || student.getStudentId().trim().length() == 0
-                || student.getCohort() == null
-                || student.getCohort().trim().length() == 0)
-               // || itemCode.trim().length() > 4) {
-  {
-*/
 }

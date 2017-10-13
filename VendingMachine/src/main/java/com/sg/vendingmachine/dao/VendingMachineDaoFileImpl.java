@@ -46,7 +46,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             throws VendingMachinePersistenceException {
         loadItems();
         
-        
         return Items.get(itemCode);
     }
 
@@ -83,7 +82,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
 
         itemParsedUpdate = (itemInventoryParsed - 1);
-
         itemInventoryUpdated = String.valueOf(itemParsedUpdate);
         item.setItemInventory(itemInventoryUpdated);
 

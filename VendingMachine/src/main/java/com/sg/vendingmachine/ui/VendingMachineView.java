@@ -18,7 +18,7 @@ public class VendingMachineView {
     public int printMenuAndGetSelection() {
         io.print("Main Menu");
         io.print("1. List Items");
-        io.print("2. Vend Item");  //this will need to change
+        io.print("2. Vend Item");  
         io.print("3. View an Item");
         io.print("4. Exit");
 
@@ -28,6 +28,7 @@ public class VendingMachineView {
     public String getPayment(String itemPrice) {
         io.print(itemPrice + " is the cost of that item");
         String itemPay = io.readString("Please enter the cost of that item in coins");
+
         return itemPay;
     }
 
@@ -79,7 +80,7 @@ public class VendingMachineView {
         boolean newInput;
         do {
             itemEntry = io.readString("Please enter the Item Code.");
-            if (itemEntry == null) {
+            if ((itemEntry == null) || (itemEntry.length() > 3)) {
                 throw new VendingMachinePersistenceException(
                         "ERROR: Could not vend.  Item"
                         + itemEntry

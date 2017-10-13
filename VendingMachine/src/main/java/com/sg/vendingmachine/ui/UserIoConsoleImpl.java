@@ -118,7 +118,7 @@ public class UserIoConsoleImpl implements UserIO {
         do {
             System.out.println(userPrompt);
             myInt = inputReader.nextInt();
-            if (myInt > 5 || myInt < 1) {
+            if (myInt > 4 || myInt < 1) {
                 keepGoing = true;
             } else {
                 keepGoing = false;
@@ -157,7 +157,7 @@ public class UserIoConsoleImpl implements UserIO {
 
         System.out.println(prompt);
         userSentence = inputReader.nextLine();
-
+ 
         return userSentence;
     }
 }
