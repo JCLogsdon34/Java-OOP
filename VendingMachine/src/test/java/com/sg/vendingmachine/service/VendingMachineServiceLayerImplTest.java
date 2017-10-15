@@ -1,7 +1,6 @@
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dao.VendingMachineAuditDao;
-import com.sg.vendingmachine.dao.VendingMachineAuditDaoImpl;
 import com.sg.vendingmachine.dao.VendingMachineAuditDaoStubImpl;
 import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoStubImpl;

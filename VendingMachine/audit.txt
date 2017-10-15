@@ -505,3 +505,15 @@
 2017-10-13T14:39:23.428 : Money [] returned as change to user.
 2017-10-13T14:39:23.442 : Money [Quarter, Penny] returned as change to user.
 2017-10-13T14:39:23.442 : Money [Quarter, Penny] returned as change to user.
+2017-10-14T19:12:39.951 : Money [] returned as change to user.
+2017-10-14T19:12:40.152 : Money [] returned as change to user.
+2017-10-14T19:12:40.173 : Money [Quarter, Penny] returned as change to user.
+2017-10-14T19:12:40.173 : Money [Quarter, Penny] returned as change to user.
+2017-10-14T19:40:23.827 : Money [] returned as change to user.
+2017-10-14T19:40:24.144 : Money [] returned as change to user.
+2017-10-14T19:40:24.196 : Money [Quarter, Penny] returned as change to user.
+2017-10-14T19:40:24.200 : Money [Quarter, Penny] returned as change to user.
+2017-10-14T20:08:42.865 : Money [] returned as change to user.
+2017-10-14T20:08:43.043 : Money [] returned as change to user.
+2017-10-14T20:08:43.058 : Money [Quarter, Penny] returned as change to user.
+2017-10-14T20:08:43.058 : Money [Quarter, Penny] returned as change to user.
