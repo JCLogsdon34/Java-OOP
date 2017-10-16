@@ -19,14 +19,8 @@ public interface DvdLibraryDao {
     Dvd removeDvd(String dvdTitle)
             throws DvdLibraryPersistenceException;
     
-//  public void addServer(Server server);
-
-//  public Server getServer(String name);
-
-//  public void removeServer(String name);
-
-//  public List<Server> getAllServers();
-    
+    public void addDvd(Dvd dvd)
+          throws DvdLibraryPersistenceException;
 
     public Map<String, List<Dvd>> getAllDvdsGroupByProductionStudio(String studioName)
         throws DvdLibraryPersistenceException;
@@ -46,15 +40,16 @@ public interface DvdLibraryDao {
     public List<Dvd> getDvdsByDirectorsName(String directorsName)
             throws DvdLibraryPersistenceException;
 
-    public List<Dvd> getDvdsOlderThan(LocalDate releaseDate)
+    public List<Dvd> getDvdsOlderThan(String releaseDate)
             throws DvdLibraryPersistenceException;
     
-    public Map<LocalDate, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(LocalDate releaseDate)
+    public Map<String, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(String releaseDate)
             throws DvdLibraryPersistenceException;
 
-    public Map<LocalDate, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(LocalDate releaseDate)
+    public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String releaseDate)
             throws DvdLibraryPersistenceException;
-    public double getAverageDvdAge()
+    
+    public List<Dvd> getAverageDvdAge(String releaseDate)
             throws DvdLibraryPersistenceException;
     
 

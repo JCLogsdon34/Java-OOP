@@ -1,7 +1,9 @@
 package com.sg.dvdlibrary.service;
 
 import com.sg.dvdlibrary.dao.DvdLibraryAuditDao;
+import com.sg.dvdlibrary.dao.DvdLibraryAuditDaoImpl;
 import com.sg.dvdlibrary.dao.DvdLibraryDao;
+import com.sg.dvdlibrary.dao.DvdLibraryDaoFileImpl;
 import com.sg.dvdlibrary.dao.DvdLibraryPersistenceException;
 import com.sg.dvdlibrary.dto.Dvd;
 import java.util.List;
@@ -9,8 +11,8 @@ import java.util.List;
 public class DvdLibraryServiceLayerImpl implements
         DvdLibraryServiceLayer {
 
-    DvdLibraryDao dao;
-    private DvdLibraryAuditDao auditDao;
+    private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
+    private DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
 
     public DvdLibraryServiceLayerImpl(DvdLibraryDao dao, DvdLibraryAuditDao auditDao) {
         this.dao = dao;

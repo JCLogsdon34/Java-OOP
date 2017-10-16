@@ -20,7 +20,7 @@ public class App {
         DvdView myView = new DvdView(myIo);
         DvdLibraryDao myDao = new DvdLibraryDaoFileImpl();
         DvdLibraryAuditDao myAuditDao = new DvdLibraryAuditDaoImpl();
-        DvdLibraryServiceLayer myService = new DvdLibraryServiceLayerImpl(myDao);
+        DvdLibraryServiceLayer myService = new DvdLibraryServiceLayerImpl(myDao,myAuditDao);
         DvdLibraryController controller = new DvdLibraryController(myService, myView);
         controller.run();
     }

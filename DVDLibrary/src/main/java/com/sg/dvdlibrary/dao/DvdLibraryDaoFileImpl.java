@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,109 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     public static final String LIBRARY_FILE = "library.txt";
     public static final String DELIMITER = "::";
+    
+    @Override
+    public void addDvd(Dvd dvd){
+        dvdLibrary.put(dvd.getDvdTitle(), dvd);
+    }
+         
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByProductionStudio(String studioName) {
+        return dvdLibrary.values()
+                .stream()
+                .collect(Collectors.groupingBy(Dvd::getStudioName));
+    }
+
+    @Override
+    public List<Dvd> getDvdsByProductionStudio(String studioName) {
+        return dvdLibrary.values()
+            .stream()
+            .filter(s -> s.getStudioName().equalsIgnoreCase(studioName))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Dvd> getDvdsOlderThan(String releaseDate) {
+
+       return dvdLibrary.values()
+                .stream()
+                .filter(dvd -> dvd.getReleaseDate().equalsIgnoreCase(releaseDate))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String releaseDate){
+      /*      Long releaseDates;
+            String theReleaseDate;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+            LocalDate formatted = LocalDate.parse(releaseDate, formatter);
+            theReleaseDate = formatter.format(formatted);
+            releaseDates = Long.parseLong(theReleaseDate);
+       */     
+        return dvdLibrary.values()
+                .stream()
+                .filter(dvd -> dvd.getReleaseDate().equalsIgnoreCase(releaseDate))
+                .collect(Collectors.groupingBy(Dvd::getReleaseDate));  
+    }
+
+    @Override
+    public List<Dvd> getAverageDvdAge(String releaseDate) {
+      return dvdLibrary.values()
+                .stream()
+                .filter(s -> s.getReleaseDate().equalsIgnoreCase(releaseDate))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Dvd> getDvdsByMpaaRating(String mpaaRating) throws DvdLibraryPersistenceException {
+      
+       return dvdLibrary.values()
+                .stream()
+                .filter(s -> s.getMpaaRating().equalsIgnoreCase(mpaaRating))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByMpaaRating(String mpaaRating) throws DvdLibraryPersistenceException {
+        return dvdLibrary.values()
+                .stream()
+                .collect(Collectors.groupingBy(Dvd::getMpaaRating));
+    }
+    
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByDirectorsName(String directorsName) throws DvdLibraryPersistenceException {
+        return dvdLibrary.values()
+                .stream()
+                .collect(Collectors.groupingBy(Dvd::getDirectorsName));
+    }
+
+    @Override
+    public List<Dvd> getDvdsByDirectorsName(String directorsName) throws 
+            DvdLibraryPersistenceException {
+        
+       return dvdLibrary.values()
+                .stream()
+                .filter(s -> s.getDirectorsName().equalsIgnoreCase(directorsName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(String releaseDate) throws DvdLibraryPersistenceException {
+       return dvdLibrary.values()
+                .stream()
+                .collect(Collectors.groupingBy((dvd) -> {
+           return dvd.getReleaseDate();
+       }));
+    }
+
+    public double getAverageServerAge() {
+        return dvdLibrary.values()
+                .stream()
+            //    .mapToLong(s -> s.getReleaseDate())
+                .mapToLong(Dvd::getDvdAge)
+                .average()
+                .getAsDouble();
+    }
 
     public void loadRoster() throws DvdLibraryPersistenceException {
         Scanner scanner;
@@ -108,91 +212,5 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             out.flush();
         }
         out.close();
-    }
-
-    @Override
-    public Map<String, List<Dvd>> getAllDvdsGroupByProductionStudio(String studioName) {
-        return dvdLibrary.values()
-                .stream()
-                .collect(Collectors.groupingBy(Dvd::getStudioName));
-    }
-
-    @Override
-    public List<Dvd> getDvdsByProductionStudio(String studioName) {
-        return dvdLibrary.values()
-            .stream()
-            .filter(s -> s.getStudioName().equalsIgnoreCase(studioName))
-            .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Dvd> getDvdsOlderThan(LocalDate releaseDate) {
-        // Find place to parse String before this. We need primatives here
-       return dvdLibrary.values()
-                .stream()
-                .filter(s -> {
-           return LocalDate.getReleaseDate() > releaseDate;
-       })
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Map<LocalDate, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(LocalDate releaseDate) {
-        return dvdLibrary.values()
-                .stream()
-                .filter(s -> {
-            return LocalDate.getReleaseDate() > releaseDate;
-        })
-                .collect(Collectors.groupingBy(Dvd::getReleaseDate)); 
-    }
-
-    @Override
-    public double getAverageDvdAge() {
-      return dvdLibrary.values()
-                .stream()
-                .mapToLong((Dvd s) -> {
-          return s.getReleaseDate();
-      })  //we need a new method in the dto
-               // .mapToLong(Dvd::getDvdAge)
-                .average()
-                .getAsDouble();
-    }
-
-    @Override
-    public List<Dvd> getDvdsByMpaaRating(String mpaaRating) throws DvdLibraryPersistenceException {
-      
-      // maybe we need a new method, like in the controller or dto
-       return dvdLibrary.values()
-                .stream()
-                .filter(s -> {
-           return s.getMpaaRating() > mpaaRating;
-       })
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Map<String, List<Dvd>> getAllDvdsGroupByDirectorsName(String directorsName) throws DvdLibraryPersistenceException {
-        return dvdLibrary.values()
-                .stream()
-                .collect(Collectors.groupingBy(Dvd::getDirectorsName));
-    }
-
-    @Override
-    public List<Dvd> getDvdsByDirectorsName(String directorsName) throws DvdLibraryPersistenceException {
-       return dvdLibrary.values()
-                .stream()
-                .filter(s -> {
-           return s.getDirectorsName() > directorsName;
-       })
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Map<LocalDate, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(LocalDate releaseDate) throws DvdLibraryPersistenceException {
-       return dvdLibrary.values()
-                .stream()
-                .collect(Collectors.groupingBy((dvd) -> {
-           return dvd.getReleaseDate();
-       }));
     }
 }

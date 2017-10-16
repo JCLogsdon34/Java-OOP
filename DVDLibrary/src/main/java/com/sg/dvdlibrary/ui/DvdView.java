@@ -31,6 +31,7 @@ public class DvdView {
     public Dvd getNewDvdInfo() {
         Dvd currentDvd = new Dvd();
         boolean newInput;
+        String theReleaseDate;
         do {
             String dvdTitle;
             dvdTitle = io.readString("Please enter DVD title");
@@ -45,7 +46,8 @@ public class DvdView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
         io.readLocalDate("Please enter a release date dd-mm-yyyy");
         LocalDate formatted = LocalDate.parse(numberYear, formatter);
-        currentDvd.setReleaseDate(formatted);
+        theReleaseDate = formatter.format(formatted);
+        currentDvd.setReleaseDate(theReleaseDate);
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
         String directorsName = io.readString("Please enter the director's name");
@@ -108,7 +110,7 @@ public class DvdView {
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
         boolean keepOnKeepingOn = true;
         int userSelection;
-        LocalDate releaseDate;
+        String releaseDate;
         String mpaaRating;
         String directorsName;
         String userRating;
@@ -122,8 +124,14 @@ public class DvdView {
                     + "(5)Leave Menu");
             switch (userSelection) {
                 case 1:
-                    releaseDate = io.readLocalDate("Please enter your desired changes for the Release Date");
-                    currentDvd.setReleaseDate(releaseDate);
+                    LocalDate formatted;
+                    String theReleaseDate;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
+                    formatted = io.readLocalDate("Please enter your desired changes for the Release Date"
+                    + "dd-mm-yyyy");
+                    theReleaseDate = formatter.format(formatted);
+                    currentDvd.setReleaseDate(theReleaseDate);
                     io.print("Your change to the Release Date has been noted");
                     break;
                 case 2:

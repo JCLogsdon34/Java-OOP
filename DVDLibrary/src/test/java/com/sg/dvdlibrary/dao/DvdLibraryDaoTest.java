@@ -1,12 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.Dvd;
+import com.sg.dvdlibrary.service.DvdLibraryDataValidationException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,10 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author apprentice
- */
+
 public class DvdLibraryDaoTest {
     
     private DvdLibraryDao dao =  new DvdLibraryDaoFileImpl();
@@ -45,15 +41,15 @@ public class DvdLibraryDaoTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of addDvd method, of class DvdLibraryDao.
-     */
+    
     @Test
-    public void testGetDvd() throws Exception {
+    public void testGetDvd() throws DvdLibraryDataValidationException, 
+            DvdLibraryPersistenceException {
+        
         Dvd dvd = new Dvd();
         dvd.setDvdTitle("Joe");
         dvd.setDirectorsName("Smith");
-        dvd.setReleaseDate("2017");
+        dvd.setReleaseDate("04-17-1990");
         dvd.setStudioName("Applewood");
         dvd.setUserRating("A");
         
@@ -61,28 +57,29 @@ public class DvdLibraryDaoTest {
         
         Dvd fromDao = dao.getDvd(dvd.getDvdTitle());
         
-        assertEquals(dvd, fromDao); 
+        assertEquals(fromDao, dao.getDvd(dvd.getDvdTitle())); 
     }
 
-    /**
-     * Test of getAllDvds method, of class DvdLibraryDao.
-     */
+    
     @Test
-    public void testGetAllDvds() throws Exception {
+    public void testGetAllDvds() throws 
+            DvdLibraryDataValidationException, 
+            DvdLibraryPersistenceException {
+        
         Dvd dvd1 = new Dvd();
         dvd1.setDvdTitle("Joe");
         dvd1.setDirectorsName("Smith");
-        dvd1.setReleaseDate("2017");
+        dvd1.setReleaseDate("04-17-1990");
         dvd1.setStudioName("Applewood");
         dvd1.setUserRating("A");
         
         dao.addDvd(dvd1.getDvdTitle(), dvd1);
         
         Dvd dvd2 = new Dvd();
-        dvd2.setDvdTitle("Jill");
-        dvd2.setDirectorsName("Stein");
-        dvd2.setReleaseDate("2016");
-        dvd2.setStudioName("San Francisco");
+        dvd2.setDvdTitle("Bill");
+        dvd2.setDirectorsName("Yates");
+        dvd2.setReleaseDate("04-17-1990");
+        dvd2.setStudioName("Baton Rouge");
         dvd2.setUserRating("B+");
         
         dao.addDvd(dvd2.getDvdTitle(), dvd2);
@@ -92,32 +89,27 @@ public class DvdLibraryDaoTest {
         assertNull(dao.getDvd(dvd1.getDvdTitle()));
         
         dao.removeDvd(dvd2.getDvdTitle());
-        assertEquals(2, dao.getAllDvds().size());
+        assertEquals(0, dao.getAllDvds().size());
         assertNull(dao.getDvd(dvd2.getDvdTitle()));
     }
 
     @Test
-    public void testRemoveDvd() throws Exception {
+    public void testRemoveDvd() throws 
+            DvdLibraryDataValidationException, DvdLibraryPersistenceException{
+        String dvdTitle = "Bill";
+        Dvd dvd1 = new Dvd();
+        dvd1.setDvdTitle("Johann S. Bach: Old School OG");
+        dvd1.setDirectorsName("Dr Dre");
+        dvd1.setReleaseDate("04-17-1990");
+        dvd1.setStudioName("umm, Germany?");
+        dvd1.setUserRating("A");
         
+
+        dao.addDvd(dvd1.getDvdTitle(), dvd1);
+        dao.removeDvd(dvd1.getDvdTitle());
+        
+        assertNull(dvdTitle, dao.removeDvd(dvd1.getDvdTitle()));
+
+
     }
-
-    public class DvdLibraryDaoImpl implements DvdLibraryDao {
-
-        public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryPersistenceException {
-            return null;
-        }
-
-        public List<Dvd> getAllDvds() throws DvdLibraryPersistenceException {
-            return null;
-        }
-
-        public Dvd getDvd(String dvdTitle) throws DvdLibraryPersistenceException {
-            return null;
-        }
-
-        public Dvd removeDvd(String dvdTitle) throws DvdLibraryPersistenceException {
-            return null;
-        }
-    } 
-    
 }

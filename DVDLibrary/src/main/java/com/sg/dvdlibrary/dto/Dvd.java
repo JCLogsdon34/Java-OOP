@@ -8,7 +8,8 @@ import java.util.stream.LongStream;
 public class Dvd {
 
     public String dvdTitle;
-    public LocalDate releaseDate;
+    public String releaseDate;
+    public LocalDate releaseDates;
     public String directorsName;
     public String mpaaRating;
     public String studioName;
@@ -30,22 +31,30 @@ public class Dvd {
         return directorsName;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
     
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }  
-    /*
-    public int getDvdAge() {
-        Period p = releaseDate.until(LocalDate.now());
-        return p.getAgeOfDvd();
-    }  */
-
+    
+    public LocalDate getReleaseDates() {
+        return releaseDates;
+    }
+    
+    public void setReleaseDates(LocalDate releaseDates) {
+        this.releaseDates = releaseDates;
+    } 
+    
+    public long getDvdAge() {
+        Period p = releaseDates.until(LocalDate.now());
+        return p.getYears();
+    }  
+    
     public void setMpaaRating(String mpaaRating) {
         this.mpaaRating = mpaaRating;
-    }
+    } 
 
     public String getMpaaRating() {
         return mpaaRating;
