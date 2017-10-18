@@ -97,13 +97,14 @@ public class DvdLibraryController {
 
     private void listDvds() throws DvdLibraryPersistenceException {
         List<Dvd> dvdList;
-        int lambdaListChoice;
+        int lambdaListChoice = 0;
         Map<String, List<Dvd>> lambdaDvdMap;
-        
+        String theStringChoice;
         
             view.displayDisplayDvdBanner();
             dvdList = service.getAllDvds();                              
     //      lambdaListChoice = view.getDvdListOptions();
+    //      theStringChoice = view.getUserListChoice(lambdaListChoice);
     //      service.callUpLambda(lambdaListChoice);
             view.displayDvdList(dvdList); 
     }

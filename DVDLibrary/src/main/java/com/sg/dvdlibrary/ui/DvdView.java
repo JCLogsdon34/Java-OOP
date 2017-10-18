@@ -108,25 +108,73 @@ public class DvdView {
     }
 /*
     add another swtich for input for this
-    public String getDvdListOptions() {
+    public int getDvdListOptions() {
         boolean keepOnKeepingOn = true;
         int userSelection;
+
+
+        while (keepOnKeepingOn) {
+            userSelection = io.readInt("Please select a number from the following editing options: "
+                    + "(1)Get list of movies from the last n amount of years"
+                    + "(2)Get list of movies older than n years";
+                    + "(3)Get list of movies younger than n years";
+                    + "(4)Find all the movies released by a certain studio "
+                    + "(5)Get list of movies by film director, sorted by Mpaa rating "
+                    + "(6)Get list of movies by MPAA rating "
+                    + "(7)Get list of movies by User Notes"
+                    + "(8)Leave Menu");
+            switch (userSelection) {
+                case 1:
+
+                    userSelection = 1;
+                    break;
+                case 2:
+                    //trigger a new method here
+                    userSelection = 2;
+                    break;
+                case 3:
+                    //trigger a new method here too
+                    userSelection = 3;
+                    break;
+                case 4:
+                  
+                    userSelection = 4;
+                    break;
+                case 5:
+                     
+                    userSelection = 5;
+                    break;
+                case 6:
+                    
+                     keepOnKeepingOn = false;
+                    userSelection = 6;
+                    break;
+                case 7:  
+                    keepOnKeepingOn = false;
+                    userSelection = 6;
+                    break;
+                case 8:
+                    keepOnKeepingOn = false;
+                    break;
+                default:
+                    io.print("Invalid Input, please enter one of the numbered chocies");
+                    break;
+            }
+        }
+        return userSelection;
+    }
+    
+    public String getUserListChoice(int userSelection) {
+        boolean keepOnKeepingOn = true;
         String releaseDate;
         String mpaaRating;
         String directorsName;
         String userRating;
         String studioName;
-
+        String choice;
+        
         while (keepOnKeepingOn) {
-            userSelection = io.readInt("Please select a number from the following editing options: "
-                    + "(1)Get list of movies from the last n amount of years, or"
-                    + "older or younger than n years";
-                    + "(2)Get list of movies older or younger than n years "
-                    + "(3)Find all the movies released by a certain studio "
-                    + "(4)Get list of movies by film director, sorted by Mpaa rating "
-                    + "(5)Get list of movies by MPAA rating "
-                    + "(6)Get list of movies by User Notes"
-                    + "(7)Leave Menu");
+
             switch (userSelection) {
                 case 1:
                     LocalDate formatted;
@@ -138,7 +186,7 @@ public class DvdView {
                     theReleaseDate = formatter.format(formatted);
                     io.print("Thank You, here you go");
                     keepOnKeepingOn = false;
-                    return theReleaseDate;
+                    return theReleaseDate
                     break;
                 case 2:
                     LocalDate formatted;
@@ -152,6 +200,17 @@ public class DvdView {
                     return theReleaseDate;
                     break;
                 case 3:
+                 LocalDate formatted;
+                    String theReleaseDate;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
+                    formatted = io.readLocalDate("Please enter a Release Date from which to start a list to the present"
+                    + "dd-mm-yyyy");
+                    theReleaseDate = formatter.format(formatted);
+                    keepOnKeepingOn = false;
+                    return theReleaseDate;
+                    break;
+                case 4:
                     
                     boolean inputValidate;
                     do {
@@ -167,7 +226,7 @@ public class DvdView {
                      keepOnKeepingOn = false;
                     return studioName;
                     break;
-                case 4:
+                case 5:
                     boolean inputBool;
                     do {
                         directorsName= io.readString("Please enter the name of the director by which to organize a list");
@@ -181,7 +240,7 @@ public class DvdView {
                      keepOnKeepingOn = false;
                     return directorsName;
                     break;
-                case 5:
+                case 6:
                      boolean inputTry;
                     do {
                         mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
@@ -196,7 +255,7 @@ public class DvdView {
                     keepOnKeepingOn = false;
                     return mpaaRating;
                     break;
-                case 6:
+                case 7:
                     boolean inputTry;
                     do {
                         userRating = io.readString("Please enter user rating by which you would like to organize a list");
@@ -210,7 +269,7 @@ public class DvdView {
                      keepOnKeepingOn = false;
                     return userRating;
                     break;
-                case 7:
+                case 8:
                     keepOnKeepingOn = false;
                     break;
                 default:
@@ -218,7 +277,11 @@ public class DvdView {
                     break;
             }
         }
-        return currentDvd;
+    }
+    
+    public String getOlderOrYoungerChoice(){
+     ask the user which, older or younger list?
+        decide here, have an if statement up above
     }
     */
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {

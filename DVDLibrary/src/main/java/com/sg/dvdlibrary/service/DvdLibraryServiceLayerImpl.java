@@ -19,7 +19,113 @@ public class DvdLibraryServiceLayerImpl implements
         this.dao = dao;
         this.auditDao = auditDao;
     }
+    /*
+        public String getDvdListOptionChoice() {
+        boolean keepOnKeepingOn = true;
+        int userSelection;
+        String releaseDate;
+        String mpaaRating;
+        String directorsName;
+        String userRating;
+        String studioName;
 
+        while (keepOnKeepingOn) {
+
+            switch (userSelection) {
+                case 1:
+                    LocalDate formatted;
+                    String theReleaseDate;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
+                    formatted = io.readLocalDate("Please enter a Release Date from which to start  a list to the present"
+                    + "dd-mm-yyyy");
+                    theReleaseDate = formatter.format(formatted);
+                    io.print("Thank You, here you go");
+                    keepOnKeepingOn = false;
+                    return theReleaseDate;
+                    break;
+                case 2:
+                    LocalDate formatted;
+                    String theReleaseDate;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
+                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
+                    formatted = io.readLocalDate("Please enter a Release Date from which to start a list to the present"
+                    + "dd-mm-yyyy");
+                    theReleaseDate = formatter.format(formatted);
+                    keepOnKeepingOn = false;
+                    return theReleaseDate;
+                    break;
+                case 3:
+                    
+                    boolean inputValidate;
+                    do {
+                        studioName = io.readString("Please enter the studio name by which you want to list your dvds");
+                        if (directorsName != null && !directorsName.isEmpty()) {
+                            currentDvd.setDirectorsName(directorsName);
+                            io.print("Your change to the Director's Name has been noted");
+                            inputValidate = true;
+                        } else {
+                            inputValidate = false;
+                        }
+                    } while (inputValidate == false);
+                     keepOnKeepingOn = false;
+                    return studioName;
+                    break;
+                case 4:
+                    boolean inputBool;
+                    do {
+                        directorsName= io.readString("Please enter the name of the director by which to organize a list");
+                        if (directorsName != null && !directorsName.isEmpty()) {
+                            io.print("Thank You");
+                            inputBool = true;
+                        } else {
+                            inputBool = false;
+                        }
+                    } while (inputBool == false);
+                     keepOnKeepingOn = false;
+                    return directorsName;
+                    break;
+                case 5:
+                     boolean inputTry;
+                    do {
+                        mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
+                        if (mpaaRating != null && !mpaaRating.isEmpty()) {
+
+                            io.print("Thank You");
+                            inputTry = true;
+                        } else {
+                            inputTry = false;
+                        }
+                    } while (inputTry == false);
+                    keepOnKeepingOn = false;
+                    return mpaaRating;
+                    break;
+                case 6:
+                    boolean inputTry;
+                    do {
+                        userRating = io.readString("Please enter user rating by which you would like to organize a list");
+                        if (userRating != null && !userRating.isEmpty()) {
+                            io.print("Thank You");
+                            inputTry = true;
+                        } else {
+                            inputTry = false;
+                        }
+                    } while (inputTry == false);
+                     keepOnKeepingOn = false;
+                    return userRating;
+                    break;
+                case 7:
+                    keepOnKeepingOn = false;
+                    break;
+                default:
+                    io.print("Invalid Input, please enter one of the numbered chocies");
+                    break;
+            }
+        }
+        return currentDvd;
+    }
+    */
+    
     @Override
     public void createDvd(Dvd dvd) throws
             DvdLibraryDuplicateIdException,
