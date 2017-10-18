@@ -7,6 +7,7 @@ import com.sg.dvdlibrary.service.DvdLibraryDuplicateIdException;
 import com.sg.dvdlibrary.service.DvdLibraryServiceLayer;
 import com.sg.dvdlibrary.ui.DvdView;
 import java.util.List;
+import java.util.Map;
 
 public class DvdLibraryController {
 
@@ -96,8 +97,14 @@ public class DvdLibraryController {
 
     private void listDvds() throws DvdLibraryPersistenceException {
         List<Dvd> dvdList;
+        int lambdaListChoice;
+        Map<String, List<Dvd>> lambdaDvdMap;
+        
+        
             view.displayDisplayDvdBanner();
-            dvdList = service.getAllDvds();
+            dvdList = service.getAllDvds();                              
+    //      lambdaListChoice = view.getDvdListOptions();
+    //      service.callUpLambda(lambdaListChoice);
             view.displayDvdList(dvdList); 
     }
 

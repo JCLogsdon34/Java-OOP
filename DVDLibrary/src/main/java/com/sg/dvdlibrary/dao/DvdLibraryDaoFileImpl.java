@@ -90,6 +90,14 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
                 .filter(dvd -> dvd.getReleaseDate().equalsIgnoreCase(releaseDate))
                 .collect(Collectors.toList());
     }
+    
+    @Override
+    public List<Dvd> getDvdsYoungerThan(String releaseDate) {
+       return dvdLibrary.values()
+                .stream()
+                .filter(dvd -> dvd.getReleaseDate().equalsIgnoreCase(releaseDate))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String releaseDate){
@@ -148,18 +156,33 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     }
 
     @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByUserRating(String userRating) throws DvdLibraryPersistenceException {
+        return dvdLibrary.values()
+                .stream()
+                .collect(Collectors.groupingBy(Dvd::getUserRating));
+    }
+
+    @Override
+    public List<Dvd> getDvdsByUserRating(String userRating) throws 
+            DvdLibraryPersistenceException {
+        
+       return dvdLibrary.values()
+                .stream()
+                .filter(s -> s.getDirectorsName().equalsIgnoreCase(userRating))
+                .collect(Collectors.toList());
+    }
+    
+    @Override
     public Map<String, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(String releaseDate) throws DvdLibraryPersistenceException {
        return dvdLibrary.values()
                 .stream()
-                .collect(Collectors.groupingBy((dvd) -> {
-           return dvd.getReleaseDate();
-       }));
+                .collect(Collectors.groupingBy(Dvd::getUserRating));
     }
 
-    public double getAverageServerAge() {
+    
+    public double getAverageDvdAge() {
         return dvdLibrary.values()
                 .stream()
-            //    .mapToLong(s -> s.getReleaseDate())
                 .mapToLong(Dvd::getDvdAge)
                 .average()
                 .getAsDouble();

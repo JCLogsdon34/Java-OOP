@@ -7,6 +7,7 @@ import com.sg.dvdlibrary.dao.DvdLibraryDaoFileImpl;
 import com.sg.dvdlibrary.dao.DvdLibraryPersistenceException;
 import com.sg.dvdlibrary.dto.Dvd;
 import java.util.List;
+import java.util.Map;
 
 public class DvdLibraryServiceLayerImpl implements
         DvdLibraryServiceLayer {
@@ -42,7 +43,29 @@ public class DvdLibraryServiceLayerImpl implements
     public List<Dvd> getAllDvds() throws DvdLibraryPersistenceException {
         return dao.getAllDvds();
     }
-
+    
+    
+    public List<Dvd> getAllDvdsOlderThan(String releaseDate) 
+            throws DvdLibraryPersistenceException{
+    //    List<Dvd> dvdsOlderThan;
+      //         dvdsOlderThan  = dao.getDvdsOlderThan(releaseDate);
+               
+              return dao.getDvdsOlderThan(releaseDate);
+    } 
+    
+    public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String releaseDate)
+            throws DvdLibraryPersistenceException{
+        
+        return dao.getDvdsOlderThanGroupByReleaseDate(releaseDate);
+    }
+    //use a for-loop to detertmine which, or rather a switch
+    public List<Dvd> getAllDvdsYoungThan(String releaseDate) 
+            throws DvdLibraryPersistenceException{
+        return dao.getDvdsYoungerThan(releaseDate);
+    }
+    
+    
+    
     @Override
     public Dvd getDvd(String dvdTitle) throws DvdLibraryPersistenceException {
         return dao.getDvd(dvdTitle);

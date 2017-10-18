@@ -4,6 +4,7 @@ import com.sg.dvdlibrary.dto.Dvd;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public interface DvdLibraryDao {
 
@@ -43,6 +44,9 @@ public interface DvdLibraryDao {
     public List<Dvd> getDvdsOlderThan(String releaseDate)
             throws DvdLibraryPersistenceException;
     
+    public List<Dvd> getDvdsYoungerThan(String releaseDate)
+             throws DvdLibraryPersistenceException;
+    
     public Map<String, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(String releaseDate)
             throws DvdLibraryPersistenceException;
 
@@ -52,5 +56,9 @@ public interface DvdLibraryDao {
     public List<Dvd> getAverageDvdAge(String releaseDate)
             throws DvdLibraryPersistenceException;
     
+    public Map<String, List<Dvd>> getAllDvdsGroupByUserRating(String userRating) 
+            throws DvdLibraryPersistenceException;
 
+    public List<Dvd> getDvdsByUserRating(String UserRating) throws 
+            DvdLibraryPersistenceException;
 }
