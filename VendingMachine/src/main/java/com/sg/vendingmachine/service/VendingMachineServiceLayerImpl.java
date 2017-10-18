@@ -22,7 +22,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
     @Override
-    public BigDecimal checkTheCash(String itemPrice, String itemMoney)
+    public BigDecimal checkTheCash(BigDecimal itemPriceBig, BigDecimal itemMoneyBig)
             throws
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
@@ -30,9 +30,8 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachineInsufficientFundsException {
 
        BigDecimal itemRefund;
-       BigDecimal itemMoneyBig = new BigDecimal(itemMoney);
-       BigDecimal itemPaidBig = new BigDecimal(itemPrice);
-            itemRefund = itemMoneyBig.subtract(itemPaidBig);         
+
+            itemRefund = itemMoneyBig.subtract(itemMoneyBig);         
        if (itemRefund.compareTo(BigDecimal.ZERO) < 1) {
            
             throw new VendingMachineInsufficientFundsException(

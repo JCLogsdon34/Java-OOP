@@ -34,7 +34,7 @@ public interface VendingMachineServiceLayer {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException;
 
-    BigDecimal checkTheCash(String itemMoney, String itemPrice)
+    BigDecimal checkTheCash(BigDecimal itemMoneyBig, BigDecimal itemPriceBig)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,

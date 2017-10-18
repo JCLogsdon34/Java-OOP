@@ -100,7 +100,62 @@ public class DvdLibraryController {
         int lambdaListChoice = 0;
         Map<String, List<Dvd>> lambdaDvdMap;
         String theStringChoice;
-        
+            /*
+        public int getDvdListOptions() {
+        boolean keepOnKeepingOn = true;
+        int userSelection;
+
+        while (keepOnKeepingOn) {
+            userSelection = io.readInt("Please select a number from the following editing options: "
+                    + "(1)Get list of movies from the last n amount of years"
+                    + "(2)Get list of movies older than n years";
+                    + "(3)Get list of movies younger than n years";
+                    + "(4)Find all the movies released by a certain studio "
+                    + "(5)Get list of movies by film director, sorted by Mpaa rating "
+                    + "(6)Get list of movies by MPAA rating "
+                    + "(7)Get list of movies by User Notes"
+                    + "(8)Leave Menu");
+            switch (userSelection) {
+                case 1:
+
+                    userSelection = 1;
+                    break;
+                case 2:
+                    //trigger a new method here
+                    userSelection = 2;
+                    break;
+                case 3:
+                    //trigger a new method here too
+                    userSelection = 3;
+                    break;
+                case 4:
+                  
+                    userSelection = 4;
+                    break;
+                case 5:
+                     
+                    userSelection = 5;
+                    break;
+                case 6:
+                    
+                     keepOnKeepingOn = false;
+                    userSelection = 6;
+                    break;
+                case 7:  
+                    keepOnKeepingOn = false;
+                    userSelection = 6;
+                    break;
+                case 8:
+                    keepOnKeepingOn = false;
+                    break;
+                default:
+                    io.print("Invalid Input, please enter one of the numbered chocies");
+                    break;
+            }
+        }
+        return userSelection;
+    }
+        */
             view.displayDisplayDvdBanner();
             dvdList = service.getAllDvds();                              
     //      lambdaListChoice = view.getDvdListOptions();

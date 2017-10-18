@@ -70,10 +70,12 @@ public class VendingMachineServiceLayerImplTest {
         String itemPrice1 = "3.05";
         BigDecimal userRefund = new BigDecimal(userPayment);
         String itemCode = "W63";
+        BigDecimal userPaymentBig = new BigDecimal(userPayment);
+        BigDecimal userPriceBig = new BigDecimal(itemPrice1);
         Item item = new Item(itemCode);
 
         try {
-            userRefund = service.checkTheCash(itemPrice1, userPayment);
+            userRefund = service.checkTheCash(userPaymentBig, userPriceBig);
             fail("expected VendingMachineInsufficientFundsException was not thrown");
         } catch (VendingMachineInsufficientFundsException e) {
             return;
@@ -116,16 +118,20 @@ public class VendingMachineServiceLayerImplTest {
         BigDecimal itemRefund1;
         String itemPrice = "1.25";
         String itemPaid = "1.50";
+        BigDecimal userPaymentBig = new BigDecimal(itemPaid);
+        BigDecimal userPriceBig = new BigDecimal(itemPrice);
         String itemPrice1 = "1.25";
         String itemPaid1 = "1.50";
+        BigDecimal userPaymentBig1 = new BigDecimal(itemPaid1);
+        BigDecimal userPriceBig1 = new BigDecimal(itemPrice1);
 
         List<String> cashRefund = new ArrayList<>();
 
-        itemRefund = service.checkTheCash(itemPrice, itemPaid);
+        itemRefund = service.checkTheCash(userPriceBig, userPaymentBig);
         cashRefund = service.returnChange(itemPrice, itemPaid);
 
         List<String> cashRefund1 = new ArrayList<>();
-        itemRefund1 = service.checkTheCash(itemPrice1, itemPaid1);
+        itemRefund1 = service.checkTheCash(userPriceBig1, userPaymentBig1);
         cashRefund1 = service.returnChange(itemPrice, itemPaid);
 
         assertEquals(cashRefund, cashRefund1);
