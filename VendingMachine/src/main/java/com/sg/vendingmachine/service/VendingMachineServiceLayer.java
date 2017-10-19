@@ -24,11 +24,11 @@ public interface VendingMachineServiceLayer {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException;
     
-    String getItemPriceByCode(String itemCode) 
+    BigDecimal getItemPriceByCode(String itemCode) 
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException;
 
-    List<String> returnChange(String itemMoney, String itemPrice)
+    List<String> returnChange(BigDecimal itemMoney, BigDecimal itemPrice)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,

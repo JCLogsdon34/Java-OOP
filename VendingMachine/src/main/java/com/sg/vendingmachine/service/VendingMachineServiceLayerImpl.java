@@ -7,6 +7,8 @@ import com.sg.vendingmachine.dao.VendingMachineDaoFileImpl;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import static java.math.RoundingMode.HALF_UP;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +32,10 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             VendingMachineInsufficientFundsException {
 
        BigDecimal itemRefund;
-
-            itemRefund = itemMoneyBig.subtract(itemMoneyBig);         
+       BigDecimal refundScale;
+            
+            itemRefund = itemMoneyBig.subtract(itemPriceBig); 
+            refundScale = itemRefund.setScale( 2, RoundingMode.HALF_UP);
        if (itemRefund.compareTo(BigDecimal.ZERO) < 1) {
            
             throw new VendingMachineInsufficientFundsException(
@@ -39,11 +43,11 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                     + itemRefund
                     + " paid was not sufficient");
         }
-     return itemRefund; 
+     return refundScale; 
        }
 
     @Override
-    public List<String> returnChange(String itemPrice, String itemMoney)
+    public List<String> returnChange(BigDecimal itemPrice, BigDecimal itemMoney)
             throws VendingMachineInsufficientFundsException,
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
@@ -100,7 +104,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
     @Override
-    public String getItemPriceByCode(String itemCode)
+    public BigDecimal getItemPriceByCode(String itemCode)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
 

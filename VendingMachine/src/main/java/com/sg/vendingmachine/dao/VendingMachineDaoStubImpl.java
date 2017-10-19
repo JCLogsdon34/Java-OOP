@@ -3,6 +3,8 @@ package com.sg.vendingmachine.dao;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +15,17 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     List<Item> itemList = new ArrayList<>();
 
     public VendingMachineDaoStubImpl() {
+        BigDecimal itemPrice = new BigDecimal(3.05).setScale(2, RoundingMode.HALF_UP);
         onlyItem = new Item("W63");
         onlyItem.setItemName("Samuel L. Jackson");
-        onlyItem.setItemPrice("3.05");
+        onlyItem.setItemPrice(itemPrice);
         onlyItem.setItemInventory("5");
 
         itemList.add(onlyItem);
-        
+        BigDecimal itemPrice1 = new BigDecimal(3.05).setScale(2, RoundingMode.HALF_UP);
         secondOnlyItem = new Item("W64");
         secondOnlyItem.setItemName("Samuel L. Jackson Ale");
-        secondOnlyItem.setItemPrice("3.05");
+        secondOnlyItem.setItemPrice(itemPrice1);
         secondOnlyItem.setItemInventory("0");
         
         itemList.add(secondOnlyItem);
@@ -82,7 +85,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     }
 
     @Override
-    public String getItemPriceByCode(String itemCode)
+    public BigDecimal getItemPriceByCode(String itemCode)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException {
 

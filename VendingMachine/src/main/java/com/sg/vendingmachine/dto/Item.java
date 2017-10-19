@@ -1,13 +1,13 @@
 
 package com.sg.vendingmachine.dto;
 
-import java.util.Objects;
+import java.math.BigDecimal;
 
 
 public class Item {
 
     public String itemName;
-    public String itemPrice;   
+    public BigDecimal itemPrice;
     public String itemCode;
     public String itemInventory;
     
@@ -23,11 +23,11 @@ public class Item {
         return itemName;
     }
 
-    public void setItemPrice(String itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 
-    public String getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
     

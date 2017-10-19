@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,16 +20,16 @@ import java.util.Scanner;
 public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
     @Override
-    public String getItemPriceByCode(String itemCode)
+    public BigDecimal getItemPriceByCode(String itemCode)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException{
 
         Item primoItem = new Item(itemCode);
-        String itemPrice;
+        BigDecimal itemPrice = BigDecimal.ZERO;
 
         primoItem = Items.get(itemCode);
 
-        itemPrice = primoItem.itemPrice;
+        itemPrice = primoItem.itemPrice.setScale(2, RoundingMode.HALF_UP);;
 
         return itemPrice;
     }
@@ -80,7 +82,6 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
                     + " is sold out");
         }
 
-
         itemParsedUpdate = (itemInventoryParsed - 1);
         itemInventoryUpdated = String.valueOf(itemParsedUpdate);
         item.setItemInventory(itemInventoryUpdated);
@@ -108,6 +109,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
                     "-_- Could not load Item data into memory.", e);
         }
         String currentLine;
+        
         String[] currentTokens = new String[]{};
         
         while (scanner.hasNextLine()) {
@@ -116,7 +118,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             currentTokens = currentLine.split(DELIMITER);
             Item currentItem = new Item(currentTokens[0]);
             currentItem.setItemName(currentTokens[1]);
-            currentItem.setItemPrice(currentTokens[2]);
+            currentItem.setItemPrice(new BigDecimal((currentTokens[2])));
             currentItem.setItemInventory(currentTokens[3]);
             
             Items.put(currentItem.getItemCode(), currentItem);

@@ -11,7 +11,7 @@ import java.util.List;
 public interface VendingMachineDao {  
 
 
-    String getItemPriceByCode(String itemCode)
+    BigDecimal getItemPriceByCode(String itemCode)
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException;
     

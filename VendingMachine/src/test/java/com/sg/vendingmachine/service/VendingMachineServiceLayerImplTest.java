@@ -7,6 +7,7 @@ import com.sg.vendingmachine.dao.VendingMachineDaoStubImpl;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -49,15 +50,12 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        String userPayment = "3.05";
+        BigDecimal itemPayment = new BigDecimal(3.05).setScale(2, RoundingMode.HALF_UP);
         String itemCode = "W63";
 
-        String itemPrice = dao.getItemPriceByCode(itemCode);
+        BigDecimal itemPrice = dao.getItemPriceByCode(itemCode).setScale(2, RoundingMode.HALF_UP);
 
-        BigDecimal userPaid = new BigDecimal(userPayment);
-        BigDecimal itemWorth = new BigDecimal(itemPrice);
-
-        assertEquals(userPaid, itemWorth);
+        assertEquals(itemPayment, itemPrice);
     }
 
     @Test
@@ -66,16 +64,16 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException {
 
-        String userPayment = "2.05";
-        String itemPrice1 = "3.05";
-        BigDecimal userRefund = new BigDecimal(userPayment);
+        BigDecimal userRefund = BigDecimal.ZERO;
         String itemCode = "W63";
-        BigDecimal userPaymentBig = new BigDecimal(userPayment);
-        BigDecimal userPriceBig = new BigDecimal(itemPrice1);
+        String paid = "2.05";
+        String price = "3.05";
+        BigDecimal userPayment = new BigDecimal(paid);
+        BigDecimal userPrice = new BigDecimal(price);
         Item item = new Item(itemCode);
 
         try {
-            userRefund = service.checkTheCash(userPaymentBig, userPriceBig);
+            userRefund = service.checkTheCash(userPrice, userPayment);
             fail("expected VendingMachineInsufficientFundsException was not thrown");
         } catch (VendingMachineInsufficientFundsException e) {
             return;
@@ -89,20 +87,18 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachineDataValidationException,
             VendingMachineInsufficientFundsException {
         
-        String money = "1.50";
-        String price = "1.25";
-        BigDecimal itemRefund = new BigDecimal(money);
+        BigDecimal money = new BigDecimal(1.50).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal price = new BigDecimal(1.25).setScale(2, RoundingMode.HALF_UP);
 
         List<String> cashMoney = new ArrayList<>();
         cashMoney = service.returnChange(money, price);
         
-        String money1 = "1.50";
-        String price1 = "1.25";
-        BigDecimal itemRefund1 = new BigDecimal(money1);
+        BigDecimal money1 = new BigDecimal(1.50).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal price1 = new BigDecimal(1.25).setScale(2, RoundingMode.HALF_UP);
         List<String> cashMoney1 = new ArrayList<>();
 
         cashMoney1 = service.returnChange(money1, price1);
-
+              
         assertTrue(cashMoney.equals(cashMoney1));
 
     }
@@ -114,26 +110,23 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
 
-        BigDecimal itemRefund;
-        BigDecimal itemRefund1;
-        String itemPrice = "1.25";
-        String itemPaid = "1.50";
-        BigDecimal userPaymentBig = new BigDecimal(itemPaid);
-        BigDecimal userPriceBig = new BigDecimal(itemPrice);
-        String itemPrice1 = "1.25";
-        String itemPaid1 = "1.50";
-        BigDecimal userPaymentBig1 = new BigDecimal(itemPaid1);
-        BigDecimal userPriceBig1 = new BigDecimal(itemPrice1);
 
+        BigDecimal itemPrice = new BigDecimal(1.25).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal itemPaid = new BigDecimal(1.50).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal itemPrice1 = new BigDecimal(1.25).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal itemPaid1 = new BigDecimal(1.50).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal itemRefund = BigDecimal.ZERO;
+        BigDecimal itemRefund1 = BigDecimal.ZERO;
         List<String> cashRefund = new ArrayList<>();
 
-        itemRefund = service.checkTheCash(userPriceBig, userPaymentBig);
+        itemRefund = service.checkTheCash(itemPrice, itemPaid);
         cashRefund = service.returnChange(itemPrice, itemPaid);
 
         List<String> cashRefund1 = new ArrayList<>();
-        itemRefund1 = service.checkTheCash(userPriceBig1, userPaymentBig1);
-        cashRefund1 = service.returnChange(itemPrice, itemPaid);
+        itemRefund1 = service.checkTheCash(itemPrice1, itemPaid1);
+        cashRefund1 = service.returnChange(itemPrice1, itemPaid1);
 
+        assertEquals(itemRefund, itemRefund1);
         assertEquals(cashRefund, cashRefund1);
     }
 
@@ -180,8 +173,8 @@ public class VendingMachineServiceLayerImplTest {
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-
-        String itemPriceExpected = "3.05";
+        String price = "3.05";
+        BigDecimal itemPriceExpected = new BigDecimal(price);
         String itemCode = "W63";
 
         assertEquals(itemPriceExpected, service.getItemPriceByCode(itemCode));

@@ -1,88 +1,94 @@
 package com.sg.vendingmachine.service;
 
 import java.math.BigDecimal;
+import static java.math.BigDecimal.ONE;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Change {
 
-    public int getQuarters(int coinWorthInt) {
-        int quartersOut = 0;
-        int quarters = 25;
-        quartersOut = (int) (coinWorthInt / quarters);
+    public BigDecimal getQuarters(BigDecimal coinWorthBig) {
+        BigDecimal quartersOut = BigDecimal.ZERO;
+        BigDecimal quarters = new BigDecimal(.25);
+        quartersOut = (coinWorthBig.divide(quarters, 2, RoundingMode.HALF_UP));
         return quartersOut;
     }
 
-    public int getDimes(int coinWorthInt) {
-        int dimesOut = 0;
-        int dimes = 10;
-        dimesOut = (int) (coinWorthInt / dimes);
+    public BigDecimal getDimes(BigDecimal coinWorthBig) {
+        BigDecimal dimesOut = BigDecimal.ZERO;
+        BigDecimal dimes = new BigDecimal(.10);
+        dimesOut = (coinWorthBig.divide(dimes, 2, RoundingMode.HALF_UP));
         return dimesOut;
     }
 
-    public int getNickels(int coinWorthInt) {
-        int nickelsOut = 0;
-        int nickels = 5;
-        nickelsOut = (int) (coinWorthInt / nickels);
+    public BigDecimal getNickels(BigDecimal coinWorthBig) {
+        BigDecimal nickelsOut = BigDecimal.ZERO;
+        BigDecimal nickels = new BigDecimal(.5);
+        nickelsOut =  (coinWorthBig.divide(nickels, 2, RoundingMode.HALF_UP));
         return nickelsOut;
     }
+    
+    public BigDecimal getPennies(BigDecimal coinWorthBig) {
+        BigDecimal penniesOut = BigDecimal.ZERO;
+        BigDecimal pennies = new BigDecimal(.01);
+        penniesOut = (coinWorthBig.divide(pennies, 2, RoundingMode.HALF_UP));
+        return penniesOut;
+    }
 
-    public List<String> coinsOut(String itemPrice, String itemMoney) {
+    public List<String> coinsOut(BigDecimal itemPrice, BigDecimal itemMoney) {
 
-        int coinWorthInt;
-        double coinsWorth = Double.parseDouble(itemMoney);
-        double priceWorth = Double.parseDouble(itemPrice);
+        BigDecimal coinWorthBig = BigDecimal.ZERO;
 
-        Double coinWorth = coinsWorth - priceWorth;
-        if ((coinsWorth - priceWorth) <= 0) {
-            coinsWorth = Double.parseDouble(itemMoney);
-        }
+
+        coinWorthBig = itemMoney.subtract(itemPrice);
 
         String quarter = "Quarter";
         String dime = "Dime";
         String nickel = "Nickel";
         String penny = "Penny";
-        int quartersOut = 0;
-        int dimesOut = 0;
-        int nickelsOut = 0;
-        int penniesOut = 0;
-        int pennies = 1;
+        BigDecimal quartersOut = BigDecimal.ZERO;
+        BigDecimal dimesOut = BigDecimal.ZERO;
+        BigDecimal nickelsOut = BigDecimal.ZERO;
+        BigDecimal penniesOut = BigDecimal.ZERO;
+        BigDecimal pennies = new BigDecimal(.01);
+        BigDecimal nickels = new BigDecimal(.05);
+        BigDecimal dimes = new BigDecimal(.10);
+        BigDecimal quarters = new BigDecimal(.25);
         boolean runIn = false;
         List<String> coinsOut = new ArrayList<>();
         
-        coinWorthInt = (int) (coinWorth * 100);
         do{   
-        if(coinWorthInt > 0){
+        if(coinWorthBig.compareTo(BigDecimal.ZERO) > 0){
             runIn = false;
             
-            quartersOut = getQuarters(coinWorthInt);
+            quartersOut = getQuarters(coinWorthBig);
             do {                
                 coinsOut.add(quarter);
-                quartersOut = quartersOut - 1;
-                coinWorthInt = coinWorthInt - 25;
-            } while (quartersOut > 0);
+                quartersOut = quartersOut.subtract(ONE);
+                coinWorthBig = coinWorthBig.subtract(quarters);
+            } while (quartersOut.compareTo(BigDecimal.ZERO) > 0);
             
-            dimesOut = getDimes(coinWorthInt);
-            if(dimesOut > 0){       
-                dimesOut = dimesOut - 1;
+            dimesOut = getDimes(coinWorthBig);
+            if(dimesOut.compareTo(BigDecimal.ZERO) > 0){       
+                dimesOut = dimesOut.subtract(ONE);
                 coinsOut.add(dime);               
-                coinWorthInt = coinWorthInt - 10;
+                coinWorthBig = coinWorthBig.subtract(dimes);
             } 
 
-            nickelsOut = getNickels(coinWorthInt);
-            if (nickelsOut > 0){
-                nickelsOut = nickelsOut - 1;
+            nickelsOut = getNickels(coinWorthBig);
+            if (nickelsOut.compareTo(BigDecimal.ZERO) > 0){
+                nickelsOut = nickelsOut.subtract(ONE);
                 coinsOut.add(nickel);       
-                coinWorthInt = coinWorthInt - 5;
+                coinWorthBig = coinWorthBig.subtract(nickels);
             } 
            
-            penniesOut = (int) (coinWorthInt / pennies);
+            penniesOut = getPennies(coinWorthBig);
             do{           
-                penniesOut = penniesOut - 1;
+                penniesOut = penniesOut.subtract(ONE);
                 coinsOut.add(penny);              
-                coinWorthInt = coinWorthInt - 1;
-            }while(penniesOut > 0);
+                coinWorthBig = coinWorthBig.subtract(pennies);
+            }while(penniesOut.compareTo(BigDecimal.ZERO) > 0);
         }else {
             runIn = true;
         }

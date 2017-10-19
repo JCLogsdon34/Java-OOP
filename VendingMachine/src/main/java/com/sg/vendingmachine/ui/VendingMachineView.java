@@ -4,6 +4,7 @@ import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class VendingMachineView {
         return io.readInt("Please select from the above choices.", 1, 4);
     }
 
-    public String getPayment(String itemPrice) {
-        io.print(itemPrice + " is the cost of that item");
+    public String getPayment(BigDecimal itemPrice) {
+        io.print(itemPrice.setScale(2, RoundingMode.HALF_UP) + " is the cost of that item");
         String itemPay = io.readString("Please enter the cost of that item in coins");
 
         return itemPay;
@@ -47,7 +48,7 @@ public class VendingMachineView {
         if (currentItem != null) {
             io.print(currentItem.getItemCode());
             io.print(currentItem.getItemName());
-            io.print(currentItem.getItemPrice());
+            io.print(currentItem.getItemPrice().toString());
             io.print(currentItem.getItemInventory());
             io.print("");
         } else {

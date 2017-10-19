@@ -3,6 +3,8 @@ package com.sg.vendingmachine.dao;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,7 +48,8 @@ public class VendingMachineDaoFileImplTest {
             VendingMachineDataValidationException {
 
         String itemCode = "W63";
-        String expectedResult = "3.05";
+        String price = "3.05";
+        BigDecimal expectedResult = new BigDecimal(price);
 
         assertEquals(expectedResult, dao.getItemPriceByCode(itemCode));
     }
