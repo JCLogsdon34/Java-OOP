@@ -26,9 +26,9 @@ public class VendingMachineView {
         return io.readInt("Please select from the above choices.", 1, 4);
     }
 
-    public String getPayment(BigDecimal itemPrice) {
-        io.print(itemPrice.setScale(2, RoundingMode.HALF_UP) + " is the cost of that item");
-        String itemPay = io.readString("Please enter the cost of that item in coins");
+    public BigDecimal getPayment(BigDecimal itemPrice) {
+        io.print(itemPrice + " is the cost of that item");
+        BigDecimal itemPay = io.readBigDecimal("Please enter the cost of that item in coins");
 
         return itemPay;
     }
@@ -142,8 +142,8 @@ public class VendingMachineView {
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }
-    public void displayNotEnoughMessage(String itemMoney){
+    public void displayNotEnoughMessage(BigDecimal itemMoneyParsed){
         io.print("=== ERROR ===");
-        io.print(itemMoney + " is not enough for that item.");
+        io.print(itemMoneyParsed + " is not enough for that item.");
     }
 }

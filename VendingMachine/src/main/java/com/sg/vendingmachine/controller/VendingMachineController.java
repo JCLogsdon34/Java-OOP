@@ -103,7 +103,6 @@ public class VendingMachineController {
         List <String> cashRefund;
         String itemCode;
         Item currentItem;
-        String itemMoney;
         BigDecimal itemPrice;
         BigDecimal itemMoneyParsed;
         BigDecimal userRefund;
@@ -115,16 +114,15 @@ public class VendingMachineController {
         do{
         itemPrice = service.getItemPriceByCode(itemCode);
         
-        itemMoney = myView.getPayment(itemPrice);    
-        itemMoneyParsed = new BigDecimal(itemMoney);
+        itemMoneyParsed = myView.getPayment(itemPrice);
         try{   
         userRefund = service.checkTheCash(itemPrice, itemMoneyParsed);   
         }catch (VendingMachineInsufficientFundsException e){
     }
         if(itemMoneyParsed.compareTo(itemPrice) < 0){
-            myView.displayNotEnoughMessage(itemMoney);
+            myView.displayNotEnoughMessage(itemMoneyParsed);
         }
-        }while(itemMoneyParsed.compareTo(itemPrice) > 0);
+        }while(itemMoneyParsed.compareTo(itemPrice) < 0);
         cashRefund = service.returnChange(itemPrice, itemMoneyParsed);
         myView.refundMoney(cashRefund);
         myView.displayVendingItem();

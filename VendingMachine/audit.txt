@@ -539,3 +539,270 @@
 2017-10-18T21:36:38.609 : Money [] returned as change to user.
 2017-10-18T21:36:38.624 : Money [Quarter, Penny] returned as change to user.
 2017-10-18T21:36:38.625 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T09:37:56.948 : Money [] returned as change to user.
+2017-10-19T09:37:57.127 : Money [] returned as change to user.
+2017-10-19T09:37:57.156 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T09:37:57.164 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T09:52:33.228 : Money [] returned as change to user.
+2017-10-19T09:52:33.874 : Money [] returned as change to user.
+2017-10-19T09:52:33.925 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T09:52:33.932 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T09:54:30.951 : Money [] returned as change to user.
+2017-10-19T09:54:30.993 : Item V61 Inventory Sent for Vending.
+2017-10-19T09:55:09.580 : Money [] returned as change to user.
+2017-10-19T09:55:09.582 : Item V61 Inventory Sent for Vending.
+2017-10-19T10:00:46.343 : Money [] returned as change to user.
+2017-10-19T10:00:46.590 : Money [] returned as change to user.
+2017-10-19T10:00:46.622 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:00:46.624 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:02:18.481 : Money [] returned as change to user.
+2017-10-19T10:02:18.727 : Money [] returned as change to user.
+2017-10-19T10:02:18.745 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:02:18.745 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:06:45.205 : Money [] returned as change to user.
+2017-10-19T10:06:45.406 : Money [] returned as change to user.
+2017-10-19T10:06:45.423 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:06:45.426 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:07:13.913 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:07:14.205 : Item L31 Inventory Sent for Vending.
+2017-10-19T10:11:49.634 : Money [] returned as change to user.
+2017-10-19T10:11:49.939 : Money [] returned as change to user.
+2017-10-19T10:11:49.971 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:11:49.983 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:26:12 : Money [] returned as change to user.
+2017-10-19T10:26:12.126 : Money [] returned as change to user.
+2017-10-19T10:26:12.144 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:26:12.144 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:30:50.254 : Money [] returned as change to user.
+2017-10-19T10:30:50.525 : Money [] returned as change to user.
+2017-10-19T10:30:50.545 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:30:50.545 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:31:15.306 : Money [Quarter, Quarter, Penny] returned as change to user.
+2017-10-19T10:31:15.580 : Item H29 Inventory Sent for Vending.
+2017-10-19T10:32:06.900 : Money [] returned as change to user.
+2017-10-19T10:32:07.130 : Money [] returned as change to user.
+2017-10-19T10:32:07.141 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:32:07.141 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:33:03.202 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:33:03.492 : Item V61 Inventory Sent for Vending.
+2017-10-19T10:51:18.028 : Money [] returned as change to user.
+2017-10-19T10:51:18.312 : Money [] returned as change to user.
+2017-10-19T10:51:18.330 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T10:51:18.339 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:00:47.699 : Money [] returned as change to user.
+2017-10-19T11:00:47.870 : Money [] returned as change to user.
+2017-10-19T11:00:47.886 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:00:47.886 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:01:58.538 : Money [Quarter, Quarter, Penny] returned as change to user.
+2017-10-19T11:01:58.954 : Item H29 Inventory Sent for Vending.
+2017-10-19T11:03:30.638 : Money [] returned as change to user.
+2017-10-19T11:03:30.807 : Money [] returned as change to user.
+2017-10-19T11:03:30.837 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:03:30.837 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:04:18.210 : Money [] returned as change to user.
+2017-10-19T11:04:18.426 : Money [] returned as change to user.
+2017-10-19T11:04:18.441 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:04:18.441 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:05:18.669 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:05:18.985 : Item L31 Inventory Sent for Vending.
+2017-10-19T11:06:21.955 : Money [] returned as change to user.
+2017-10-19T11:06:22.310 : Money [] returned as change to user.
+2017-10-19T11:06:22.380 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:06:22.384 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:09:43.472 : Money [Quarter, Quarter, Penny] returned as change to user.
+2017-10-19T11:09:43.771 : Item H29 Inventory Sent for Vending.
+2017-10-19T11:16:01.626 : Money [] returned as change to user.
+2017-10-19T11:16:01.942 : Money [] returned as change to user.
+2017-10-19T11:16:01.958 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:16:01.958 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:18:06.116 : Money [] returned as change to user.
+2017-10-19T11:18:06.411 : Money [] returned as change to user.
+2017-10-19T11:18:06.426 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:18:06.426 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:20:14.027 : Money [Quarter, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T11:20:14.442 : Item H29 Inventory Sent for Vending.
+2017-10-19T11:21:12.673 : Money [] returned as change to user.
+2017-10-19T11:21:12.887 : Money [] returned as change to user.
+2017-10-19T11:21:12.953 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:21:12.962 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:21:46.129 : Money [Quarter, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T11:21:46.601 : Item H29 Inventory Sent for Vending.
+2017-10-19T11:23:43.849 : Money [] returned as change to user.
+2017-10-19T11:23:44.097 : Money [] returned as change to user.
+2017-10-19T11:29:22.502 : Money [] returned as change to user.
+2017-10-19T11:29:22.794 : Money [] returned as change to user.
+2017-10-19T11:30:45.083 : Money [] returned as change to user.
+2017-10-19T11:30:45.293 : Money [] returned as change to user.
+2017-10-19T11:30:45.312 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:30:45.313 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T11:31:23.730 : Money [Quarter, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T11:31:24.044 : Item L31 Inventory Sent for Vending.
+2017-10-19T11:34:17.542 : Money [] returned as change to user.
+2017-10-19T11:34:17.749 : Money [] returned as change to user.
+2017-10-19T11:44:27.227 : Money [] returned as change to user.
+2017-10-19T11:44:27.376 : Money [] returned as change to user.
+2017-10-19T11:47:25.569 : Money [] returned as change to user.
+2017-10-19T11:47:25.796 : Money [] returned as change to user.
+2017-10-19T11:47:25.815 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T11:47:25.815 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T11:47:54.911 : Money [Quarter, Penny, Quarter, Penny, Quarter, Penny, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T11:47:55.228 : Item R45 Inventory Sent for Vending.
+2017-10-19T11:50:47.976 : Money [] returned as change to user.
+2017-10-19T11:50:48.110 : Money [] returned as change to user.
+2017-10-19T11:53:07.764 : Money [] returned as change to user.
+2017-10-19T11:53:07.994 : Money [] returned as change to user.
+2017-10-19T11:53:08.009 : Money [Quarter, Nickel, Penny] returned as change to user.
+2017-10-19T11:53:08.009 : Money [Quarter, Nickel, Penny] returned as change to user.
+2017-10-19T11:53:51.731 : Money [Quarter, Penny, Quarter, Penny] returned as change to user.
+2017-10-19T11:53:52.011 : Item H29 Inventory Sent for Vending.
+2017-10-19T12:30:38.991 : Money [] returned as change to user.
+2017-10-19T12:30:39.167 : Money [] returned as change to user.
+2017-10-19T12:30:39.189 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T12:30:39.195 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T13:14:38.381 : Money [] returned as change to user.
+2017-10-19T13:14:38.644 : Money [] returned as change to user.
+2017-10-19T13:14:38.660 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:14:38.667 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:16:09.733 : Money [Quarter, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T13:16:10.506 : Item L31 Inventory Sent for Vending.
+2017-10-19T13:21:53.533 : Money [Quarter, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T13:21:53.870 : Item L31 Inventory Sent for Vending.
+2017-10-19T13:23:26.798 : Money [] returned as change to user.
+2017-10-19T13:23:26.954 : Money [] returned as change to user.
+2017-10-19T13:23:26.969 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:23:26.969 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:27:36.590 : Money [] returned as change to user.
+2017-10-19T13:27:36.849 : Money [] returned as change to user.
+2017-10-19T13:27:36.869 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:27:36.869 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:36:09.048 : Money [] returned as change to user.
+2017-10-19T13:36:09.689 : Money [] returned as change to user.
+2017-10-19T13:36:09.831 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:36:09.832 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T13:38:55.518 : Money [Quarter, Dime, Nickel, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T13:38:56.026 : Item R45 Inventory Sent for Vending.
+2017-10-19T13:42:48.373 : Money [] returned as change to user.
+2017-10-19T13:42:48.999 : Money [] returned as change to user.
+2017-10-19T13:42:49.048 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T13:42:49.051 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T13:44:50.221 : Money [Quarter, Quarter, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T13:44:51.111 : Item H29 Inventory Sent for Vending.
+2017-10-19T13:52:23.537 : Money [Quarter, Quarter, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T13:52:24.028 : Item G93 Inventory Sent for Vending.
+2017-10-19T13:53:23.378 : Money [] returned as change to user.
+2017-10-19T13:53:24.039 : Money [] returned as change to user.
+2017-10-19T13:55:05.427 : Money [] returned as change to user.
+2017-10-19T13:55:06.033 : Money [] returned as change to user.
+2017-10-19T13:56:43.378 : Money [] returned as change to user.
+2017-10-19T13:56:44.068 : Money [] returned as change to user.
+2017-10-19T13:57:49.145 : Money [] returned as change to user.
+2017-10-19T13:57:49.536 : Money [] returned as change to user.
+2017-10-19T14:03:34.393 : Money [] returned as change to user.
+2017-10-19T14:03:35.103 : Money [] returned as change to user.
+2017-10-19T14:03:35.137 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:03:35.138 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:04:07.243 : Money [Quarter, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:04:07.749 : Item R45 Inventory Sent for Vending.
+2017-10-19T14:06:02.712 : Money [] returned as change to user.
+2017-10-19T14:06:03.111 : Money [] returned as change to user.
+2017-10-19T14:06:03.149 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T14:06:03.149 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T14:06:43.830 : Money [Quarter, Dime, Nickel, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T14:06:44.321 : Item G93 Inventory Sent for Vending.
+2017-10-19T14:07:59.688 : Money [] returned as change to user.
+2017-10-19T14:08:00.084 : Money [] returned as change to user.
+2017-10-19T14:08:00.155 : Money [Quarter] returned as change to user.
+2017-10-19T14:08:00.163 : Money [Quarter] returned as change to user.
+2017-10-19T14:09:32.451 : Money [Quarter, Dime, Nickel, Penny, Quarter, Dime, Nickel, Penny, Quarter] returned as change to user.
+2017-10-19T14:09:32.981 : Item H29 Inventory Sent for Vending.
+2017-10-19T14:11:26.270 : Money [] returned as change to user.
+2017-10-19T14:11:26.674 : Money [] returned as change to user.
+2017-10-19T14:11:26.710 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:11:26.710 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:14:23.338 : Money [Quarter, Quarter, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:14:24.025 : Item L31 Inventory Sent for Vending.
+2017-10-19T14:18:05.786 : Money [Quarter, Quarter, Quarter, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:18:06.309 : Item V61 Inventory Sent for Vending.
+2017-10-19T14:20:02.923 : Money [Quarter, Quarter, Quarter, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:20:03.627 : Item H29 Inventory Sent for Vending.
+2017-10-19T14:21:59.676 : Money [] returned as change to user.
+2017-10-19T14:22:00.447 : Money [] returned as change to user.
+2017-10-19T14:22:00.483 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:22:00.491 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:22:44.681 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T14:22:45.443 : Item G93 Inventory Sent for Vending.
+2017-10-19T14:27:35.484 : Money [] returned as change to user.
+2017-10-19T14:27:36.019 : Money [] returned as change to user.
+2017-10-19T14:28:35.035 : Money [] returned as change to user.
+2017-10-19T14:28:35.468 : Money [] returned as change to user.
+2017-10-19T14:30:39.087 : Money [] returned as change to user.
+2017-10-19T14:30:39.444 : Money [] returned as change to user.
+2017-10-19T14:31:59.156 : Money [] returned as change to user.
+2017-10-19T14:31:59.542 : Money [] returned as change to user.
+2017-10-19T14:34:24.533 : Money [] returned as change to user.
+2017-10-19T14:34:25.009 : Money [] returned as change to user.
+2017-10-19T14:34:25.053 : Money [Quarter] returned as change to user.
+2017-10-19T14:34:25.054 : Money [Quarter] returned as change to user.
+2017-10-19T14:35:32.164 : Money [] returned as change to user.
+2017-10-19T14:35:32.708 : Money [] returned as change to user.
+2017-10-19T14:35:32.805 : Money [Quarter] returned as change to user.
+2017-10-19T14:35:32.805 : Money [Quarter] returned as change to user.
+2017-10-19T14:36:15.409 : Money [Dime, Nickel, Penny, Dime, Nickel, Penny, Dime, Nickel, Penny, Dime, Nickel, Penny, Dime, Penny, Penny, Penny, Penny] returned as change to user.
+2017-10-19T14:36:16.123 : Item V61 Inventory Sent for Vending.
+2017-10-19T14:38:07.865 : Money [] returned as change to user.
+2017-10-19T14:38:08.271 : Money [] returned as change to user.
+2017-10-19T14:38:08.312 : Money [Quarter] returned as change to user.
+2017-10-19T14:38:08.312 : Money [Quarter] returned as change to user.
+2017-10-19T14:38:44.036 : Money [Dime, Nickel, Penny, Dime, Nickel, Penny, Dime, Nickel, Penny, Dime, Nickel, Penny, Dime] returned as change to user.
+2017-10-19T14:38:44.463 : Item L31 Inventory Sent for Vending.
+2017-10-19T15:05:17.902 : Money [] returned as change to user.
+2017-10-19T15:05:18.329 : Money [] returned as change to user.
+2017-10-19T15:05:18.373 : Money [Dime, Quarter] returned as change to user.
+2017-10-19T15:05:18.379 : Money [Dime, Quarter] returned as change to user.
+2017-10-19T15:06:19.952 : Money [Quarter, Dime, Nickel, Quarter, Dime] returned as change to user.
+2017-10-19T15:11:24.113 : Money [] returned as change to user.
+2017-10-19T15:11:24.703 : Money [] returned as change to user.
+2017-10-19T15:11:24.740 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:11:24.747 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:12:12.015 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T15:12:12.538 : Item G93 Inventory Sent for Vending.
+2017-10-19T15:14:23.644 : Money [] returned as change to user.
+2017-10-19T15:14:24.269 : Money [] returned as change to user.
+2017-10-19T15:14:24.329 : Money [Quarter, Dime, Nickel] returned as change to user.
+2017-10-19T15:14:24.337 : Money [Quarter, Dime, Nickel] returned as change to user.
+2017-10-19T15:16:09.349 : Money [] returned as change to user.
+2017-10-19T15:16:09.777 : Money [] returned as change to user.
+2017-10-19T15:16:09.816 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:16:09.819 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:17:21.345 : Money [] returned as change to user.
+2017-10-19T15:17:21.804 : Money [] returned as change to user.
+2017-10-19T15:17:21.828 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:17:21.835 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:22:00.564 : Money [] returned as change to user.
+2017-10-19T15:22:01.015 : Money [] returned as change to user.
+2017-10-19T15:22:01.055 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:22:01.056 : Money [Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T15:22:51.797 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T15:22:52.495 : Item G93 Inventory Sent for Vending.
+2017-10-19T15:39:06.360 : Money [] returned as change to user.
+2017-10-19T15:39:06.494 : Money [] returned as change to user.
+2017-10-19T15:39:06.511 : Money [Dime, Quarter] returned as change to user.
+2017-10-19T15:39:06.511 : Money [Dime, Quarter] returned as change to user.
+2017-10-19T15:43:52.299 : Money [Quarter] returned as change to user.
+2017-10-19T15:43:52.744 : Item L31 Inventory Sent for Vending.
+2017-10-19T15:49:01.304 : Money [] returned as change to user.
+2017-10-19T15:49:01.561 : Money [] returned as change to user.
+2017-10-19T15:49:01.593 : Money [Dime, Quarter] returned as change to user.
+2017-10-19T15:49:01.594 : Money [Dime, Quarter] returned as change to user.
+2017-10-19T15:54:29.972 : Money [Quarter, Dime, Nickel, Quarter, Dime, Nickel, Quarter] returned as change to user.
+2017-10-19T15:54:30.602 : Item H29 Inventory Sent for Vending.
+2017-10-19T18:12:33.049 : Money [] returned as change to user.
+2017-10-19T18:12:33.275 : Money [] returned as change to user.
+2017-10-19T18:12:33.292 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T18:12:33.293 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T18:13:32.420 : Money [Quarter, Quarter, Quarter, Dime, Nickel, Penny] returned as change to user.
+2017-10-19T18:13:32.740 : Item H29 Inventory Sent for Vending.
+2017-10-19T18:14:52.411 : Money [] returned as change to user.
+2017-10-19T18:14:52.634 : Money [] returned as change to user.
+2017-10-19T18:14:52.644 : Money [Quarter, Penny] returned as change to user.
+2017-10-19T18:14:52.645 : Money [Quarter, Penny] returned as change to user.

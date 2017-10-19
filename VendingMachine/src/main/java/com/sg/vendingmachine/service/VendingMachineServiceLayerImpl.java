@@ -35,15 +35,15 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
        BigDecimal refundScale;
             
             itemRefund = itemMoneyBig.subtract(itemPriceBig); 
-            refundScale = itemRefund.setScale( 2, RoundingMode.HALF_UP);
-       if (itemRefund.compareTo(BigDecimal.ZERO) < 1) {
+       //     refundScale = itemRefund.setScale( 2, RoundingMode.HALF_UP);
+       if (itemRefund.compareTo(BigDecimal.ZERO) < 0) {
            
             throw new VendingMachineInsufficientFundsException(
                     "ERROR: Could not vend.  Money"
                     + itemRefund
                     + " paid was not sufficient");
         }
-     return refundScale; 
+     return itemRefund; 
        }
 
     @Override

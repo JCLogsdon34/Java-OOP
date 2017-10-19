@@ -29,7 +29,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
 
         primoItem = Items.get(itemCode);
 
-        itemPrice = primoItem.itemPrice.setScale(2, RoundingMode.HALF_UP);;
+        itemPrice = primoItem.itemPrice;
 
         return itemPrice;
     }
