@@ -806,3 +806,31 @@
 2017-10-19T18:14:52.634 : Money [] returned as change to user.
 2017-10-19T18:14:52.644 : Money [Quarter, Penny] returned as change to user.
 2017-10-19T18:14:52.645 : Money [Quarter, Penny] returned as change to user.
+2017-10-20T10:48:24.331 : Money [] returned as change to user.
+2017-10-20T10:48:24.521 : Money [] returned as change to user.
+2017-10-20T10:48:24.544 : Money [Quarter, Penny] returned as change to user.
+2017-10-20T10:48:24.553 : Money [Quarter, Penny] returned as change to user.
+2017-10-23T11:24:40.366 : Money [] returned as change to user.
+2017-10-23T11:24:40.561 : Money [] returned as change to user.
+2017-10-23T11:24:40.577 : Money [Quarter, Penny] returned as change to user.
+2017-10-23T11:24:40.578 : Money [Quarter, Penny] returned as change to user.
+2017-10-23T12:04:08.634 : Money [] returned as change to user.
+2017-10-23T12:04:09.035 : Money [] returned as change to user.
+2017-10-23T12:04:09.054 : Money [Quarter, Penny] returned as change to user.
+2017-10-23T12:04:09.060 : Money [Quarter, Penny] returned as change to user.
+2017-10-23T12:26:30.054 : Money [] returned as change to user.
+2017-10-23T12:26:30.308 : Money [] returned as change to user.
+2017-10-23T12:26:30.326 : Money [Quarter, Penny] returned as change to user.
+2017-10-23T12:26:30.326 : Money [Quarter, Penny] returned as change to user.
+2017-10-24T10:17:38.848 : Money [] returned as change to user.
+2017-10-24T10:17:39.177 : Money [] returned as change to user.
+2017-10-24T10:17:39.194 : Money [Quarter, Penny] returned as change to user.
+2017-10-24T10:17:39.195 : Money [Quarter, Penny] returned as change to user.
+2017-10-24T14:53:16.403 : Money [] returned as change to user.
+2017-10-24T14:53:16.603 : Money [] returned as change to user.
+2017-10-24T14:53:16.622 : Money [Quarter, Penny] returned as change to user.
+2017-10-24T14:53:16.622 : Money [Quarter, Penny] returned as change to user.
+2017-10-24T16:57:42.835 : Money [] returned as change to user.
+2017-10-24T16:57:43.027 : Money [] returned as change to user.
+2017-10-24T16:57:43.044 : Money [Quarter, Penny] returned as change to user.
+2017-10-24T16:57:43.045 : Money [Quarter, Penny] returned as change to user.

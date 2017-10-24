@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class VendingMachineAuditDaoStubImpl  implements VendingMachineAuditDao {
     
     @Override
-    public void writeAuditEntry(String entry) throws VendingMachinePersistenceException {
+    public void writeAuditEntry(String entry){
        PrintWriter out = null;
         
         try {

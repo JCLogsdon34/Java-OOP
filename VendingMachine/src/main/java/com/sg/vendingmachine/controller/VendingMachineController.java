@@ -33,12 +33,12 @@ public class VendingMachineController {
             try {
                 listItems();
             } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
-                Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                myView.displayErrorMessage(e.getMessage());
             }
             try {
                 menuSelection = getMenuSelection();
             } catch (VendingMachineDaoException | VendingMachinePersistenceException e) {
-                Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                myView.displayErrorMessage(e.getMessage());
             }
 
             switch (menuSelection) {
@@ -46,7 +46,7 @@ public class VendingMachineController {
                     try {
                         listItems();
                     } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
-                        Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                       myView.displayErrorMessage(e.getMessage());
                     }
                 }
                 break;
@@ -62,7 +62,7 @@ public class VendingMachineController {
                     try {
                         viewItem();
                     } catch (VendingMachineDaoException | VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
-                        Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                       myView.displayErrorMessage(e.getMessage());
                     }
                 }
                 break;

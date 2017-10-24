@@ -16,21 +16,17 @@ public interface VendingMachineDao {
             VendingMachineDataValidationException;
     
     List<Item> getAllItems()
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException;
+            throws VendingMachinePersistenceException;
     
     Item getItem(String itemCode)
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException;
+            throws VendingMachineDataValidationException,
+            VendingMachinePersistenceException;
 
     Item viewItem(String itemCode)
             throws VendingMachinePersistenceException;
     
     int vendAndUpdateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
-            VendingMachineNoItemInInventoryException,
-            VendingMachineDataValidationException;
+            VendingMachineNoItemInInventoryException;
    
 }

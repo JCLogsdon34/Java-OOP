@@ -35,8 +35,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     }
 
     @Override
-    public List<Item> getAllItems()
-            throws VendingMachinePersistenceException {
+    public List<Item> getAllItems() throws VendingMachinePersistenceException{
 
         loadItems();
         ArrayList<Item> arrayList = new ArrayList<>(Items.values());
@@ -44,8 +43,8 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     }
 
     @Override
-    public Item getItem(String itemCode)
-            throws VendingMachinePersistenceException {
+    public Item getItem(String itemCode) throws VendingMachinePersistenceException{
+        
         loadItems();
         
         return Items.get(itemCode);

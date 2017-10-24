@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VendingMachineDaoStubImpl implements VendingMachineDao {
 
@@ -33,7 +35,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
 
     @Override
     public Item getItem(String itemCode)
-            throws VendingMachinePersistenceException,
+            throws 
             VendingMachineDataValidationException {
 
         if (itemCode.equals(onlyItem.getItemCode())) {
@@ -51,21 +53,29 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     @Override
     public int vendAndUpdateItem(String itemCode, Item item)
             throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
+        
         String itemInventory;
         String itemInventoryUpdated;
         int itemInventoryParsed;
         int itemParsedUpdate;
 
              
-        item = getItem(itemCode);
+        try {
+            item = getItem(itemCode);
+        } catch (VendingMachineDataValidationException e) {
+            Logger.getLogger(VendingMachineDaoStubImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         if (itemCode.equals(onlyItem.getItemCode())) {
                 item = onlyItem;
         } else if (itemCode.equals(secondOnlyItem.getItemCode())){
                 item = secondOnlyItem;
         }  
-        item = getItem(itemCode);
+        try {
+            item = getItem(itemCode);
+        } catch (VendingMachineDataValidationException e) {
+            Logger.getLogger(VendingMachineDaoStubImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         itemInventory = item.getItemInventory();
         itemInventoryParsed = Integer.parseInt(itemInventory);
 
@@ -95,7 +105,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     }
 
     @Override
-    public List<Item> getAllItems() throws VendingMachinePersistenceException, VendingMachineDataValidationException, VendingMachineNoItemInInventoryException {
+    public List<Item> getAllItems() throws VendingMachinePersistenceException{
 
         return itemList;
     }
