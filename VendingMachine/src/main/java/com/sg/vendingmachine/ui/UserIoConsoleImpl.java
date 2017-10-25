@@ -10,7 +10,6 @@ public class UserIoConsoleImpl implements UserIO {
     @Override
     public void print(String message) {
         System.out.println(message);
-
     }
 
     @Override
@@ -21,7 +20,6 @@ public class UserIoConsoleImpl implements UserIO {
         userChoices = inputReader.next();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("mm-dd-yyyy");
         LocalDate parsedDate = LocalDate.parse(userChoices, dateFormat);
-
         return parsedDate;
     }
     
@@ -30,7 +28,6 @@ public class UserIoConsoleImpl implements UserIO {
         String moneyInput;
         BigDecimal moneyInserted;
         Scanner inputReader = new Scanner(System.in);
-        
         System.out.println("Please enter money paid");
         moneyInput = inputReader.nextLine();
         moneyInserted = new BigDecimal(moneyInput);
@@ -41,7 +38,6 @@ public class UserIoConsoleImpl implements UserIO {
     public double readDouble(String prompt) {
         double readDouble;
         Scanner inputReader = new Scanner(System.in);
-
         System.out.println("Please enter a number");
         readDouble = inputReader.nextDouble();
         return readDouble;
@@ -52,7 +48,6 @@ public class UserIoConsoleImpl implements UserIO {
         double readDouble;
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = true;
-
         do {
             System.out.println("Please enter a number between 10 - 20");
             readDouble = inputReader.nextDouble();
@@ -60,7 +55,6 @@ public class UserIoConsoleImpl implements UserIO {
                 keepGoing = true;
             } else {
                 keepGoing = false;
-
                 return readDouble;
             }
         } while (keepGoing = true);
@@ -71,7 +65,6 @@ public class UserIoConsoleImpl implements UserIO {
     public float readFloat(String prompt) {
         float readFloat;
         Scanner inputReader = new Scanner(System.in);
-
         System.out.println("Please enter a number (a float)");
         readFloat = inputReader.nextFloat();
         return readFloat;
@@ -82,7 +75,6 @@ public class UserIoConsoleImpl implements UserIO {
         float readFloat;
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = true;
-
         do {
             System.out.println("Please enter a number (float) between 1.618 - 3.14");
             readFloat = inputReader.nextFloat();
@@ -90,7 +82,6 @@ public class UserIoConsoleImpl implements UserIO {
                 keepGoing = true;
             } else {
                 keepGoing = false;
-
                 return readFloat;
             }
         } while (keepGoing = true);
@@ -102,7 +93,6 @@ public class UserIoConsoleImpl implements UserIO {
         String number;
         int myInt;
         Scanner inputReader = new Scanner(System.in);
-
         System.out.println(userPrompt);
         number = inputReader.nextLine();
         myInt = Integer.parseInt(number);
@@ -114,7 +104,6 @@ public class UserIoConsoleImpl implements UserIO {
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = true;
         int myInt = 0;
-
         do {
             System.out.println(userPrompt);
             myInt = inputReader.nextInt();
@@ -132,10 +121,8 @@ public class UserIoConsoleImpl implements UserIO {
     public long readLong(String prompt) {
         long readLong;
         Scanner inputReader = new Scanner(System.in);
-
         System.out.println(prompt);
         readLong = inputReader.nextLong();
-
         return readLong;
     }
 
@@ -143,10 +130,8 @@ public class UserIoConsoleImpl implements UserIO {
     public long readLong(String prompt, long min, long max) {
         long readLong;
         Scanner inputReader = new Scanner(System.in);
-
         System.out.println("Please enter a number(long) between (-100) - 200");
         readLong = inputReader.nextLong();
-
         return readLong;
     }
 
@@ -154,10 +139,8 @@ public class UserIoConsoleImpl implements UserIO {
     public String readString(String prompt) {
         String userSentence;
         Scanner inputReader = new Scanner(System.in);
-
         System.out.println(prompt);
         userSentence = inputReader.nextLine();
- 
         return userSentence;
     }
 }

@@ -9,7 +9,7 @@ public class Item {
     public String itemName;
     public BigDecimal itemPrice;
     public String itemCode;
-    public String itemInventory;
+    public int itemInventory;
     
     public Item(String itemCode) {
         this.itemCode = itemCode;
@@ -35,11 +35,11 @@ public class Item {
         return itemCode;
     }
     
-    public void setItemInventory(String itemInventory) {
+    public void setItemInventory(int itemInventory) {
         this.itemInventory = itemInventory;
     }
 
-    public String getItemInventory() {
+    public int getItemInventory() {
         return itemInventory;
     }
 }

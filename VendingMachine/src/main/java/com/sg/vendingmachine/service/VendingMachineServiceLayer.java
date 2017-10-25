@@ -8,36 +8,23 @@ import java.util.Map;
 
 public interface VendingMachineServiceLayer {
 
-    String vendItem(String itemCode) throws
+    int vendItem(String itemCode) throws
             VendingMachineNoItemInInventoryException,
-            VendingMachineInsufficientFundsException,
             VendingMachineDataValidationException,
             VendingMachinePersistenceException;
 
     List<Item> getAllItems() throws
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException;
+            VendingMachinePersistenceException;
 
     Item getItem(String itemCode) throws
             VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException;
-    
-    BigDecimal getItemPriceByCode(String itemCode) 
-            throws VendingMachinePersistenceException,
             VendingMachineDataValidationException;
+    
+    BigDecimal getItemPriceByCode(String itemCode);
 
     List<String> returnChange(BigDecimal itemMoney, BigDecimal itemPrice)
-            throws VendingMachineInsufficientFundsException,
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException;
+            throws VendingMachineInsufficientFundsException;
 
     BigDecimal checkTheCash(BigDecimal itemMoneyBig, BigDecimal itemPriceBig)
-            throws VendingMachineInsufficientFundsException,
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException,
-            VendingMachineInsufficientFundsException;
+            throws VendingMachineInsufficientFundsException;
 }

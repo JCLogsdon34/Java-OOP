@@ -21,15 +21,14 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
         onlyItem = new Item("W63");
         onlyItem.setItemName("Samuel L. Jackson");
         onlyItem.setItemPrice(itemPrice);
-        onlyItem.setItemInventory("5");
-
+        onlyItem.setItemInventory(5);
+        
         itemList.add(onlyItem);
         BigDecimal itemPrice1 = new BigDecimal(3.05).setScale(2, RoundingMode.HALF_UP);
         secondOnlyItem = new Item("W64");
         secondOnlyItem.setItemName("Samuel L. Jackson Ale");
         secondOnlyItem.setItemPrice(itemPrice1);
-        secondOnlyItem.setItemInventory("0");
-        
+        secondOnlyItem.setItemInventory(0);
         itemList.add(secondOnlyItem);
     }
 
@@ -37,7 +36,6 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     public Item getItem(String itemCode)
             throws 
             VendingMachineDataValidationException {
-
         if (itemCode.equals(onlyItem.getItemCode())) {
             return onlyItem;
         } else if (itemCode.equals(secondOnlyItem.getItemCode())){
@@ -54,10 +52,7 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     public int vendAndUpdateItem(String itemCode, Item item)
             throws VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException {
-        
-        String itemInventory;
-        String itemInventoryUpdated;
-        int itemInventoryParsed;
+        int itemInventory;
         int itemParsedUpdate;
 
              
@@ -77,36 +72,31 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
             Logger.getLogger(VendingMachineDaoStubImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         itemInventory = item.getItemInventory();
-        itemInventoryParsed = Integer.parseInt(itemInventory);
-
-     
-        if (itemInventoryParsed <= 0) {
+        if (itemInventory <= 0) {
             throw new VendingMachineNoItemInInventoryException(
                     "ERROR: Could not vend.  Item "
                     + itemCode
                     + " is sold out");
         } 
-        itemParsedUpdate = (itemInventoryParsed - 1);
-        itemInventoryUpdated = String.valueOf(itemParsedUpdate);
-
-            item.setItemInventory(itemInventoryUpdated);
+        itemParsedUpdate = (itemInventory - 1);
+            item.setItemInventory(itemParsedUpdate);
             itemList.add(item);
-            return itemInventoryParsed;
+            return itemParsedUpdate;
     }
 
     @Override
-    public BigDecimal getItemPriceByCode(String itemCode)
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException {
-
+    public BigDecimal getItemPriceByCode(String itemCode){
         Item item = new Item(itemCode);
-        item = getItem(itemCode);
+        try {
+            item = getItem(itemCode);
+        } catch (VendingMachineDataValidationException e) {
+            Logger.getLogger(VendingMachineDaoStubImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
         return item.itemPrice;
     }
 
     @Override
     public List<Item> getAllItems() throws VendingMachinePersistenceException{
-
         return itemList;
     }
 

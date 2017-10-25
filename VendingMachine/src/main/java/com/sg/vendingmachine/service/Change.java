@@ -9,43 +9,40 @@ import java.util.List;
 
 public class Change {
 
-    public int getQuarters(int coinWorthInt) {
+    public static int getQuarters(int coinWorthInt) {
         int quartersOut = 0;
         int quarters = 25;
         quartersOut = (int) (coinWorthInt / quarters);
         return quartersOut;
     }
 
-    public int getDimes(int coinWorthInt) {
+    public static int getDimes(int coinWorthInt) {
         int dimesOut = 0;
         int dimes = 10;
         dimesOut = (int) (coinWorthInt / dimes);
         return dimesOut;
     }
 
-    public int getNickels(int coinWorthInt) {
+    public static int getNickels(int coinWorthInt) {
         int nickelsOut = 0;
         int nickels = 5;
         nickelsOut = (int) (coinWorthInt / nickels);
         return nickelsOut;
     }
 
-     public int getPennies(int coinWorthInt) {
+     public static int getPennies(int coinWorthInt) {
         int penniesOut = 0;
         int pennies = 1;
         penniesOut = (int) (coinWorthInt / pennies);
         return penniesOut;
     }
      
-    public List<String> coinsOut(BigDecimal itemPrice, BigDecimal itemMoney) {
-
+    public static List<String> coinsOut(BigDecimal itemPrice, BigDecimal itemMoney) {
         BigDecimal coinWorthBig = BigDecimal.ZERO;
         int coinWorthInt = 0;
         BigDecimal moneyMe = BigDecimal.ZERO;
         moneyMe.setScale(2, RoundingMode.HALF_UP);
         BigDecimal itemRefund = itemMoney.subtract(itemPrice);
-
-
         String quarter = "Quarter";
         String dime = "Dime";
         String nickel = "Nickel";
@@ -57,10 +54,8 @@ public class Change {
         int pennies = 100;
         boolean runIn = false;
         List<String> coinsOut = new ArrayList<>();
-        
         coinWorthBig = itemRefund.multiply(new BigDecimal(pennies));
         coinWorthInt = coinWorthBig.intValue();
-        
         do{   
         if(coinWorthInt > 0){
             runIn = false;

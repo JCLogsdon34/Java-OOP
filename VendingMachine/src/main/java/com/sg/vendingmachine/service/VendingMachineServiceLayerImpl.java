@@ -6,6 +6,7 @@ import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoFileImpl;
 import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
+import static com.sg.vendingmachine.service.Change.coinsOut;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import static java.math.RoundingMode.HALF_UP;
@@ -16,7 +17,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     private VendingMachineAuditDao auditDao = new VendingMachineAuditDaoImpl();
     private VendingMachineDao dao = new VendingMachineDaoFileImpl();
-    Change change = new Change();
+
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineAuditDao auditDao) {
         this.dao = dao;
@@ -25,19 +26,10 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     @Override
     public BigDecimal checkTheCash(BigDecimal itemPriceBig, BigDecimal itemMoneyBig)
-            throws
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException,
-            VendingMachineInsufficientFundsException {
-
+            throws VendingMachineInsufficientFundsException {
        BigDecimal itemRefund;
-       BigDecimal refundScale;
-            
             itemRefund = itemMoneyBig.subtract(itemPriceBig); 
-       //     refundScale = itemRefund.setScale( 2, RoundingMode.HALF_UP);
        if (itemRefund.compareTo(BigDecimal.ZERO) < 0) {
-           
             throw new VendingMachineInsufficientFundsException(
                     "ERROR: Could not vend.  Money"
                     + itemRefund
@@ -48,72 +40,50 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     @Override
     public List<String> returnChange(BigDecimal itemPrice, BigDecimal itemMoney)
-            throws VendingMachineInsufficientFundsException,
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
-
+            throws VendingMachineInsufficientFundsException {
         List<String> changeRefund = new ArrayList<>();
-
-        changeRefund = change.coinsOut(itemPrice, itemMoney);
-        
+        changeRefund = coinsOut(itemPrice, itemMoney);
         auditDao.writeAuditEntry(
                 "Money " + changeRefund + " returned as change to user.");
-
         return changeRefund;
     }
 
     @Override
-    public String vendItem(String itemCode)
+    public int vendItem(String itemCode)
             throws VendingMachineDataValidationException,
             VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException {
-
         Item currentItem;
         int itemInventory;
-        String itemInventoryString;
-        
-
         currentItem = getItem(itemCode);
         validateItemData(itemCode);
         itemInventory = dao.vendAndUpdateItem(itemCode, currentItem);
-        itemInventoryString = Integer.toString(itemInventory);
-
         auditDao.writeAuditEntry(
                 "Item " + currentItem.getItemCode() + " Inventory Sent for Vending.");
-        return itemInventoryString;
+        return itemInventory;
     }
 
     @Override
     public List<Item> getAllItems()
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
-
+            throws VendingMachinePersistenceException {
         return dao.getAllItems();
     }
 
     @Override
     public Item getItem(String itemCode)
             throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
+            VendingMachineDataValidationException{
         validateItemData(itemCode);
-        
         return dao.getItem(itemCode);
     }
 
     @Override
-    public BigDecimal getItemPriceByCode(String itemCode)
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException {
-
+    public BigDecimal getItemPriceByCode(String itemCode) {
         return dao.getItemPriceByCode(itemCode);
     }
 
     private void validateItemData(String itemCode) throws
             VendingMachineDataValidationException {
-
         if (itemCode == null
                 || itemCode.trim().length() == 0)
             throw new VendingMachineDataValidationException(
