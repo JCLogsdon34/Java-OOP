@@ -1,6 +1,5 @@
 package com.sg.vendingmachine.ui;
 
-import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
@@ -19,7 +18,7 @@ public class VendingMachineView {
     public int printMenuAndGetSelection() {
         io.print("Main Menu");
         io.print("1. List Items");
-        io.print("2. Vend Item");  
+        io.print("2. Vend Item");
         io.print("3. View an Item");
         io.print("4. Exit");
 
@@ -49,7 +48,7 @@ public class VendingMachineView {
             io.print(currentItem.getItemCode());
             io.print(currentItem.getItemName());
             io.print(currentItem.getItemPrice().toString());
-            io.print(currentItem.getItemInventory());
+            io.print(String.valueOf(currentItem.getItemInventory()));
             io.print("");
         } else {
             io.print("No such item.");
@@ -61,7 +60,7 @@ public class VendingMachineView {
             throws VendingMachineInsufficientFundsException {
         io.print("Your refund is: ");
 
-        for(String item : cashRefund){
+        for (String item : cashRefund) {
             io.print(item);
         }
         if (cashRefund.isEmpty()) {
@@ -74,19 +73,20 @@ public class VendingMachineView {
                 "Item successfully vended.  Please hit enter to continue");
     }
 
-    public String getItemCodeChoice() throws VendingMachinePersistenceException {
+    public String getItemCodeChoice()
+            throws VendingMachineInvalidItemCodeException {
         String itemEntry;
         String itemCode = null;
-        Item currentItem = new Item(itemCode);
         boolean newInput;
         do {
-            itemEntry = io.readString("Please enter the Item Code.");
-            if ((itemEntry == null) || (itemEntry.length() > 3)) {
-                throw new VendingMachinePersistenceException(
+            itemEntry = io.readString("Please enter the Item's Code.");
+            if ((itemEntry.length() > 3)) {
+                throw new VendingMachineInvalidItemCodeException(
                         "ERROR: Could not vend.  Item"
                         + itemEntry
                         + " code is invalid");
             }
+            Item currentItem = new Item(itemCode);
             if (!itemEntry.isEmpty()) {
                 currentItem.getItemCode();
                 newInput = true;
@@ -142,7 +142,8 @@ public class VendingMachineView {
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }
-    public void displayNotEnoughMessage(BigDecimal itemMoneyParsed){
+
+    public void displayNotEnoughMessage(BigDecimal itemMoneyParsed) {
         io.print("=== ERROR ===");
         io.print(itemMoneyParsed + " is not enough for that item.");
     }

@@ -46,11 +46,9 @@ public class VendingMachineDaoFileImplTest {
     public void testGetItemPriceByCode()
             throws VendingMachinePersistenceException, 
             VendingMachineDataValidationException {
-
         String itemCode = "W63";
         String price = "3.05";
         BigDecimal expectedResult = new BigDecimal(price);
-
         assertEquals(expectedResult, dao.getItemPriceByCode(itemCode));
     }
 
@@ -59,7 +57,6 @@ public class VendingMachineDaoFileImplTest {
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-
         assertEquals(2, dao.getAllItems().size());
     }
 
@@ -68,11 +65,9 @@ public class VendingMachineDaoFileImplTest {
             throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-
         String itemCode = "W63";
         Item item = new Item(itemCode);
         item = dao.getItem(itemCode);
-
         assertEquals(item.itemInventory, dao.getItem(itemCode).itemInventory);
     }
     
@@ -81,7 +76,6 @@ public class VendingMachineDaoFileImplTest {
             throws VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException,
             VendingMachineDataValidationException {
-
         String itemCode = "W64"; 
         int myInt;
         try{
@@ -98,7 +92,6 @@ public class VendingMachineDaoFileImplTest {
             VendingMachineNoItemInInventoryException {
         String itemCode = "W63";
         String itemName = "Samuel L. Jackson";
-
         assertEquals(itemName, dao.viewItem(itemCode).getItemName());
     }
 
@@ -107,13 +100,9 @@ public class VendingMachineDaoFileImplTest {
             VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineNoItemInInventoryException {
-
         String itemCode1 = "W63";
-
         Item newItem = new Item(itemCode1);
-
         newItem = dao.getItem(itemCode1);
-
-        assertEquals(5, dao.vendAndUpdateItem(itemCode1, newItem));
+        assertEquals(4, dao.vendAndUpdateItem(itemCode1, newItem));
     }
 }

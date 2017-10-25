@@ -55,7 +55,6 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
         int itemInventory;
         int itemParsedUpdate;
 
-             
         try {
             item = getItem(itemCode);
         } catch (VendingMachineDataValidationException e) {

@@ -7,6 +7,7 @@ import com.sg.vendingmachine.service.VendingMachineDataValidationException;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException;
 import com.sg.vendingmachine.service.VendingMachineServiceLayer;
+import com.sg.vendingmachine.ui.VendingMachineInvalidItemCodeException;
 import com.sg.vendingmachine.ui.VendingMachineView;
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,7 +33,7 @@ public class VendingMachineController {
         while (keepGoing) {
             try {
                 listItems();
-            } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
+            } catch (VendingMachinePersistenceException e) {
                 myView.displayErrorMessage(e.getMessage());
             }
             try {
@@ -45,7 +46,7 @@ public class VendingMachineController {
                 case 1: {
                     try {
                         listItems();
-                    } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
+                    } catch (VendingMachinePersistenceException e) {
                        myView.displayErrorMessage(e.getMessage());
                     }
                 }
@@ -53,15 +54,15 @@ public class VendingMachineController {
                 case 2: {
                     try {
                         purchaseItem();
-                    } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineInsufficientFundsException | VendingMachineNoItemInInventoryException | VendingMachineDaoException e) {
-                        Logger.getLogger(VendingMachineController.class.getName()).log(Level.SEVERE, null, e);
+                    } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineInsufficientFundsException | VendingMachineNoItemInInventoryException | VendingMachineDaoException | VendingMachineInvalidItemCodeException e) {
+                       myView.displayErrorMessage(e.getMessage());
                     }
                 }
                 break;
                 case 3: {
                     try {
                         viewItem();
-                    } catch (VendingMachineDaoException | VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineNoItemInInventoryException e) {
+                    } catch (VendingMachinePersistenceException | VendingMachineDataValidationException | VendingMachineInvalidItemCodeException e) {
                        myView.displayErrorMessage(e.getMessage());
                     }
                 }
@@ -85,20 +86,20 @@ public class VendingMachineController {
     }
 
     private void listItems()
-            throws VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
+            throws VendingMachinePersistenceException{
 
         myView.displayDisplayItemBanner();
         List<Item> itemList = service.getAllItems();
         myView.displayItemList(itemList);
     }
 
-    private void purchaseItem() throws VendingMachinePersistenceException,
+    private void purchaseItem() 
+            throws VendingMachinePersistenceException,
             VendingMachineDataValidationException,
             VendingMachineInsufficientFundsException,
             VendingMachineNoItemInInventoryException,
-            VendingMachineDaoException {
+            VendingMachineDaoException,
+            VendingMachineInvalidItemCodeException {
 
         List <String> cashRefund;
         String itemCode;
@@ -112,12 +113,12 @@ public class VendingMachineController {
         currentItem = service.getItem(itemCode);
         myView.displayPriceItemBanner();
         do{
-        itemPrice = service.getItemPriceByCode(itemCode);
-        
+        itemPrice = service.getItemPriceByCode(itemCode);     
         itemMoneyParsed = myView.getPayment(itemPrice);
         try{   
         userRefund = service.checkTheCash(itemPrice, itemMoneyParsed);   
         }catch (VendingMachineInsufficientFundsException e){
+            myView.displayErrorMessage(e.getMessage());
     }
         if(itemMoneyParsed.compareTo(itemPrice) < 0){
             myView.displayNotEnoughMessage(itemMoneyParsed);
@@ -133,10 +134,9 @@ public class VendingMachineController {
     }
 
     private void viewItem()
-            throws VendingMachineDaoException,
-            VendingMachinePersistenceException,
-            VendingMachineDataValidationException,
-            VendingMachineNoItemInInventoryException {
+            throws VendingMachinePersistenceException,
+            VendingMachineInvalidItemCodeException,
+            VendingMachineDataValidationException{
 
         myView.displayDisplayItemBanner();
         String itemCode;
@@ -153,5 +153,4 @@ public class VendingMachineController {
     private void exitMessage() {
         myView.displayExitBanner();
     }
-
 }
