@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,13 +107,15 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
                     "Could not save item data.", e);
         }
         List<Item> itemList = this.getAllItems();    
-        for (Item currentItem : itemList) {
+        itemList.stream().map((currentItem) -> {
             out.println(currentItem.getItemCode() + DELIMITER
                     + currentItem.getItemName() + DELIMITER
                     + currentItem.getItemPrice() +  DELIMITER
                     + currentItem.getItemInventory());
+            return currentItem;
+        }).forEach((_item) -> {
             out.flush();
-        }
+        });
         out.close();
     }
 }

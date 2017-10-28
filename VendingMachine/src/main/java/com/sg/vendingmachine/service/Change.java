@@ -1,8 +1,6 @@
 package com.sg.vendingmachine.service;
 
 import java.math.BigDecimal;
-import static java.math.BigDecimal.TEN;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;

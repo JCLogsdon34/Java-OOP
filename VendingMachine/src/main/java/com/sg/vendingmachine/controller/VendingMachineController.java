@@ -11,8 +11,6 @@ import com.sg.vendingmachine.ui.VendingMachineInvalidItemCodeException;
 import com.sg.vendingmachine.ui.VendingMachineView;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class VendingMachineController {
 

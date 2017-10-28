@@ -8,8 +8,6 @@ import com.sg.vendingmachine.dao.VendingMachinePersistenceException;
 import com.sg.vendingmachine.dto.Item;
 import static com.sg.vendingmachine.service.Change.coinsOut;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import static java.math.RoundingMode.HALF_UP;
 import java.util.ArrayList;
 import java.util.List;
 

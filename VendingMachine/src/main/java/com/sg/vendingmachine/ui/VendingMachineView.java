@@ -3,8 +3,6 @@ package com.sg.vendingmachine.ui;
 import com.sg.vendingmachine.dto.Item;
 import com.sg.vendingmachine.service.VendingMachineInsufficientFundsException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VendingMachineView {
@@ -33,13 +31,13 @@ public class VendingMachineView {
     }
 
     public void displayItemList(List<Item> itemList) {
-        for (Item currentItem : itemList) {
+        itemList.stream().forEach((currentItem) -> {
             io.print(currentItem.getItemCode() + ": "
                     + currentItem.getItemName() + " "
                     + currentItem.getItemPrice() + " "
                     + "Number In Stock" + " "
                     + currentItem.getItemInventory());
-        }
+        });
         io.readString("Please hit enter to continue.");
     }
 
@@ -60,9 +58,9 @@ public class VendingMachineView {
             throws VendingMachineInsufficientFundsException {
         io.print("Your refund is: ");
 
-        for (String item : cashRefund) {
+        cashRefund.stream().forEach((item) -> {
             io.print(item);
-        }
+        });
         if (cashRefund.isEmpty()) {
             displayNoChangeBanner();
         }
