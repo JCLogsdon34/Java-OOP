@@ -28,13 +28,13 @@ public class Change {
         return nickelsOut;
     }
 
-     public static int getPennies(int coinWorthInt) {
+    public static int getPennies(int coinWorthInt) {
         int penniesOut = 0;
         int pennies = 1;
         penniesOut = (int) (coinWorthInt / pennies);
         return penniesOut;
     }
-     
+
     public static List<String> coinsOut(BigDecimal itemPrice, BigDecimal itemMoney) {
         BigDecimal coinWorthBig = BigDecimal.ZERO;
         int coinWorthInt = 0;
@@ -54,41 +54,41 @@ public class Change {
         List<String> coinsOut = new ArrayList<>();
         coinWorthBig = itemRefund.multiply(new BigDecimal(pennies));
         coinWorthInt = coinWorthBig.intValue();
-        do{   
-        if(coinWorthInt > 0){
-            runIn = false;
-            
-            quartersOut = getQuarters(coinWorthInt);
-            do {                
-                coinsOut.add(quarter);
-                quartersOut = quartersOut - 1;
-                coinWorthInt = coinWorthInt - 25;
-            } while (quartersOut > 0);
-            
-            dimesOut = getDimes(coinWorthInt);
-            if(dimesOut > 0){       
-                dimesOut = dimesOut - 1;
-                coinsOut.add(dime);               
-                coinWorthInt = coinWorthInt - 10;
-            } 
+        do {
+            if (coinWorthInt > 0) {
+                runIn = false;
 
-            nickelsOut = getNickels(coinWorthInt);
-            if (nickelsOut > 0){
-                nickelsOut = nickelsOut - 1;
-                coinsOut.add(nickel);       
-                coinWorthInt = coinWorthInt - 5;
-            } 
-           
-            penniesOut = getPennies(coinWorthInt);
-            do{           
-                penniesOut = penniesOut - 1;
-                coinsOut.add(penny);              
-                coinWorthInt = coinWorthInt - 1;
-            }while(penniesOut > 0);
-        }else {
-            runIn = true;
-        }
-        }while(runIn == false);
+                quartersOut = getQuarters(coinWorthInt);
+                while (quartersOut > 0) {
+                    coinsOut.add(quarter);
+                    quartersOut = quartersOut - 1;
+                    coinWorthInt = coinWorthInt - 25;
+                }
+
+                dimesOut = getDimes(coinWorthInt);
+                if (dimesOut > 0) {
+                    dimesOut = dimesOut - 1;
+                    coinsOut.add(dime);
+                    coinWorthInt = coinWorthInt - 10;
+                }
+
+                nickelsOut = getNickels(coinWorthInt);
+                if (nickelsOut > 0) {
+                    nickelsOut = nickelsOut - 1;
+                    coinsOut.add(nickel);
+                    coinWorthInt = coinWorthInt - 5;
+                }
+
+                penniesOut = getPennies(coinWorthInt);
+                while (penniesOut > 0) {
+                    penniesOut = penniesOut - 1;
+                    coinsOut.add(penny);
+                    coinWorthInt = coinWorthInt - 1;
+                }
+            } else {
+                runIn = true;
+            }
+        } while (runIn == false);
         return coinsOut;
     }
 }

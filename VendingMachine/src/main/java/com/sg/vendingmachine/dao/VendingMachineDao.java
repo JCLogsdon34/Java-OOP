@@ -26,5 +26,4 @@ public interface VendingMachineDao {
     int vendAndUpdateItem(String itemCode, Item currentItem)
             throws VendingMachinePersistenceException,
             VendingMachineNoItemInInventoryException;
-   
 }

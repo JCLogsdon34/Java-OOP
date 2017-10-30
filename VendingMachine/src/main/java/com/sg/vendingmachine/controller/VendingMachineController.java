@@ -117,7 +117,7 @@ public class VendingMachineController {
         userRefund = service.checkTheCash(itemPrice, itemMoneyParsed);   
         }catch (VendingMachineInsufficientFundsException e){
             myView.displayErrorMessage(e.getMessage());
-    }
+        }
         if(itemMoneyParsed.compareTo(itemPrice) < 0){
             myView.displayNotEnoughMessage(itemMoneyParsed);
         }
