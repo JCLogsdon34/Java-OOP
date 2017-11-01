@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.sg.section03unittests;
 
-/**
- *
- * @author apprentice
- */
+
 public class Diff21{
         // Given an int n, return the absolute value of the difference 
     // between n and 21, except return double the absolute value 

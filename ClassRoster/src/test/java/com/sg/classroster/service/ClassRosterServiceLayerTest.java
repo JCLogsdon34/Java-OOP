@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -29,10 +31,15 @@ public class ClassRosterServiceLayerTest {
     private ClassRosterServiceLayer service;
     
     public ClassRosterServiceLayerTest() {
-        ClassRosterDao dao = new ClassRosterDaoStubImpl();
+   /*   ClassRosterDao dao = new ClassRosterDaoStubImpl();
         ClassRosterAuditDao auditDao = new ClassRosterAuditDaoStubImpl();
-        
+ 
         service = new ClassRosterServiceLayerImpl(dao, auditDao);
+   */
+   ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("applicationContext.xml");
+    service = 
+        ctx.getBean("serviceLayer", ClassRosterServiceLayer.class);
     }
     
     @BeforeClass
@@ -53,7 +60,7 @@ public class ClassRosterServiceLayerTest {
 
     
     @Test
-    public void testCreateStudent() throws Exception {
+    public void testCreateStudent() throws ClassRosterDuplicateIdException, ClassRosterDataValidationException, ClassRosterPersistenceException, ClassRosterDaoException {
         Student student = new Student("0002");
         student.setFirstName("Sally");
         student.setLastName("Yates");
@@ -62,7 +69,7 @@ public class ClassRosterServiceLayerTest {
     }
 
     @Test
-    public void testCreateStudentDuplicateId()throws Exception {
+    public void testCreateStudentDuplicateId()throws ClassRosterDataValidationException, ClassRosterPersistenceException, ClassRosterDaoException {
         Student student = new Student("0002");
         student.setFirstName("Sally");
         student.setLastName("Yates");
@@ -77,7 +84,7 @@ public class ClassRosterServiceLayerTest {
     }
     
     @Test
-    public void testCreateStudentInvalidData() throws Exception {
+    public void testCreateStudentInvalidData() throws ClassRosterPersistenceException, ClassRosterDaoException, ClassRosterDuplicateIdException{
         Student student = new Student("0002");
         student.setFirstName("");
         student.setLastName("Yates");
@@ -92,15 +99,13 @@ public class ClassRosterServiceLayerTest {
     }
     
     @Test
-    public void testGetAllStudents() throws Exception {
+    public void testGetAllStudents()  throws ClassRosterPersistenceException, ClassRosterDaoException {
         assertEquals(1, service.getAllStudents().size());
     }
 
-    /**
-     * Test of getStudent method, of class ClassRosterServiceLayer.
-     */
+
     @Test
-    public void testGetStudent() throws Exception {
+    public void testGetStudent()  throws ClassRosterPersistenceException, ClassRosterDaoException {
         Student student = new Student("0001");
         assertNotNull(student);
         student = service.getStudent("9999");
@@ -108,11 +113,8 @@ public class ClassRosterServiceLayerTest {
         
     }
 
-    /**
-     * Test of removeStudent method, of class ClassRosterServiceLayer.
-     */
     @Test
-    public void testRemoveStudent() throws Exception {
+    public void testRemoveStudent()  throws ClassRosterPersistenceException, ClassRosterDaoException{
         Student student = service.removeStudent("0001");
         assertNotNull(student);
         student = service.removeStudent("9999");
