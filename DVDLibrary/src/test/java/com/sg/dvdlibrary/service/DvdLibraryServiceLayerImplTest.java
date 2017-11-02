@@ -14,15 +14,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class DvdLibraryServiceLayerImplTest {
-    
     private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
     private DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
     private DvdLibraryServiceLayer service = new DvdLibraryServiceLayerImpl(dao, auditDao);
     
     public DvdLibraryServiceLayerImplTest() {
+        ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("applicationContext.xml");
+    service = 
+        ctx.getBean("service", DvdLibraryServiceLayer.class);
 
     }
     

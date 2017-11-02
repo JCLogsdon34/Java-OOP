@@ -3,6 +3,7 @@ package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.Dvd;
 import com.sg.dvdlibrary.service.DvdLibraryDataValidationException;
+import com.sg.dvdlibrary.service.DvdLibraryServiceLayer;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class DvdLibraryDaoTest {
@@ -19,6 +22,10 @@ public class DvdLibraryDaoTest {
     private DvdLibraryDao dao =  new DvdLibraryDaoFileImpl();
     
     public DvdLibraryDaoTest() {
+        ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("applicationContext.xml");
+    dao = 
+        ctx.getBean("dao", DvdLibraryDaoFileImpl.class);
     }
     
     @BeforeClass

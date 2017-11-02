@@ -2,6 +2,7 @@
 package com.sg.classroster.dao;
 
 import com.sg.classroster.dto.Student;
+import com.sg.classroster.service.ClassRosterServiceLayer;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -9,13 +10,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class ClassRosterDaoTest {
     
-    private ClassRosterDao dao = new ClassRosterDaoFileImpl();
+    private ClassRosterDao dao = new ClassRosterDaoStubImpl();
     
     public ClassRosterDaoTest() {
+        
+        ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("applicationContext.xml");
+    dao = 
+        ctx.getBean("dao", ClassRosterDao.class);
     }
     
     @BeforeClass
@@ -40,8 +48,9 @@ public class ClassRosterDaoTest {
 
     /**
      * Test of addStudent method, of class ClassRosterDao.
+     * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
-    public void AddGetStudent() throws Exception {
+    public void TestGetStudent() throws ClassRosterDaoException {
         Student student = new Student("0001");
         student.setFirstName("Joe");
         student.setLastName("Smith");
@@ -60,9 +69,10 @@ public class ClassRosterDaoTest {
 
     /**
      * Test of getAllStudents method, of class ClassRosterDao.
+     * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
     @Test
-    public void testGetAllStudents() throws Exception {
+    public void testGetAllStudents() throws ClassRosterDaoException {
         Student student1 = new Student("0001");
         student1.setFirstName("Joe");
         student1.setLastName("Smith");
@@ -81,16 +91,18 @@ public class ClassRosterDaoTest {
 
     /**
      * Test of getStudent method, of class ClassRosterDao.
+     * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
     @Test
-    public void testGetStudent() throws Exception {
+    public void testGetStudent() throws ClassRosterDaoException {
     }
 
     /**
      * Test of removeStudent method, of class ClassRosterDao.
+     * @throws com.sg.classroster.dao.ClassRosterDaoException
      */
     @Test
-    public void testRemoveStudent() throws Exception {
+    public void testRemoveStudent() throws ClassRosterDaoException {
         Student student1 = new Student("0001");
         student1.setFirstName("Joe");
         student1.setLastName("Smith");

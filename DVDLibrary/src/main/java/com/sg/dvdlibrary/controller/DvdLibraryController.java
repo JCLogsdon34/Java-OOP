@@ -71,7 +71,6 @@ public class DvdLibraryController {
         }
         exitMessage();
     }
-
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
@@ -80,88 +79,82 @@ public class DvdLibraryController {
         Dvd newDvd;
         view.displayCreateDvdBanner();
         boolean hasErrors = false;
-    do {
-        newDvd = view.getNewDvdInfo();
-        try {
-            service.createDvd(newDvd);
-            view.displayCreateSuccessBanner();
-            hasErrors = false;
-        } catch (DvdLibraryDuplicateIdException | DvdLibraryDataValidationException e) {
-            hasErrors = true;
-            view.displayErrorMessage(e.getMessage());
-        }
-    } while (hasErrors);
-    
+        do {
+            newDvd = view.getNewDvdInfo();
+            try {
+                service.createDvd(newDvd);
+                view.displayCreateSuccessBanner();
+                hasErrors = false;
+            } catch (DvdLibraryDuplicateIdException | DvdLibraryDataValidationException e) {
+                hasErrors = true;
+                view.displayErrorMessage(e.getMessage());
+            }
+        } while (hasErrors);
         view.displayCreateSuccessBanner();
-        }
+    }
 
     private void listDvds() throws DvdLibraryPersistenceException {
         List<Dvd> dvdList;
-        int lambdaListChoice = 0;
         Map<String, List<Dvd>> lambdaDvdMap;
         String theStringChoice;
-            /*
-        public int getDvdListOptions() {
         boolean keepOnKeepingOn = true;
         int userSelection;
 
         while (keepOnKeepingOn) {
-            userSelection = io.readInt("Please select a number from the following editing options: "
-                    + "(1)Get list of movies from the last n amount of years"
-                    + "(2)Get list of movies older than n years";
-                    + "(3)Get list of movies younger than n years";
-                    + "(4)Find all the movies released by a certain studio "
-                    + "(5)Get list of movies by film director, sorted by Mpaa rating "
-                    + "(6)Get list of movies by MPAA rating "
-                    + "(7)Get list of movies by User Notes"
-                    + "(8)Leave Menu");
+            userSelection = view.getUserListChoice();
+            // theStringChoice = view.getUserListChoice(userSelection);
             switch (userSelection) {
                 case 1:
-
+                    //Get list of movies from the last n amount of years
+                     // theStringChoice = view.getUserListChoice(userSelection);
                     userSelection = 1;
                     break;
                 case 2:
                     //trigger a new method here
+                    //Get list of movies older than n years"
+                     // theStringChoice = view.getUserListChoice(userSelection);
                     userSelection = 2;
                     break;
                 case 3:
                     //trigger a new method here too
+                    //Get list of movies younger than n years"
+                     // theStringChoice = view.getUserListChoice(userSelection);
                     userSelection = 3;
                     break;
                 case 4:
-                  
+                    //Find all the movies released by a certain studio "
+                     // theStringChoice = view.getUserListChoice(userSelection);
                     userSelection = 4;
                     break;
                 case 5:
-                     
+                    //Get list of movies by film director, sorted by Mpaa rating 
+                     // theStringChoice = view.getUserListChoice(userSelection);
                     userSelection = 5;
                     break;
                 case 6:
-                    
-                     keepOnKeepingOn = false;
+                    //Get list of movies by MPAA rating 
+                     // theStringChoice = view.getUserListChoice(userSelection);
+                    keepOnKeepingOn = false;
                     userSelection = 6;
                     break;
-                case 7:  
+                case 7:
+                    //Get list of movies by User Notes"
+                     // theStringChoice = view.getUserListChoice(userSelection);
                     keepOnKeepingOn = false;
                     userSelection = 6;
                     break;
                 case 8:
+                    //Leave the menu
                     keepOnKeepingOn = false;
                     break;
                 default:
-                    io.print("Invalid Input, please enter one of the numbered chocies");
                     break;
             }
         }
-        return userSelection;
-    }
-        */
-            view.displayDisplayDvdBanner();
-            dvdList = service.getAllDvds();                              
-    //      lambdaListChoice = view.getDvdListOptions();
-    //      theStringChoice = view.getUserListChoice(lambdaListChoice);
-    //      service.callUpLambda(lambdaListChoice);
-            view.displayDvdList(dvdList); 
+        view.displayDisplayDvdBanner();
+        dvdList = service.getAllDvds();
+        //      service.callUpLambda(lambdaListChoice);
+        view.displayDvdList(dvdList);
     }
 
     private void viewDvd() throws DvdLibraryPersistenceException {
@@ -175,23 +168,22 @@ public class DvdLibraryController {
 
     private void removeDvd() throws DvdLibraryPersistenceException {
         String dvdTitle;
-            view.displayRemoveDvdBanner();
-            dvdTitle = view.getDvdTitleChoice();
-            service.removeDvd(dvdTitle);
-            view.displayRemoveSuccessBanner();
+        view.displayRemoveDvdBanner();
+        dvdTitle = view.getDvdTitleChoice();
+        service.removeDvd(dvdTitle);
+        view.displayRemoveSuccessBanner();
     }
 
     private void editDvd() throws DvdLibraryPersistenceException {
         String dvdTitle;
         Dvd currentDvd;
-            view.displayEditDvdBanner();
-            dvdTitle = view.getDvdTitleChoice();
-            currentDvd = service.getDvd(dvdTitle);
-            currentDvd = view.getDvdForUserEdit(dvdTitle, currentDvd);
-            view.displayCreateSuccessBanner();
+        view.displayEditDvdBanner();
+        dvdTitle = view.getDvdTitleChoice();
+        currentDvd = service.getDvd(dvdTitle);
+        currentDvd = view.getDvdForUserEdit(dvdTitle, currentDvd);
+        view.displayCreateSuccessBanner();
         view.displayEditSuccessBanner();
     }
-    
 
     private void unknownCommand() {
         view.displayUnknownCommandBanner();

@@ -1,16 +1,20 @@
-
 package com.sg.classroster.dto;
 
 import java.util.Objects;
 
-
 public class Student {
-    
+
     private String firstName;
     private String lastName;
     private final String studentId;
     private String cohort; // Java or .Net + cohort month/year
-    
+
+    @Override
+    public String toString() {
+        return "ID: " + studentId + " |Name: " + firstName + " "
+                + lastName + " |Cohort: " + cohort;
+    }
+
     public Student(String studentId) {
         this.studentId = studentId;
     }
@@ -41,7 +45,7 @@ public class Student {
 
     public void setCohort(String cohort) {
         this.cohort = cohort;
-    }   
+    }
 
     @Override
     public int hashCode() {
@@ -79,6 +83,5 @@ public class Student {
         }
         return true;
     }
-    
-    
+
 }

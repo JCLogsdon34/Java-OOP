@@ -16,10 +16,7 @@
          http://www.springframework.org/schema/aop
          http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
  
-    <!-- Bean definitions go here -->
-    <bean id="classRosterDao" 
-       class="com.sg.classroster.dao.ClassRosterDaoFileImpl"/>
-   
+    <!-- Bean definitions go here --> 
     <bean id="classRosterDaoStub" 
        class="com.sg.classroster.dao.ClassRosterDaoStubImpl"/>
    
@@ -31,9 +28,4 @@
         <constructor-arg ref="classRosterDaoStub"/>
         <constructor-arg ref="auditDaoStub"/>           
     </bean>
-   
 </beans>
-
-<root>
-    
-</root>

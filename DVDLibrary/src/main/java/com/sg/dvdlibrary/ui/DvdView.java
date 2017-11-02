@@ -28,6 +28,25 @@ public class DvdView {
         return io.readInt(msg);
     }
 
+    public int getUserListChoice() {
+        int userSelection;
+        do {
+            userSelection = io.readInt("Please select a number from the following editing options: "
+                    + "(1)Get list of movies from the last n amount of years"
+                    + "(2)Get list of movies older than n years"
+                    + "(3)Get list of movies younger than n years"
+                    + "(4)Find all the movies released by a certain studio "
+                    + "(5)Get list of movies by film director, sorted by Mpaa rating "
+                    + "(6)Get list of movies by MPAA rating "
+                    + "(7)Get list of movies by User Notes"
+                    + "(8)Leave Menu");
+            if ((userSelection > 8) || (userSelection < 1)) {
+                io.print("Invalid Input, please enter one of the numbered chocies");
+            }
+        } while ((userSelection >= 9) || (userSelection <= 0));
+        return userSelection;
+    }
+
     public Dvd getNewDvdInfo() {
         Dvd currentDvd = new Dvd();
         boolean newInput;
@@ -71,14 +90,14 @@ public class DvdView {
 
     public void displayDvdList(List<Dvd> dvdList) {
 
-        for (Dvd currentDvd : dvdList) {
+        dvdList.stream().forEach((currentDvd) -> {
             io.print(currentDvd.getDvdTitle() + ": "
                     + currentDvd.getReleaseDate() + ": "
                     + currentDvd.getMpaaRating() + ": "
                     + currentDvd.getDirectorsName() + ": "
                     + currentDvd.getStudioName() + ": "
                     + currentDvd.getUserRating() + " ");
-        }
+        });
         io.print("Please hit enter to continue.");
     }
 
@@ -106,7 +125,8 @@ public class DvdView {
         }
         io.print("Please hit enter to continue.");
     }
-/*
+
+    /*
     add another swtich for input for this
   
     public String getUserListChoice(int userSelection) {
@@ -228,7 +248,7 @@ public class DvdView {
      ask the user which, older or younger list?
         decide here, have an if statement up above
     }
-    */
+     */
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
         boolean keepOnKeepingOn = true;
         int userSelection;
@@ -249,9 +269,9 @@ public class DvdView {
                     LocalDate formatted;
                     String theReleaseDate;
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
+                    io.readLocalDate("Please enter a release date dd-mm-yyyy");
                     formatted = io.readLocalDate("Please enter your desired changes for the Release Date"
-                    + "dd-mm-yyyy");
+                            + "dd-mm-yyyy");
                     theReleaseDate = formatter.format(formatted);
                     currentDvd.setReleaseDate(theReleaseDate);
                     io.print("Your change to the Release Date has been noted");

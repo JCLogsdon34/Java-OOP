@@ -12,7 +12,7 @@ import java.util.List;
 public class ClassRosterServiceLayerImpl implements ClassRosterServiceLayer {
 
     ClassRosterDao dao;
-    private ClassRosterAuditDao auditDao;
+    ClassRosterAuditDao auditDao;
 
     public ClassRosterServiceLayerImpl(ClassRosterDao dao, ClassRosterAuditDao auditDao) {
         this.dao = dao;
@@ -35,8 +35,9 @@ public class ClassRosterServiceLayerImpl implements ClassRosterServiceLayer {
         validateStudentData(student);
         dao.addStudent(student.getFirstName(), student);
         
-        auditDao.writeAuditEntry(
+     /*   auditDao.writeAuditEntry(
             "Student " + student.getFirstName() + " CREATED.");
+            */
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ClassRosterServiceLayerImpl implements ClassRosterServiceLayer {
     public Student removeStudent(String firstName) throws ClassRosterPersistenceException, ClassRosterDaoException {
         Student removeStudent = dao.removeStudent(firstName);
 
-    auditDao.writeAuditEntry("Student " + firstName + " REMOVED.");
+    //auditDao.writeAuditEntry("Student " + firstName + " REMOVED.");
         return dao.removeStudent(firstName);
     }
 

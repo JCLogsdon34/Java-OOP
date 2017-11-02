@@ -25,11 +25,9 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             loadRoster();
             dvdLibrary.get(dvdTitle);
             dvdLibrary.keySet();
-                for(String key: dvdLibrary.keySet()){
-                if(key.contains(dvdTitle)){
-                    System.out.println("You already have this DVD");
-                } 
-            }
+            dvdLibrary.keySet().stream().filter((key) -> (key.contains(dvdTitle))).forEach((_item) -> {
+                System.out.println("You already have this DVD");
+        });
             newDvd = dvdLibrary.put(dvd.getDvdTitle(), dvd);
             writeLibrary();               
             return newDvd;  
@@ -225,15 +223,17 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
                     "Could not save DVD data.", e);
         }
         List<Dvd> dvdList = this.getAllDvds();
-        for (Dvd currentDvd : dvdList) {
+        dvdList.stream().map((currentDvd) -> {
             out.println(currentDvd.getDvdTitle() + DELIMITER
                     + currentDvd.getReleaseDate() + DELIMITER
                     + currentDvd.getMpaaRating() + DELIMITER
                     + currentDvd.getDirectorsName() + DELIMITER
                     + currentDvd.getStudioName() + DELIMITER
                     + currentDvd.getUserRating() + DELIMITER);
+            return currentDvd;
+        }).forEach((_item) -> {
             out.flush();
-        }
+        });
         out.close();
     }
 }

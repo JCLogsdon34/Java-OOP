@@ -5,14 +5,10 @@
  */
 package com.sg.classroster.service;
 
-import com.sg.classroster.dao.ClassRosterAuditDao;
-import com.sg.classroster.dao.ClassRosterAuditDaoStubImpl;
-import com.sg.classroster.dao.ClassRosterDao;
 import com.sg.classroster.dao.ClassRosterDaoException;
 import com.sg.classroster.dao.ClassRosterDaoStubImpl;
 import com.sg.classroster.dao.ClassRosterPersistenceException;
 import com.sg.classroster.dto.Student;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,7 +24,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class ClassRosterServiceLayerTest {
     
-    private ClassRosterServiceLayer service;
+    ClassRosterServiceLayer service;
     
     public ClassRosterServiceLayerTest() {
    /*   ClassRosterDao dao = new ClassRosterDaoStubImpl();
