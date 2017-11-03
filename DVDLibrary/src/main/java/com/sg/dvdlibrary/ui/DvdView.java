@@ -4,6 +4,7 @@ import com.sg.dvdlibrary.dto.Dvd;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 public class DvdView {
 
@@ -32,18 +33,23 @@ public class DvdView {
         int userSelection;
         do {
             userSelection = io.readInt("Please select a number from the following editing options: "
-                    + "(1)Get list of movies from the last n amount of years"
-                    + "(2)Get list of movies older than n years"
-                    + "(3)Get list of movies younger than n years"
-                    + "(4)Find all the movies released by a certain studio "
-                    + "(5)Get list of movies by film director, sorted by Mpaa rating "
-                    + "(6)Get list of movies by MPAA rating "
-                    + "(7)Get list of movies by User Notes"
-                    + "(8)Leave Menu");
-            if ((userSelection > 8) || (userSelection < 1)) {
+                    + "(1)Get List of all movies, grouped by production Studio"
+                    + "(2)Get list of movies from a certain production studio"
+                    + "(3)Get list of movies older than n years"
+                    + "(4)Get list of movies younger than n years"
+                    + "(5)Get list of movies made before a certain year, sorted by Mpaa rating "
+                    + "(6)Get Average age of movies in your Dvd library"
+                    + "(7)Get list of movies by MPAA rating"
+                    + "(8)Get all movies, grouped by directors name"
+                    + "(9)Get movies by director's name"
+                    + "(10)Get all movies, grouped by user rating"
+                    + "(11)Get Movies by user rating"
+                    + "(12)Get List of movies made after a year, grouped by release date"
+                    + "(13)Leave Menu");
+            if ((userSelection > 13) || (userSelection < 1)) {
                 io.print("Invalid Input, please enter one of the numbered chocies");
             }
-        } while ((userSelection >= 9) || (userSelection <= 0));
+        } while ((userSelection >= 14) || (userSelection <= 0));
         return userSelection;
     }
 
@@ -101,12 +107,19 @@ public class DvdView {
         io.print("Please hit enter to continue.");
     }
 
+    
+    public void displayDvdMap(Map<String, List<Dvd>> lambdaDvdMap) {
+        List <Dvd> dvdList;
+        lambdaDvdMap.entrySet().stream().forEach((Map.Entry<String, List<Dvd>> e) -> {
+            io.print(e.getKey() + " " + e.getValue());
+        });
+    }
+
     public void displayDisplayDvdBanner() {
         io.print("=== Display DVD ===");
     }
 
     public String getDvdTitleChoice() {
-
         return io.readString("Please enter a dvdTitle");
     }
 
@@ -126,129 +139,12 @@ public class DvdView {
         io.print("Please hit enter to continue.");
     }
 
-    /*
-    add another swtich for input for this
-  
-    public String getUserListChoice(int userSelection) {
-        boolean keepOnKeepingOn = true;
-        String releaseDate;
-        String mpaaRating;
-        String directorsName;
-        String userRating;
-        String studioName;
+    public String getUserListChoiceInput() {
         String choice;
-        
-        while (keepOnKeepingOn) {
-
-            switch (userSelection) {
-                case 1:
-                    LocalDate formatted;
-                    String theReleaseDate;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
-                    formatted = io.readLocalDate("Please enter a Release Date from which to start  a list to the present"
-                    + "dd-mm-yyyy");
-                    theReleaseDate = formatter.format(formatted);
-                    io.print("Thank You, here you go");
-                    keepOnKeepingOn = false;
-                    return theReleaseDate
-                    break;
-                case 2:
-                    LocalDate formatted;
-                    String theReleaseDate;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
-                    formatted = io.readLocalDate("Please enter a Release Date from which to start a list to the present"
-                    + "dd-mm-yyyy");
-                    theReleaseDate = formatter.format(formatted);
-                    keepOnKeepingOn = false;
-                    return theReleaseDate;
-                    break;
-                case 3:
-                 LocalDate formatted;
-                    String theReleaseDate;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
-                    formatted = io.readLocalDate("Please enter a Release Date from which to start a list to the present"
-                    + "dd-mm-yyyy");
-                    theReleaseDate = formatter.format(formatted);
-                    keepOnKeepingOn = false;
-                    return theReleaseDate;
-                    break;
-                case 4:
-                    
-                    boolean inputValidate;
-                    do {
-                        studioName = io.readString("Please enter the studio name by which you want to list your dvds");
-                        if (directorsName != null && !directorsName.isEmpty()) {
-                            currentDvd.setDirectorsName(directorsName);
-                            io.print("Your change to the Director's Name has been noted");
-                            inputValidate = true;
-                        } else {
-                            inputValidate = false;
-                        }
-                    } while (inputValidate == false);
-                     keepOnKeepingOn = false;
-                    return studioName;
-                    break;
-                case 5:
-                    boolean inputBool;
-                    do {
-                        directorsName= io.readString("Please enter the name of the director by which to organize a list");
-                        if (directorsName != null && !directorsName.isEmpty()) {
-                            io.print("Thank You");
-                            inputBool = true;
-                        } else {
-                            inputBool = false;
-                        }
-                    } while (inputBool == false);
-                     keepOnKeepingOn = false;
-                    return directorsName;
-                    break;
-                case 6:
-                     boolean inputTry;
-                    do {
-                        mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
-                        if (mpaaRating != null && !mpaaRating.isEmpty()) {
-
-                            io.print("Thank You");
-                            inputTry = true;
-                        } else {
-                            inputTry = false;
-                        }
-                    } while (inputTry == false);
-                    keepOnKeepingOn = false;
-                    return mpaaRating;
-                    break;
-                case 7:
-                    boolean inputTry;
-                    do {
-                        userRating = io.readString("Please enter user rating by which you would like to organize a list");
-                        if (userRating != null && !userRating.isEmpty()) {
-                            io.print("Thank You");
-                            inputTry = true;
-                        } else {
-                            inputTry = false;
-                        }
-                    } while (inputTry == false);
-                     keepOnKeepingOn = false;
-                    return userRating;
-                    break;
-                case 8:
-                    keepOnKeepingOn = false;
-                    break;
-                default:
-                    io.print("Invalid Input, please enter one of the numbered chocies");
-                    break;
-            }
-        }
+        choice = io.readString("Please enter what you would like a list of");
+        return choice;
     }
-    
-    public String getOlderOrYoungerChoice(){
-     ask the user which, older or younger list?
-        decide here, have an if statement up above
-    }
-     */
+
     public Dvd getDvdForUserEdit(String dvdTitle, Dvd currentDvd) {
         boolean keepOnKeepingOn = true;
         int userSelection;

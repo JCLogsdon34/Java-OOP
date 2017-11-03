@@ -99,13 +99,13 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String releaseDate){
-      /*      Long releaseDates;
+            Long releaseDates;
             String theReleaseDate;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
             LocalDate formatted = LocalDate.parse(releaseDate, formatter);
             theReleaseDate = formatter.format(formatted);
             releaseDates = Long.parseLong(theReleaseDate);
-       */     
+            
         return dvdLibrary.values()
                 .stream()
                 .filter(dvd -> dvd.getReleaseDate().equalsIgnoreCase(releaseDate))

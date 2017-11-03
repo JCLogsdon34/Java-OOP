@@ -12,120 +12,82 @@ import java.util.Map;
 public class DvdLibraryServiceLayerImpl implements
         DvdLibraryServiceLayer {
 
-    private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
-    private DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
+    DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
+    DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
 
     public DvdLibraryServiceLayerImpl(DvdLibraryDao dao, DvdLibraryAuditDao auditDao) {
         this.dao = dao;
         this.auditDao = auditDao;
     }
-    /*
-        public String getDvdListOptionChoice() {
-        boolean keepOnKeepingOn = true;
-        int userSelection;
-        String releaseDate;
-        String mpaaRating;
-        String directorsName;
-        String userRating;
-        String studioName;
 
-        while (keepOnKeepingOn) {
-
-            switch (userSelection) {
-                case 1:
-                    LocalDate formatted;
-                    String theReleaseDate;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
-                    formatted = io.readLocalDate("Please enter a Release Date from which to start  a list to the present"
-                    + "dd-mm-yyyy");
-                    theReleaseDate = formatter.format(formatted);
-                    io.print("Thank You, here you go");
-                    keepOnKeepingOn = false;
-                    return theReleaseDate;
-                    break;
-                case 2:
-                    LocalDate formatted;
-                    String theReleaseDate;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-                     io.readLocalDate("Please enter a release date dd-mm-yyyy");
-                    formatted = io.readLocalDate("Please enter a Release Date from which to start a list to the present"
-                    + "dd-mm-yyyy");
-                    theReleaseDate = formatter.format(formatted);
-                    keepOnKeepingOn = false;
-                    return theReleaseDate;
-                    break;
-                case 3:
-                    
-                    boolean inputValidate;
-                    do {
-                        studioName = io.readString("Please enter the studio name by which you want to list your dvds");
-                        if (directorsName != null && !directorsName.isEmpty()) {
-                            currentDvd.setDirectorsName(directorsName);
-                            io.print("Your change to the Director's Name has been noted");
-                            inputValidate = true;
-                        } else {
-                            inputValidate = false;
-                        }
-                    } while (inputValidate == false);
-                     keepOnKeepingOn = false;
-                    return studioName;
-                    break;
-                case 4:
-                    boolean inputBool;
-                    do {
-                        directorsName= io.readString("Please enter the name of the director by which to organize a list");
-                        if (directorsName != null && !directorsName.isEmpty()) {
-                            io.print("Thank You");
-                            inputBool = true;
-                        } else {
-                            inputBool = false;
-                        }
-                    } while (inputBool == false);
-                     keepOnKeepingOn = false;
-                    return directorsName;
-                    break;
-                case 5:
-                     boolean inputTry;
-                    do {
-                        mpaaRating = io.readString("Please enter your desired changes for the MPAA Rating");
-                        if (mpaaRating != null && !mpaaRating.isEmpty()) {
-
-                            io.print("Thank You");
-                            inputTry = true;
-                        } else {
-                            inputTry = false;
-                        }
-                    } while (inputTry == false);
-                    keepOnKeepingOn = false;
-                    return mpaaRating;
-                    break;
-                case 6:
-                    boolean inputTry;
-                    do {
-                        userRating = io.readString("Please enter user rating by which you would like to organize a list");
-                        if (userRating != null && !userRating.isEmpty()) {
-                            io.print("Thank You");
-                            inputTry = true;
-                        } else {
-                            inputTry = false;
-                        }
-                    } while (inputTry == false);
-                     keepOnKeepingOn = false;
-                    return userRating;
-                    break;
-                case 7:
-                    keepOnKeepingOn = false;
-                    break;
-                default:
-                    io.print("Invalid Input, please enter one of the numbered chocies");
-                    break;
-            }
-        }
-        return currentDvd;
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByProductionStudio(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getAllDvdsGroupByProductionStudio(theStringChoice);
     }
-    */
-    
+
+    @Override
+    public List<Dvd> getDvdsByProductionStudio(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getDvdsByProductionStudio(theStringChoice);
+    }
+
+    @Override
+    public List<Dvd> getDvdsOlderThan(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getDvdsOlderThan(theStringChoice);
+    }
+
+    @Override
+    public List<Dvd> getDvdsYoungerThan(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getDvdsYoungerThan(theStringChoice);
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getDvdsOlderThanGroupByReleaseDate(theStringChoice);
+    }
+
+    @Override
+    public List<Dvd> getAverageDvdAge(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getAverageDvdAge(theStringChoice);
+    }
+
+    @Override
+    public List<Dvd> getDvdsByMpaaRating(String theStringChoice) throws DvdLibraryPersistenceException {
+
+        return dao.getDvdsByMpaaRating(theStringChoice);
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByMpaaRating(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getAllDvdsGroupByMpaaRating(theStringChoice);
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByDirectorsName(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getAllDvdsGroupByDirectorsName(theStringChoice);
+    }
+
+    @Override
+    public List<Dvd> getDvdsByDirectorsName(String theStringChoice) throws
+            DvdLibraryPersistenceException {
+        return dao.getDvdsByDirectorsName(theStringChoice);
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getAllDvdsGroupByUserRating(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getAllDvdsGroupByUserRating(theStringChoice);
+    }
+
+    @Override
+    public List<Dvd> getDvdsByUserRating(String theStringChoice) throws
+            DvdLibraryPersistenceException {
+        return dao.getDvdsByUserRating(theStringChoice);
+    }
+
+    @Override
+    public Map<String, List<Dvd>> getDvdsYoungerThanGroupByReleaseDate(String theStringChoice) throws DvdLibraryPersistenceException {
+        return dao.getDvdsYoungerThanGroupByReleaseDate(theStringChoice);
+    }
+
     @Override
     public void createDvd(Dvd dvd) throws
             DvdLibraryDuplicateIdException,
@@ -140,38 +102,16 @@ public class DvdLibraryServiceLayerImpl implements
         }
         validateDvdData(dvd);
         dao.addDvd(dvd.getDvdTitle(), dvd);
-        
+
         auditDao.writeAuditEntry(
-            "Dvd " + dvd.getDvdTitle() + " CREATED.");
+                "Dvd " + dvd.getDvdTitle() + " CREATED.");
     }
 
     @Override
     public List<Dvd> getAllDvds() throws DvdLibraryPersistenceException {
         return dao.getAllDvds();
     }
-    
-    
-    public List<Dvd> getAllDvdsOlderThan(String releaseDate) 
-            throws DvdLibraryPersistenceException{
-    //    List<Dvd> dvdsOlderThan;
-      //         dvdsOlderThan  = dao.getDvdsOlderThan(releaseDate);
-               
-              return dao.getDvdsOlderThan(releaseDate);
-    } 
-    
-    public Map<String, List<Dvd>> getDvdsOlderThanGroupByReleaseDate(String releaseDate)
-            throws DvdLibraryPersistenceException{
-        
-        return dao.getDvdsOlderThanGroupByReleaseDate(releaseDate);
-    }
-    //use a for-loop to detertmine which, or rather a switch
-    public List<Dvd> getAllDvdsYoungThan(String releaseDate) 
-            throws DvdLibraryPersistenceException{
-        return dao.getDvdsYoungerThan(releaseDate);
-    }
-    
-    
-    
+
     @Override
     public Dvd getDvd(String dvdTitle) throws DvdLibraryPersistenceException {
         return dao.getDvd(dvdTitle);
@@ -181,7 +121,7 @@ public class DvdLibraryServiceLayerImpl implements
     public Dvd removeDvd(String dvdTitle) throws DvdLibraryPersistenceException {
         Dvd removedDvd = dao.removeDvd(dvdTitle);
 
-    auditDao.writeAuditEntry("Dvd " + dvdTitle+ " REMOVED.");
+        auditDao.writeAuditEntry("Dvd " + dvdTitle + " REMOVED.");
         return dao.removeDvd(dvdTitle);
     }
 

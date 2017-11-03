@@ -12,7 +12,7 @@ import java.util.Map;
 public class DvdLibraryController {
 
     DvdView view;
-    private DvdLibraryServiceLayer service;
+    DvdLibraryServiceLayer service;
 
     public DvdLibraryController(DvdLibraryServiceLayer service, DvdView view) {
         this.view = view;
@@ -71,6 +71,7 @@ public class DvdLibraryController {
         }
         exitMessage();
     }
+
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
@@ -102,59 +103,90 @@ public class DvdLibraryController {
 
         while (keepOnKeepingOn) {
             userSelection = view.getUserListChoice();
-            // theStringChoice = view.getUserListChoice(userSelection);
             switch (userSelection) {
                 case 1:
-                    //Get list of movies from the last n amount of years
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    userSelection = 1;
+                    theStringChoice = view.getUserListChoiceInput();
+                    lambdaDvdMap = service.getAllDvdsGroupByProductionStudio(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdMap(lambdaDvdMap);
                     break;
                 case 2:
-                    //trigger a new method here
-                    //Get list of movies older than n years"
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    userSelection = 2;
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getDvdsByProductionStudio(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
                     break;
                 case 3:
-                    //trigger a new method here too
-                    //Get list of movies younger than n years"
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    userSelection = 3;
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getDvdsOlderThan(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
                     break;
                 case 4:
-                    //Find all the movies released by a certain studio "
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    userSelection = 4;
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getDvdsYoungerThan(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
                     break;
                 case 5:
-                    //Get list of movies by film director, sorted by Mpaa rating 
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    userSelection = 5;
+                    theStringChoice = view.getUserListChoiceInput();
+                    lambdaDvdMap = service.getDvdsOlderThanGroupByReleaseDate(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdMap(lambdaDvdMap);
                     break;
                 case 6:
                     //Get list of movies by MPAA rating 
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    keepOnKeepingOn = false;
-                    userSelection = 6;
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getAverageDvdAge(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
                     break;
                 case 7:
                     //Get list of movies by User Notes"
-                     // theStringChoice = view.getUserListChoice(userSelection);
-                    keepOnKeepingOn = false;
-                    userSelection = 6;
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getDvdsByMpaaRating(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
                     break;
                 case 8:
+                    theStringChoice = view.getUserListChoiceInput();
+                    lambdaDvdMap = service.getAllDvdsGroupByDirectorsName(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdMap(lambdaDvdMap);
+                    break;
+                case 9:
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getDvdsByDirectorsName(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
+                    break;
+                case 10:
+                    theStringChoice = view.getUserListChoiceInput();
+                    lambdaDvdMap = service.getAllDvdsGroupByUserRating(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdMap(lambdaDvdMap);
+                    break;
+                case 11:
+                    theStringChoice = view.getUserListChoiceInput();
+                    dvdList = service.getDvdsByUserRating(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdList(dvdList);
+                    break;
+                case 12:
+                    theStringChoice = view.getUserListChoiceInput();
+                    lambdaDvdMap = service.getDvdsYoungerThanGroupByReleaseDate(theStringChoice);
+                    view.displayDisplayDvdBanner();
+                    view.displayDvdMap(lambdaDvdMap);
+                    break;
+                case 13:
                     //Leave the menu
                     keepOnKeepingOn = false;
                     break;
                 default:
+                    unknownCommand();
                     break;
             }
         }
-        view.displayDisplayDvdBanner();
-        dvdList = service.getAllDvds();
-        //      service.callUpLambda(lambdaListChoice);
-        view.displayDvdList(dvdList);
     }
 
     private void viewDvd() throws DvdLibraryPersistenceException {

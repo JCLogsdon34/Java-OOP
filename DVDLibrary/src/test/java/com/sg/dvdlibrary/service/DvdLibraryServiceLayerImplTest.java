@@ -19,8 +19,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class DvdLibraryServiceLayerImplTest {
-    private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
-    private DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
+    DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
+    DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
     private DvdLibraryServiceLayer service = new DvdLibraryServiceLayerImpl(dao, auditDao);
     
     public DvdLibraryServiceLayerImplTest() {
@@ -93,7 +93,7 @@ public class DvdLibraryServiceLayerImplTest {
         dao.addDvd(dvd2.getDvdTitle(), dvd2);
         
         service.removeDvd(dvd1.getDvdTitle());
-        assertEquals(1, service.getAllDvds().size());
+        assertEquals(0, service.getAllDvds().size());
         assertNull(service.getDvd(dvd1.getDvdTitle()));
         
         service.removeDvd(dvd2.getDvdTitle());
