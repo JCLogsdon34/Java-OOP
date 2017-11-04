@@ -49,11 +49,11 @@ public class ClassRosterView {
     }
 
     public void displayStudentList(List<Student> studentList) {
-        for (Student currentStudent : studentList) {
+        studentList.stream().forEach((currentStudent) -> {
             io.print(currentStudent.getStudentId() + ": "
                     + currentStudent.getFirstName() + " "
                     + currentStudent.getLastName());
-        }
+        });
         io.readString("Please hit enter to continue.");
     }
 

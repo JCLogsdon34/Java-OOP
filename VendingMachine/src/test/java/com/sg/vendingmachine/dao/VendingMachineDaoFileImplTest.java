@@ -12,13 +12,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class VendingMachineDaoFileImplTest {
 
-    private VendingMachineDao dao = new VendingMachineDaoStubImpl();
+    VendingMachineDao dao = new VendingMachineDaoStubImpl();
 
     public VendingMachineDaoFileImplTest() {
-
+        ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("applicationContext.xml");
+    dao = 
+        ctx.getBean("dao", VendingMachineDaoStubImpl.class);
     }
 
     @BeforeClass

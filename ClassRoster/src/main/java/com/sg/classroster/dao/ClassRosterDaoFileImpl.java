@@ -145,15 +145,17 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
         // already created a method that gets a List of Students so
         // we'll reuse it.
         List<Student> studentList = this.getAllStudents();
-        for (Student currentStudent : studentList) {
+        studentList.stream().map((currentStudent) -> {
             // write the Student object to the file
             out.println(currentStudent.getStudentId() + DELIMITER
                     + currentStudent.getFirstName() + DELIMITER
                     + currentStudent.getLastName() + DELIMITER
                     + currentStudent.getCohort());
+            return currentStudent;
+        }).forEach((_item) -> {
             // force PrintWriter to write line to the file
             out.flush();
-        }
+        });
         // Clean up
         out.close();
     }

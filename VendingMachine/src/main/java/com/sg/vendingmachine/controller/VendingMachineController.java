@@ -79,7 +79,7 @@ public class VendingMachineController {
     private int getMenuSelection()
             throws VendingMachineDaoException,
             VendingMachinePersistenceException {
-
+        
         return myView.printMenuAndGetSelection();
     }
 

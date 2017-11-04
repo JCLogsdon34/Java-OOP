@@ -179,7 +179,6 @@ public class DvdLibraryController {
                     view.displayDvdMap(lambdaDvdMap);
                     break;
                 case 13:
-                    //Leave the menu
                     keepOnKeepingOn = false;
                     break;
                 default:

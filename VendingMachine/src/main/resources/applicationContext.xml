@@ -14,29 +14,46 @@
           http://www.springframework.org/schema/context/spring-context.xsd
           http://www.springframework.org/schema/aop  
           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
-
-    <!-- Bean definitions go here -->
-    <bean id="userIO" class="com.sg.dvdlibrary.ui.UserIOConsoleImpl"/>
+    
+    <bean id="userIO" class="com.sg.vendingmachine.ui.UserIoConsoleImpl"/>
    
-    <bean id="view" class="com.sg.dvdlibrary.ui.DvdView">
+    <bean id="view" class="com.sg.vendingmachine.ui.VendingMachineView">
         <constructor-arg ref="userIO"/>
     </bean>
    
     <bean id="dao" 
-          class="com.sg.dvdlibrary.dao.DvdLibraryDaoFileImpl"/>
+          class="com.sg.vendingmachine.dao.VendingMachineDaoFileImpl"/>
    
     <bean id="auditDao" 
-          class="com.sg.dvdlibrary.dao.DvdLibraryAuditDaoFileImpl"/>
+          class="com.sg.vendingmachine.dao.VendingMachineAuditDaoFileImpl"/>
    
     <bean id="service" 
-          class="com.sg.dvdlibrary.service.DvdLibraryServiceLayerImpl">
+          class="com.sg.vendingmachine.service.VendingMachineServiceLayerImpl">
         <constructor-arg ref="dao"/>
         <constructor-arg ref="auditDao"/>           
     </bean>
    
     <bean id="controller" 
-          class="com.sg.dvdlibrary.controller.DvdLibraryController">
+          class="com.sg.vendingmachine.controller.VendingMachineController">
         <constructor-arg ref="service"/>
         <constructor-arg ref="view"/>
     </bean>
+    
+    <bean id="loggingAdvice" class="com.sg.vendingmachine.advice.LoggingAdvice">
+        <constructor-arg ref="auditDao"/>
+    </bean>
+    <aop:config>
+        <aop:aspect ref="loggingAdvice">
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChange(..))"
+            />
+         
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"
+            />
+           
+        </aop:aspect>
+    </aop:config>
 </beans>

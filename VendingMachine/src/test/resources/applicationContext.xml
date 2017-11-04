@@ -14,18 +14,17 @@
           http://www.springframework.org/schema/context/spring-context.xsd
           http://www.springframework.org/schema/aop  
           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
-
-    <!-- Bean definitions go here -->
-   
+        
     <bean id="dao" 
-              class="com.sg.dvdlibrary.dao.DvdLibraryDaoFileImpl"/>
+              class="com.sg.vendingmachine.dao.VendingMachineDaoStubImpl"/>
         
     <bean id="auditDao" 
-              class="com.sg.dvdlibrary.dao.DvdLibraryAuditDaoImpl"/>
+              class="com.sg.vendingmachine.dao.VendingMachineAuditDaoStubImpl"/>
    
     <bean id="service" 
-              class="com.sg.dvdlibrary.service.DvdLibraryServiceLayerImpl">
+              class="com.sg.vendingmachine.service.VendingMachineServiceLayerImpl">
         <constructor-arg ref="dao"/>
         <constructor-arg ref="auditDao"/>   
     </bean>
+        
 </beans>

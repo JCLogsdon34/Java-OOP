@@ -13,7 +13,7 @@ import java.util.List;
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
-    private VendingMachineAuditDao auditDao = new VendingMachineAuditDaoImpl();
+    VendingMachineAuditDao auditDao = new VendingMachineAuditDaoImpl();
     private VendingMachineDao dao = new VendingMachineDaoFileImpl();
 
 
@@ -41,8 +41,9 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachineInsufficientFundsException {
         List<String> changeRefund = new ArrayList<>();
         changeRefund = coinsOut(itemPrice, itemMoney);
-        auditDao.writeAuditEntry(
+       /* auditDao.writeAuditEntry(
                 "Money " + changeRefund + " returned as change to user.");
+       */
         return changeRefund;
     }
 
@@ -56,8 +57,9 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         currentItem = getItem(itemCode);
         validateItemData(itemCode);
         itemInventory = dao.vendAndUpdateItem(itemCode, currentItem);
-        auditDao.writeAuditEntry(
+        /*auditDao.writeAuditEntry(
                 "Item " + currentItem.getItemCode() + " Inventory Sent for Vending.");
+        */
         return itemInventory;
     }
 

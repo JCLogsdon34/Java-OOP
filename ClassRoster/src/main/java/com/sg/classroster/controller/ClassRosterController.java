@@ -13,8 +13,6 @@ import com.sg.classroster.service.ClassRosterDataValidationException;
 import com.sg.classroster.service.ClassRosterDuplicateIdException;
 import com.sg.classroster.service.ClassRosterServiceLayer;
 import com.sg.classroster.ui.ClassRosterView;
-import com.sg.classroster.ui.UserIO;
-import com.sg.classroster.ui.UserIOConsoleImpl;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +22,11 @@ public class ClassRosterController {
     ClassRosterView view;
     ClassRosterServiceLayer service;
 
-    public ClassRosterController(ClassRosterDao dao, ClassRosterView view) {
+    public ClassRosterController(ClassRosterView view, ClassRosterServiceLayer service) {
         this.view = view;
+        this.service = service;
     }
 
-    private UserIO io = new UserIOConsoleImpl();
 
     public void run() {
         boolean keepGoing = true;

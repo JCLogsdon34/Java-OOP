@@ -11,6 +11,12 @@ public class Item {
     public String itemCode;
     public int itemInventory;
     
+    @Override
+    public String toString() {
+        return "Name: " + itemName + " |Price: " + itemPrice + " |Code: "
+                + itemCode + " |Inventory: " + itemInventory;
+    }
+    
     public Item(String itemCode) {
         this.itemCode = itemCode;
     }
