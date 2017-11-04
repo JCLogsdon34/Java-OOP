@@ -1,0 +1,30 @@
+How far have you progressed in this assignment?
+    I have implemented the Spring Dependency Injection. 
+
+What Roadblocks have I encountered?
+    The only trouble I had with that part of this was in the applicationContext.xml
+    file for the Unit Tests. I mislabelled a class name and it took me a while
+    to figure that out.
+    I took time during this assignment to work more on the exercise from Milestone III,
+    involving lambdas and streams. I understand how they work, but the new menu I wrote
+    for different types of lists still needs work.
+What Help have I had so far? 
+    I had asked previously about how lambdas work, and after having it explained on Slack 
+    I gained a better understanding of lambdas and streams.
+What Roadblocks, if any, remain?
+    Well, I think my code can improve a great deal, especially the new list menu. 
+    I think I can shrink the size of that switch statement down a little bit, 
+    in particular. That said from what I have learned, code may almost always
+    be simplified in some way. It is not exactly a roadblock, but I think more reading
+    on the Spring website would be a good idea as well, as I did not read as much
+    of what was there as I would have liked. 
+Have there been any enlightening revelations that have come while working on
+this assignment? If so, what did you learn?
+    I learned, while trying to find my small error in my applicationContext.xml file,
+    more about what those files do and what each type of tag means and relates to the rest
+    of my code. As I had learned last milestone, I need to code everyday in some way.
+    I plan to use the unit test exercises for milestone IV to do just that. Thought again today, I did not
+    get to work on them, I will be taking those two unit tests a day. 
+    
+    
+
