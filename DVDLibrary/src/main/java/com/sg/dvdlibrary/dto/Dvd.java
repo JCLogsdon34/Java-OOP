@@ -15,6 +15,13 @@ public class Dvd {
     public String studioName;
     public String userRating;
 
+    @Override
+    public String toString() {
+        return "Title: " + dvdTitle + " |Release Date: " + releaseDate + 
+              " |Director: " + directorsName + "|MPAA rating" + mpaaRating + "|Studio Name" 
+                + studioName + "|Rating by User" + userRating + " ";
+    }
+
     public void setDvdTitle(String dvdTitle) {
         this.dvdTitle = dvdTitle;
     }
@@ -34,27 +41,27 @@ public class Dvd {
     public String getReleaseDate() {
         return releaseDate;
     }
-    
+
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-    }  
-    
+    }
+
     public LocalDate getReleaseDates() {
         return releaseDates;
     }
-    
+
     public void setReleaseDates(LocalDate releaseDates) {
         this.releaseDates = releaseDates;
-    } 
-    
+    }
+
     public long getDvdAge() {
         Period p = releaseDates.until(LocalDate.now());
         return p.getYears();
-    }  
-    
+    }
+
     public void setMpaaRating(String mpaaRating) {
         this.mpaaRating = mpaaRating;
-    } 
+    }
 
     public String getMpaaRating() {
         return mpaaRating;
@@ -74,7 +81,7 @@ public class Dvd {
 
     public String getUserRating() {
         return userRating;
-    }  
+    }
 
     @Override
     public int hashCode() {
@@ -114,10 +121,9 @@ public class Dvd {
         }
         if (!Objects.equals(this.studioName, other.studioName)) {
             return false;
-        }
-        else if (!Objects.equals(this.userRating, other.userRating)) {
+        } else if (!Objects.equals(this.userRating, other.userRating)) {
             return false;
         }
         return true;
-    }   
+    }
 }

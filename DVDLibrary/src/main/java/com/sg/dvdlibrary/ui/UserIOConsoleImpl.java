@@ -143,8 +143,8 @@ public class UserIOConsoleImpl implements UserIO {
       Scanner inputReader = new Scanner(System.in);
       String userChoices = null;
       System.out.println(msg);
-        userChoices = inputReader.next();
-      DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("mm-dd-yyyy");
+        userChoices = inputReader.nextLine();
+      DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("DD-MM-YYYY");
       LocalDate parsedDate = LocalDate.parse(userChoices, dateFormat);
       
         return parsedDate;

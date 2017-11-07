@@ -14,7 +14,7 @@ import java.util.List;
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
     VendingMachineAuditDao auditDao = new VendingMachineAuditDaoImpl();
-    private VendingMachineDao dao = new VendingMachineDaoFileImpl();
+    VendingMachineDao dao = new VendingMachineDaoFileImpl();
 
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineAuditDao auditDao) {

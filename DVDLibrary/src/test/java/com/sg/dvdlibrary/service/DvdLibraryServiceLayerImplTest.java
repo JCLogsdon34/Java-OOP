@@ -21,7 +21,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class DvdLibraryServiceLayerImplTest {
     DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
     DvdLibraryAuditDao auditDao = new DvdLibraryAuditDaoImpl();
-    private DvdLibraryServiceLayer service = new DvdLibraryServiceLayerImpl(dao, auditDao);
+    DvdLibraryServiceLayer service = new DvdLibraryServiceLayerImpl(dao, auditDao);
     
     public DvdLibraryServiceLayerImplTest() {
         ApplicationContext ctx = 

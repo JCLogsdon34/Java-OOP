@@ -46,9 +46,26 @@
         <aop:aspect ref="loggingAdvice">
             <aop:after-returning
                 method="createAuditEntry"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(..))"
+            />
+            <aop:after-throwing
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checkTheCash(..))",
+                throwing="VendingMachineInsufficientFundsException")
+            />
+            <aop:after-throwing
+                method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChange(..))"
             />
-         
+            <aop:after-throwing
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChange(..))",
+                throwing="VendingMachineInsufficientFundsException")
+            />
+            <aop:after-throwing
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"
+            />
             <aop:after-returning
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"

@@ -102,9 +102,10 @@ public class DvdLibraryServiceLayerImpl implements
         }
         validateDvdData(dvd);
         dao.addDvd(dvd.getDvdTitle(), dvd);
-
+/*
         auditDao.writeAuditEntry(
                 "Dvd " + dvd.getDvdTitle() + " CREATED.");
+*/
     }
 
     @Override
@@ -121,7 +122,7 @@ public class DvdLibraryServiceLayerImpl implements
     public Dvd removeDvd(String dvdTitle) throws DvdLibraryPersistenceException {
         Dvd removedDvd = dao.removeDvd(dvdTitle);
 
-        auditDao.writeAuditEntry("Dvd " + dvdTitle + " REMOVED.");
+    //    auditDao.writeAuditEntry("Dvd " + dvdTitle + " REMOVED.");
         return dao.removeDvd(dvdTitle);
     }
 

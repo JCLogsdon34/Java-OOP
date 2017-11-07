@@ -26,7 +26,7 @@
           class="com.sg.dvdlibrary.dao.DvdLibraryDaoFileImpl"/>
    
     <bean id="auditDao" 
-          class="com.sg.dvdlibrary.dao.DvdLibraryAuditDaoFileImpl"/>
+          class="com.sg.dvdlibrary.dao.DvdLibraryAuditDaoImpl"/>
    
     <bean id="service" 
           class="com.sg.dvdlibrary.service.DvdLibraryServiceLayerImpl">
@@ -39,4 +39,30 @@
         <constructor-arg ref="service"/>
         <constructor-arg ref="view"/>
     </bean>
+    
+    <bean id="loggingAdvice" class="com.sg.dvdlibrary.advice.LoggingAdvice">
+        <constructor-arg ref="auditDao"/>
+    </bean>
+    
+    <aop:config>
+  <aop:aspect ref="loggingAdvice">
+      <aop:after-returning
+          method="createAuditEntry"
+          pointcut="execution(* com.sg.dvdlibrary.service.DvdLibraryServiceLayer.createDvd(..))"
+       />
+         
+      <aop:after-returning
+          method="createAuditEntry"
+          pointcut="execution(* com.sg.dvdlibrary.service.DvdLibraryServiceLayer.removeDvd(..))"
+      />
+       
+         <aop:after-returning
+          method="createAuditEntry"
+          pointcut="execution(* com.sg.dvdlibrary.ui.DvdView.getDvdForUserEdit(..))"
+       />
+          
+    </aop:aspect>
+    
+</aop:config>
+
 </beans>

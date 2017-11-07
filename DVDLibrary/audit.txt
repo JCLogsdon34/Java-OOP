@@ -13,3 +13,8 @@
 2017-11-03T17:54:02.385 : Dvd Joe REMOVED.
 2017-11-04T15:36:49.384 : Dvd Joe REMOVED.
 2017-11-04T15:36:49.443 : Dvd Bill REMOVED.
+2017-11-06T13:52:14.094 : Dvd Joe REMOVED.
+2017-11-06T13:52:14.134 : Dvd Bill REMOVED.
+2017-11-06T17:53:15.503 : createDvd: Title: The Last Jedi |Release Date: 04-18-1990 Rian Johnson |Director: RMPAA ratingApplewoodStudio NameI will love it I am sureRating by UsernullDate 
+2017-11-06T17:53:54.967 : getDvdForUserEdit: The Last JediTitle: The Last Jedi |Release Date: 04-18-1990 Rian Jonson |Director: RMPAA ratingApplewoodStudio NameI will love it I am sureRating by UsernullDate 
+2017-11-06T17:54:07.169 : removeDvd: The Last Jedi

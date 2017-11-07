@@ -2,6 +2,7 @@ package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.Dvd;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -68,10 +69,10 @@ public class DvdView {
             }
         } while (newInput == false);
         String numberYear = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-mm-yyyy");
-        io.readLocalDate("Please enter a release date dd-mm-yyyy");
-        LocalDate formatted = LocalDate.parse(numberYear, formatter);
-        theReleaseDate = formatter.format(formatted);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        numberYear = io.readString("Please enter a release date MM-dd-yyyy");
+        LocalDate date = LocalDate.parse(numberYear, formatter);
+        theReleaseDate = date.format(formatter);
         currentDvd.setReleaseDate(theReleaseDate);
         String mpaaRating = io.readString("Please enter the MPAA rating");
         currentDvd.setMpaaRating(mpaaRating);
