@@ -902,3 +902,26 @@
 2017-10-30T14:09:01.489 : Money [Quarter, Penny] returned as change to user.
 2017-10-30T17:20:24.309 : Money [Quarter, Penny] returned as change to user.
 2017-10-30T17:20:24.858 : Item L31 Inventory Sent for Vending.
+2017-11-07T13:03:27.305 : checkTheCash: 1.000.90
+2017-11-07T13:03:35.768 : returnChange: 1.001.00
+2017-11-07T13:03:35.812 : vendItem: H29
+2017-11-07T15:09:24.761 : checkTheCash : 1.000.85
+2017-11-07T15:09:34.714 : returnChange : 1.001.00
+2017-11-07T15:09:34.742 : vendItem : H29
+2017-11-07T15:23:43.892 : checkTheCash : 1.000.90
+2017-11-07T15:24:23.487 : returnChange : 1.001.00
+2017-11-07T15:24:23.532 : vendItem : H29
+2017-11-07T16:40:30.883 : checkTheCash : 1.000.90 
+2017-11-07T16:40:36.989 : returnChange : 1.001.00 
+2017-11-07T16:40:37.173 : vendItem : H29 
+2017-11-07T16:40:58.271 : returnChange : 1.251.25 
+2017-11-07T16:40:58.292 : vendItem : L31 
+2017-11-07T16:51:15.599 : returnChange : 1.001.00 
+2017-11-07T19:47:07.008 : returnChange : 1.001.00 
+2017-11-07T19:47:07.045 : vendItem : H29 
+2017-11-07T19:47:19.029 : returnChange : 1.251.25 
+2017-11-07T19:47:19.111 : vendItem : L31 
+2017-11-07T19:51:54.059 : returnChange : 1.001.00 
+2017-11-07T19:51:54.095 : vendItem : H29 
+2017-11-07T20:02:56.538 : returnChange : 1.001.00 
+2017-11-07T20:02:56.670 : vendItem : H29 

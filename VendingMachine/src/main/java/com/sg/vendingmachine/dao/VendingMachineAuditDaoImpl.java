@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 public class VendingMachineAuditDaoImpl  implements VendingMachineAuditDao {
     
     public static final String AUDIT_FILE = "audit.txt";
-   
  
     @Override
     public void writeAuditEntry(String entry) {
@@ -23,9 +22,9 @@ public class VendingMachineAuditDaoImpl  implements VendingMachineAuditDao {
         } catch (IOException e) {
             Logger.getLogger(VendingMachineAuditDaoImpl.class.getName()).log(Level.SEVERE, null, e);
         }
-
+        
         LocalDateTime timestamp = LocalDateTime.now();
-        out.println(timestamp.toString() + " : " + entry);
+        out.println(timestamp.toString() + " : " + entry + " ");
         out.flush();
     }
 }

@@ -30,7 +30,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
        if (itemRefund.compareTo(BigDecimal.ZERO) < 0) {
             throw new VendingMachineInsufficientFundsException(
                     "ERROR: Could not vend.  Money"
-                    + itemRefund
+                    + itemMoneyBig
                     + " paid was not sufficient");
         }
      return itemRefund; 
