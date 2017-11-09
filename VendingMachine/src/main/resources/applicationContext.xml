@@ -15,6 +15,8 @@
           http://www.springframework.org/schema/aop  
           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
     
+    
+    
     <bean id="userIO" class="com.sg.vendingmachine.ui.UserIoConsoleImpl"/>
    
     <bean id="view" class="com.sg.vendingmachine.ui.VendingMachineView">
@@ -42,44 +44,44 @@
     <bean id="loggingAdvice" class="com.sg.vendingmachine.advice.LoggingAdvice">
         <constructor-arg ref="auditDao"/>
     </bean>
-    
     <aop:config>
         <aop:aspect ref="loggingAdvice">
+             <aop:pointcut id="pointCutAfterThrowing" 
+                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(. .))"/>
+            
+            <aop:after-throwing method="afterLogging"
+                                pointcut-ref="pointCutAfterThrowing" 
+                                throwing="exception"
+                                             
+            />
             <aop:after-returning
                 method="createAuditEntry"
-                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(..))"
-            />
-            <aop:pointcut id="pointCutAfterCheckTheCash" 
-                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(..))"/>
-               
-            <aop:after-throwing method="createAuditEntry"
-                                throwing="VendingMachineInsufficientFundsException"
-                                pointcut-ref="pointCutAfterCheckTheCash"              
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCashThrowVendingMachineInsufficientFundsException(..))"
             />
             <aop:after-returning
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChange(..))"
             />
-            <aop:pointcut id="pointCutAfterReturnChange"
-                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChange(..))"/>  
+            <aop:pointcut id="pointCutAfterThrowingChange"
+                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChangeThrowVendingMachineInsufficientFundsException(..))"/>  
             <aop:after-throwing
-                method="createAuditEntry"
-                throwing="VendingMachineInsufficientFundsException" 
-                pointcut-ref="pointCutAfterReturnChange" 
+                method="afterLogging"
+                pointcut-ref="pointCutAfterThrowingChange" 
+                throwing="exception" 
+                
             />
-            <aop:pointcut id="pointCutAfterVendItem"
-                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"/>  
+            <aop:pointcut id="pointCutAfterThrowingNoItem"
+                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItemThrowVendingMachineNoItemInInventory(..))"/>  
             <aop:after-throwing
-                method="createAuditEntry"
-                throwing="VendingMachineNoItemInInventoryException" 
-                pointcut-ref="pointCutAfterVendItem"
-                 
+                method="afterLog"
+                pointcut-ref="pointCutAfterThrowingNoItem"
+                throwing="exception" 
+                
             />
             <aop:after-returning
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"
             />
-           
         </aop:aspect>
     </aop:config>
 </beans>

@@ -24,7 +24,7 @@ public class VendingMachineAuditDaoImpl  implements VendingMachineAuditDao {
         }
         
         LocalDateTime timestamp = LocalDateTime.now();
-        out.println(timestamp.toString() + " : " + entry + " ");
+        out.println(timestamp.toString() + " : " + entry + " : ");
         out.flush();
     }
 }

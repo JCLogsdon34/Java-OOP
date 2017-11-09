@@ -13,7 +13,7 @@ public class Item {
     
     @Override
     public String toString() {
-        return "|Name: " + itemName + " |Code: " + itemCode + " ";
+        return "|Name: " + itemName + " |Code: " + itemCode + " " + "|Item Price" + itemPrice;
     }
     
     public Item(String itemCode) {
