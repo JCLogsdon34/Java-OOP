@@ -1,4 +1,3 @@
-
 package com.sg.section04unittests;
 
 /**
@@ -6,6 +5,7 @@ package com.sg.section04unittests;
  * @author apprentice
  */
 public class CaughtSpeeding {
+
     // You are driving a little too fast, and a police 
     // officer stops you. Write code to compute the 
     // result, encoded as an int value: 0=no ticket, 
@@ -20,6 +20,28 @@ public class CaughtSpeeding {
     // caughtSpeeding(65, false) → 1
     //caughtSpeeding(65, true) → 0
     public int caughtSpeeding(int speed, boolean isBirthday) {
-        throw new UnsupportedOperationException("Not implemented");  
+        int ticket = 0;
+        if (isBirthday == false) {
+            if (speed < 61) {
+                ticket = 0;
+            } else if (speed > 60) {
+                if (speed < 81) {
+                    ticket = 1;
+                } else {
+                    ticket = 2;
+                }
+            }
+        } else if (isBirthday == true) {
+            if (speed < 66) {
+                ticket = 0;
+            } else if (speed > 65) {
+                if (speed < 86) {
+                    ticket = 1;
+                } else {
+                    ticket = 2;
+                }
+            }
+        }
+        return ticket;
     }
 }

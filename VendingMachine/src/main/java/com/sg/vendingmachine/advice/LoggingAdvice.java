@@ -34,11 +34,12 @@ public class LoggingAdvice {
         }
     }
 
-    public void afterLogging(JoinPoint jp, VendingMachineInsufficientFundsException exception) {
+    public void afterLogging(JoinPoint jp, VendingMachineInsufficientFundsException exception) 
+    throws VendingMachineInsufficientFundsException{
         Object[] args = jp.getArgs();
-        String auditEntry = jp.getSignature().getName() + " : " + exception;
+        String auditEntry = jp.getSignature().getName()+" : "+exception;
         for (Object currentArg : args) {
-            auditEntry = auditEntry + " " + currentArg;
+            auditEntry += currentArg;
         }
         try {
             auditDao.writeAuditEntry(auditEntry);
@@ -48,11 +49,12 @@ public class LoggingAdvice {
         }
     }
 
-    public void afterLog(JoinPoint jp, VendingMachineNoItemInInventoryException exception) {
+    public void afterLog(JoinPoint jp, VendingMachineNoItemInInventoryException exception1) 
+    throws VendingMachineNoItemInInventoryException {
         Object[] args = jp.getArgs();
-        String auditEntry = jp.getSignature().getName() + " : " + exception;
+        String auditEntry = jp.getSignature().getName()+" : "+exception1;
         for (Object currentArg : args) {
-            auditEntry = auditEntry + " " + currentArg;
+            auditEntry += currentArg;
         }
         try {
             auditDao.writeAuditEntry(auditEntry);

@@ -34,7 +34,7 @@ public class Change {
         penniesOut = (int) (coinWorthInt / pennies);
         return penniesOut;
     }
-
+//rerange so everything is defined in pennies
     public static List<String> coinsOut(BigDecimal itemPrice, BigDecimal itemMoney) {
         BigDecimal coinWorthBig = BigDecimal.ZERO;
         int coinWorthInt = 0;
@@ -59,7 +59,8 @@ public class Change {
                 runIn = false;
 
                 quartersOut = getQuarters(coinWorthInt);
-                while (quartersOut > 0) {
+                //was while
+                if (quartersOut > 0) {
                     coinsOut.add(quarter);
                     quartersOut = quartersOut - 1;
                     coinWorthInt = coinWorthInt - 25;

@@ -143,6 +143,7 @@ public class VendingMachineView {
 
     public void displayNotEnoughMessage(BigDecimal itemMoneyParsed) {
         io.print("=== ERROR ===");
-        io.print(itemMoneyParsed + " is not enough for that item.");
+        io.print(itemMoneyParsed + " is not enough for that item. Here is your money"
+                + "back " + itemMoneyParsed);
     }
 }

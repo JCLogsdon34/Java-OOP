@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
  */
 public class CaughtSpeedingTest {
     
+    CaughtSpeeding speeding = new CaughtSpeeding();
+    
     public CaughtSpeedingTest() {
     }
     
@@ -36,11 +38,31 @@ public class CaughtSpeedingTest {
     @After
     public void tearDown() {
     }
+    // caughtSpeeding(60, false) → 0
+    // caughtSpeeding(65, false) → 1
+    //caughtSpeeding(65, true) → 0
+    @Test
+    public void test60False() {
+        int expectedResult = 0;
+        int speed= 60;
+        boolean isBirthday = false;
+        assertEquals(expectedResult, speeding.caughtSpeeding(speed, isBirthday));
+    }
 
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void test65False() {
+        int expectedResult = 1;
+        int speed= 65;
+        boolean isBirthday = false;
+        assertEquals(expectedResult, speeding.caughtSpeeding(speed, isBirthday));
     }
-    
+
+    @Test
+    public void test65True() {
+        int expectedResult = 0;
+        int speed= 65;
+        boolean isBirthday = true;
+        assertEquals(expectedResult, speeding.caughtSpeeding(speed, isBirthday));
+    }
+    //From the code along, they do not pass
 }

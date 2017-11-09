@@ -20,6 +20,9 @@ public class InsertWord {
     // insertWord("<<>>", "WooHoo") -> "<<WooHoo>>"
     // insertWord("[[]]", "word") -> "[[word]]"
     public String insertWord(String container, String word) {
-        throw new UnsupportedOperationException("Not implemented");
+        
+        String message = "<"+tag+">"+content+"</"+tag+">";
+        
+        return message;
     }
 }

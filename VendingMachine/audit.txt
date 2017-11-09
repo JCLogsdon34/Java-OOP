@@ -966,3 +966,21 @@
 2017-11-08T22:08:17.198 : vendItem : ERROR: Could not vend.  Item H29 is sold out  H29 : 
 2017-11-08T22:15:05.585 : returnChange : 1.001.00 : 
 2017-11-08T22:16:50.479 : returnChange : 1.001.00 : 
+2017-11-09T14:21:38.953 : returnChange : 1.251.25 : 
+2017-11-09T14:31:10.048 : returnChange : 1.251.25 : 
+2017-11-09T14:35:33.195 : returnChange : 1.001.00 : 
+2017-11-09T14:38:26.160 : returnChange : 1.001.00 : 
+2017-11-09T14:38:26.232 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold out H29 : 
+2017-11-09T14:49:21.767 : returnChange : 1.001.00 : 
+2017-11-09T14:49:21.823 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold out H29 : 
+2017-11-09T15:28:26.445 : returnChange : 1.001.00 : 
+2017-11-09T16:14:03.030 : returnChange : 1.001.00 : 
+2017-11-09T16:14:03.201 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold outH29 : 
+2017-11-09T16:46:40.635 : returnChange : 1.000.90 : 
+2017-11-09T16:46:40.679 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold outH29 : 
+2017-11-09T16:55:05.656 : returnChange : 1.151.14 : 
+2017-11-09T16:55:05.705 : vendItem : V61 : 
+2017-11-09T17:05:33.370 : returnChange : 1.001.00 : 
+2017-11-09T17:05:33.406 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold outH29 : 
+2017-11-09T17:10:29.161 : returnChange : 1.001.00 : 
+2017-11-09T17:10:29.204 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold outH29 : 

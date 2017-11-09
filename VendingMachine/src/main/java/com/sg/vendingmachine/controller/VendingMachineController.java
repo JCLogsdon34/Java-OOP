@@ -110,18 +110,15 @@ public class VendingMachineController {
         itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
         myView.displayPriceItemBanner();
-        do{
+ //       do{
         itemPrice = service.getItemPriceByCode(itemCode);     
         itemMoneyParsed = myView.getPayment(itemPrice);
-        try{   
+  
         userRefund = service.checkTheCash(itemPrice, itemMoneyParsed);   
-        }catch (VendingMachineInsufficientFundsException e){
-            myView.displayErrorMessage(e.getMessage());
-        }
         if(itemMoneyParsed.compareTo(itemPrice) < 0){
             myView.displayNotEnoughMessage(itemMoneyParsed);
-        }
-        }while(itemMoneyParsed.compareTo(itemPrice) < 0);
+        }else if(itemMoneyParsed.compareTo(itemPrice) >= 0){
+  //      }while(itemMoneyParsed.compareTo(itemPrice) < 0);
         cashRefund = service.returnChange(itemPrice, itemMoneyParsed);
         myView.refundMoney(cashRefund);
         myView.displayVendingItem();
@@ -129,6 +126,7 @@ public class VendingMachineController {
         myView.displayItem(currentItem);
         myView.displayVendSuccessBanner();
         exitMessage();
+        }
     }
 
     private void viewItem()

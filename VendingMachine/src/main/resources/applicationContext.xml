@@ -46,42 +46,34 @@
     </bean>
     <aop:config>
         <aop:aspect ref="loggingAdvice">
-             <aop:pointcut id="pointCutAfterThrowing" 
-                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(. .))"/>
-            
-            <aop:after-throwing method="afterLogging"
-                                pointcut-ref="pointCutAfterThrowing" 
-                                throwing="exception"
-                                             
-            />
+  
             <aop:after-returning
                 method="createAuditEntry"
-                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCashThrowVendingMachineInsufficientFundsException(..))"
+                pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(..))"
             />
+            
             <aop:after-returning
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChange(..))"
             />
-            <aop:pointcut id="pointCutAfterThrowingChange"
-                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.returnChangeThrowVendingMachineInsufficientFundsException(..))"/>  
-            <aop:after-throwing
-                method="afterLogging"
-                pointcut-ref="pointCutAfterThrowingChange" 
-                throwing="exception" 
-                
-            />
-            <aop:pointcut id="pointCutAfterThrowingNoItem"
-                          expression="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItemThrowVendingMachineNoItemInInventory(..))"/>  
-            <aop:after-throwing
-                method="afterLog"
-                pointcut-ref="pointCutAfterThrowingNoItem"
-                throwing="exception" 
-                
-            />
+            
             <aop:after-returning
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"
             />
+            
+            <aop:after-throwing method="afterLogging"
+                                  pointcut = "execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(..))"
+                                  throwing="exception"           
+            />
+            
+            <aop:after-throwing
+                method="afterLog"
+                pointcut = "execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.vendItem(..))"
+                throwing="exception1" 
+                
+            />
+            
         </aop:aspect>
     </aop:config>
 </beans>

@@ -29,17 +29,17 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             itemRefund = itemMoneyBig.subtract(itemPriceBig); 
        if (itemRefund.compareTo(BigDecimal.ZERO) < 0) {
             throw new VendingMachineInsufficientFundsException(
-                    "ERROR: Could not vend.  Money"
-                    + itemMoneyBig
+                    "ERROR: Could not vend.  Money "
+                    + itemMoneyBig.toString()
                     + " paid was not sufficient");
         }
      return itemRefund; 
        }
 
     @Override
-    public List<String> returnChange(BigDecimal itemPrice, BigDecimal itemMoney)
-            throws VendingMachineInsufficientFundsException {
+    public List<String> returnChange(BigDecimal itemPrice, BigDecimal itemMoney) {
         List<String> changeRefund = new ArrayList<>();
+        
         changeRefund = coinsOut(itemPrice, itemMoney);
        /* auditDao.writeAuditEntry(
                 "Money " + changeRefund + " returned as change to user.");
