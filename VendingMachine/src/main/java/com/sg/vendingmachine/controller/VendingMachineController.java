@@ -110,7 +110,6 @@ public class VendingMachineController {
         itemCode = myView.getItemCodeChoice();
         currentItem = service.getItem(itemCode);
         myView.displayPriceItemBanner();
- //       do{
         itemPrice = service.getItemPriceByCode(itemCode);     
         itemMoneyParsed = myView.getPayment(itemPrice);
   
@@ -118,7 +117,6 @@ public class VendingMachineController {
         if(itemMoneyParsed.compareTo(itemPrice) < 0){
             myView.displayNotEnoughMessage(itemMoneyParsed);
         }else if(itemMoneyParsed.compareTo(itemPrice) >= 0){
-  //      }while(itemMoneyParsed.compareTo(itemPrice) < 0);
         cashRefund = service.returnChange(itemPrice, itemMoneyParsed);
         myView.refundMoney(cashRefund);
         myView.displayVendingItem();

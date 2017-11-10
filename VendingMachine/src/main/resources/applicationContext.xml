@@ -63,7 +63,7 @@
             />
             
             <aop:after-throwing method="afterLogging"
-                                  pointcut = "execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checktheCash(..))"
+                                  pointcut = "execution(* com.sg.vendingmachine.service.VendingMachineServiceLayer.checkTheCash(..))"
                                   throwing="exception"           
             />
             

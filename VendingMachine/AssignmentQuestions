@@ -1,15 +1,27 @@
-How far have you progressed in this assignment?
+What went well with this assignment?
+         Putting in the Spring DI went smoothly. I actually did it for this right after the code along
+for the ClassRoster. I was forced, by implementing the Spring AOP, to notice small things I needed to change as well, unrelated to the
+assignment. Implementing those small changes went more smoothly than I had hoped. 
 
+What did you struggle with?
+   I had analysis paralysis regarding the implementation of AOP. I over-thought the last step of
+making the audit dao record the exceptions. That was a painful reminder that I tend to do that,
+and tend sometime to not plan how to attack a problem well. Today, I stepped back from the project,
+worked on Unit Tests, and then sit and thought about what my goals and problems
+were again. Then I was able to move forward. 
 
-What Roadblocks have I encountered?
-   
-What Help have I had so far? 
+How and Where did you seek help with this assignment?
+I first did some research on AOP. I found multiple sites that had tutorials and examples. 
+I learned some interesting things that AOP is able to do in the process, and also where
+to find help in the future. For specific problems, I went to OOH on slack, and asked questions. 
+
+What unanswered questions do you still have?
+I am interested in learning about the other options aside from @after, @before, etc and how they work.
+I'd be interested in learning as well how to use AOP to marshal other information, like 
+in my dao, to permanent storage. 
+
     
-What Roadblocks, if any, remain?
-   
-Have there been any enlightening revelations that have come while working on
-this assignment? If so, what did you learn?
-   
+
     
     
 

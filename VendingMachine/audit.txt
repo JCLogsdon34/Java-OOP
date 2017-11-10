@@ -984,3 +984,6 @@
 2017-11-09T17:05:33.406 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold outH29 : 
 2017-11-09T17:10:29.161 : returnChange : 1.001.00 : 
 2017-11-09T17:10:29.204 : vendItem : com.sg.vendingmachine.service.VendingMachineNoItemInInventoryException: ERROR: Could not vend.  Item H29 is sold outH29 : 
+2017-11-09T17:57:15.850 : returnChange : 1.251.71 : 
+2017-11-09T17:57:15.900 : vendItem : L31 : 
+2017-11-09T20:01:20.787 : checkTheCash : com.sg.vendingmachine.service.VendingMachineInsufficientFundsException: ERROR: Could not vend.  Money 0.90 paid was not sufficient1.000.90 : 
