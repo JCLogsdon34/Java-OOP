@@ -2,6 +2,13 @@
 package com.sg.flooringmastery.ui;
 
 import com.sg.flooringmastery.dto.Order;
+import com.sg.flooringmastery.dto.Product;
+import com.sg.flooringmastery.dto.Tax;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 
 public class FlooringView {
@@ -26,7 +33,7 @@ public class FlooringView {
     
     public void displayOrder(Order currentOrder) {
         if (currentOrder != null) {
-            io.print(currentOrder.getOrderNumber().toString());
+            io.print(String.valueOf(currentOrder.getOrderNumber()));
             io.print(currentOrder.getCustomerName());
             io.print(currentOrder.getProduct().toString());
             io.print(currentOrder.getTax().toString());
@@ -39,5 +46,124 @@ public class FlooringView {
             io.print("No such order.");
         }
         io.readString("Please hit enter to continue.");
+    }
+    
+    public void displayOrderByDateList(List<Order> orderList) {
+        orderList.stream().forEach((currentOrder) -> {
+            io.print(String.valueOf(currentOrder.getOrderNumber()));
+            io.print(currentOrder.getCustomerName());
+            io.print(currentOrder.getProduct().toString());
+            io.print(currentOrder.getTax().toString());
+            io.print(currentOrder.getArea().toString());
+            io.print(currentOrder.getMaterialCost().toString());
+            io.print(currentOrder.getLaborCost().toString());
+            io.print(currentOrder.getTotal().toString());
+        });
+        io.readString("Please hit enter to continue.");
+    }
+    
+    public Order getNewOrderInfo() {
+        Order currentOrder = new Order();
+        Tax currentTax = new Tax();
+        Product currentProduct = new Product();
+        boolean newInput;
+        String theOrderDate;
+        do {
+            String customerName;
+            customerName = io.readString("Please enter customer's name");
+            if (customerName != null && !customerName.isEmpty()) {
+                currentOrder.setCustomerName(customerName);
+                newInput = true;
+            } else {
+                newInput = false;
+            }
+        } while (newInput == false);
+        
+        String numberYear = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        numberYear = io.readString("Please enter a transaction date MM-dd-yyyy");
+        LocalDate date = LocalDate.parse(numberYear, formatter);
+        String theReleaseDate = date.format(formatter);
+        currentOrder.setOrderDate(date);
+        String state = io.readString("Please enter the state in which we will work");
+        currentTax.setState(state);
+        String productType = io.readString("Please enter the product's type");
+        currentProduct.setProductType(productType);
+        BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
+        currentOrder.setArea(area);
+/*        String userRating = io.readString("Please enter your rating or note about the DVD");
+        currentOrder.setUserRating(userRating);
+        io.readString("Please hit enter to continue");
+*/
+        return currentOrder;
+    }
+    
+    public void displayOrderMap(Map<String, List<Order>> lambdaOrderMap) {
+        List <Order> orderList;
+        lambdaOrderMap.entrySet().stream().forEach((Map.Entry<String, List<Order>> e) -> {
+            io.print(e.getKey() + " " + e.getValue());
+        });
+    }
+
+    public int getOrderNumberChoice() {
+        String order;
+        order = io.readString("Please enter an order number");
+         int orderNumber;
+         orderNumber = Integer.parseInt(order);
+         return orderNumber;
+    }
+    
+    public boolean getAssurance(){
+        String assurance;
+        boolean certain = false;
+        assurance = io.readString("Are you sure you want to proceed?");
+        if(assurance.equals("y")){
+            certain = false;
+        } else if(!assurance.equals("y")) {
+            certain = true;
+        } 
+        return certain;
+        }
+    
+    public LocalDate getOrderDate(){
+        return io.readLocalDate("Please enter the date of your order");
+    }
+    
+    public void displayAddBanner(){
+        io.print("=== Place Order ===");
+    }
+    
+    public void displayOrderSuccessBanner() {
+        io.readString(
+                "Order successfully placed.  Please hit enter to continue");
+    }
+
+    public void displayDisplayOrderBanner() {
+        io.print("=== Display Order ===");
+    }
+
+    public void displayOrderPlacedBanner() {
+        io.print("=== Order Successful ===");
+    }
+
+    public void displayEditSuccessBanner() {
+        io.print("=== Order Edits Successful ===");
+    }
+
+    public void displayOrderTotalBanner() {
+        io.print("=== Order Total ===");
+    }
+
+    public void displayExitBanner() {
+        io.print("Good Bye!!!");
+    }
+
+    public void displayUnknownCommandBanner() {
+        io.print("Unknown Command!!!");
+    }
+
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
     }
 }

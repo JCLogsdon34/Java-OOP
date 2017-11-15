@@ -2,11 +2,13 @@
 package com.sg.flooringmastery.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 public class Order {
     
     public int orderNumber;
+    public LocalDate orderDate;
     public String customerName;
     public Product product;
     public Tax tax;
@@ -21,6 +23,14 @@ public class Order {
     
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
+    }
+    
+    public LocalDate getOrderDate(){
+        return orderDate;
+    }
+    
+    public void setOrderDate(LocalDate orderDate){
+        this.orderDate = orderDate;
     }
     
     public String getCustomerName() {
