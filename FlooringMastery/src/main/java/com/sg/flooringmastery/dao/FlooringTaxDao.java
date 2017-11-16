@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sg.flooringmastery.dao;
 
-/**
- *
- * @author apprentice
- */
+import com.sg.flooringmastery.dto.Tax;
+import java.math.BigDecimal;
+import java.util.List;
+
 public interface FlooringTaxDao {
-    
+
+    List<Tax> getTaxesByState()
+            throws FlooringPersistenceException;
+
+    BigDecimal getTax(String state)
+            throws FlooringPersistenceException;
 }

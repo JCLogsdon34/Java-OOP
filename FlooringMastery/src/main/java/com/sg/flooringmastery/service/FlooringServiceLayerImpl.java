@@ -26,6 +26,7 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
         this.daoTax = daoTax;
     }
     
+    
     @Override
     public void addOrder(Order order) throws
             FlooringDuplicateOrderException,
@@ -40,11 +41,7 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
         }
         validateOrderData(order);
         
-        order.addOrder(order.getOrderNumber(), order);
-/*
-        auditDao.writeAuditEntry(
-                "Dvd " + dvd.getDvdTitle() + " CREATED.");
-*/
+        daoOrder.addOrder(order.getOrderNumber(), order);
     }
 
     @Override
