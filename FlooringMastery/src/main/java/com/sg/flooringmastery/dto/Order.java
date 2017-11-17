@@ -7,16 +7,20 @@ import java.time.LocalDate;
 
 public class Order {
     
-    public int orderNumber;
     public LocalDate orderDate;
+    public int orderNumber;  
     public String customerName;
-    public Product product;
     public Tax tax;
+    public Product product;
     public BigDecimal area;
     public BigDecimal materialCost;
     public BigDecimal laborCost;
     public BigDecimal total;
     
+/*   public Order(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+*/ 
     public int getOrderNumber() {
         return orderNumber;
     }

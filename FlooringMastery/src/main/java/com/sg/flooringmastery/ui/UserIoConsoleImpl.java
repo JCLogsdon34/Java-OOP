@@ -20,7 +20,7 @@ public class UserIoConsoleImpl implements UserIo {
         String userChoices = null;
         System.out.println(msg);
         userChoices = inputReader.next();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("mm-dd-yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         LocalDate parsedDate = LocalDate.parse(userChoices, dateFormat);
         return parsedDate;
     }

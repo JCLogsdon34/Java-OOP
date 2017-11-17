@@ -83,7 +83,6 @@ public class FlooringView {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         numberYear = io.readString("Please enter a transaction date MM-dd-yyyy");
         LocalDate date = LocalDate.parse(numberYear, formatter);
-        String theReleaseDate = date.format(formatter);
         currentOrder.setOrderDate(date);
         String state = io.readString("Please enter the state in which we will work");
         currentTax.setState(state);

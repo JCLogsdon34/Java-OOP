@@ -1,6 +1,7 @@
 
 package com.sg.flooringmastery.service;
 
+import com.sg.flooringmastery.dao.FlooringOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dto.Order;
 import java.time.LocalDate;
@@ -14,11 +15,9 @@ public interface FlooringServiceLayer {
             FlooringDataValidationException,
             FlooringPersistenceException;
 
-    List<Order> getAllOrders() throws
-            FlooringPersistenceException;
-
-    Order getOrder(int orderNumber, LocalDate date) throws
-            FlooringPersistenceException;
+    Order getOrder(LocalDate date) throws
+            FlooringPersistenceException,
+            FlooringOrdersForThatDateException;
 
     Order removeOrder(int orderNumber, LocalDate date) throws
             FlooringPersistenceException;

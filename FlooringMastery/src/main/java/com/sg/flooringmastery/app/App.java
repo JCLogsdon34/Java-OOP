@@ -2,6 +2,8 @@
 package com.sg.flooringmastery.app;
 
 import com.sg.flooringmastery.controller.FlooringController;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class App {

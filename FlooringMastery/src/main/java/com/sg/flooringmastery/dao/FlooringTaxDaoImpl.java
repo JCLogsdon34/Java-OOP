@@ -33,7 +33,6 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
     }
     
     private Map<String, BigDecimal> taxData = new HashMap<>();
-
     public static final String TAXDATA_FILE = "DataTaxes.txt";
     public static final String DELIMITER = "::";
     

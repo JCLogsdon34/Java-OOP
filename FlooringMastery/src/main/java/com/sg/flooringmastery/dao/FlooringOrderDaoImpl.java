@@ -1,4 +1,3 @@
-
 package com.sg.flooringmastery.dao;
 
 import com.sg.flooringmastery.dto.Order;
@@ -11,54 +10,76 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+import java.util.Set;
 
 public class FlooringOrderDaoImpl implements FlooringOrderDao {
+    
+    @Override
+    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public Order addOrder(LocalDate date, Order order) throws FlooringPersistenceException {
+        loadOrder();
+        List<Order> newList = new ArrayList<Order>();
         Order newOrder = null;
-             
-            loadOrder();
-            orderData.get(date);
-            orderData.keySet();
-            orderData.keySet().stream().filter((key) -> (key.contains(date))).forEach((_order) -> {
-                System.out.println("You already have this Order");
-        });
-            newOrder = orderData.put(order.getOrderDate(), order);            
-            return newOrder;  
+
+        Set<LocalDate> key = orders.keySet();
+  //      Collection<List> value = ordersList.values();
+        
+      //  newOrder = orderData.get();
+      //  orderData.keySet();
+         
+        newList.add(order);
+        newList = orders.put(date, newList);
+        return order;
     }
 
     @Override
     public List<Order> getAllOrdersByDate() throws FlooringPersistenceException {
-            loadOrder();     
-        return new ArrayList<>(orderData.values());
+        loadOrder();
+        return new ArrayList<>();
     }
 
     @Override
-    public Order getOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException {
-            loadOrder();
-            
-        return orderData.get(date);
+    public Order getOrder(LocalDate date) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+        loadOrder();
+        Order newOrder;
+        List<Object> newList;
+      //  Set<LocalDate> key = orderData.keySet();
+      
+        newOrder = (Order) orders.get(date);      
+        if(newOrder != orders.get(date)){
+            throw new FlooringOrdersForThatDateException
+            ("ERROR: No orders for the date "
+                    +date.toString());
+        }
+        return newOrder;
     }
+    LocalDate Date;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+    String parsedDate = Date.format(formatter);
 
-    @Override
-    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private Map<LocalDate, List<Order>> orderData = new HashMap<>();
-
-    public static final String ORDERS_FILE = "Orders_"+LocalDate.now()+".txt";
+    //use a string for ORDERS_FILE
+    //move the following line to the UserIo
+    String theFileName = new SimpleDateFormat("Orders_MM-dd-yyyy.txt").format(new Date());
+    public final String ORDERS_FILE = theFileName;
+    List<Order> ordersList = new ArrayList<>();
+    Map<LocalDate, List<Order>> orders = new HashMap<>();
     public static final String DELIMITER = "::";
-    
-     public void loadOrder() throws FlooringPersistenceException {
+
+    public void loadOrder() throws FlooringPersistenceException {
         Scanner scanner;
         Order currentOrder;
         try {
@@ -75,16 +96,18 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
             currentTokens = currentLine.split(DELIMITER);
             currentOrder = new Order();
             currentOrder.setOrderNumber(Integer.parseInt((currentTokens[0])));
-            currentOrder.setOrderDate(new LocalDate(currentTokens[1]));
-            currentOrder.setCustomerName(currentTokens[2]);
-            currentOrder.setProduct(currentTokens[3]);
-            currentOrder.setTax(currentTokens[4]);
-            currentOrder.setArea(new BigDecimal(currentTokens[5]));
-            currentOrder.setMaterialCost(new BigDecimal(currentTokens[6]));
-            currentOrder.setLaborCost(new BigDecimal(currentTokens[7]));
-            currentOrder.setTotal(new BigDecimal(currentTokens[8]));
+            currentOrder.setCustomerName(currentTokens[1]);
+            currentOrder.tax.setState(currentTokens[2]);
+            currentOrder.tax.setTaxRate(new BigDecimal(currentTokens[3]));
+            currentOrder.product.setProductType(currentTokens[4]);
+            currentOrder.product.setProductCostPerSqFt(new BigDecimal(currentTokens[5]));
+            currentOrder.product.setLaborCostPerSqFt(new BigDecimal(currentTokens[6]));
+            currentOrder.setArea(new BigDecimal(currentTokens[7]));
+            currentOrder.setMaterialCost(new BigDecimal(currentTokens[8]));
+            currentOrder.setLaborCost(new BigDecimal(currentTokens[9]));
+            currentOrder.setTotal(new BigDecimal(currentTokens[10]));
 
-            orderLibrary.put(currentOrder.getOrderDate(), List<currentOrder>);
+            orders.put(currentOrder.getOrderDate(), ordersList);
         }
         scanner.close();
     }
@@ -100,20 +123,22 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         List<Order> orderList = this.getAllOrdersByDate();
         orderList.stream().map((currentOrder) -> {
             out.println(currentOrder.getOrderNumber() + DELIMITER
-                    + currentOrder.getOrderDate() + DELIMITER
                     + currentOrder.getCustomerName() + DELIMITER
-                    + currentOrder.getProduct() + DELIMITER
-                    + currentOrder.getTax() + DELIMITER
+                    + currentOrder.tax.getState() + DELIMITER
+                    + currentOrder.tax.getTaxRate() + DELIMITER
+                    + currentOrder.product.getProductType() + DELIMITER
+                    + currentOrder.product.getProductCostPerSqFt() + DELIMITER
+                    + currentOrder.product.getLaborCostPerSqFt() + DELIMITER
                     + currentOrder.getArea() + DELIMITER
                     + currentOrder.getMaterialCost() + DELIMITER
                     + currentOrder.getLaborCost() + DELIMITER
-                    + currentOrder.getTotal() + DELIMITER);      
+                    + currentOrder.getTotal() + DELIMITER);
             return currentOrder;
         }).forEach((_order) -> {
             out.flush();
         });
-        
+
         out.close();
     }
-    
+
 }
