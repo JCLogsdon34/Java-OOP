@@ -46,6 +46,7 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
     public static final String PRODUCTSDATA_FILE = "DataProducts.txt";
     public static final String DELIMITER = "::";
     
+    @Override
      public void loadProduct() throws FlooringPersistenceException {
         Scanner scanner;
         Product currentProduct;
@@ -71,6 +72,7 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
         scanner.close();
     }
 
+    @Override
     public void writeProduct() throws FlooringPersistenceException {
         PrintWriter out;
         try {

@@ -17,4 +17,8 @@ public interface FlooringProductDao {
 
     BigDecimal getLaborCostPerSqFt(String productType)
             throws FlooringPersistenceException;
+    
+    void loadProduct() throws FlooringPersistenceException;
+    
+    void writeProduct() throws FlooringPersistenceException;
 }

@@ -35,8 +35,11 @@ public class FlooringView {
         if (currentOrder != null) {
             io.print(String.valueOf(currentOrder.getOrderNumber()));
             io.print(currentOrder.getCustomerName());
-            io.print(currentOrder.getProduct().toString());
-            io.print(currentOrder.getTax().toString());
+            io.print(currentOrder.getTax().getState());
+            io.print(currentOrder.getTax().getTaxRate().toString());
+            io.print(currentOrder.getProduct().getProductType());
+            io.print(currentOrder.getProduct().getProductCostPerSqFt().toString());
+            io.print(currentOrder.getProduct().getLaborCostPerSqFt().toString());
             io.print(currentOrder.getArea().toString());
             io.print(currentOrder.getMaterialCost().toString());
             io.print(currentOrder.getLaborCost().toString());
@@ -49,11 +52,14 @@ public class FlooringView {
     }
     
     public void displayOrderByDateList(List<Order> orderList) {
-        orderList.stream().forEach((currentOrder) -> {
+        orderList.stream().forEach((Order currentOrder) -> {
             io.print(String.valueOf(currentOrder.getOrderNumber()));
             io.print(currentOrder.getCustomerName());
-            io.print(currentOrder.getProduct().toString());
-            io.print(currentOrder.getTax().toString());
+            io.print(currentOrder.getTax().getState());
+            io.print(currentOrder.getTax().getTaxRate().toString());
+            io.print(currentOrder.getProduct().getProductType());
+            io.print(currentOrder.getProduct().getProductCostPerSqFt().toString());
+            io.print(currentOrder.getProduct().getLaborCostPerSqFt().toString());
             io.print(currentOrder.getArea().toString());
             io.print(currentOrder.getMaterialCost().toString());
             io.print(currentOrder.getLaborCost().toString());
@@ -84,16 +90,19 @@ public class FlooringView {
         numberYear = io.readString("Please enter a transaction date MM-dd-yyyy");
         LocalDate date = LocalDate.parse(numberYear, formatter);
         currentOrder.setOrderDate(date);
-        String state = io.readString("Please enter the state in which we will work");
-        currentTax.setState(state);
+        String state = io.readString("Please enter the state in which we will work"
+                + "OH, TN, KY, IN");
+        currentOrder.getTax().setState(state);
+        BigDecimal theTax = currentOrder.getTax().getTaxRate();
+        currentOrder.getTax().setTaxRate(theTax);
         String productType = io.readString("Please enter the product's type");
-        currentProduct.setProductType(productType);
+        currentOrder.getProduct().setProductType(productType);
+        BigDecimal materialCost = currentOrder.getProduct().getProductCostPerSqFt();
+        currentOrder.getProduct().setProductCostPerSqFt(materialCost);
+        BigDecimal laborCost = currentOrder.getProduct().getLaborCostPerSqFt();
+        currentOrder.getProduct().setLaborCostPerSqFt(laborCost);
         BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
         currentOrder.setArea(area);
-/*        String userRating = io.readString("Please enter your rating or note about the DVD");
-        currentOrder.setUserRating(userRating);
-        io.readString("Please hit enter to continue");
-*/
         return currentOrder;
     }
     

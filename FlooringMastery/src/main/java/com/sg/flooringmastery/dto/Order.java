@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 
 public class Order {
+
     
     public LocalDate orderDate;
     public int orderNumber;  
@@ -17,10 +18,14 @@ public class Order {
     public BigDecimal laborCost;
     public BigDecimal total;
     
+   
+    
 /*   public Order(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
+    
 */ 
+
     public int getOrderNumber() {
         return orderNumber;
     }
@@ -44,22 +49,23 @@ public class Order {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public Tax getTax() {
+        return tax;
+    }
+    
+    public void setTax(Tax tax) {
+        this.tax = new Tax();
+    }
     
     public Product getProduct() {
         return product;
     }
     
     public void setProduct(Product product) {
-        this.product = product;
+        this.product = new Product();
     }
     
-    public Tax getTax() {
-        return tax;
-    }
-    
-    public void setTax(Tax tax) {
-        this.tax = tax;
-    }
     
     public BigDecimal getArea() {
         return area;

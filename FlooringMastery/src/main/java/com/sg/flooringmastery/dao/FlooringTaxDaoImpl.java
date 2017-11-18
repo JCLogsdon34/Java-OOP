@@ -36,6 +36,7 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
     public static final String TAXDATA_FILE = "DataTaxes.txt";
     public static final String DELIMITER = "::";
     
+    @Override
      public void loadTax() throws FlooringPersistenceException {
         Scanner scanner;
         Tax currentTax;
@@ -60,6 +61,7 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
         scanner.close();
     }
 
+    @Override
     public void writeTax() throws FlooringPersistenceException {
         PrintWriter out;
         try {

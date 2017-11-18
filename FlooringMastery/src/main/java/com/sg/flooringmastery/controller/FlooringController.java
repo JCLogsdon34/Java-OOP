@@ -8,6 +8,7 @@ import com.sg.flooringmastery.service.FlooringDuplicateOrderException;
 import com.sg.flooringmastery.ui.FlooringView;
 import com.sg.flooringmastery.service.FlooringServiceLayer;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,7 +67,7 @@ public class FlooringController {
                     }
                     break;
                 case 6:
-                    keepGoing = false;
+                     keepGoing = false;
                     break;
                 default:
                     unknownCommand();
@@ -91,6 +92,7 @@ public class FlooringController {
             if (youSure == false) {
                 try {
                     service.addOrder(newOrder);
+                    service.getOrderCapitalCost(newOrder);
                     view.displayOrderPlacedBanner();
                     view.displayOrderSuccessBanner();
                     hasErrors = false;
@@ -107,23 +109,18 @@ public class FlooringController {
     private void displayOrder() throws FlooringPersistenceException {
         int orderNumber;
         LocalDate date;
-        Order order = null;
+        Order order;
+        List <Order> newList;
         view.displayDisplayOrderBanner();
         date = view.getOrderDate();
         try{
-        order = service.getOrder(date);
+        newList = service.getOrder(date);
+        if(!newList.isEmpty()){
+        view.displayOrderByDateList(newList);
+        }
         }catch(FlooringOrdersForThatDateException e){
             view.displayErrorMessage(e.getMessage());
         }
-        view.displayOrder(order);
-    }
-
-    private void unknownCommand() {
-        view.displayUnknownCommandBanner();
-    }
-
-    private void exitMessage() {
-        view.displayExitBanner();
     }
 
     private void removeOrder() throws FlooringPersistenceException {
@@ -136,5 +133,13 @@ public class FlooringController {
 
     private void saveOrder() throws FlooringPersistenceException{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     private void unknownCommand() {
+        view.displayUnknownCommandBanner();
+    }
+
+    private void exitMessage() {
+        view.displayExitBanner();
     }
 }

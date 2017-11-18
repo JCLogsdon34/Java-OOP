@@ -11,4 +11,8 @@ public interface FlooringTaxDao {
 
     BigDecimal getTax(String state)
             throws FlooringPersistenceException;
+    
+    void loadTax() throws FlooringPersistenceException;
+    
+    void writeTax() throws FlooringPersistenceException;
 }

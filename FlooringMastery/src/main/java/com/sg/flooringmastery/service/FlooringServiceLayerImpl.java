@@ -59,8 +59,9 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 */
     @Override
-    public Order getOrder(LocalDate date) throws FlooringPersistenceException,
+    public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException,
             FlooringOrdersForThatDateException{
+
         return daoOrder.getOrder(date);
     }
     
@@ -80,6 +81,20 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     @Override
     public Order removeOrder(int orderNumber, LocalDate date) throws FlooringPersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Order getOrderCapitalCost(Order order) throws FlooringDataValidationException {
+      BigDecimal myMaterial = order.product.getProductCostPerSqFt();
+      BigDecimal myLabor = order.product.getLaborCostPerSqFt();
+      BigDecimal myArea = order.getArea();
+      
+      BigDecimal totalMaterial = myArea.multiply(myMaterial);
+      BigDecimal totalLabor = myArea.multiply(myLabor);
+      
+      BigDecimal total = totalMaterial.add(totalLabor);
+      order.setTotal(total);
+      return order;
     }
     
 }

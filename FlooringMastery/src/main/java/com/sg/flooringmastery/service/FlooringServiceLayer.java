@@ -14,8 +14,11 @@ public interface FlooringServiceLayer {
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
             FlooringPersistenceException;
+    
+    Order getOrderCapitalCost(Order order) throws
+            FlooringDataValidationException;
 
-    Order getOrder(LocalDate date) throws
+    List<Order> getOrder(LocalDate date) throws
             FlooringPersistenceException,
             FlooringOrdersForThatDateException;
 
