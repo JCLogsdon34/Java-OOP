@@ -30,7 +30,7 @@ public class UserIoConsoleImpl implements UserIo {
         String moneyInput;
         BigDecimal moneyInserted;
         Scanner inputReader = new Scanner(System.in);
-        System.out.println("Please enter money paid");
+        System.out.println("Please enter the area you want us to lay flooring for");
         moneyInput = inputReader.nextLine();
         moneyInserted = new BigDecimal(moneyInput);
         return moneyInserted;

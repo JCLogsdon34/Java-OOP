@@ -8,6 +8,7 @@ public class Tax {
     
     public BigDecimal taxRate;
     public String state;
+    public BigDecimal taxAmount;
     
     public BigDecimal getTaxRate() {
         return taxRate;
@@ -23,5 +24,13 @@ public class Tax {
     
     public void setState(String state) {
         this.state = state;
+    }
+    
+        public BigDecimal getTaxAmount(){
+        return taxAmount;
+    }
+    
+    public void setTaxAmount(BigDecimal taxAmount){
+        this.taxAmount = taxAmount;
     }
 }

@@ -7,6 +7,7 @@ import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import static java.time.format.DateTimeFormatter.BASIC_ISO_DATE;
 import java.util.List;
 import java.util.Map;
 
@@ -85,17 +86,12 @@ public class FlooringView {
             }
         } while (newInput == false);
         
-        String numberYear = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        numberYear = io.readString("Please enter a transaction date MM-dd-yyyy");
-        LocalDate date = LocalDate.parse(numberYear, formatter);
-        currentOrder.setOrderDate(date);
         String state = io.readString("Please enter the state in which we will work"
-                + "OH, TN, KY, IN");
+                + " OH, TN, KY, IN");
         currentOrder.getTax().setState(state);
         BigDecimal theTax = currentOrder.getTax().getTaxRate();
         currentOrder.getTax().setTaxRate(theTax);
-        String productType = io.readString("Please enter the product's type");
+        String productType = io.readString("Please select a product type: Laminate, Tile, or Wood.");
         currentOrder.getProduct().setProductType(productType);
         BigDecimal materialCost = currentOrder.getProduct().getProductCostPerSqFt();
         currentOrder.getProduct().setProductCostPerSqFt(materialCost);
@@ -134,7 +130,25 @@ public class FlooringView {
         }
     
     public LocalDate getOrderDate(){
-        return io.readLocalDate("Please enter the date of your order");
+        LocalDate date;
+        String inputDate;
+        inputDate = io.readString("Please enter the date of your order");
+        DateTimeFormatter dateFormat = BASIC_ISO_DATE;       
+        LocalDate dates = LocalDate.parse(inputDate, dateFormat);  
+        String text = dates.format(dateFormat);
+        text = new StringBuilder(text).reverse().toString();
+        LocalDate myTime = LocalDate.parse(text);
+        
+       // String text = dates.format(dateFormat);
+       return dates;
+    }
+    
+    public int getOrderNumber(){
+        int orderNumber;
+        String input;
+         input = io.readString("Please enter the date of your order");
+         orderNumber = Integer.parseInt(input);
+         return orderNumber;
     }
     
     public void displayAddBanner(){
@@ -144,6 +158,15 @@ public class FlooringView {
     public void displayOrderSuccessBanner() {
         io.readString(
                 "Order successfully placed.  Please hit enter to continue");
+    }
+    
+    public void displayRemoveBanner(){
+        io.print("=== Remove Order ===");
+    }
+    
+    public void displayRemoveOrderSuccessBanner() {
+        io.readString(
+                "Order successfully removed.  Please hit enter to continue");
     }
 
     public void displayDisplayOrderBanner() {

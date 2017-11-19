@@ -27,13 +27,13 @@ public class FlooringController {
         boolean keepGoing = true;
         int menuSelection;
 
-        while (keepGoing) {
+        while (keepGoing = true) {
             menuSelection = getMenuSelection();
             switch (menuSelection) {
                 case 1:
                     try {
                         displayOrder();
-                    } catch (FlooringPersistenceException e) {
+                    } catch (FlooringPersistenceException | FlooringOrdersForThatDateException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
                     break;
@@ -41,6 +41,8 @@ public class FlooringController {
                     try {
                         addOrder();
                     } catch (FlooringPersistenceException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    } catch (FlooringDataValidationException | FlooringDuplicateOrderException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
                     break;
@@ -67,7 +69,7 @@ public class FlooringController {
                     }
                     break;
                 case 6:
-                     keepGoing = false;
+                    keepGoing = false;
                     break;
                 default:
                     unknownCommand();
@@ -81,61 +83,65 @@ public class FlooringController {
         return view.printMenuAndGetSelection();
     }
 
-    private void addOrder() throws FlooringPersistenceException {
+    private void addOrder() throws FlooringPersistenceException, FlooringDataValidationException, FlooringDuplicateOrderException {
         Order newOrder;
         view.displayAddBanner();
         boolean hasErrors = false;
         boolean youSure = false;
         do {
             newOrder = view.getNewOrderInfo();
+            newOrder = service.getOrderCapitalCost(newOrder);
+            view.displayOrder(newOrder);
             youSure = view.getAssurance();
-            if (youSure == false) {
-                try {
-                    service.addOrder(newOrder);
-                    service.getOrderCapitalCost(newOrder);
-                    view.displayOrderPlacedBanner();
-                    view.displayOrderSuccessBanner();
-                    hasErrors = false;
-                } catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
-                    hasErrors = true;
-                    view.displayErrorMessage(e.getMessage());
-                }
+            if (youSure == true) {
+                service.addOrder(newOrder);
+                view.displayOrderPlacedBanner();
+                view.displayOrderSuccessBanner();
+                hasErrors = true;
             } else {
                 view.displayUnknownCommandBanner();
             }
-        } while (hasErrors);
+
+        } while (hasErrors = false);
     }
 
-    private void displayOrder() throws FlooringPersistenceException {
+    private void displayOrder() throws FlooringPersistenceException, FlooringOrdersForThatDateException {
         int orderNumber;
         LocalDate date;
         Order order;
-        List <Order> newList;
+        List<Order> newList;
         view.displayDisplayOrderBanner();
         date = view.getOrderDate();
-        try{
         newList = service.getOrder(date);
-        if(!newList.isEmpty()){
-        view.displayOrderByDateList(newList);
-        }
-        }catch(FlooringOrdersForThatDateException e){
-            view.displayErrorMessage(e.getMessage());
+        if (!newList.isEmpty()) {
+            view.displayOrderByDateList(newList);
         }
     }
 
     private void removeOrder() throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            LocalDate date;
+            Order order;
+            int orderNumber;
+            view.displayRemoveBanner();
+            date = view.getOrderDate();
+            orderNumber = view.getOrderNumber();
+            service.removeOrder(date, orderNumber);
+            view.displayRemoveOrderSuccessBanner();
+        } catch (FlooringOrdersForThatDateException e) {
+            view.displayErrorMessage(e.getMessage());
+        }
     }
 
     private void editOrder() throws FlooringPersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void saveOrder() throws FlooringPersistenceException{
+    private void saveOrder() throws FlooringPersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-     private void unknownCommand() {
+
+    private void unknownCommand() {
         view.displayUnknownCommandBanner();
     }
 

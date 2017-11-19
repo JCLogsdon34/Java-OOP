@@ -6,13 +6,13 @@ import java.time.LocalDate;
 
 
 public class Order {
-
     
+  
     public LocalDate orderDate;
     public int orderNumber;  
     public String customerName;
-    public Tax tax;
-    public Product product;
+    public Tax tax = new Tax();
+    public Product product = new Product();
     public BigDecimal area;
     public BigDecimal materialCost;
     public BigDecimal laborCost;
@@ -25,6 +25,11 @@ public class Order {
     }
     
 */ 
+    public Order(){
+        this.tax = new Tax();
+        this.product = new Product();
+    }
+
 
     public int getOrderNumber() {
         return orderNumber;
@@ -33,7 +38,7 @@ public class Order {
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
-    
+   
     public LocalDate getOrderDate(){
         return orderDate;
     }

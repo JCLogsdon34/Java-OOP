@@ -17,11 +17,19 @@ import java.util.Scanner;
 
 
 public class FlooringTaxDaoImpl implements FlooringTaxDao {
+    
+    @Override
+    public BigDecimal getTaxAmount(BigDecimal totalSineTax, BigDecimal taxRate) throws FlooringPersistenceException {
+        BigDecimal taxAmount;
+        taxAmount = totalSineTax.multiply(taxRate);
+        return taxAmount;
+    }
 
     @Override
     public List<Tax> getTaxesByState() throws FlooringPersistenceException {
         loadTax();
         ArrayList<Tax> arrayList = new ArrayList<>();
+   //     arrayList = taxData.get();
         return arrayList;
     }
 
@@ -29,7 +37,8 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
     @Override
     public BigDecimal getTax(String state) throws FlooringPersistenceException {
         loadTax();
-        return taxData.get(state);
+        BigDecimal taxRate = taxData.get(state);
+        return taxRate;
     }
     
     private Map<String, BigDecimal> taxData = new HashMap<>();

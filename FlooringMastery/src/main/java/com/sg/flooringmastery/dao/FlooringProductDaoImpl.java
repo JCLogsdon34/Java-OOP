@@ -32,12 +32,18 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
 
     @Override
     public BigDecimal getProductCostPerSqFt(String productType) throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        loadProduct(); 
+        Product product = productData.get(productType);
+        BigDecimal cost = product.getProductCostPerSqFt();
+        return cost;
     }
 
     @Override
     public BigDecimal getLaborCostPerSqFt(String productType) throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        loadProduct(); 
+        Product product = productData.get(productType);
+        BigDecimal labor = product.getLaborCostPerSqFt();
+        return labor;
     }
     
     

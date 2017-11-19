@@ -12,7 +12,10 @@ import com.sg.flooringmastery.dao.FlooringTaxDaoImpl;
 import com.sg.flooringmastery.dto.Order;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class FlooringServiceLayerImpl implements FlooringServiceLayer {
@@ -39,17 +42,16 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
             FlooringPersistenceException {
-
-/*        if (daoOrder.getOrder(order.getOrderNumber()) != 0) {
-            throw new FlooringDuplicateOrderException(
-                    "ERROR: Could not create Order.  Order number"
-                    + order.getOrderNumber()
-                    + " already exists");
-        }
-*/      
+      
         validateOrderData(order);
+        LocalDate dates = LocalDate.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMDDYYYY");
+        String text = dates.format(dateFormat);
+        LocalDate date = LocalDate.parse(text, dateFormat);
+      //  String myDate = date.format(dateFormat);
+
     //    int orderNumber = daoOrder.getNewOrderNumber(order);        
-        daoOrder.addOrder(order.getOrderDate(), order);
+        daoOrder.addOrder(date, order);
     }
   /*  
     public int getNewOrderNumber(Order order) {
@@ -79,22 +81,39 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public Order removeOrder(int orderNumber, LocalDate date) throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+       return daoOrder.removeOrder(date, orderNumber);
     }
 
     @Override
     public Order getOrderCapitalCost(Order order) throws FlooringDataValidationException {
-      BigDecimal myMaterial = order.product.getProductCostPerSqFt();
-      BigDecimal myLabor = order.product.getLaborCostPerSqFt();
+      BigDecimal myMaterial = order.getProduct().getProductCostPerSqFt();
+      order.getProduct().setProductCostPerSqFt(myMaterial);
+      BigDecimal myLabor = order.getProduct().getLaborCostPerSqFt();
+      order.getProduct().setProductCostPerSqFt(myLabor);
       BigDecimal myArea = order.getArea();
+      BigDecimal taxRate = order.getTax().getTaxRate();
       
       BigDecimal totalMaterial = myArea.multiply(myMaterial);
       BigDecimal totalLabor = myArea.multiply(myLabor);
       
       BigDecimal total = totalMaterial.add(totalLabor);
+      
+      order.setMaterialCost(totalMaterial);
+      order.setLaborCost(totalLabor);
+        try {
+            BigDecimal taxAmount = getTaxForOrder(total, taxRate);
+            total = total.add(taxAmount);
+            order.getTax().setTaxAmount(taxAmount);
+        } catch (FlooringPersistenceException e) {
+            System.out.println("Could not look up data");
+        }
       order.setTotal(total);
       return order;
+    }
+    
+    public BigDecimal getTaxForOrder(BigDecimal total, BigDecimal taxRate) throws FlooringPersistenceException{
+        return daoTax.getTaxAmount(total, taxRate);
     }
     
 }
