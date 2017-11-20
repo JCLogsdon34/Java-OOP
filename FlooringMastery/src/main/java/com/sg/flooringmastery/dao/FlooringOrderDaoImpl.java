@@ -48,44 +48,34 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     @Override
     public Order addOrder(LocalDate date, Order order) throws FlooringPersistenceException {
 
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String dateForFile = date.format(formatter);
-
         List<Order> newList = new ArrayList<>();
         String stringDate = dateForFile.replace("-", "");
 
         //  newOrder = orderData.get();
         //  orderData.keySet();
-        int thisOrderNumber = orderNumber + 1;
-        order.setOrderNumber(thisOrderNumber);
         newList.add(order);
         orders.put(date, newList);
-        orderNumber = orderNumber + 1;
         return order;
     }
 
     @Override
     public List<Order> getAllOrdersByDate() throws FlooringPersistenceException {
         loadOrder();
-
         return new ArrayList<>();
     }
 
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
-
         loadOrder();
-        //maybe convert to string here, remove  the / or - - 
-        //store in a List<String> 
-        
+
         List<Order> newOrder = new ArrayList<>(orders.get(date));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String dateForFile = date.format(formatter);
-        String stringDate = dateForFile.replace("-", "");
-        if (newOrder.isEmpty()) {
-            throw new FlooringOrdersForThatDateException("No Orders for that date");
-        }
+        newOrder = orders.get(date);
+  /*      for(int i = 0; i < newOrder.size(); i++){
+            newList.add(newOrder.get(i));     
+    }
+*/
         return newOrder;
     }
     
@@ -97,23 +87,32 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     public ArrayList<Integer> orderNums = new ArrayList<>();
     public List<Order> ordersList = new ArrayList<>();
     public int orderNumber = 1;
-    public static String ORDERS_FILE; // "Orders_06012013.txt";
-    private Map<LocalDate, List<Order>> orders = new HashMap<>();
+    public String ORDERS_FILE; // "Orders_06012013.txt";
+    public Map<LocalDate, List<Order>> orders = new HashMap<>();
     public static final String DELIMITER = ",";
+    public Set<LocalDate> keys = orders.keySet();
     
-    @Override
-    public Set<LocalDate> getAllDates(){
-        Set<LocalDate> keys = orders.keySet();
-                return keys;
+    public LocalDate[] getAllTheOrders(){
+        LocalDate[] kArray = new LocalDate[keys.size()];
+        kArray = keys.toArray(new LocalDate[keys.size()]);
+        return kArray;
     }
     
-    public int getNewOrderNumber(){
+    @Override
+    public Order getNewOrderNumber(Order newOrder){
         int num;
         int newOrderNumber;
         num = orderNums.size();
+        if(num <= 0){
+            orderNums.add(1);
+            num = orderNums.size();
+            newOrderNumber = num + 1;
+        } else{
         newOrderNumber = num + 1;
+        newOrder.setOrderNumber(newOrderNumber);
         orderNums.add(newOrderNumber);
-        return newOrderNumber;
+        }
+        return newOrder;
     }
 
     @Override
@@ -162,7 +161,8 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                         currentOrder.setLaborCost(new BigDecimal(currentTokens[9]));
                         currentOrder.getTax().setTaxAmount(new BigDecimal(currentTokens[10]));
                         currentOrder.setTotal(new BigDecimal(currentTokens[11]));
-
+                        //add a step to add order(s) to list, then the map
+                        ordersList.add(currentOrder);
                         orders.put(currentOrder.getOrderDate(), ordersList);
                     }
                     scanner.close();
@@ -175,7 +175,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         PrintWriter out;
 
         for (String names : fileNames) {
-            for (Iterator<LocalDate> it = getAllDates().iterator(); it.hasNext();) {
+            for (Iterator<LocalDate> it = keys.iterator(); it.hasNext();) {
                 LocalDate desiredOrderDate = it.next();
                 List<Order> theOrder = orders.get(desiredOrderDate);
                 String dateNow = orderFiles.get(names);
@@ -201,6 +201,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                             + currentOrder.getLaborCost() + DELIMITER
                             + currentOrder.getTax().getTaxAmount() + DELIMITER
                             + currentOrder.getTotal() + DELIMITER);
+               //     ordersList.add(currentOrder);
                     out.flush();
                 }
                 out.close();

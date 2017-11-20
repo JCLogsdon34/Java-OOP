@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import static java.math.BigDecimal.ZERO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,29 +26,32 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
     }
 
     @Override
-    public Product getProductByType(String productType) throws FlooringPersistenceException {
-        loadProduct();       
-        Product product = productData.get(productType);
+    public Product getProductByType(String productType) throws FlooringPersistenceException {       
+        Product product = new Product();
+        loadProduct();
+        product = productData.get(productType);
         return product;
     }
 
     @Override
     public BigDecimal getProductCostPerSqFt(String productType) throws FlooringPersistenceException {
+        BigDecimal cost = ZERO;
         loadProduct(); 
-        BigDecimal cost = productData.get(productType).getProductCostPerSqFt();
+        cost = cost.add(productData.get(productType).getProductCostPerSqFt());
         return cost;
     }
 
     @Override
     public BigDecimal getLaborCostPerSqFt(String productType) throws FlooringPersistenceException {
-        loadProduct(); 
-        BigDecimal labor = productData.get(productType).getLaborCostPerSqFt();
+        BigDecimal labor = ZERO;
+        loadProduct();        
+        labor = labor.add(productData.get(productType).getLaborCostPerSqFt());
         return labor;
     }
     
     
-    public static Map<String, Product> productData = new HashMap<>();
-    public static final String PRODUCTSDATA_FILE = "DataProducts.txt";
+    public Map<String, Product> productData = new HashMap<>();
+    public String PRODUCTSDATA_FILE = "DataProducts.txt";
     public static final String DELIMITER = ",";
     
     @Override
@@ -70,7 +74,7 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
             currentProduct.setProductType(currentTokens[0]);
             currentProduct.setProductCostPerSqFt(new BigDecimal(currentTokens[1]));
             currentProduct.setLaborCostPerSqFt(new BigDecimal(currentTokens[2]));
-
+            
             productData.put(currentProduct.getProductType(), currentProduct);
         }
         scanner.close();

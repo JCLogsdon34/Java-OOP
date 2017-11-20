@@ -8,6 +8,7 @@ import com.sg.flooringmastery.service.FlooringDuplicateOrderException;
 import com.sg.flooringmastery.ui.FlooringView;
 import com.sg.flooringmastery.service.FlooringServiceLayer;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,12 +29,12 @@ public class FlooringController {
         int menuSelection = 0;
 
         while (keepGoing) {
-            try {
+            /*    try {
                 loadEverything();              
             } catch (FlooringPersistenceException e) {
                 view.displayErrorMessage(e.getMessage());
             }
-
+             */
             try {
                 menuSelection = getMenuSelection();
             } catch (FlooringPersistenceException e) {
@@ -52,9 +53,7 @@ public class FlooringController {
                 case 2:
                     try {
                         addOrder();
-                    } catch (FlooringPersistenceException e) {
-                        view.displayErrorMessage(e.getMessage());
-                    } catch (FlooringDataValidationException | FlooringDuplicateOrderException e) {
+                    } catch (FlooringDataValidationException | FlooringDuplicateOrderException | FlooringPersistenceException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
 
@@ -97,18 +96,23 @@ public class FlooringController {
     private int getMenuSelection() throws FlooringPersistenceException {
         return view.printMenuAndGetSelection();
     }
-    
-    private void loadEverything() throws FlooringPersistenceException{
+
+    private void loadEverything() throws FlooringPersistenceException {
         service.loadTheOrders();
     }
 
-    private void addOrder() throws FlooringPersistenceException, FlooringDataValidationException, FlooringDuplicateOrderException {
+    private void addOrder() throws
+            FlooringDataValidationException,
+            FlooringDuplicateOrderException,
+            FlooringPersistenceException {
+
         Order newOrder;
         view.displayAddBanner();
         boolean hasErrors = false;
         boolean youSure = false;
         do {
             newOrder = view.getNewOrderInfo();
+            newOrder = service.getNewOrderNumber(newOrder);
             newOrder = service.getOrderCapitalCost(newOrder);
             view.displayOrder(newOrder);
             youSure = view.getAssurance();
@@ -117,24 +121,23 @@ public class FlooringController {
                 view.displayOrderPlacedBanner();
                 view.displayOrderSuccessBanner();
                 hasErrors = true;
-            } else {
+            } else if (youSure == false) {
                 view.displayUnknownCommandBanner();
             }
-
-        } while (hasErrors = false);
+        } while (hasErrors == false);
     }
 
     private void displayOrder() throws FlooringPersistenceException, FlooringOrdersForThatDateException {
         LocalDate date;
-        List<Order> newList;
+        List<Order> newList = new ArrayList<>();
+
         view.displayDisplayOrderBanner();
         date = view.getOrderDate();
-
         newList = service.getOrder(date);
-
-        if (!newList.isEmpty()) {
-            view.displayOrderByDateList(newList);
+        if (newList.isEmpty()) {
+            throw new FlooringOrdersForThatDateException("No Orders for that date");
         }
+        view.displayOrderByDateList(newList);
     }
 
     private void removeOrder() throws FlooringPersistenceException {

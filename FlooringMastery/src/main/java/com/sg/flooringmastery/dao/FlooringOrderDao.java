@@ -4,8 +4,6 @@ package com.sg.flooringmastery.dao;
 import com.sg.flooringmastery.dto.Order;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
-
 
 public interface FlooringOrderDao {
     
@@ -23,7 +21,9 @@ public interface FlooringOrderDao {
             throws FlooringPersistenceException
             ,FlooringOrdersForThatDateException; 
     
-    Set<LocalDate> getAllDates();
+//    Set<LocalDate> getAllDates();
+    Order getNewOrderNumber(Order newOrder)
+            throws FlooringPersistenceException;
     
     void loadOrder()throws FlooringPersistenceException;
     

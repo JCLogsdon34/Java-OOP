@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import static java.math.BigDecimal.ZERO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
     
     @Override
     public BigDecimal getTaxAmount(BigDecimal totalSineTax, BigDecimal taxRate) throws FlooringPersistenceException {
-        BigDecimal taxAmount;
+        BigDecimal taxAmount = ZERO;
         taxAmount = totalSineTax.multiply(taxRate);
         return taxAmount;
     }
@@ -29,20 +30,21 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
     public List<Tax> getTaxesByState() throws FlooringPersistenceException {
         loadTax();
         ArrayList<Tax> arrayList = new ArrayList<>();
-   //     arrayList = taxData.get();
+        
         return arrayList;
     }
 
 
     @Override
     public BigDecimal getTax(String state) throws FlooringPersistenceException {
+        BigDecimal taxRate = ZERO;
         loadTax();
-        BigDecimal taxRate = taxData.get(state);
+        taxRate = taxData.get(state);
         return taxRate;
     }
     
-    public static Map<String, BigDecimal> taxData = new HashMap<>();
-    public static final String TAXDATA_FILE = "DataTaxes.txt";
+    public Map<String, BigDecimal> taxData = new HashMap<>();
+    public String TAXDATA_FILE = "DataTaxes.txt";
     public static final String DELIMITER = ",";
     
     @Override
@@ -87,7 +89,6 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
         }).forEach((_tax) -> {
             out.flush();
         });
-        
         out.close();
     }
 }

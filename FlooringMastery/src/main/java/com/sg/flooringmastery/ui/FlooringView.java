@@ -38,12 +38,13 @@ public class FlooringView {
             io.print(currentOrder.getCustomerName());
             io.print(currentOrder.getTax().getState());
             io.print(currentOrder.getTax().getTaxRate().toString());
+            io.print(currentOrder.getArea().toString());
             io.print(currentOrder.getProduct().getProductType());
             io.print(currentOrder.getProduct().getProductCostPerSqFt().toString());
             io.print(currentOrder.getProduct().getLaborCostPerSqFt().toString());
-            io.print(currentOrder.getArea().toString());
             io.print(currentOrder.getMaterialCost().toString());
             io.print(currentOrder.getLaborCost().toString());
+            io.print(currentOrder.getTax().getTaxAmount().toString());
             io.print(currentOrder.getTotal().toString());
             io.print("");
         } else {
@@ -54,6 +55,7 @@ public class FlooringView {
     
     public void displayOrderByDateList(List<Order> orderList) {
         orderList.stream().forEach((Order currentOrder) -> {
+            io.print(String.valueOf(currentOrder.getOrderDate()));
             io.print(String.valueOf(currentOrder.getOrderNumber()));
             io.print(currentOrder.getCustomerName());
             io.print(currentOrder.getTax().getState());
@@ -102,9 +104,10 @@ public class FlooringView {
         return currentOrder;
     }
     
-    public void displayOrderMap(Map<String, List<Order>> lambdaOrderMap) {
+    public void displayOrderMap(Map<LocalDate, List<Order>> lambdaOrderMap) {
         List <Order> orderList;
-        lambdaOrderMap.entrySet().stream().forEach((Map.Entry<String, List<Order>> e) -> {
+        LocalDate date;
+        lambdaOrderMap.entrySet().stream().forEach((Map.Entry<LocalDate, List<Order>> e) -> {
             io.print(e.getKey() + " " + e.getValue());
         });
     }

@@ -16,7 +16,7 @@ public interface FlooringServiceLayer {
             FlooringPersistenceException;
     
     Order getOrderCapitalCost(Order order) throws
-            FlooringDataValidationException;
+            FlooringPersistenceException;
 
     List<Order> getOrder(LocalDate date) throws
             FlooringPersistenceException,
@@ -25,6 +25,9 @@ public interface FlooringServiceLayer {
     Order removeOrder(LocalDate date, int orderNumber) throws
             FlooringPersistenceException,
             FlooringOrdersForThatDateException;
+    
+    Order getNewOrderNumber(Order newOrder)
+            throws FlooringPersistenceException;
     
     void saveOrder()throws 
             FlooringPersistenceException;

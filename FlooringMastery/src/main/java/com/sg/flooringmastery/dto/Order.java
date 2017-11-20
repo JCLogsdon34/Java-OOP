@@ -26,7 +26,6 @@ public class Order {
     
 */ 
     public Order(){
-    //    this.orderDate = orderDate;
         this.tax = new Tax();
         this.product = new Product();
     }
