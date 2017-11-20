@@ -73,7 +73,6 @@ public class VendingMachineController {
             }
         }
         exitMessage();
-
     }
 
     private int getMenuSelection()
@@ -82,6 +81,8 @@ public class VendingMachineController {
         
         return myView.printMenuAndGetSelection();
     }
+    
+    
 
     private void listItems()
             throws VendingMachinePersistenceException{

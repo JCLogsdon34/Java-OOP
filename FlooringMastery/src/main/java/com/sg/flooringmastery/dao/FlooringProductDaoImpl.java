@@ -27,30 +27,28 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
     @Override
     public Product getProductByType(String productType) throws FlooringPersistenceException {
         loadProduct();       
-        return productData.get(productType);
+        Product product = productData.get(productType);
+        return product;
     }
 
     @Override
     public BigDecimal getProductCostPerSqFt(String productType) throws FlooringPersistenceException {
         loadProduct(); 
-        Product product = productData.get(productType);
-        BigDecimal cost = product.getProductCostPerSqFt();
+        BigDecimal cost = productData.get(productType).getProductCostPerSqFt();
         return cost;
     }
 
     @Override
     public BigDecimal getLaborCostPerSqFt(String productType) throws FlooringPersistenceException {
         loadProduct(); 
-        Product product = productData.get(productType);
-        BigDecimal labor = product.getLaborCostPerSqFt();
+        BigDecimal labor = productData.get(productType).getLaborCostPerSqFt();
         return labor;
     }
     
     
-    private Map<String, Product> productData = new HashMap<>();
-
+    public static Map<String, Product> productData = new HashMap<>();
     public static final String PRODUCTSDATA_FILE = "DataProducts.txt";
-    public static final String DELIMITER = "::";
+    public static final String DELIMITER = ",";
     
     @Override
      public void loadProduct() throws FlooringPersistenceException {

@@ -31,12 +31,13 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
         this.daoTax = daoTax;
     }
     
-/*    public BigDecimal getTaxRateByState(Order order){
-        String state = currentTax.getState();
-        return daoTax.getTax();
-        
+    @Override
+    public void loadTheOrders() throws FlooringPersistenceException {
+        daoProduct.loadProduct();
+        daoTax.loadTax();
+        daoOrder.loadOrder();
     }
-    */
+    
     @Override
     public void addOrder(Order order) throws
             FlooringDuplicateOrderException,
@@ -45,39 +46,16 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
       
         validateOrderData(order);
         LocalDate dates = LocalDate.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMDDYYYY");
-        String text = dates.format(dateFormat);
-        LocalDate date = LocalDate.parse(text, dateFormat);
-      //  String myDate = date.format(dateFormat);
 
     //    int orderNumber = daoOrder.getNewOrderNumber(order);        
-        daoOrder.addOrder(date, order);
+        daoOrder.addOrder(dates, order);
     }
-  /*  
-    public int getNewOrderNumber(Order order) {
-        int orderNumber = orderData.size() + 1;
-        orderNumber = getOrderNumber();
-        return orderNumber;
-    }
-*/
+    
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException,
             FlooringOrdersForThatDateException{
-
+        
         return daoOrder.getOrder(date);
-    }
-    
-    private void validateOrderData(Order order) throws
-            FlooringDataValidationException {
-
-        if (order.getOrderDate() == null
-                || order.getOrderNumber() == 0
-                || order.getArea() == null) {
-
-            throw new FlooringDataValidationException(
-                    "ERROR: All fields [Order number, order Date, customer name"
-                    + " product type, state, and area] are required.");
-        }
     }
 
     @Override
@@ -93,7 +71,7 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
       order.getProduct().setProductCostPerSqFt(myLabor);
       BigDecimal myArea = order.getArea();
       BigDecimal taxRate = order.getTax().getTaxRate();
-      
+      //NPE Line 97
       BigDecimal totalMaterial = myArea.multiply(myMaterial);
       BigDecimal totalLabor = myArea.multiply(myLabor);
       
@@ -115,5 +93,22 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     public BigDecimal getTaxForOrder(BigDecimal total, BigDecimal taxRate) throws FlooringPersistenceException{
         return daoTax.getTaxAmount(total, taxRate);
     }
+
+    @Override
+    public void saveOrder() throws FlooringPersistenceException {
+       daoOrder.saveOrder();
+    }
     
+        private void validateOrderData(Order order) throws
+            FlooringDataValidationException {
+
+        if (order.getOrderDate() == null
+                || order.getOrderNumber() == 0
+                || order.getArea() == null) {
+
+            throw new FlooringDataValidationException(
+                    "ERROR: All fields [Order number, order Date, customer name"
+                    + " product type, state, and area] are required.");
+        }
+    }
 }

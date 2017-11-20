@@ -25,10 +25,21 @@ public class FlooringController {
 
     public void run() {
         boolean keepGoing = true;
-        int menuSelection;
+        int menuSelection = 0;
 
-        while (keepGoing = true) {
-            menuSelection = getMenuSelection();
+        while (keepGoing) {
+            try {
+                loadEverything();              
+            } catch (FlooringPersistenceException e) {
+                view.displayErrorMessage(e.getMessage());
+            }
+
+            try {
+                menuSelection = getMenuSelection();
+            } catch (FlooringPersistenceException e) {
+                view.displayErrorMessage(e.getMessage());
+            }
+
             switch (menuSelection) {
                 case 1:
                     try {
@@ -36,6 +47,7 @@ public class FlooringController {
                     } catch (FlooringPersistenceException | FlooringOrdersForThatDateException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
+
                     break;
                 case 2:
                     try {
@@ -45,21 +57,23 @@ public class FlooringController {
                     } catch (FlooringDataValidationException | FlooringDuplicateOrderException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
+
                     break;
-                case 3: {
+                case 3:
                     try {
                         editOrder();
                     } catch (FlooringPersistenceException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
-                }
-                break;
+
+                    break;
                 case 4:
                     try {
                         removeOrder();
                     } catch (FlooringPersistenceException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
+
                     break;
                 case 5:
                     try {
@@ -69,6 +83,8 @@ public class FlooringController {
                     }
                     break;
                 case 6:
+                    view.displayExitBanner();
+                    exitMessage();
                     keepGoing = false;
                     break;
                 default:
@@ -76,11 +92,14 @@ public class FlooringController {
                     break;
             }
         }
-        exitMessage();
     }
 
-    private int getMenuSelection() {
+    private int getMenuSelection() throws FlooringPersistenceException {
         return view.printMenuAndGetSelection();
+    }
+    
+    private void loadEverything() throws FlooringPersistenceException{
+        service.loadTheOrders();
     }
 
     private void addOrder() throws FlooringPersistenceException, FlooringDataValidationException, FlooringDuplicateOrderException {
@@ -106,13 +125,13 @@ public class FlooringController {
     }
 
     private void displayOrder() throws FlooringPersistenceException, FlooringOrdersForThatDateException {
-        int orderNumber;
         LocalDate date;
-        Order order;
         List<Order> newList;
         view.displayDisplayOrderBanner();
         date = view.getOrderDate();
+
         newList = service.getOrder(date);
+
         if (!newList.isEmpty()) {
             view.displayOrderByDateList(newList);
         }
@@ -138,7 +157,8 @@ public class FlooringController {
     }
 
     private void saveOrder() throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        service.saveOrder();
+        view.displaySaveBanner();
     }
 
     private void unknownCommand() {

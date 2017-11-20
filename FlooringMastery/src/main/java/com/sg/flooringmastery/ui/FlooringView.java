@@ -29,7 +29,7 @@ public class FlooringView {
         io.print("5. Save Current Work");
         io.print("6. Quit");
 
-        return io.readInt("Please select from the above choices.", 1, 6);
+        return io.readInt("Please select from the above choices.");
     }
     
     public void displayOrder(Order currentOrder) {
@@ -131,16 +131,8 @@ public class FlooringView {
     
     public LocalDate getOrderDate(){
         LocalDate date;
-        String inputDate;
-        inputDate = io.readString("Please enter the date of your order");
-        DateTimeFormatter dateFormat = BASIC_ISO_DATE;       
-        LocalDate dates = LocalDate.parse(inputDate, dateFormat);  
-        String text = dates.format(dateFormat);
-        text = new StringBuilder(text).reverse().toString();
-        LocalDate myTime = LocalDate.parse(text);
-        
-       // String text = dates.format(dateFormat);
-       return dates;
+        date = io.readLocalDate("Please enter the date of your order");      
+       return date;
     }
     
     public int getOrderNumber(){
@@ -171,6 +163,10 @@ public class FlooringView {
 
     public void displayDisplayOrderBanner() {
         io.print("=== Display Order ===");
+    }
+    
+    public void displaySaveBanner() {
+        io.print("=== Save Successful ===");
     }
 
     public void displayOrderPlacedBanner() {

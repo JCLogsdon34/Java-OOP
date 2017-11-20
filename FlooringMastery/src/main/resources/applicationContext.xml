@@ -38,7 +38,6 @@
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
     </bean>
-   
     <bean id="controller" 
           class="com.sg.flooringmastery.controller.FlooringController">
         <constructor-arg ref="service"/>

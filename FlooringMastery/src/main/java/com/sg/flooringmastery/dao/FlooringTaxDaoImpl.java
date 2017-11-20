@@ -41,9 +41,9 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
         return taxRate;
     }
     
-    private Map<String, BigDecimal> taxData = new HashMap<>();
+    public static Map<String, BigDecimal> taxData = new HashMap<>();
     public static final String TAXDATA_FILE = "DataTaxes.txt";
-    public static final String DELIMITER = "::";
+    public static final String DELIMITER = ",";
     
     @Override
      public void loadTax() throws FlooringPersistenceException {
