@@ -36,11 +36,17 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
     @Override
     public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
-        Order order;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String dateForFile = date.format(formatter);
-        String stringDate = dateForFile.replace("-", "");
-        order = orders.get(date).remove(orderNumber);
+        Order order = new Order();
+        loadOrder();
+ //       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+   //     String dateForFile = date.format(formatter);
+    //    String stringDate = dateForFile.replace("-", "");
+        List<Order> newList = new ArrayList<>();
+        newList = getOrder(date);
+        order = newList.remove(orderNumber);
+        ordersList.remove(order);
+        orders.remove(date, ordersList);
+        order = orders.remove(date).remove(orderNumber);
         //     listOfOrdersByDate.delete();
         return order;
     }
@@ -92,12 +98,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     public static final String DELIMITER = ",";
     public Set<LocalDate> keys = orders.keySet();
     
-    public LocalDate[] getAllTheOrders(){
-        LocalDate[] kArray = new LocalDate[keys.size()];
-        kArray = keys.toArray(new LocalDate[keys.size()]);
-        return kArray;
-    }
-    
+
     @Override
     public Order getNewOrderNumber(Order newOrder){
         int num;

@@ -30,27 +30,31 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
         Product product = new Product();
         loadProduct();
         product = productData.get(productType);
+        
         return product;
     }
 
     @Override
-    public BigDecimal getProductCostPerSqFt(String productType) throws FlooringPersistenceException {
+    public BigDecimal getProductCostPerSqFt(String productType, Product product) throws FlooringPersistenceException {
         BigDecimal cost = ZERO;
         loadProduct(); 
-        cost = cost.add(productData.get(productType).getProductCostPerSqFt());
+        product.getProductCostPerSqFt();
+        cost = cost.add(product.getProductCostPerSqFt());
         return cost;
     }
 
     @Override
-    public BigDecimal getLaborCostPerSqFt(String productType) throws FlooringPersistenceException {
+    public BigDecimal getLaborCostPerSqFt(String productType, Product product) throws FlooringPersistenceException {
         BigDecimal labor = ZERO;
-        loadProduct();        
-        labor = labor.add(productData.get(productType).getLaborCostPerSqFt());
+        loadProduct();    
+        labor = product.getLaborCostPerSqFt();
+        labor = labor.add(product.getLaborCostPerSqFt());
         return labor;
     }
     
     
     public Map<String, Product> productData = new HashMap<>();
+   // public List<Product> costsList = new ArrayList<>();
     public String PRODUCTSDATA_FILE = "DataProducts.txt";
     public static final String DELIMITER = ",";
     
@@ -74,7 +78,7 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
             currentProduct.setProductType(currentTokens[0]);
             currentProduct.setProductCostPerSqFt(new BigDecimal(currentTokens[1]));
             currentProduct.setLaborCostPerSqFt(new BigDecimal(currentTokens[2]));
-            
+
             productData.put(currentProduct.getProductType(), currentProduct);
         }
         scanner.close();

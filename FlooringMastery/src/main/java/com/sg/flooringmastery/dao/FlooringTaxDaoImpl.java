@@ -38,6 +38,7 @@ public class FlooringTaxDaoImpl implements FlooringTaxDao {
     @Override
     public BigDecimal getTax(String state) throws FlooringPersistenceException {
         BigDecimal taxRate = ZERO;
+        Tax tax = new Tax();
         loadTax();
         taxRate = taxData.get(state);
         return taxRate;

@@ -9,6 +9,8 @@ import com.sg.flooringmastery.dao.FlooringProductDaoImpl;
 import com.sg.flooringmastery.dao.FlooringTaxDao;
 import com.sg.flooringmastery.dao.FlooringTaxDaoImpl;
 import com.sg.flooringmastery.dto.Order;
+import com.sg.flooringmastery.dto.Product;
+import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
 import java.time.LocalDate;
@@ -67,6 +69,7 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
     @Override
     public Order getOrderCapitalCost(Order order) {
+        Product product = new Product();
         String productType = order.getProduct().getProductType();
         String state = order.getTax().getState();
         BigDecimal myMaterial = ZERO;
@@ -77,17 +80,23 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
         BigDecimal total = ZERO;
         BigDecimal taxRate = ZERO;
         BigDecimal taxAmount = ZERO;
-        
+              
         try {
-            daoProduct.loadProduct();
-            daoTax.loadTax();
-            myMaterial = myMaterial.add(daoProduct.getProductCostPerSqFt(productType));
-            myLabor = myLabor.add(daoProduct.getLaborCostPerSqFt(productType));
+            product = daoProduct.getProductByType(productType);
+            myMaterial = daoProduct.getProductCostPerSqFt(productType, product);
+//            order.getProduct().getProductCostPerSqFt();
+            myMaterial = myMaterial.add(myMaterial);
+   //         order.getProduct().getLaborCostPerSqFt();
+            myLabor = daoProduct.getLaborCostPerSqFt(productType, product);
+            myLabor = myLabor.add(myLabor);
             myArea = myArea.add(order.getArea());
             totalMaterial = totalMaterial.add(myArea.multiply(myMaterial));
             totalLabor = totalLabor.add(myArea.multiply(myLabor));
             total = totalMaterial.add(totalLabor);
-            taxRate = taxRate.add(daoTax.getTax(state));
+        //    tax = daoTax.getTax(state);
+      //      order.getTax().getTaxRate();
+            
+            taxRate = daoTax.getTax(state);
             taxAmount = taxAmount.add(getTaxForOrder(total, taxRate));
             total = total.add(taxAmount);
         } catch (FlooringPersistenceException e) {

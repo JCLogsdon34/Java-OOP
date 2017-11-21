@@ -12,10 +12,10 @@ public interface FlooringProductDao {
     Product getProductByType(String productType)
             throws FlooringPersistenceException;
 
-    BigDecimal getProductCostPerSqFt(String productType)
+    BigDecimal getProductCostPerSqFt(String productType, Product product)
             throws FlooringPersistenceException;
 
-    BigDecimal getLaborCostPerSqFt(String productType)
+    BigDecimal getLaborCostPerSqFt(String productType, Product product)
             throws FlooringPersistenceException;
     
     void loadProduct() throws FlooringPersistenceException;

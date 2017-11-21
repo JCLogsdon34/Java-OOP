@@ -90,15 +90,9 @@ public class FlooringView {
         
         String state = io.readString("Please enter the state in which we will work"
                 + " OH, TN, KY, IN");
-        currentOrder.getTax().setState(state);
-        BigDecimal theTax = currentOrder.getTax().getTaxRate();
-        currentOrder.getTax().setTaxRate(theTax);
+        currentOrder.getTax().setState(state.toUpperCase());
         String productType = io.readString("Please select a product type: Laminate, Tile, or Wood.");
         currentOrder.getProduct().setProductType(productType);
-        BigDecimal materialCost = currentOrder.getProduct().getProductCostPerSqFt();
-        currentOrder.getProduct().setProductCostPerSqFt(materialCost);
-        BigDecimal laborCost = currentOrder.getProduct().getLaborCostPerSqFt();
-        currentOrder.getProduct().setLaborCostPerSqFt(laborCost);
         BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
         currentOrder.setArea(area);
         return currentOrder;
