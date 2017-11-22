@@ -3,15 +3,16 @@ package com.sg.flooringmastery.controller;
 import com.sg.flooringmastery.dao.FlooringOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dto.Order;
+import com.sg.flooringmastery.dto.Product;
+import com.sg.flooringmastery.dto.Tax;
 import com.sg.flooringmastery.service.FlooringDataValidationException;
 import com.sg.flooringmastery.service.FlooringDuplicateOrderException;
 import com.sg.flooringmastery.ui.FlooringView;
 import com.sg.flooringmastery.service.FlooringServiceLayer;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -29,7 +30,7 @@ public class FlooringController {
         int menuSelection = 0;
 
         while (keepGoing) {
-            /*    try {
+          /*      try {
                 loadEverything();              
             } catch (FlooringPersistenceException e) {
                 view.displayErrorMessage(e.getMessage());
@@ -106,18 +107,25 @@ public class FlooringController {
             FlooringDuplicateOrderException,
             FlooringPersistenceException {
 
-        Order newOrder;
+        Order newOrder = new Order();
+        Order newerOrder = new Order();
+        Order newestOrder = new Order();
         view.displayAddBanner();
         boolean hasErrors = false;
         boolean youSure = false;
+        Collection <Tax> taxInfo;
+        Collection<Product> productInfo;
         do {
-            newOrder = view.getNewOrderInfo();
+            taxInfo = service.getAllTaxes();
+            productInfo = service.getAllTheProducts();
+            LocalDate dates = LocalDate.now();     
+            newOrder = view.getNewOrderInfo(taxInfo, productInfo); 
             newOrder = service.getNewOrderNumber(newOrder);
-            newOrder = service.getOrderCapitalCost(newOrder);
+            newOrder = service.getOrderCapitalCost(newOrder, taxInfo, productInfo);
             view.displayOrder(newOrder);
             youSure = view.getAssurance();
             if (youSure == true) {
-                service.addOrder(newOrder);
+                service.addOrder(dates, newOrder);
                 view.displayOrderPlacedBanner();
                 view.displayOrderSuccessBanner();
                 hasErrors = true;
@@ -125,6 +133,7 @@ public class FlooringController {
                 view.displayUnknownCommandBanner();
             }
         } while (hasErrors == false);
+        
     }
 
     private void displayOrder() throws FlooringPersistenceException, FlooringOrdersForThatDateException {
@@ -147,7 +156,7 @@ public class FlooringController {
             int orderNumber;
             view.displayRemoveBanner();
             date = view.getOrderDate();
-            orderNumber = view.getOrderNumber();
+            orderNumber = view.getOrderNumberChoice();
             service.removeOrder(date, orderNumber);
             view.displayRemoveOrderSuccessBanner();
         } catch (FlooringOrdersForThatDateException e) {

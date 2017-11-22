@@ -18,12 +18,10 @@ public class Order {
     public BigDecimal laborCost;
     public BigDecimal total;
     
-   
-    
+  
 /*   public Order(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
-    
 */ 
     public Order(){
         this.tax = new Tax();

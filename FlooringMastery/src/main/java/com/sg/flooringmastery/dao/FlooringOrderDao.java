@@ -25,7 +25,5 @@ public interface FlooringOrderDao {
     Order getNewOrderNumber(Order newOrder)
             throws FlooringPersistenceException;
     
-    void loadOrder()throws FlooringPersistenceException;
-    
     void saveOrder()throws FlooringPersistenceException;
 }

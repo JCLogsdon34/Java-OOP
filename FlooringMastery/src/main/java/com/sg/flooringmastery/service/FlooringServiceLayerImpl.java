@@ -14,19 +14,20 @@ import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
+    
     FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
-    FlooringProductDao daoProduct = new FlooringProductDaoImpl();
-    FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
+    FlooringProductDao daoProduct;
+    FlooringTaxDao daoTax;
 
     public FlooringServiceLayerImpl(FlooringOrderDao daoOrder,
-            FlooringProductDao daoProduct, FlooringTaxDao daoTax) {
+            FlooringProductDao daoProduct, FlooringTaxDao daoTax) throws FlooringPersistenceException {
+        this.daoTax = new FlooringTaxDaoImpl();
+        this.daoProduct = new FlooringProductDaoImpl();
         this.daoOrder = daoOrder;
         this.daoProduct = daoProduct;
         this.daoTax = daoTax;
@@ -34,21 +35,19 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
     @Override
     public void loadTheOrders() throws FlooringPersistenceException {
-        daoProduct.loadProduct();
+/*        daoProduct.loadProduct();
         daoTax.loadTax();
         daoOrder.loadOrder();
+*/
     }
 
     @Override
-    public void addOrder(Order order) throws
+    public void addOrder(LocalDate dates, Order order) throws
             FlooringDuplicateOrderException,
             FlooringDataValidationException {
 
         validateOrderData(order);
-        LocalDate dates = LocalDate.now();
-
         try {
-            //    int orderNumber = daoOrder.getNewOrderNumber(order);
             daoOrder.addOrder(dates, order);
         } catch (FlooringPersistenceException e) {
             System.out.println("Could not load date");
@@ -58,7 +57,6 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException,
             FlooringOrdersForThatDateException {
-
         return daoOrder.getOrder(date);
     }
 
@@ -66,12 +64,15 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
         return daoOrder.removeOrder(date, orderNumber);
     }
+    
+    @Override
+    public Collection<Product> getAllTheProducts() throws FlooringPersistenceException{
+        return daoProduct.getAllProducts();
+    }
 
     @Override
-    public Order getOrderCapitalCost(Order order) {
-        Product product = new Product();
-        String productType = order.getProduct().getProductType();
-        String state = order.getTax().getState();
+    public Order getOrderCapitalCost(Order order, Collection<Tax> taxInfo, Collection<Product> productInfo) {
+        
         BigDecimal myMaterial = ZERO;
         BigDecimal myLabor = ZERO;
         BigDecimal myArea = ZERO;
@@ -79,40 +80,24 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
         BigDecimal totalLabor = ZERO;
         BigDecimal total = ZERO;
         BigDecimal taxRate = ZERO;
-        BigDecimal taxAmount = ZERO;
-              
-        try {
-            product = daoProduct.getProductByType(productType);
-            myMaterial = daoProduct.getProductCostPerSqFt(productType, product);
-//            order.getProduct().getProductCostPerSqFt();
-            myMaterial = myMaterial.add(myMaterial);
-   //         order.getProduct().getLaborCostPerSqFt();
-            myLabor = daoProduct.getLaborCostPerSqFt(productType, product);
-            myLabor = myLabor.add(myLabor);
-            myArea = myArea.add(order.getArea());
-            totalMaterial = totalMaterial.add(myArea.multiply(myMaterial));
-            totalLabor = totalLabor.add(myArea.multiply(myLabor));
-            total = totalMaterial.add(totalLabor);
-        //    tax = daoTax.getTax(state);
-      //      order.getTax().getTaxRate();
-            
-            taxRate = daoTax.getTax(state);
-            taxAmount = taxAmount.add(getTaxForOrder(total, taxRate));
-            total = total.add(taxAmount);
-        } catch (FlooringPersistenceException e) {
-            System.out.println("Could not load data");
-        }
-        order.getProduct().setProductCostPerSqFt(myMaterial);
-        order.getProduct().setProductCostPerSqFt(myLabor);
+        BigDecimal taxAmount = ZERO;    
+        BigDecimal totalSineTax = ZERO;
+                      
+        myMaterial = order.getProduct().getProductCostPerSqFt();
+        myLabor = order.getProduct().getLaborCostPerSqFt();
+        myArea = order.getArea();
+        totalMaterial = totalMaterial.add(myArea.multiply(myMaterial));
+        totalLabor = totalLabor.add(myArea.multiply(myLabor));
+        totalSineTax = totalMaterial.add(totalLabor);
+        
+        taxAmount = totalSineTax.multiply(taxRate);
+        total = totalSineTax.add(taxAmount);
+       
         order.setMaterialCost(totalMaterial);
         order.setLaborCost(totalLabor);
         order.getTax().setTaxAmount(taxAmount);
         order.setTotal(total);
         return order;
-    }
-
-    public BigDecimal getTaxForOrder(BigDecimal total, BigDecimal taxRate) throws FlooringPersistenceException {
-        return daoTax.getTaxAmount(total, taxRate);
     }
 
     @Override
@@ -124,6 +109,8 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     public void saveOrder() throws FlooringPersistenceException {
         daoOrder.saveOrder();
     }
+    
+    
 
     private void validateOrderData(Order order) throws
             FlooringDataValidationException {
@@ -136,5 +123,10 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
                     "ERROR: All fields [Order number, order Date, customer name"
                     + " product type, state, and area] are required.");
         }
+    }
+
+    @Override
+    public Collection<Tax> getAllTaxes() throws FlooringPersistenceException {
+        return daoTax.getAllTaxes();
     }
 }

@@ -1,20 +1,18 @@
 package com.sg.flooringmastery.dao;
 
 import com.sg.flooringmastery.dto.Tax;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 
 public interface FlooringTaxDao {
 
-    List<Tax> getTaxesByState()
+    Collection<Tax> getAllTaxes()
             throws FlooringPersistenceException;
 
     BigDecimal getTax(String state)
             throws FlooringPersistenceException;
     
-    void loadTax() throws FlooringPersistenceException;
+    void loadTax() throws FlooringPersistenceException, FileNotFoundException;
     
-    void writeTax() throws FlooringPersistenceException;
-    
-    BigDecimal getTaxAmount(BigDecimal totalSineTax, BigDecimal taxRate) throws FlooringPersistenceException;
 }

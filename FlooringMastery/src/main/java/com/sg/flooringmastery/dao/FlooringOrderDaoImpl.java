@@ -101,23 +101,22 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
     @Override
     public Order getNewOrderNumber(Order newOrder){
+        Order order = new Order();
         int num;
         int newOrderNumber;
         num = orderNums.size();
         if(num <= 0){
             orderNums.add(1);
-            num = orderNums.size();
+            num = num + orderNums.size();
             newOrderNumber = num + 1;
-        } else{
+        } 
         newOrderNumber = num + 1;
-        newOrder.setOrderNumber(newOrderNumber);
+        order.setOrderNumber(newOrderNumber);
         orderNums.add(newOrderNumber);
-        }
-        return newOrder;
+        return order;
     }
 
-    @Override
-    public void loadOrder() throws FlooringPersistenceException {
+    private void loadOrder() throws FlooringPersistenceException {
         Scanner scanner;
         Order currentOrder;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
@@ -162,7 +161,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                         currentOrder.setLaborCost(new BigDecimal(currentTokens[9]));
                         currentOrder.getTax().setTaxAmount(new BigDecimal(currentTokens[10]));
                         currentOrder.setTotal(new BigDecimal(currentTokens[11]));
-                        //add a step to add order(s) to list, then the map
+
                         ordersList.add(currentOrder);
                         orders.put(currentOrder.getOrderDate(), ordersList);
                     }

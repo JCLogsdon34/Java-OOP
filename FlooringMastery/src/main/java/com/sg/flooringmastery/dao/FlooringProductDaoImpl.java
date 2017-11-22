@@ -1,65 +1,31 @@
-
 package com.sg.flooringmastery.dao;
 
 import com.sg.flooringmastery.dto.Product;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class FlooringProductDaoImpl implements FlooringProductDao {
-
-    @Override
-    public List<Product> getAllProducts() throws FlooringPersistenceException {
-       loadProduct();     
-        return new ArrayList<>();
-    }
-
-    @Override
-    public Product getProductByType(String productType) throws FlooringPersistenceException {       
-        Product product = new Product();
-        loadProduct();
-        product = productData.get(productType);
-        
-        return product;
-    }
-
-    @Override
-    public BigDecimal getProductCostPerSqFt(String productType, Product product) throws FlooringPersistenceException {
-        BigDecimal cost = ZERO;
-        loadProduct(); 
-        product.getProductCostPerSqFt();
-        cost = cost.add(product.getProductCostPerSqFt());
-        return cost;
-    }
-
-    @Override
-    public BigDecimal getLaborCostPerSqFt(String productType, Product product) throws FlooringPersistenceException {
-        BigDecimal labor = ZERO;
-        loadProduct();    
-        labor = product.getLaborCostPerSqFt();
-        labor = labor.add(product.getLaborCostPerSqFt());
-        return labor;
-    }
     
-    
-    public Map<String, Product> productData = new HashMap<>();
-   // public List<Product> costsList = new ArrayList<>();
-    public String PRODUCTSDATA_FILE = "DataProducts.txt";
-    public static final String DELIMITER = ",";
-    
+    public Map<String, Product> productData;
+    private String PRODUCTSDATA_FILE;
+    private static final String DELIMITER = ",";
+
+    public FlooringProductDaoImpl() {
+        PRODUCTSDATA_FILE = "Data/Products.txt";
+        productData = new HashMap<>();
+    }
+
     @Override
-     public void loadProduct() throws FlooringPersistenceException {
+    public void loadProduct() throws FlooringPersistenceException {
         Scanner scanner;
         Product currentProduct;
         try {
@@ -85,24 +51,29 @@ public class FlooringProductDaoImpl implements FlooringProductDao {
     }
 
     @Override
-    public void writeProduct() throws FlooringPersistenceException {
-        PrintWriter out;
-        try {
-            out = new PrintWriter(new FileWriter(PRODUCTSDATA_FILE));
-        } catch (IOException e) {
-            throw new FlooringPersistenceException(
-                    "Could not save product data.", e);
-        }
-        List<Product> productList = this.getAllProducts();
-        productList.stream().map((currentProduct) -> {
-            out.println(currentProduct.getProductType() + DELIMITER
-                    + currentProduct.getProductCostPerSqFt() + DELIMITER
-                    + currentProduct.getLaborCostPerSqFt());      
-            return currentProduct;
-        }).forEach((_product) -> {
-            out.flush();
-        });
-        
-        out.close();
+    public Collection<Product> getAllProducts() throws FlooringPersistenceException{
+        loadProduct();
+        return productData.values();
+    }
+
+    @Override
+    public Product getProductByType(String productType) throws FlooringPersistenceException {
+        Product product = new Product();
+        loadProduct();
+        product = productData.get(productType);
+
+        return product;
+    }
+
+    @Override
+    public BigDecimal getProductCostPerSqFt(String productType, Product product) throws FlooringPersistenceException {
+        loadProduct();
+        return product.getProductCostPerSqFt();
+    }
+
+    @Override
+    public BigDecimal getLaborCostPerSqFt(String productType, Product product) throws FlooringPersistenceException {
+        loadProduct();
+        return product.getLaborCostPerSqFt();
     }
 }
