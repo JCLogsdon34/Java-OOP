@@ -39,13 +39,13 @@ public class FlooringView {
             io.print(currentOrder.getCustomerName());
             io.print(currentOrder.getTax().getState());
             io.print(currentOrder.getTax().getTaxRate().toString());
+            io.print(currentOrder.getTax().getTaxAmount().toString());
             io.print(currentOrder.getArea().toString());
             io.print(currentOrder.getProduct().getProductType());
             io.print(currentOrder.getProduct().getProductCostPerSqFt().toString());
             io.print(currentOrder.getProduct().getLaborCostPerSqFt().toString());
             io.print(currentOrder.getMaterialCost().toString());
             io.print(currentOrder.getLaborCost().toString());
-            io.print(currentOrder.getTax().getTaxAmount().toString());
             io.print(currentOrder.getTotal().toString());
             io.print("");
         } else {
@@ -72,63 +72,66 @@ public class FlooringView {
         io.readString("Please hit enter to continue.");
     }
 
-    public Order getNewOrderInfo(Collection<Tax> taxInfo, Collection<Product> productInfo) {
-        Order currentOrder = new Order();
+    public String getNewOrderNameInfo() {
         boolean newInput;
-        String theOrderDate;
-        String myState;
-        do {
+
             String customerName;
             customerName = io.readString("Please enter customer's name");
             if (customerName != null && !customerName.isEmpty()) {
-                currentOrder.setCustomerName(customerName);
                 newInput = true;
             } else {
                 newInput = false;
             }
-        } while (newInput = false);
+        return customerName;
+    }
+    
+    public Tax getTaxInformation(Collection<Tax> taxInfo){
+        Tax currentTax = new Tax();
+        String myState;
+        taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
+            io.print(stateChoice);
+        });
+        
+        io.print("These are the states we work in right now");
+        myState = io.readString("Please enter from your choice from "
+                + "these postal abreiviations: ");
 
-        for (Tax ta : taxInfo) {
-            io.print(ta.getState());
-        }
-        myState = io.readString("Please enter from the above postal abreiviations "
-                + " the state in which we will be working.");
-        Tax t = new Tax();
-        t.setState(myState);
+        currentTax.setState(myState);
         for (Iterator<Tax> it = taxInfo.iterator(); it.hasNext();) {
-            t = it.next();
-            if (t.getState().equals(myState)) {
-                t.getTaxRate();
-                BigDecimal tax = t.getTaxRate();
-                t.setTaxRate(tax);
-                currentOrder.setTax(t);
+            Tax ts = it.next();
+            if (ts.getState().equals(myState)) {
+                BigDecimal taxs = ts.getTaxRate();
+                currentTax.setTaxRate(taxs);
             }
         }
-
+      return currentTax;
+    }
+    
+      public Product getProductInformation(Collection<Product> productInfo){
+      Product currentProduct = new Product();    
+      
         for (Product stuff : productInfo) {
             io.print(stuff.getProductType());
         }
-
+        io.print("These are the product types we offer: ");
         String myProduct = io.readString("Please select from the above product types: ");
-        Product p = new Product();
-        p.setProductType(myProduct);
-        for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
-            p = it.next();
-            if (p.getProductType().equals(myProduct)) {
-                p.getLaborCostPerSqFt();
-                p.getProductCostPerSqFt();
-                BigDecimal prodCost = p.getProductCostPerSqFt();
-                BigDecimal labCost = p.getLaborCostPerSqFt();
-                p.setProductCostPerSqFt(prodCost);
-                p.setLaborCostPerSqFt(labCost);
-                currentOrder.setProduct(p);
+
+        currentProduct.setProductType(myProduct);
+            for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
+            Product ps = it.next();
+            if (ps.getProductType().equals(myProduct)) {
+                BigDecimal prodCost = ps.getProductCostPerSqFt();
+                BigDecimal labCost = ps.getLaborCostPerSqFt();
+                currentProduct.setProductCostPerSqFt(prodCost);
+                currentProduct.setLaborCostPerSqFt(labCost);
             }
         }
-
+        return currentProduct;
+      }
+      
+      public BigDecimal getArea(){
         BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
-        currentOrder.setArea(area);
-
-        return currentOrder;
+        return area;
     }
 
     public void displayOrderMap(Map<LocalDate, List<Order>> lambdaOrderMap) {
@@ -149,14 +152,15 @@ public class FlooringView {
 
     public boolean getAssurance() {
         String assurance;
-        boolean certain = false;
-        assurance = io.readString("Are you sure you want to proceed?");
-        if (assurance.equals("y")) {
-            certain = false;
-        } else if (!assurance.equals("y")) {
-            certain = true;
+        boolean youSure = false;
+        assurance = io.readString("Are you sure you want to proceed? Y/N ");
+        
+        if (assurance.equalsIgnoreCase("y")) {
+            youSure = true;
+        } else if (assurance.equalsIgnoreCase("n")) {
+            youSure = false;
         }
-        return certain;
+        return youSure;
     }
 
     public LocalDate getOrderDate() {

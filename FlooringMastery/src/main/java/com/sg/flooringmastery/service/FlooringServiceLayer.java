@@ -6,6 +6,7 @@ import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dto.Order;
 import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -13,12 +14,24 @@ import java.util.List;
 
 public interface FlooringServiceLayer {
     
-    void addOrder(LocalDate dates, Order order) throws
+    void addOrder(LocalDate dates, Order currentOrder) throws
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
             FlooringPersistenceException;
     
-    Order getOrderCapitalCost(Order order, Collection<Tax> taxInfo, Collection<Product> productInfo) throws
+    Order  getOrderForEdit(LocalDate date, int orderNumber)
+            throws FlooringPersistenceException,
+            FlooringOrdersForThatDateException;
+    
+    BigDecimal getTotalSineTax(BigDecimal totalMaterial, BigDecimal totalLabor);
+    
+    BigDecimal getTaxesForOrder(Tax currentTax, BigDecimal totalSineTax);
+    
+    BigDecimal getLabor(Product currentProduct, BigDecimal area);
+    
+    BigDecimal getMaterial(Product currentProduct, BigDecimal area);
+    
+    BigDecimal getOrderCapitalCost(BigDecimal taxAmount, BigDecimal totalSineTax) throws
             FlooringPersistenceException;
 
     List<Order> getOrder(LocalDate date) throws
@@ -35,7 +48,7 @@ public interface FlooringServiceLayer {
     Collection<Product> getAllTheProducts()
             throws FlooringPersistenceException;
     
-    Order getNewOrderNumber(Order newOrder)
+    int getNewOrderNumber()
             throws FlooringPersistenceException;
     
     void saveOrder()throws 

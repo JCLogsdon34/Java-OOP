@@ -9,10 +9,13 @@ import com.sg.flooringmastery.service.FlooringDataValidationException;
 import com.sg.flooringmastery.service.FlooringDuplicateOrderException;
 import com.sg.flooringmastery.ui.FlooringView;
 import com.sg.flooringmastery.service.FlooringServiceLayer;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -30,7 +33,7 @@ public class FlooringController {
         int menuSelection = 0;
 
         while (keepGoing) {
-          /*      try {
+            /*      try {
                 loadEverything();              
             } catch (FlooringPersistenceException e) {
                 view.displayErrorMessage(e.getMessage());
@@ -107,33 +110,53 @@ public class FlooringController {
             FlooringDuplicateOrderException,
             FlooringPersistenceException {
 
-        Order newOrder = new Order();
-        Order newerOrder = new Order();
-        Order newestOrder = new Order();
+        Order currentOrder = new Order();
+        Tax currentTax = new Tax();
+        Product currentProduct = new Product();
         view.displayAddBanner();
+        int orderNumber;
         boolean hasErrors = false;
         boolean youSure = false;
-        Collection <Tax> taxInfo;
+        String customerName;
+
+        Collection<Tax> taxInfo;
         Collection<Product> productInfo;
-        do {
-            taxInfo = service.getAllTaxes();
-            productInfo = service.getAllTheProducts();
-            LocalDate dates = LocalDate.now();     
-            newOrder = view.getNewOrderInfo(taxInfo, productInfo); 
-            newOrder = service.getNewOrderNumber(newOrder);
-            newOrder = service.getOrderCapitalCost(newOrder, taxInfo, productInfo);
-            view.displayOrder(newOrder);
-            youSure = view.getAssurance();
-            if (youSure == true) {
-                service.addOrder(dates, newOrder);
-                view.displayOrderPlacedBanner();
-                view.displayOrderSuccessBanner();
-                hasErrors = true;
-            } else if (youSure == false) {
-                view.displayUnknownCommandBanner();
-            }
-        } while (hasErrors == false);
-        
+
+        taxInfo = service.getAllTaxes();
+        productInfo = service.getAllTheProducts();
+        LocalDate dates = LocalDate.now();
+        orderNumber = service.getNewOrderNumber();
+        customerName = view.getNewOrderNameInfo();
+        currentTax = view.getTaxInformation(taxInfo);
+        currentProduct = view.getProductInformation(productInfo);
+        BigDecimal area = view.getArea();
+        BigDecimal totalMaterial = service.getMaterial(currentProduct, area);
+        BigDecimal totalLabor = service.getLabor(currentProduct, area);
+        BigDecimal totalSineTax = service.getTotalSineTax(totalMaterial, totalLabor);
+        BigDecimal taxAmount = service.getTaxesForOrder(currentTax, totalSineTax);
+        currentTax.setTaxAmount(taxAmount);
+        BigDecimal total = service.getOrderCapitalCost(taxAmount, totalSineTax);
+
+        currentOrder.setOrderDate(dates);
+        currentOrder.setOrderNumber(orderNumber);
+        currentOrder.setCustomerName(customerName);
+        currentOrder.setArea(area);
+        currentOrder.setTax(currentTax);
+        currentOrder.setProduct(currentProduct);
+        currentOrder.setMaterialCost(totalMaterial);
+        currentOrder.setLaborCost(totalLabor);
+        currentOrder.setTotal(total);
+
+        view.displayOrder(currentOrder);
+        youSure = view.getAssurance();
+        if (youSure == true) {
+            service.addOrder(dates, currentOrder);
+            view.displayOrderPlacedBanner();
+            view.displayOrderSuccessBanner();
+            //               hasErrors = true;
+        } else if (youSure != true) {
+            view.displayUnknownCommandBanner();
+        }
     }
 
     private void displayOrder() throws FlooringPersistenceException, FlooringOrdersForThatDateException {
@@ -165,7 +188,34 @@ public class FlooringController {
     }
 
     private void editOrder() throws FlooringPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Tax currentTax;
+            Product currentProduct;
+            boolean hasErrors = false;
+            boolean youSure = false;
+            String customerName;
+            Collection<Tax> taxInfo;
+            Collection<Product> productInfo;
+            LocalDate date;
+            Order currentOrder;
+            int orderNumber;
+            
+            view.displayRemoveBanner();
+            date = view.getOrderDate();
+            orderNumber = view.getOrderNumberChoice();
+            currentOrder = service.getOrderForEdit(date, orderNumber);
+            view.displayOrder(currentOrder);
+            //put a wayto compare old and new order info in here
+            
+            taxInfo = service.getAllTaxes();
+            productInfo = service.getAllTheProducts();
+            orderNumber = service.getNewOrderNumber();
+            customerName = view.getNewOrderNameInfo();
+            currentTax = view.getTaxInformation(taxInfo);
+            currentProduct = view.getProductInformation(productInfo);
+        } catch (FlooringOrdersForThatDateException e) {
+            view.displayErrorMessage(e.getMessage());
+        }
     }
 
     private void saveOrder() throws FlooringPersistenceException {

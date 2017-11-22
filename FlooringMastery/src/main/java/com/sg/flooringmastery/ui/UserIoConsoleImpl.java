@@ -2,6 +2,8 @@
 package com.sg.flooringmastery.ui;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import static java.math.RoundingMode.HALF_UP;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -32,7 +34,7 @@ public class UserIoConsoleImpl implements UserIo {
         Scanner inputReader = new Scanner(System.in);
         System.out.println("Please enter the area you want us to lay flooring for");
         moneyInput = inputReader.nextLine();
-        moneyInserted = new BigDecimal(moneyInput);
+        moneyInserted = new BigDecimal(moneyInput).setScale(2, RoundingMode.HALF_UP);
         return moneyInserted;
     }
 

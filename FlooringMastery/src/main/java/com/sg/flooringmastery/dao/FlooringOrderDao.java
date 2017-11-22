@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FlooringOrderDao {
     
-    Order addOrder(LocalDate date, Order order)
+    Order addOrder(LocalDate date, Order currentOrder)
             throws FlooringPersistenceException;
 
     List<Order> getAllOrdersByDate()
@@ -17,12 +17,16 @@ public interface FlooringOrderDao {
             throws FlooringPersistenceException,
             FlooringOrdersForThatDateException;
     
+    Order getOrderForEdit(LocalDate date, int orderNumber) throws
+            FlooringPersistenceException, 
+            FlooringOrdersForThatDateException;
+    
     Order removeOrder(LocalDate date, int orderNumber)
             throws FlooringPersistenceException
             ,FlooringOrdersForThatDateException; 
     
 //    Set<LocalDate> getAllDates();
-    Order getNewOrderNumber(Order newOrder)
+    int getNewOrderNumber()
             throws FlooringPersistenceException;
     
     void saveOrder()throws FlooringPersistenceException;

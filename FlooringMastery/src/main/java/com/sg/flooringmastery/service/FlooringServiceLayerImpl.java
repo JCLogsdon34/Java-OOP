@@ -13,8 +13,10 @@ import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
+import java.math.MathContext;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class FlooringServiceLayerImpl implements FlooringServiceLayer {
@@ -42,13 +44,13 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public void addOrder(LocalDate dates, Order order) throws
+    public void addOrder(LocalDate dates, Order currentOrder) throws
             FlooringDuplicateOrderException,
             FlooringDataValidationException {
 
-        validateOrderData(order);
+        validateOrderData(currentOrder);
         try {
-            daoOrder.addOrder(dates, order);
+            daoOrder.addOrder(dates, currentOrder);
         } catch (FlooringPersistenceException e) {
             System.out.println("Could not load date");
         }
@@ -71,38 +73,41 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public Order getOrderCapitalCost(Order order, Collection<Tax> taxInfo, Collection<Product> productInfo) {
+    public BigDecimal getMaterial(Product currentProduct, BigDecimal area){
+        BigDecimal productCostPerSqFt = currentProduct.getProductCostPerSqFt();
+        BigDecimal totalMaterial = productCostPerSqFt.multiply(area);
+        return totalMaterial;
+    }
+    
+    @Override
+    public BigDecimal getLabor(Product currentProduct, BigDecimal area){
+        BigDecimal laborCostPerSqFt = currentProduct.getLaborCostPerSqFt();
+        BigDecimal totalLabor = laborCostPerSqFt.multiply(area);
+        return totalLabor;
+    }
+    
+    @Override
+    public BigDecimal getTotalSineTax(BigDecimal totalMaterial, BigDecimal totalLabor){
         
-        BigDecimal myMaterial = ZERO;
-        BigDecimal myLabor = ZERO;
-        BigDecimal myArea = ZERO;
-        BigDecimal totalMaterial = ZERO;
-        BigDecimal totalLabor = ZERO;
-        BigDecimal total = ZERO;
-        BigDecimal taxRate = ZERO;
-        BigDecimal taxAmount = ZERO;    
-        BigDecimal totalSineTax = ZERO;
-                      
-        myMaterial = order.getProduct().getProductCostPerSqFt();
-        myLabor = order.getProduct().getLaborCostPerSqFt();
-        myArea = order.getArea();
-        totalMaterial = totalMaterial.add(myArea.multiply(myMaterial));
-        totalLabor = totalLabor.add(myArea.multiply(myLabor));
-        totalSineTax = totalMaterial.add(totalLabor);
-        
-        taxAmount = totalSineTax.multiply(taxRate);
-        total = totalSineTax.add(taxAmount);
-       
-        order.setMaterialCost(totalMaterial);
-        order.setLaborCost(totalLabor);
-        order.getTax().setTaxAmount(taxAmount);
-        order.setTotal(total);
-        return order;
+        BigDecimal totalSineTax = totalLabor.add(totalMaterial);
+        return totalSineTax;
+    }
+    
+    @Override
+    public BigDecimal getTaxesForOrder(Tax currentTax, BigDecimal totalSineTax){
+        BigDecimal taxRate = currentTax.getTaxRate();
+        BigDecimal taxAmount = totalSineTax.multiply(taxRate);
+        return taxAmount;
+    }
+    @Override
+    public BigDecimal getOrderCapitalCost(BigDecimal taxAmount, BigDecimal totalSineTax) {
+        BigDecimal total = totalSineTax.add(taxAmount);
+        return total;
     }
 
     @Override
-    public Order getNewOrderNumber(Order newOrder) throws FlooringPersistenceException {
-        return daoOrder.getNewOrderNumber(newOrder);
+    public int getNewOrderNumber() throws FlooringPersistenceException {
+        return daoOrder.getNewOrderNumber();
     }
 
     @Override
@@ -112,12 +117,12 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     
     
 
-    private void validateOrderData(Order order) throws
+    private void validateOrderData(Order currentOrder) throws
             FlooringDataValidationException {
 
-        if (order.getOrderDate() == null
-                || order.getOrderNumber() == 0
-                || order.getArea() == null) {
+        if (currentOrder.getOrderDate() == null
+                || currentOrder.getOrderNumber() == 0
+                || currentOrder.getArea() == null) {
 
             throw new FlooringDataValidationException(
                     "ERROR: All fields [Order number, order Date, customer name"
@@ -128,5 +133,10 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     @Override
     public Collection<Tax> getAllTaxes() throws FlooringPersistenceException {
         return daoTax.getAllTaxes();
+    }
+
+    @Override
+    public Order getOrderForEdit(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+        return daoOrder.getOrderForEdit(date, orderNumber);
     }
 }
