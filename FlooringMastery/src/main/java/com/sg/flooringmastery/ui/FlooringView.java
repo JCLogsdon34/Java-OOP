@@ -33,6 +33,65 @@ public class FlooringView {
         return io.readInt("Please select from the above choices.");
     }
 
+    public Order getEdits(Order currentOrder, Collection<Tax> taxInfo, Collection<Product> productInfo) {
+        boolean newInput;
+        boolean keepOn;
+        String originalName = currentOrder.getCustomerName();
+        String customerName;
+        Tax currentTax = new Tax();
+        Product currentProduct = new Product();
+
+        io.print(currentOrder.getCustomerName());
+        customerName = io.readString("Please enter customer's name");
+
+        if (customerName == null || (originalName.equalsIgnoreCase(customerName))) {
+            io.print("No changes, got it");
+        } else if (!originalName.equalsIgnoreCase(customerName)) {
+            currentOrder.setCustomerName(customerName);
+        }
+
+        String stateTax = currentOrder.getTax().getState();
+        String newTax;
+
+        io.print(currentOrder.getTax().getState());
+
+        io.print("The above was your State choice");
+        taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
+            io.print(stateChoice);
+        });
+
+        newTax = io.readString("Please enter your changes regarding the state we will be working.");
+        if (!stateTax.equalsIgnoreCase(newTax)) {
+            currentTax = getTaxInformation(taxInfo);
+            currentOrder.setTax(currentTax);
+        } else if ((stateTax.equalsIgnoreCase(newTax) || newTax == null)) {
+            io.print("No changes made");
+        }
+
+        io.print(currentOrder.getArea().toString());
+        BigDecimal oldArea = currentOrder.getArea();
+
+        BigDecimal newArea = io.readBigDecimal("Please enter your changes to the area");
+        if (oldArea.equals(newArea) || newArea == null) {
+            io.print("No changes here");
+        } else if (!oldArea.equals(newArea)) {
+            currentOrder.setArea(newArea);
+        }
+
+        io.print(currentOrder.getProduct().getProductType());
+
+        String originalProduct = currentOrder.getProduct().getProductType();
+        String newProduct;
+        newProduct = io.readString("Please enter any changes you want to make to your product choice");
+        if (newProduct.equalsIgnoreCase(originalProduct) || newProduct == null) {
+            io.print("No changes made");
+        } else if (!newProduct.equalsIgnoreCase(originalProduct)) {
+            currentProduct = getProductInformation(productInfo);
+            currentOrder.setProduct(currentProduct);
+        }
+        return currentOrder;
+    }
+
     public void displayOrder(Order currentOrder) {
         if (currentOrder != null) {
             io.print(String.valueOf(currentOrder.getOrderNumber()));
@@ -75,23 +134,23 @@ public class FlooringView {
     public String getNewOrderNameInfo() {
         boolean newInput;
 
-            String customerName;
-            customerName = io.readString("Please enter customer's name");
-            if (customerName != null && !customerName.isEmpty()) {
-                newInput = true;
-            } else {
-                newInput = false;
-            }
+        String customerName;
+        customerName = io.readString("Please enter customer's name");
+        if (customerName != null && !customerName.isEmpty()) {
+            newInput = true;
+        } else {
+            newInput = false;
+        }
         return customerName;
     }
-    
-    public Tax getTaxInformation(Collection<Tax> taxInfo){
+
+    public Tax getTaxInformation(Collection<Tax> taxInfo) {
         Tax currentTax = new Tax();
         String myState;
         taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
             io.print(stateChoice);
         });
-        
+
         io.print("These are the states we work in right now");
         myState = io.readString("Please enter from your choice from "
                 + "these postal abreiviations: ");
@@ -104,12 +163,12 @@ public class FlooringView {
                 currentTax.setTaxRate(taxs);
             }
         }
-      return currentTax;
+        return currentTax;
     }
-    
-      public Product getProductInformation(Collection<Product> productInfo){
-      Product currentProduct = new Product();    
-      
+
+    public Product getProductInformation(Collection<Product> productInfo) {
+        Product currentProduct = new Product();
+
         for (Product stuff : productInfo) {
             io.print(stuff.getProductType());
         }
@@ -117,7 +176,7 @@ public class FlooringView {
         String myProduct = io.readString("Please select from the above product types: ");
 
         currentProduct.setProductType(myProduct);
-            for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
+        for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
             Product ps = it.next();
             if (ps.getProductType().equals(myProduct)) {
                 BigDecimal prodCost = ps.getProductCostPerSqFt();
@@ -127,9 +186,9 @@ public class FlooringView {
             }
         }
         return currentProduct;
-      }
-      
-      public BigDecimal getArea(){
+    }
+
+    public BigDecimal getArea() {
         BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
         return area;
     }
@@ -154,7 +213,7 @@ public class FlooringView {
         String assurance;
         boolean youSure = false;
         assurance = io.readString("Are you sure you want to proceed? Y/N ");
-        
+
         if (assurance.equalsIgnoreCase("y")) {
             youSure = true;
         } else if (assurance.equalsIgnoreCase("n")) {
@@ -197,6 +256,10 @@ public class FlooringView {
 
     public void displayOrderPlacedBanner() {
         io.print("=== Order Successful ===");
+    }
+
+    public void displayEditOrderBanner() {
+        io.print("=== Edit an Order ===");
     }
 
     public void displayEditSuccessBanner() {

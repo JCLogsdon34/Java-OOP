@@ -14,8 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -182,6 +180,7 @@ public class FlooringController {
             orderNumber = view.getOrderNumberChoice();
             service.removeOrder(date, orderNumber);
             view.displayRemoveOrderSuccessBanner();
+            
         } catch (FlooringOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
@@ -200,22 +199,20 @@ public class FlooringController {
             Order currentOrder;
             int orderNumber;
             
-            view.displayRemoveBanner();
+            view.displayEditOrderBanner();
+            taxInfo = service.getAllTaxes();
+            productInfo = service.getAllTheProducts();
             date = view.getOrderDate();
             orderNumber = view.getOrderNumberChoice();
             currentOrder = service.getOrderForEdit(date, orderNumber);
-            view.displayOrder(currentOrder);
-            //put a wayto compare old and new order info in here
             
-            taxInfo = service.getAllTaxes();
-            productInfo = service.getAllTheProducts();
-            orderNumber = service.getNewOrderNumber();
-            customerName = view.getNewOrderNameInfo();
-            currentTax = view.getTaxInformation(taxInfo);
-            currentProduct = view.getProductInformation(productInfo);
+            currentOrder = view.getEdits(currentOrder, taxInfo, productInfo);
+            
+            
         } catch (FlooringOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
+        view.displayEditSuccessBanner();
     }
 
     private void saveOrder() throws FlooringPersistenceException {

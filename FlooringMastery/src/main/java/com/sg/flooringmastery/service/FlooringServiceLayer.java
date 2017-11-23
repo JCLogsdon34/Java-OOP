@@ -22,6 +22,7 @@ public interface FlooringServiceLayer {
     Order  getOrderForEdit(LocalDate date, int orderNumber)
             throws FlooringPersistenceException,
             FlooringOrdersForThatDateException;
+
     
     BigDecimal getTotalSineTax(BigDecimal totalMaterial, BigDecimal totalLabor);
     
