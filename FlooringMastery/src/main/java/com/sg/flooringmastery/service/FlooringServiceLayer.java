@@ -19,7 +19,12 @@ public interface FlooringServiceLayer {
             FlooringDataValidationException,
             FlooringPersistenceException;
     
-    Order  getOrderForEdit(LocalDate date, int orderNumber)
+    Order getOneOrder(List<Order> newList, int orderNumber) throws FlooringPersistenceException;
+    
+    Order updateAnOrder(LocalDate date, Order currentOrder)
+            throws FlooringPersistenceException;
+    
+    Order  getOrderForEdit(List<Order> orderToday, int orderNumber)
             throws FlooringPersistenceException,
             FlooringOrdersForThatDateException;
 

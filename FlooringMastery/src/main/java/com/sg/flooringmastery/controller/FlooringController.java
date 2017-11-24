@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -65,6 +67,8 @@ public class FlooringController {
                         editOrder();
                     } catch (FlooringPersistenceException e) {
                         view.displayErrorMessage(e.getMessage());
+                    } catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
+                        view.displayErrorMessage(e.getMessage());
                     }
 
                     break;
@@ -72,6 +76,8 @@ public class FlooringController {
                     try {
                         removeOrder();
                     } catch (FlooringPersistenceException e) {
+                        view.displayErrorMessage(e.getMessage());
+                    } catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
 
@@ -170,23 +176,38 @@ public class FlooringController {
         view.displayOrderByDateList(newList);
     }
 
-    private void removeOrder() throws FlooringPersistenceException {
+    private void removeOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException {
         try {
             LocalDate date;
-            Order order;
+            List<Order> newList;
+            Order currentOrder;
             int orderNumber;
+            boolean youSure;
+
             view.displayRemoveBanner();
             date = view.getOrderDate();
             orderNumber = view.getOrderNumberChoice();
+            newList = service.getOrder(date);
+            currentOrder = service.getOneOrder(newList, orderNumber);
+
+            view.displayOrder(currentOrder);
+            youSure = view.getAssurance();
+            if (youSure == true) {
+                service.addOrder(date, currentOrder);
+                view.displayOrderPlacedBanner();
+                view.displayOrderSuccessBanner();
+            } else if (youSure != true) {
+                view.displayUnknownCommandBanner();
+            }
             service.removeOrder(date, orderNumber);
             view.displayRemoveOrderSuccessBanner();
-            
+
         } catch (FlooringOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
     }
 
-    private void editOrder() throws FlooringPersistenceException {
+    private void editOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException {
         try {
             Tax currentTax;
             Product currentProduct;
@@ -198,17 +219,25 @@ public class FlooringController {
             LocalDate date;
             Order currentOrder;
             int orderNumber;
-            
+            List<Order> orderToday = new ArrayList<>();
+
             view.displayEditOrderBanner();
             taxInfo = service.getAllTaxes();
             productInfo = service.getAllTheProducts();
             date = view.getOrderDate();
+            orderToday = service.getOrder(date);
             orderNumber = view.getOrderNumberChoice();
-            currentOrder = service.getOrderForEdit(date, orderNumber);
-            
+            currentOrder = service.getOrderForEdit(orderToday, orderNumber);
             currentOrder = view.getEdits(currentOrder, taxInfo, productInfo);
-            
-            
+
+            youSure = view.getAssurance();
+            if (youSure == true) {
+                service.updateAnOrder(date, currentOrder);
+                view.displayOrderPlacedBanner();
+            } else if (youSure != true) {
+                view.displayUnknownCommandBanner();
+            }
+
         } catch (FlooringOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }

@@ -29,12 +29,30 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     }
     
     @Override
-    public Order getOrderForEdit(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+    public Order getOneOrder(List<Order> newList, int orderNumber) throws FlooringPersistenceException {
         loadOrder();
         Order currentOrder;
-        List<Order> newOrder = new ArrayList<>(orders.get(date));
-        newOrder = orders.get(date);
-        currentOrder = newOrder.get(orderNumber);
+        
+        currentOrder = newList.get(orderNumber);
+        return currentOrder;
+    }
+    
+    @Override
+    public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+        loadOrder();
+        Order currentOrder;
+        
+        currentOrder = ordersList.get(orderNumber);
+        ordersList.remove(orderNumber);
+        return currentOrder;
+    }
+    
+    @Override
+    public Order updateAnOrder(LocalDate date, Order currentOrder)throws FlooringPersistenceException{
+        List <Order> newList = orders.get(date);
+
+        newList.add(currentOrder);
+        orders.put(date, newList);
         return currentOrder;
     }
 
@@ -50,13 +68,12 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         //       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         //     String dateForFile = date.format(formatter);
         //    String stringDate = dateForFile.replace("-", "");
-        List<Order> newList = new ArrayList<>();
-        newList = getOrder(date);
-        order = newList.remove(orderNumber);
+        
+        List<Order> newList = getOrder(date);
+        order = newList.get(orderNumber);
+        
         ordersList.remove(order);
-        orders.remove(date, ordersList);
         order = orders.remove(date).remove(orderNumber);
-        //     listOfOrdersByDate.delete();
         return order;
     }
 
@@ -127,7 +144,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                     try {
                         scanner = new Scanner(
                                 new BufferedReader(
-                                        new FileReader(theFileWanted)));
+                                        new FileReader(ORDERS_FILE)));
                     } catch (FileNotFoundException e) {
                         throw new FlooringPersistenceException("-_- Could not load order data.", e);
                     }
@@ -166,20 +183,20 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     }
 
     public Set<LocalDate> keys = orders.keySet();
+    public Collection<List<Order>> values = orders.values();
 
     private void writeOrder() throws FlooringPersistenceException {
         PrintWriter out;
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-             
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+
         for (String names : orderFiles) {
             for (Iterator<LocalDate> it = keys.iterator(); it.hasNext();) {
-                
+
                 LocalDate desiredOrderDate = it.next();
                 List<Order> theOrder = orders.get(desiredOrderDate);
                 String dateForFile = desiredOrderDate.format(formatter);
                 String stringDate = dateForFile.replace("-", "");
-                
-            
+
                 ORDERS_FILE = "Orders_"+stringDate+".txt";
                 try {
                     out = new PrintWriter(new FileWriter(ORDERS_FILE));
@@ -205,6 +222,7 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
                             + currentOrder.getTax().getTaxAmount() + DELIMITER
                             + currentOrder.getTotal() + DELIMITER);
                     orderFiles.add(ORDERS_FILE);
+                   // listOfOrdersByDate.put(orderFiles);
                     out.flush();
                 }
                 out.close();
