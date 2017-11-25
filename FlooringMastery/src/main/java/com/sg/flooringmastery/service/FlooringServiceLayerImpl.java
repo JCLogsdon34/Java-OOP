@@ -2,7 +2,7 @@ package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
-import com.sg.flooringmastery.dao.FlooringOrdersForThatDateException;
+import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dao.FlooringProductDao;
 import com.sg.flooringmastery.dao.FlooringProductDaoImpl;
@@ -13,10 +13,8 @@ import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
-import java.math.MathContext;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public class FlooringServiceLayerImpl implements FlooringServiceLayer {
@@ -58,12 +56,12 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException,
-            FlooringOrdersForThatDateException {
+            FlooringNoOrdersForThatDateException {
         return daoOrder.getOrder(date);
     }
 
     @Override
-    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         return daoOrder.removeOrder(date, orderNumber);
     }
     
@@ -136,7 +134,7 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+    public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         return daoOrder.getOrderForEdit(orderToday, orderNumber);
     }
     

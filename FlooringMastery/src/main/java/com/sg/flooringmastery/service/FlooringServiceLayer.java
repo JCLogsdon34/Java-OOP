@@ -1,7 +1,7 @@
 
 package com.sg.flooringmastery.service;
 
-import com.sg.flooringmastery.dao.FlooringOrdersForThatDateException;
+import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dto.Order;
 import com.sg.flooringmastery.dto.Product;
@@ -26,7 +26,7 @@ public interface FlooringServiceLayer {
     
     Order  getOrderForEdit(List<Order> orderToday, int orderNumber)
             throws FlooringPersistenceException,
-            FlooringOrdersForThatDateException;
+            FlooringNoOrdersForThatDateException;
 
     
     BigDecimal getTotalSineTax(BigDecimal totalMaterial, BigDecimal totalLabor);
@@ -42,14 +42,14 @@ public interface FlooringServiceLayer {
 
     List<Order> getOrder(LocalDate date) throws
             FlooringPersistenceException,
-            FlooringOrdersForThatDateException;
+            FlooringNoOrdersForThatDateException;
     
     Collection<Tax> getAllTaxes()throws
             FlooringPersistenceException;
 
     Order removeOrder(LocalDate date, int orderNumber) throws
             FlooringPersistenceException,
-            FlooringOrdersForThatDateException;
+            FlooringNoOrdersForThatDateException;
   
     Collection<Product> getAllTheProducts()
             throws FlooringPersistenceException;

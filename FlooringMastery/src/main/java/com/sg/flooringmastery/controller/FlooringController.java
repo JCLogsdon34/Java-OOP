@@ -1,6 +1,6 @@
 package com.sg.flooringmastery.controller;
 
-import com.sg.flooringmastery.dao.FlooringOrdersForThatDateException;
+import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dto.Order;
 import com.sg.flooringmastery.dto.Product;
@@ -49,7 +49,7 @@ public class FlooringController {
                 case 1:
                     try {
                         displayOrder();
-                    } catch (FlooringPersistenceException | FlooringOrdersForThatDateException e) {
+                    } catch (FlooringPersistenceException | FlooringNoOrdersForThatDateException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
 
@@ -163,17 +163,18 @@ public class FlooringController {
         }
     }
 
-    private void displayOrder() throws FlooringPersistenceException, FlooringOrdersForThatDateException {
+    private void displayOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         LocalDate date;
-        List<Order> newList = new ArrayList<>();
+        List <Order> newList = new ArrayList<>();
 
         view.displayDisplayOrderBanner();
         date = view.getOrderDate();
+        try{
         newList = service.getOrder(date);
-        if (newList.isEmpty()) {
-            throw new FlooringOrdersForThatDateException("No Orders for that date");
-        }
         view.displayOrderByDateList(newList);
+        }catch(FlooringNoOrdersForThatDateException e){
+            view.displayErrorMessage(e.getMessage());
+        }      
     }
 
     private void removeOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException {
@@ -202,7 +203,7 @@ public class FlooringController {
             service.removeOrder(date, orderNumber);
             view.displayRemoveOrderSuccessBanner();
 
-        } catch (FlooringOrdersForThatDateException e) {
+        } catch (FlooringNoOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
     }
@@ -238,7 +239,7 @@ public class FlooringController {
                 view.displayUnknownCommandBanner();
             }
 
-        } catch (FlooringOrdersForThatDateException e) {
+        } catch (FlooringNoOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
         view.displayEditSuccessBanner();
