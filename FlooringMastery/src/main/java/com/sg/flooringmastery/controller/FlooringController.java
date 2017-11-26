@@ -195,14 +195,11 @@ public class FlooringController {
             youSure = view.getAssurance();
             if (youSure == true) {
                 service.addOrder(date, currentOrder);
-                view.displayOrderPlacedBanner();
-                view.displayOrderSuccessBanner();
+                view.displayRemoveOrderSuccessBanner();
             } else if (youSure != true) {
                 view.displayUnknownCommandBanner();
             }
             service.removeOrder(date, orderNumber);
-            view.displayRemoveOrderSuccessBanner();
-
         } catch (FlooringNoOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }

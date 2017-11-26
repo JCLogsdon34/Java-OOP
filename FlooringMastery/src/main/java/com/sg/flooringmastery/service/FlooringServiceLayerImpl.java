@@ -42,16 +42,14 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public void addOrder(LocalDate dates, Order currentOrder) throws
+    public Order addOrder(LocalDate dates, Order currentOrder) throws
             FlooringDuplicateOrderException,
-            FlooringDataValidationException {
+            FlooringDataValidationException,
+            FlooringPersistenceException {
 
         validateOrderData(currentOrder);
-        try {
-            daoOrder.addOrder(dates, currentOrder);
-        } catch (FlooringPersistenceException e) {
-            System.out.println("Could not load date");
-        }
+
+        return daoOrder.addOrder(dates, currentOrder);
     }
 
     @Override

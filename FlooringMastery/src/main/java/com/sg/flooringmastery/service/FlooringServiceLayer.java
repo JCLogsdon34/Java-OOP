@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface FlooringServiceLayer {
     
-    void addOrder(LocalDate dates, Order currentOrder) throws
+    Order addOrder(LocalDate dates, Order currentOrder) throws
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
             FlooringPersistenceException;

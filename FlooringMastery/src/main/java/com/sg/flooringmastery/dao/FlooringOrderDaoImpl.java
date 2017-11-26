@@ -16,24 +16,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
 public class FlooringOrderDaoImpl implements FlooringOrderDao {
-    
+
     public String filePath = "/home/apprentice/chris-logsdon-individual-work/FlooringMastery";
     public File theOrders = new File(filePath);
-    public File[] listOfOrdersByDate = theOrders.listFiles();
-    private HashMap<LocalDate, List<Order>> ordersMap = new HashMap<>();
-    private HashMap<String, HashMap<LocalDate, List<Order>>> allByFileName = new HashMap<>();
-    public List<Order> ordersList = new ArrayList<>();
+    public File [] listOfOrdersByDate;
+  //  private HashMap<LocalDate, List<Order>> anOrder;
+    //these three were static
+    public Map<LocalDate, List<Order>> ordersMap;
+    public static ArrayList<String> arrayForFiles;  //you may not need this one afterall
+    public List<Order> ordersList;
 
     public FlooringOrderDaoImpl() {
-        allByFileName = new HashMap<>();
+        ordersList = new ArrayList<>();
+        ordersMap = new HashMap<>();
+        arrayForFiles = new ArrayList<>();
+        listOfOrdersByDate = theOrders.listFiles();
     }
+    public String ORDERS_FILE;
+    public static final String DELIMITER = ",";
+    public static ArrayList<Integer> orderNums = new ArrayList<>();
 
     @Override
     public Order getOneOrder(List<Order> newList, int orderNumber) throws FlooringPersistenceException {
@@ -46,8 +53,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     @Override
     public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         loadOrder();
-        Order currentOrder = ordersList.get(orderNumber);
-        ordersList.remove(orderNumber);
+        Order currentOrder = orderToday.get(orderNumber);
         return currentOrder;
     }
 
@@ -63,56 +69,48 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
     @Override
     public void saveOrder() throws FlooringPersistenceException {
-        loadOrder();
-        writeOrder();
+        //  loadOrder();
+        try {
+            writeOrder();
+        } catch (FlooringNoOrdersForThatDateException e) {
+            System.out.println("No orders to save for today");
+        }
     }
 
     @Override
     public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        Order order = new Order();
+        Order currentOrder = new Order();
         loadOrder();
-        //       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        //     String dateForFile = date.format(formatter);
-        //    String stringDate = dateForFile.replace("-", "");
-
-        List<Order> newList = getOrder(date);
-        order = newList.get(orderNumber);
-        ordersList.remove(order);
-        order = ordersMap.remove(date).remove(orderNumber);
-        return order;
+        currentOrder = ordersList.get(orderNumber);
+        currentOrder = ordersMap.remove(date).remove(orderNumber);
+        ordersList.remove(currentOrder);
+        return currentOrder;
     }
 
     @Override
     public Order addOrder(LocalDate date, Order currentOrder) throws FlooringPersistenceException {
-        loadOrder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String dateForFile = date.format(formatter);
-        List<Order> newList = new ArrayList<>();
-        String stringDate = dateForFile.replace("-", "");
-        newList.add(currentOrder);
-        ordersMap.put(date, newList);
+        //loadOrder();
+        ordersList.add(currentOrder);
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(currentOrder);
+        //maybe declare new list, and put it seperately into ordersMap
+        ordersMap.put(date, orderList);
         return currentOrder;
     }
 
     @Override
     public List<Order> getAllOrdersByDate() throws FlooringPersistenceException {
         loadOrder();
-        return new ArrayList<>();
+        
+        return ordersList;
     }
 
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         loadOrder();
-        List<Order> newOrder = new ArrayList<>();
-        newOrder = ordersMap.get(date);
+        List<Order> newOrder = ordersMap.get(date);
         return newOrder;
     }
-
-    
-    public String ORDERS_FILE;
-    public static final String DELIMITER = ",";
-
-    public static ArrayList<Integer> orderNums = new ArrayList<>();
 
     @Override
     public int getNewOrderNumber() {
@@ -136,7 +134,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
         for (int i = 0; i < listOfOrdersByDate.length; i++) {
 
-            if (listOfOrdersByDate[i].exists()) {
+            if (listOfOrdersByDate[i] != null) {
                 String theFileWanted = listOfOrdersByDate[i].getName();
 
                 if ((theFileWanted.startsWith("Orders_")) && (theFileWanted.endsWith(".txt"))) {
@@ -156,6 +154,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                     String currentLine;
                     String[] currentTokens;
                     while (scanner.hasNextLine()) {
+//                        List<Order> currentDay = new ArrayList<>();
                         currentLine = scanner.nextLine();
                         currentTokens = currentLine.split(DELIMITER);
                         currentOrder = new Order();
@@ -172,11 +171,10 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                         currentOrder.setLaborCost(new BigDecimal(currentTokens[9]));
                         currentOrder.getTax().setTaxAmount(new BigDecimal(currentTokens[10]));
                         currentOrder.setTotal(new BigDecimal(currentTokens[11]));
-
-                        orderNums.add(currentOrder.getOrderNumber());
+                     //   currentDay.add(currentOrder);   
                         ordersList.add(currentOrder);
+                        
                         ordersMap.put(currentOrder.getOrderDate(), ordersList);
-                        allByFileName.put(newDate, ordersMap);
                     }
                     scanner.close();
                 }
@@ -184,69 +182,63 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         }
     }
 
-    public Set<String> getKey() {
-        return allByFileName.keySet();
-    }
-    
-    public Set<LocalDate> getOtherKey(){
+    private Set<LocalDate> getKey() {
         return ordersMap.keySet();
     }
 
-    public Collection<List<Order>> getValue(LocalDate date) {
-        Collection<List<Order>> currentOrder;
-        currentOrder = ordersMap.values();
-        return currentOrder;
-    }
-
-    private void writeOrder() throws FlooringPersistenceException {
+    private void writeOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         PrintWriter out;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        
-        for (String names : getKey()) {
-            Order currentOrder = new Order();
-                
-                List<Order> orders = ordersMap.get(currentOrder.getOrderDate());
-                
-                String dateForFile = desiredOrderDate.format(formatter);
-                String newDate = dateForFile.substring(7, dateForFile.length() - 4);
-                String newerDate = newDate.substring(0, 2);
-                String newerDate1 = newDate.substring(2, 4);
-                String newerDate2 = newDate.substring(4, 8);
-                String theDateNow = newerDate + "-" + newerDate1 + "-" + newerDate2;
 
-                File brandNewFile = new File("Orders_" + theDateNow + ".txt");
+        for (LocalDate myDate : getKey()) {
+            //      for (String names : arrayForFiles) {
+            String dateForFile = myDate.format(formatter);
+            String myOrder = dateForFile.replace("-", "");
+            String newerDate = myOrder.substring(0, 2);
+            String newerDate1 = myOrder.substring(2, 4);
+            String newerDate2 = myOrder.substring(4, 8);
+            String theDateNow = newerDate + newerDate1 + newerDate2;
+            //      for(File newFile : listOfOrdersByDate){
+           
+            for (int i = 0; i < listOfOrdersByDate.length; i++) {
+                String ordersDate = listOfOrdersByDate[i].getName();
+                String orderIWant = "Orders_" + theDateNow + ".txt";
+                if ((ordersDate).equals(orderIWant)) {
+                    String theFileWanted = listOfOrdersByDate[i].getName();
+                    ORDERS_FILE = theFileWanted;
+                } else {
 
-                try {
-                    out = new PrintWriter(new FileWriter(brandNewFile));
-                } catch (IOException e) {
-                    throw new FlooringPersistenceException(
-                            "Could not save Order data.", e);
-                }
-                
-                currentOrder = theOrder.get(currentOrder.getOrderNumber());
-/*                String anOrder = currentOrder.getOrderDate().toString();
-                String myOrder = anOrder.replace("-", "");
-                String theFilesName = "Orders_" + myOrder + "txt";
-*/
-                //use fileMap keyset right here
-                if (getKey().equals(brandNewFile)) {
-                    out.println(currentOrder.getOrderNumber() + DELIMITER
-                            + currentOrder.getCustomerName() + DELIMITER
-                            + currentOrder.getTax().getState() + DELIMITER
-                            + currentOrder.getTax().getTaxRate() + DELIMITER
-                            + currentOrder.getProduct().getProductType() + DELIMITER
-                            + currentOrder.getArea() + DELIMITER
-                            + currentOrder.getProduct().getProductCostPerSqFt() + DELIMITER
-                            + currentOrder.getProduct().getLaborCostPerSqFt() + DELIMITER
-                            + currentOrder.getMaterialCost() + DELIMITER
-                            + currentOrder.getLaborCost() + DELIMITER
-                            + currentOrder.getTax().getTaxAmount() + DELIMITER
-                            + currentOrder.getTotal() + DELIMITER);
-                    allByFileName.put(brandNewFile.toString(), ordersMap);
-                    // listOfOrdersByDate.put(orderFiles);
-                    out.flush();
-                }
+                    File brandNewFile = new File("Orders_" + theDateNow + ".txt");
+                    ORDERS_FILE = brandNewFile.toString();
+
+                    try {
+                        out = new PrintWriter(new FileWriter(ORDERS_FILE));
+                    } catch (IOException e) {
+                        throw new FlooringPersistenceException(
+                                "Could not save Order data.", e);
+                    }
+
+                    for (Order currentOrder : getOrder(myDate)) {
+                        currentOrder = ordersList.get(currentOrder.getOrderNumber());
+                        //use fileMap keyset right here
+//              if (getKey().equals(brandNewFile)) {
+                        out.println(currentOrder.getOrderNumber() + DELIMITER
+                                + currentOrder.getCustomerName() + DELIMITER
+                                + currentOrder.getTax().getState() + DELIMITER
+                                + currentOrder.getTax().getTaxRate() + DELIMITER
+                                + currentOrder.getProduct().getProductType() + DELIMITER
+                                + currentOrder.getArea() + DELIMITER
+                                + currentOrder.getProduct().getProductCostPerSqFt() + DELIMITER
+                                + currentOrder.getProduct().getLaborCostPerSqFt() + DELIMITER
+                                + currentOrder.getMaterialCost() + DELIMITER
+                                + currentOrder.getLaborCost() + DELIMITER
+                                + currentOrder.getTax().getTaxAmount() + DELIMITER
+                                + currentOrder.getTotal());
+                   //     arrayForFiles.add(ORDERS_FILE);
+                    }
+                    out.flush();   
                 out.close();
+                }
             }
         }
     }
