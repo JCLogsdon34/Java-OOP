@@ -169,12 +169,13 @@ public class FlooringController {
 
         view.displayDisplayOrderBanner();
         date = view.getOrderDate();
-        try{
+        
         newList = service.getOrder(date);
+        if(!newList.isEmpty()){
         view.displayOrderByDateList(newList);
-        }catch(FlooringNoOrdersForThatDateException e){
-            view.displayErrorMessage(e.getMessage());
-        }      
+        } else if (newList.isEmpty()){
+            System.out.print("No order for that date");
+        }
     }
 
     private void removeOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException {

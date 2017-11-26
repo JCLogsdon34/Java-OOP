@@ -118,10 +118,14 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
         if (currentOrder.getOrderDate() == null
                 || currentOrder.getOrderNumber() == 0
-                || currentOrder.getArea() == null) {
+                || currentOrder.getArea() == null
+                || currentOrder.getArea() == ZERO
+                || currentOrder.getTax().getState().length() > 2 
+                || currentOrder.getTax().getState() == null
+                || currentOrder.getProduct().getProductType().length() > 8) {
 
             throw new FlooringDataValidationException(
-                    "ERROR: All fields [Order number, order Date, customer name"
+                    "ERROR: All fields [Order number, order Date"
                     + " product type, state, and area] are required.");
         }
     }
