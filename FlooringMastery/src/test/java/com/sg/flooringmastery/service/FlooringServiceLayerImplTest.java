@@ -298,7 +298,7 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Test
-    public void testGetOneOrder() throws FlooringPersistenceException {
+    public void testGetOneOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "06-01-2013";
         Order currentOrder = new Order();
@@ -322,8 +322,8 @@ public class FlooringServiceLayerImplTest {
         
         List<Order> anOrder = new ArrayList<>();
         anOrder.add(currentOrder);
-        Order fromServ = service.getOneOrder(anOrder, orderNumber);
-        Order fromDao = daoOrder.getOneOrder(anOrder, orderNumber);
+        Order fromServ = service.getOrderForEdit(anOrder, orderNumber);
+        Order fromDao = daoOrder.getOrderForEdit(anOrder, orderNumber);
         BigDecimal fromS = fromServ.getArea();
         BigDecimal fromD = fromDao.getArea();
         assertEquals(fromS, fromD);

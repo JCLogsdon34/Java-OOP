@@ -2,6 +2,7 @@
 package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.dao.FlooringAuditDao;
+import com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
@@ -20,14 +21,15 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class FlooringServiceLayerStub implements FlooringServiceLayer {
+public class FlooringServiceLayerStub implements FlooringServiceLayerTraining {
 
-    
+    public FlooringOrderDao daoOrder= new FlooringDaoOrderStubImpl();
     FlooringProductDao daoProduct;
     FlooringTaxDao daoTax;
     FlooringAuditDao auditDao;
 
     public FlooringServiceLayerStub(FlooringProductDao daoProduct, FlooringTaxDao daoTax, FlooringAuditDao auditDao) throws FlooringPersistenceException {
+        this.daoOrder = new FlooringDaoOrderStubImpl();
         this.daoTax = new FlooringTaxDaoImpl();
         this.daoProduct = new FlooringProductDaoImpl();
         this.daoProduct = daoProduct;
@@ -44,7 +46,7 @@ public class FlooringServiceLayerStub implements FlooringServiceLayer {
 
         validateOrderData(currentOrder);
 
-        return currentOrder;
+        return daoOrder.addOrder(dates, currentOrder);
     }
 
     @Override
@@ -100,11 +102,6 @@ public class FlooringServiceLayerStub implements FlooringServiceLayer {
     public int getNewOrderNumber() throws FlooringPersistenceException {
         return daoOrder.getNewOrderNumber();
     }
-
-    @Override
-    public void saveOrder() throws FlooringPersistenceException {
-        daoOrder.saveOrder();
-    }
     
     
 
@@ -139,10 +136,4 @@ public class FlooringServiceLayerStub implements FlooringServiceLayer {
     public Order updateAnOrder(LocalDate date, Order currentOrder)throws FlooringPersistenceException{
         return daoOrder.updateAnOrder(date, currentOrder);
     }
-    
-    @Override
-    public Order getOneOrder(List<Order> newList, int orderNumber) throws FlooringPersistenceException{
-        return daoOrder.getOneOrder(newList, orderNumber);
-    } 
-    
 }

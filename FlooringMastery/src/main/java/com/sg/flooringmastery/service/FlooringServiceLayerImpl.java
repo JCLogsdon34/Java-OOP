@@ -139,9 +139,4 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     public Order updateAnOrder(LocalDate date, Order currentOrder)throws FlooringPersistenceException{
         return daoOrder.updateAnOrder(date, currentOrder);
     }
-    
-    @Override
-    public Order getOneOrder(List<Order> newList, int orderNumber) throws FlooringPersistenceException{
-        return daoOrder.getOneOrder(newList, orderNumber);
-    } 
 }

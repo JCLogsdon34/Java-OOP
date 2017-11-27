@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public interface FlooringServiceLayer {
+public interface FlooringServiceLayerTraining {
     
     Order addOrder(LocalDate dates, Order currentOrder) throws
             FlooringDuplicateOrderException,
@@ -54,7 +54,4 @@ public interface FlooringServiceLayer {
     
     int getNewOrderNumber()
             throws FlooringPersistenceException;
-    
-    void saveOrder()throws 
-            FlooringPersistenceException;
 }
