@@ -142,27 +142,24 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
         for (int i = 0; i < listOfOrdersByDate.length; i++) {
 
-            if (listOfOrdersByDate[i] != null) {
 
                 String theFileWanted = listOfOrdersByDate[i].getName();
                 if ((theFileWanted.startsWith("Orders_")) && (theFileWanted.endsWith(".txt"))) {
 
                     String newDate = theFileWanted.substring(7, theFileWanted.length() - 4);
 
-                    if ((theFileWanted.contains(newDate))) {
                         String newerDate = newDate.substring(0, 2);
                         String newerDate1 = newDate.substring(2, 4);
                         String newerDate2 = newDate.substring(4, 8);
                         String theDateNow = newerDate + "-" + newerDate1 + "-" + newerDate2;
-
+                            ORDERS_FILE = "Orders_"+theDateNow+".txt";
                         try {
                             scanner = new Scanner(
                                     new BufferedReader(
-                                            new FileReader(theFileWanted)));
+                                            new FileReader(ORDERS_FILE)));
                         } catch (FileNotFoundException e) {
                             throw new FlooringPersistenceException("-_- Could not load order data.", e);
                         }
-
                         String currentLine;
                         String[] currentTokens = new String[]{};
                         while (scanner.hasNextLine()) {
@@ -187,34 +184,24 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                             currentOrder.setTotal(new BigDecimal(currentTokens[11]));
                             currentDay.add(currentOrder);
 
-                            ordersMap.put(currentOrder.getOrderDate(), currentDay);
+                            ordersMap.put(currentOrder.getOrderDate().toString(), currentDay);
                         }
                         scanner.close();
                     }
                 }
             }
-        }
-    }
 
     public void writeOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         PrintWriter out;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-
-        String dateForFile = myDate.format(formatter);
-        String myOrder = dateForFile.replace("-", "");
-        String newerDate = myOrder.substring(0, 2);
-        String newerDate1 = myOrder.substring(2, 4);
-        String newerDate2 = myOrder.substring(4, 8);
-        String theDateNow = newerDate + newerDate1 + newerDate2;
+        
 
         for (int i = 0; i < listOfOrdersByDate.length; i++) {
-            String orderIWant = "Orders_" + theDateNow + ".txt";
-            ORDERS_FILE = orderIWant;
-            String ordersDate = listOfOrdersByDate[i].getName();
-            if ((ordersDate).equals(orderIWant)) {
-                File theFile = new File(ordersDate);
-                ORDERS_FILE = theFile.toString();
-            } else {
+            String dateForFile = listOfOrdersByDate[i].getName();
+            
+            String orderIWant = "Orders_" + dateForFile + ".txt";
+
+                
                 File brandNewFile = new File(orderIWant);
                 ORDERS_FILE = brandNewFile.toString();
                 try {
@@ -223,16 +210,12 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                     throw new FlooringPersistenceException(
                             "Could not save Order data.", e);
                 }
-                //   List<Order> currentDay = this.getOrder(myDate);
                 Order currentOrder = new Order();
-
                 List<Order> currentDay = new ArrayList<>();
-                currentDay.equals(ordersMap.get(myDate));
                 for (int k = 0; k < currentDay.size(); k++) {
-                    currentOrder = currentDay.get(k);
-                    if (currentOrder.getOrderDate().equals(myDate)) {
-                        //use fileMap keyset right here
-                        //currentOrder.getOrderDate() + DELIMITER +
+                    currentDay.equals(currentDay.get(k));
+                    currentOrder.equals(currentDay.get(k));
+
                         out.println(currentOrder.getOrderNumber() + DELIMITER
                                 + currentOrder.getCustomerName() + DELIMITER
                                 + currentOrder.getTax().getState() + DELIMITER
@@ -246,10 +229,8 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                                 + currentOrder.getTax().getTaxAmount() + DELIMITER
                                 + currentOrder.getTotal());
                     }
-                }
                 out.flush();
                 out.close();
             }
         }
     }
-}

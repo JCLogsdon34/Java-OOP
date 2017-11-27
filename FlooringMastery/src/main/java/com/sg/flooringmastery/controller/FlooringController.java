@@ -25,12 +25,6 @@ public class FlooringController {
         this.view = view;
         this.service = service;
     }
-    
-    public String selectMode(){
-        String mode = null;
-        mode = view.getMode();
-        return mode;
-    }
 
     public void run() {
         boolean keepGoing = true;
@@ -184,7 +178,7 @@ public class FlooringController {
             date = view.getOrderDate();
             orderNumber = view.getOrderNumberChoice();
             newList = service.getOrder(date);
-            currentOrder = service.getOneOrder(newList, orderNumber);
+            currentOrder = service.getOrderForEdit(newList, orderNumber);
 
             view.displayOrder(currentOrder);
             youSure = view.getAssurance();

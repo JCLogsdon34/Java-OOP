@@ -15,7 +15,7 @@
           http://www.springframework.org/schema/aop  
           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
-    <bean id="daoOrder" 
+    <bean id="orderDao" 
           class="com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl"/>
    
     <bean id="daoTax" 
@@ -29,7 +29,7 @@
     
     <bean id="service" 
           class="com.sg.flooringmastery.service.FlooringServiceLayerStubImpl">
-        <constructor-arg ref="daoOrder"/> 
+        <constructor-arg ref="orderDao"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
         <constructor-arg ref="auditDao"/> 

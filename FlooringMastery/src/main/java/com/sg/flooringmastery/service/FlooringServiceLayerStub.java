@@ -2,6 +2,7 @@
 package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.dao.FlooringAuditDao;
+import com.sg.flooringmastery.dao.FlooringDaoOrderStub;
 import com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
@@ -23,13 +24,13 @@ import java.util.List;
 
 public class FlooringServiceLayerStub implements FlooringServiceLayerTraining {
 
-    public FlooringOrderDao daoOrder= new FlooringDaoOrderStubImpl();
+    FlooringDaoOrderStub orderDao;
     FlooringProductDao daoProduct;
     FlooringTaxDao daoTax;
     FlooringAuditDao auditDao;
 
-    public FlooringServiceLayerStub(FlooringProductDao daoProduct, FlooringTaxDao daoTax, FlooringAuditDao auditDao) throws FlooringPersistenceException {
-        this.daoOrder = new FlooringDaoOrderStubImpl();
+    public FlooringServiceLayerStub(FlooringDaoOrderStub daoOrder, FlooringProductDao daoProduct, FlooringTaxDao daoTax, FlooringAuditDao auditDao) throws FlooringPersistenceException {
+        this.orderDao = new FlooringDaoOrderStubImpl();
         this.daoTax = new FlooringTaxDaoImpl();
         this.daoProduct = new FlooringProductDaoImpl();
         this.daoProduct = daoProduct;
@@ -46,18 +47,18 @@ public class FlooringServiceLayerStub implements FlooringServiceLayerTraining {
 
         validateOrderData(currentOrder);
 
-        return daoOrder.addOrder(dates, currentOrder);
+        return orderDao.addOrder(dates, currentOrder);
     }
 
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException {
-        return daoOrder.getOrder(date);
+        return orderDao.getOrder(date);
     }
 
     @Override
     public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        return daoOrder.removeOrder(date, orderNumber);
+        return orderDao.removeOrder(date, orderNumber);
     }
     
     @Override
@@ -100,7 +101,7 @@ public class FlooringServiceLayerStub implements FlooringServiceLayerTraining {
 
     @Override
     public int getNewOrderNumber() throws FlooringPersistenceException {
-        return daoOrder.getNewOrderNumber();
+        return orderDao.getNewOrderNumber();
     }
     
     
@@ -129,11 +130,11 @@ public class FlooringServiceLayerStub implements FlooringServiceLayerTraining {
 
     @Override
     public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        return daoOrder.getOrderForEdit(orderToday, orderNumber);
+        return orderDao.getOrderForEdit(orderToday, orderNumber);
     }
     
     @Override
     public Order updateAnOrder(LocalDate date, Order currentOrder)throws FlooringPersistenceException{
-        return daoOrder.updateAnOrder(date, currentOrder);
+        return orderDao.updateAnOrder(date, currentOrder);
     }
 }

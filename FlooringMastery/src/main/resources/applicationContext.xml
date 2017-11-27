@@ -24,7 +24,10 @@
    
     <bean id="daoOrder" 
           class="com.sg.flooringmastery.dao.FlooringOrderDaoImpl"/>
-   
+    
+    <bean if = "orderDao"
+            class="com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl"/>
+    
     <bean id="daoTax" 
           class="com.sg.flooringmastery.dao.FlooringTaxDaoImpl"/>
     
@@ -43,6 +46,7 @@
     </bean>
     <bean id="serviceStub" 
           class="com.sg.flooringmastery.service.FlooringServiceLayerStub">
+        <constructor-arg ref="orderDao"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
         <constructor-arg ref="auditDao"/> 

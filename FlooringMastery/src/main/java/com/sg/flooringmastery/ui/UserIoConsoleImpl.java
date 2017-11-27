@@ -107,10 +107,12 @@ public class UserIoConsoleImpl implements UserIo {
     public int readInt(String userPrompt, int min, int max) {
         Scanner inputReader = new Scanner(System.in);
         boolean keepGoing = true;
+        String newString = null;
         int myInt = 0;
         do {
             System.out.println(userPrompt);
-            myInt = inputReader.nextInt();
+            newString = inputReader.next();
+            myInt = Integer.parseInt(newString);
             if (myInt > 6 || myInt < 1) {
                 keepGoing = true;
             } else {

@@ -2,9 +2,9 @@ package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.dao.FlooringAuditDao;
 import com.sg.flooringmastery.dao.FlooringAuditDaoImpl;
+import com.sg.flooringmastery.dao.FlooringDaoOrderStub;
+import com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
-import com.sg.flooringmastery.dao.FlooringOrderDao;
-import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dao.FlooringProductDao;
 import com.sg.flooringmastery.dao.FlooringProductDaoImpl;
@@ -32,18 +32,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class FlooringServiceLayerImplTest {
 
-    FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
+    FlooringDaoOrderStub daoOrder = new FlooringDaoOrderStubImpl();
     FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
     FlooringProductDao daoProduct = new FlooringProductDaoImpl();
     FlooringAuditDao auditDao = new FlooringAuditDaoImpl();
 
-    FlooringServiceLayer service;
+    FlooringServiceLayerTraining service;
 
     public FlooringServiceLayerImplTest() {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("applicationContext.xml");
         service
-                = ctx.getBean("service", FlooringServiceLayer.class);
+                = ctx.getBean("service", FlooringServiceLayerTraining.class);
     }
 
     @BeforeClass
