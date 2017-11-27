@@ -14,6 +14,7 @@ import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
+import static java.math.RoundingMode.HALF_UP;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -24,7 +25,6 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
     FlooringProductDao daoProduct;
     FlooringTaxDao daoTax;
-    FlooringAuditDao auditDao;
 
     public FlooringServiceLayerImpl(FlooringOrderDao daoOrder,
             FlooringProductDao daoProduct, FlooringTaxDao daoTax, FlooringAuditDao auditDao) throws FlooringPersistenceException {
@@ -33,7 +33,6 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
         this.daoOrder = daoOrder;
         this.daoProduct = daoProduct;
         this.daoTax = daoTax;
-        this.auditDao = auditDao;
     }
 
     @Override
@@ -65,34 +64,34 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
     @Override
     public BigDecimal getMaterial(Product currentProduct, BigDecimal area){
-        BigDecimal productCostPerSqFt = currentProduct.getProductCostPerSqFt();
-        BigDecimal totalMaterial = productCostPerSqFt.multiply(area);
+        BigDecimal productCostPerSqFt = currentProduct.getProductCostPerSqFt().setScale(2, HALF_UP);
+        BigDecimal totalMaterial = productCostPerSqFt.multiply(area).setScale(2, HALF_UP);
         return totalMaterial;
     }
     
     @Override
     public BigDecimal getLabor(Product currentProduct, BigDecimal area){
-        BigDecimal laborCostPerSqFt = currentProduct.getLaborCostPerSqFt();
-        BigDecimal totalLabor = laborCostPerSqFt.multiply(area);
+        BigDecimal laborCostPerSqFt = currentProduct.getLaborCostPerSqFt().setScale(2, HALF_UP);
+        BigDecimal totalLabor = laborCostPerSqFt.multiply(area).setScale(2, HALF_UP);
         return totalLabor;
     }
     
     @Override
     public BigDecimal getTotalSineTax(BigDecimal totalMaterial, BigDecimal totalLabor){
         
-        BigDecimal totalSineTax = totalLabor.add(totalMaterial);
+        BigDecimal totalSineTax = totalLabor.add(totalMaterial).setScale(2, HALF_UP);
         return totalSineTax;
     }
     
     @Override
     public BigDecimal getTaxesForOrder(Tax currentTax, BigDecimal totalSineTax){
-        BigDecimal taxRate = currentTax.getTaxRate();
-        BigDecimal taxAmount = totalSineTax.multiply(taxRate);
+        BigDecimal taxRate = currentTax.getTaxRate().setScale(2, HALF_UP);
+        BigDecimal taxAmount = totalSineTax.multiply(taxRate).setScale(2, HALF_UP);
         return taxAmount;
     }
     @Override
     public BigDecimal getOrderCapitalCost(BigDecimal taxAmount, BigDecimal totalSineTax) {
-        BigDecimal total = totalSineTax.add(taxAmount);
+        BigDecimal total = totalSineTax.add(taxAmount).setScale(2, HALF_UP);
         return total;
     }
 

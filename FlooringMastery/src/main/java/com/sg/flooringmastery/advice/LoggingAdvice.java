@@ -53,26 +53,4 @@ public class LoggingAdvice {
                     "ERROR: Could not create audit entry in LoggingAdvice.");
         }
     }
-
-    public static String selectMode() throws FlooringPersistenceException {
-        Scanner scanner;
-        String mode = null;
-        String currentLine = null;
-        String MODES_FILE = "Modes.txt";
-        String[] currentTokens = new String[]{};
-        try {
-             scanner = new Scanner(
-                    new BufferedReader(
-                            new FileReader(MODES_FILE)));
-        } catch (FileNotFoundException e) {
-            throw new FlooringPersistenceException("-_- Could not load order data.", e);
-        }
-        
-        while (scanner.hasNextLine()) {
-        currentLine = scanner.nextLine();
-        mode = (currentTokens[0]);
-        }
-        scanner.close(); 
-        return mode;
-    }
 }

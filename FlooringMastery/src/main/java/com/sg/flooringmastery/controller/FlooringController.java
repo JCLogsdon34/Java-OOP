@@ -10,6 +10,7 @@ import com.sg.flooringmastery.service.FlooringDuplicateOrderException;
 import com.sg.flooringmastery.ui.FlooringView;
 import com.sg.flooringmastery.service.FlooringServiceLayer;
 import java.math.BigDecimal;
+import static java.math.RoundingMode.HALF_UP;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,12 +123,12 @@ public class FlooringController {
         currentTax = view.getTaxInformation(taxInfo);
         currentProduct = view.getProductInformation(productInfo);
         BigDecimal area = view.getArea();
-        BigDecimal totalMaterial = service.getMaterial(currentProduct, area);
-        BigDecimal totalLabor = service.getLabor(currentProduct, area);
-        BigDecimal totalSineTax = service.getTotalSineTax(totalMaterial, totalLabor);
-        BigDecimal taxAmount = service.getTaxesForOrder(currentTax, totalSineTax);
+        BigDecimal totalMaterial = service.getMaterial(currentProduct, area).setScale(2, HALF_UP);
+        BigDecimal totalLabor = service.getLabor(currentProduct, area).setScale(2, HALF_UP);
+        BigDecimal totalSineTax = service.getTotalSineTax(totalMaterial, totalLabor).setScale(2, HALF_UP);
+        BigDecimal taxAmount = service.getTaxesForOrder(currentTax, totalSineTax).setScale(2, HALF_UP);
         currentTax.setTaxAmount(taxAmount);
-        BigDecimal total = service.getOrderCapitalCost(taxAmount, totalSineTax);
+        BigDecimal total = service.getOrderCapitalCost(taxAmount, totalSineTax).setScale(2, HALF_UP);
 
         currentOrder.setOrderDate(dates);
         currentOrder.setOrderNumber(orderNumber);

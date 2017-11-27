@@ -28,7 +28,7 @@
           class="com.sg.flooringmastery.dao.FlooringAuditDaoImpl"/>
     
     <bean id="service" 
-          class="com.sg.flooringmastery.service.FlooringServiceLayerStubImpl">
+          class="com.sg.flooringmastery.service.FlooringServiceLayerStub">
         <constructor-arg ref="orderDao"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 

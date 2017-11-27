@@ -25,7 +25,7 @@
     <bean id="daoOrder" 
           class="com.sg.flooringmastery.dao.FlooringOrderDaoImpl"/>
     
-    <bean if = "orderDao"
+    <bean id = "orderDao"
             class="com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl"/>
     
     <bean id="daoTax" 
@@ -71,14 +71,6 @@
         <constructor-arg ref="auditDao"/>
     </bean>
     <aop:config>
-        
-        <aop:aspect ref="controller">
-            <aop:before 
-                method="run"
-                pointcut="execution(* com.sg.flooringmastery.controller.FlooringController.run(..)"/>
-                
-        </aop:aspect>
-        
         <aop:aspect ref="loggingAdvice">
             
   

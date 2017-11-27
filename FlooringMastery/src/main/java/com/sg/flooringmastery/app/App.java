@@ -1,7 +1,6 @@
 
 package com.sg.flooringmastery.app;
 
-import static com.sg.flooringmastery.advice.LoggingAdvice.selectMode;
 import com.sg.flooringmastery.controller.FlooringController;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import org.springframework.context.ApplicationContext;
@@ -13,10 +12,9 @@ public class App {
 
         ApplicationContext ctx = 
            new ClassPathXmlApplicationContext("applicationContext.xml");
-        FlooringController controller = ctx.getBean("controller", FlooringController.class);
+        FlooringController controller; 
         
-        String mode = selectMode();
-        if(mode.equalsIgnoreCase("training")){
+        if(args[0].equalsIgnoreCase("training")){
             controller = ctx.getBean("trainingController", FlooringController.class);
         } else { 
             controller = ctx.getBean("prodController", FlooringController.class);
