@@ -14,25 +14,19 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
-    public String filePath = "/home/apprentice/chris-logsdon-individual-work/FlooringMastery";
-    public File theOrders = new File(filePath);
-    public File[] listOfOrdersByDate;
-    //  private HashMap<LocalDate, List<Order>> anOrder;
-    //these three were static
-    public static Map<LocalDate, List<Order>> ordersMap;
-    public static List<Order> ordersList;
+    private String filePath = "/home/apprentice/chris-logsdon-individual-work/FlooringMastery";
+    private File theOrders = new File(filePath);
+    private File[] listOfOrdersByDate;
+    private static Map<LocalDate, List<Order>> ordersMap;
 
     public FlooringOrderDaoImpl() {
-        ordersList = new ArrayList<Order>();
         ordersMap = new HashMap<LocalDate, List<Order>>();
         theOrders = new File(filePath);
         listOfOrdersByDate = theOrders.listFiles();
@@ -43,17 +37,10 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     private static ArrayList<Integer> orderNums = new ArrayList<>();
 
     @Override
-    public Order getOneOrder(List<Order> newList, int orderNumber) throws FlooringPersistenceException {
+    public Order getOrderForEdit(List<Order> newList, int orderNumber) throws FlooringPersistenceException {
         loadOrder();
         Order currentOrder;
         currentOrder = newList.get(orderNumber);
-        return currentOrder;
-    }
-
-    @Override
-    public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        //loadOrder();
-        Order currentOrder = ordersList.get(orderNumber);
         return currentOrder;
     }
 
@@ -63,7 +50,6 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         List<Order> newList = ordersMap.get(date);
 
         newList.add(currentOrder);
-        ordersList.add(currentOrder);
         ordersMap.put(date, newList);
         return currentOrder;
     }
@@ -82,27 +68,18 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         Order currentOrder = new Order();
           // loadOrder();
-    //    currentOrder = ordersList.get(orderNumber);
         currentOrder = ordersMap.get(date).get(orderNumber);
         ordersMap.remove(date).remove(orderNumber);
- //       ordersList.remove(orderNumber);
         return currentOrder;
     }
 
     @Override
     public Order addOrder(LocalDate date, Order currentOrder) throws FlooringPersistenceException {
-        //loadOrder();
-        ordersList.add(currentOrder);      
+        //loadOrder(); 
         List<Order> orderList = ordersMap.get(date);
         orderList.equals(orderList.add(currentOrder));
         ordersMap.put(date, orderList);
         return currentOrder;
-    }
-
-    @Override
-    public List<Order> getAllOrdersByDate() throws FlooringPersistenceException {
-        loadOrder();
-        return ordersList;
     }
 
     @Override
@@ -178,9 +155,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                             currentOrder.getTax().setTaxAmount(new BigDecimal(currentTokens[10]));
                             currentOrder.setTotal(new BigDecimal(currentTokens[11]));
                             currentDay.add(currentOrder);
-                            ordersList.add(currentOrder);
 
-                            //     ordersMap.put(currentOrder.getOrderDate(), ordersList);
                             ordersMap.put(currentOrder.getOrderDate(), currentDay);
                         }
                         scanner.close();

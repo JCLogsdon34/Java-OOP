@@ -28,6 +28,6 @@ What unanswered questions do you still have?
     Specifically, I want to have a better understanding of Marshalling and Unmarshalling data.
 I also want to learn how to use the SpringFramework to make my code simpler. I have looked
 at the Spring website and glanced over what it may be used for, but only in passing. Each time
-I went to that website was for an ad hoc reason, such as trying to understand AOP, DI. I have  work
-outtried to learn how to use Spring to set the mode, but so far I do not understand how to accomplish that
+I went to that website was for an ad hoc reason, such as trying to understand AOP, DI. I have tried to work
+out to learn how to use Spring to set the mode, but so far I do not understand how to accomplish that
 completely.

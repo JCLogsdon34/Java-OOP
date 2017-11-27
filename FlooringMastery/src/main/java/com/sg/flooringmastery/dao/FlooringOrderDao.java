@@ -9,15 +9,10 @@ public interface FlooringOrderDao {
     
     Order addOrder(LocalDate date, Order currentOrder)
             throws FlooringPersistenceException;
-
-    List<Order> getAllOrdersByDate()
-            throws FlooringPersistenceException; 
     
     List<Order> getOrder(LocalDate date)
             throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException;
-    
-    Order getOneOrder(List<Order> newList, int orderNumber)throws FlooringPersistenceException;
     
     Order getOrderForEdit(List <Order> orderToday, int orderNumber) throws
             FlooringPersistenceException, 
@@ -27,7 +22,6 @@ public interface FlooringOrderDao {
             throws FlooringPersistenceException
             ,FlooringNoOrdersForThatDateException; 
     
-//    Set<LocalDate> getAllDates();
     int getNewOrderNumber()
             throws FlooringPersistenceException;
     

@@ -37,12 +37,6 @@ public class FlooringController {
         int menuSelection = 0;
 
         while (keepGoing) {
-            /*      try {
-                loadEverything();              
-            } catch (FlooringPersistenceException e) {
-                view.displayErrorMessage(e.getMessage());
-            }
-             */
             try {
                 menuSelection = getMenuSelection();
             } catch (FlooringPersistenceException e) {
@@ -107,10 +101,6 @@ public class FlooringController {
 
     private int getMenuSelection() throws FlooringPersistenceException {
         return view.printMenuAndGetSelection();
-    }
-
-    private void loadEverything() throws FlooringPersistenceException {
-        service.loadTheOrders();
     }
 
     private void addOrder() throws
