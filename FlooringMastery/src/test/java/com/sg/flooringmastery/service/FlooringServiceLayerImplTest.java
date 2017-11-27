@@ -1,5 +1,7 @@
 package com.sg.flooringmastery.service;
 
+import com.sg.flooringmastery.dao.FlooringAuditDao;
+import com.sg.flooringmastery.dao.FlooringAuditDaoImpl;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
@@ -33,6 +35,7 @@ public class FlooringServiceLayerImplTest {
     FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
     FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
     FlooringProductDao daoProduct = new FlooringProductDaoImpl();
+    FlooringAuditDao auditDao = new FlooringAuditDaoImpl();
 
     FlooringServiceLayer service;
 
@@ -138,62 +141,33 @@ public class FlooringServiceLayerImplTest {
     public void testGetOrder() throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "01-12-2017";
+        String theDateNow = "11-25-2017";
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
         Order currentOrder = new Order();
-           currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
-        int orderNumber = service.getNewOrderNumber();
-        currentOrder.setOrderNumber((orderNumber));
-        currentOrder.setCustomerName("Crockett");
-        currentOrder.getTax().setState("TN");
-        currentOrder.getTax().setTaxRate(new BigDecimal(6.75));
-        currentOrder.getProduct().setProductType("Wood");
-        currentOrder.setArea(new BigDecimal(11));
-        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(15.13));
-        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal(12.42));
-        currentOrder.setMaterialCost(new BigDecimal(55));
-        currentOrder.setLaborCost(new BigDecimal(44));
-        currentOrder.getTax().setTaxAmount(new BigDecimal(322));
-        currentOrder.setTotal(new BigDecimal(22.11));
-
-        daoOrder.addOrder(myDate, currentOrder);
+        
+        currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
 
         List<Order> servList = service.getOrder(myDate);
         List<Order> fromDao = daoOrder.getOrder(myDate);
         
-        Order myOrder = servList.get(orderNumber);
-        Order theOrder = fromDao.get(orderNumber);
-        int orderNum = myOrder.getOrderNumber();
-        int orderNumb = theOrder.getOrderNumber();
-        assertEquals(orderNum, orderNumb);
+        int orderNumber = servList.size();
+        int expectedOrderNumber = fromDao.size();
+        
+        assertEquals(orderNumber, expectedOrderNumber);
     }
 
     @Test
     public void testRemoveOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "01-12-2017";
-        Order currentOrder = new Order();
+        String theDateNow = "11-25-2017";
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
-           currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
-        int orderNumber = service.getNewOrderNumber();
-        currentOrder.setOrderNumber((orderNumber));
-        currentOrder.setCustomerName("Clay");
-        currentOrder.getTax().setState("KY");
-        currentOrder.getTax().setTaxRate(new BigDecimal(5.75));
-        currentOrder.getProduct().setProductType("Tile");
-        currentOrder.setArea(new BigDecimal(11));
-        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(55));
-        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal(22));
-        currentOrder.setMaterialCost(new BigDecimal(55));
-        currentOrder.setLaborCost(new BigDecimal(123));
-        currentOrder.getTax().setTaxAmount(new BigDecimal(32.42));
-        currentOrder.setTotal(new BigDecimal(22.11));
-
-        daoOrder.addOrder(myDate, currentOrder);
-
+        String orderNumberS = "3";
+        int orderNumber = Integer.parseInt(orderNumberS);
         Order myOrder = daoOrder.removeOrder(myDate, orderNumber);
         Order servOrder = service.removeOrder(myDate, orderNumber);
-        assertEquals(myOrder, servOrder);
+        String customerName = myOrder.getCustomerName();
+        String expectedResult = servOrder.getCustomerName();
+        assertEquals(customerName, expectedResult);
     }
 
     @Test
@@ -286,15 +260,15 @@ public class FlooringServiceLayerImplTest {
     @Test
     public void testGetOrderForEdit() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "01-12-2017";
+        String theDateNow = "06-01-2013";
         Order currentOrder = new Order();
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
         //   currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
-        int orderNumber = service.getNewOrderNumber();
-        currentOrder.setOrderNumber((orderNumber));
-        currentOrder.setCustomerName("Crockett");
-        currentOrder.getTax().setState("TN");
-        currentOrder.getTax().setTaxRate(new BigDecimal(6.75));
+      //  int orderNumber = service.getNewOrderNumber();
+        currentOrder.setOrderNumber((1));
+        currentOrder.setCustomerName("Wise");
+        currentOrder.getTax().setState("OH");
+        currentOrder.getTax().setTaxRate(new BigDecimal(5.25));
         currentOrder.getProduct().setProductType("Wood");
         currentOrder.setArea(new BigDecimal(11));
         currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(55));
@@ -308,8 +282,8 @@ public class FlooringServiceLayerImplTest {
         myOrders.add(currentOrder);
         daoOrder.addOrder(myDate, currentOrder);
 
-        Order fromDao = daoOrder.getOrderForEdit(myOrders, orderNumber);
-        Order fromServ = service.getOrderForEdit(myOrders, orderNumber);
+        Order fromDao = daoOrder.getOrderForEdit(myOrders, 1);
+        Order fromServ = service.getOrderForEdit(myOrders, 1);
              
         fromDao.setArea(BigDecimal.ONE);
         BigDecimal result = fromDao.getArea();
@@ -354,5 +328,4 @@ public class FlooringServiceLayerImplTest {
         BigDecimal fromD = fromDao.getArea();
         assertEquals(fromS, fromD);
     }
-
 }

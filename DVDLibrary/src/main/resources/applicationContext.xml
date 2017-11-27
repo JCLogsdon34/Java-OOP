@@ -45,24 +45,25 @@
     </bean>
     
     <aop:config>
-  <aop:aspect ref="loggingAdvice">
-      <aop:after-returning
-          method="createAuditEntry"
-          pointcut="execution(* com.sg.dvdlibrary.service.DvdLibraryServiceLayer.createDvd(..))"
-       />
+        
+        <aop:aspect ref="loggingAdvice">
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.dvdlibrary.service.DvdLibraryServiceLayer.createDvd(..))"
+            />
          
-      <aop:after-returning
-          method="createAuditEntry"
-          pointcut="execution(* com.sg.dvdlibrary.service.DvdLibraryServiceLayer.removeDvd(..))"
-      />
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.dvdlibrary.service.DvdLibraryServiceLayer.removeDvd(..))"
+            />
        
-         <aop:after-returning
-          method="createAuditEntry"
-          pointcut="execution(* com.sg.dvdlibrary.ui.DvdView.getDvdForUserEdit(..))"
-       />
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.dvdlibrary.ui.DvdView.getDvdForUserEdit(..))"
+            />
           
-    </aop:aspect>
+        </aop:aspect>
     
-</aop:config>
+    </aop:config>
 
 </beans>

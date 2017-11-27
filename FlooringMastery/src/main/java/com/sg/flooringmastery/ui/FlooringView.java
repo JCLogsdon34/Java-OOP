@@ -20,6 +20,11 @@ public class FlooringView {
         this.io = io;
     }
 
+    public String getMode(){
+        String mode = null;
+        mode = io.readString("Please enter training or prod?");
+        return mode;
+    }
     public int printMenuAndGetSelection() {
         io.print("<<Flooring Main Menu>>");
         io.print("1. Display Orders");

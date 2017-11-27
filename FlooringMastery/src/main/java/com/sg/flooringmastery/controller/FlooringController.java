@@ -14,8 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -26,6 +24,12 @@ public class FlooringController {
             FlooringView view) {
         this.view = view;
         this.service = service;
+    }
+    
+    public String selectMode(){
+        String mode = null;
+        mode = view.getMode();
+        return mode;
     }
 
     public void run() {

@@ -11,8 +11,14 @@ public class App {
 
         ApplicationContext ctx = 
            new ClassPathXmlApplicationContext("applicationContext.xml");
-        FlooringController controller = 
-           ctx.getBean("controller", FlooringController.class);
+        FlooringController controller = ctx.getBean("controller", FlooringController.class);
+        
+        String mode = controller.selectMode();
+        if(mode.equalsIgnoreCase("training")){
+            controller = ctx.getBean("trainingController", FlooringController.class);
+        } else { 
+            controller = ctx.getBean("prodController", FlooringController.class);
+        }
         controller.run();
     }
 }

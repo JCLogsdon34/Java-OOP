@@ -15,8 +15,7 @@
           http://www.springframework.org/schema/aop  
           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
     
-    
-    
+        
     <bean id="userIo" class="com.sg.flooringmastery.ui.UserIoConsoleImpl"/>
    
     <bean id="view" class="com.sg.flooringmastery.ui.FlooringView">
@@ -31,16 +30,79 @@
     
     <bean id="daoProduct" 
           class="com.sg.flooringmastery.dao.FlooringProductDaoImpl"/>
+    
+    <bean id="auditDao" 
+          class="com.sg.flooringmastery.dao.FlooringAuditDaoImpl"/>
    
     <bean id="service" 
           class="com.sg.flooringmastery.service.FlooringServiceLayerImpl">
         <constructor-arg ref="daoOrder"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
+        <constructor-arg ref="auditDao"/> 
     </bean>
+    <bean id="serviceStub" 
+          class="com.sg.flooringmastery.service.FlooringServiceLayerStub">
+        <constructor-arg ref="daoProduct"/> 
+        <constructor-arg ref="daoTax"/> 
+        <constructor-arg ref="auditDao"/> 
+    </bean>
+    
     <bean id="controller" 
           class="com.sg.flooringmastery.controller.FlooringController">
         <constructor-arg ref="service"/>
         <constructor-arg ref="view"/>
+    </bean> 
+    <bean id="trainingController" 
+          class="com.sg.flooringmastery.controller.FlooringController">
+        <constructor-arg ref="serviceStub"/>
+        <constructor-arg ref="view"/>
+    </bean> 
+    <bean id="prodController" 
+          class="com.sg.flooringmastery.controller.FlooringController">
+        <constructor-arg ref="service"/>
+        <constructor-arg ref="view"/>
     </bean>
+     <bean id="loggingAdvice" class="com.sg.flooringmastery.advice.LoggingAdvice">
+        <constructor-arg ref="auditDao"/>
+    </bean>
+    <aop:config>
+        
+        <aop:aspect ref="controller">
+            <aop:before 
+                method="run"
+                pointcut="execution(* com.sg.flooringmastery.controller.FlooringController.run(..)"/>
+                
+        </aop:aspect>
+        
+        <aop:aspect ref="loggingAdvice">
+            
+  
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.flooringmastery.service.FlooringServiceLayer.getOrder(..))"
+            />
+            
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.flooringmastery.service.FlooringServiceLayer.addOrder(..))"
+            />
+            
+            <aop:after-returning
+                method="createAuditEntry"
+                pointcut="execution(* com.sg.flooringmastery.service.FlooringServiceLayer.removeOrder(..))"
+            />
+            
+            <aop:after-throwing method="afterLogging"
+                                  pointcut = "execution(* com.sg.flooringmastery.service.FlooringServiceLayer.getOrder(..))"
+                                  throwing="exception"           
+            />
+            
+            <aop:after-throwing
+                method="afterLog"
+                pointcut = "execution(* com.sg.flooringmastery.service.FlooringServiceLayer.addOrder(..))"
+                throwing="exception1" 
+            />
+        </aop:aspect>
+    </aop:config>
 </beans>

@@ -1,0 +1,33 @@
+What went well with this assignment?
+    Planning this assignment out, using a flow Chart and UML diagram, went better than it had previously.
+I have, so far, also done a better job at sticking to the Agile steps for working on a project.  
+
+What did you struggle with?
+    I have struggled with data marshalling and unmarshalling in this project, mostly
+because there are multiple Orders_MMDDYYYY.txt files in play. I have also struggled to 
+find how I might use the Spring Framework for selecting my mode. Though I mentioned 
+above that I had done a better job at planning this project than I had the previous projects,
+I am able to improve. During this process, I had times where I did not stay on the agile checklist.
+It was too tempting at the time to start a different user story than what I should have been doing,
+like working on removeOrder() when I should have been working on addOrder() and displayOrder().
+I know I also jumped the gun by implementing Spring AOP, with the auditTrail. I did that because
+I thought it would help me understand some of the problems I have had in my order dao with 
+saving my orders. 
+
+How and where did you seek help with this assignment?
+    The first place I look is my notes, followed by the lessons from past milestones. If that
+does not work, I take my problems to google, and the Java website. There are websites that instructors
+had recommended in the past to better explain concepts that I had trouble grasping, and I 
+have used those when I could not remember how something worked or why I was getting an error.
+ After working on any given problem I have had with this program for about 30 minutes,as a rule I go for help at OOH. 
+I write down any questions I am unable to find responses to, in order to ask on OOH, OOP, or 
+when I have a mentoring session with my mentor. If I need feedback 
+on an idea, or my charts and diagrams, I DM one of my instructors as needed and ask for feedback.
+
+What unanswered questions do you still have?
+    Specifically, I want to have a better understanding of Marshalling and Unmarshalling data.
+I also want to learn how to use the SpringFramework to make my code simpler. I have looked
+at the Spring website and glanced over what it may be used for, but only in passing. Each time
+I went to that website was for an ad hoc reason, such as trying to understand AOP, DI. I have  work
+outtried to learn how to use Spring to set the mode, but so far I do not understand how to accomplish that
+completely.

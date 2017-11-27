@@ -59,7 +59,4 @@ public interface FlooringServiceLayer {
     
     void saveOrder()throws 
             FlooringPersistenceException;
-    
-    void loadTheOrders()throws
-            FlooringPersistenceException;
 }
