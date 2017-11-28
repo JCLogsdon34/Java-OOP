@@ -22,7 +22,7 @@ public interface FlooringServiceLayer {
     Order updateAnOrder(LocalDate date, Order currentOrder)
             throws FlooringPersistenceException;
     
-    Order  getOrderForEdit(List<Order> orderToday, int orderNumber)
+    Order  getOrderForEdit(LocalDate date, List<Order> orderToday, int orderNumber)
             throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException;
 

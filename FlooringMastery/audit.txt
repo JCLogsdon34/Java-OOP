@@ -16,3 +16,12 @@
 2017-11-27T22:45:53.041 : getOrder : 2013-06-01
 2017-11-27T22:47:42.448 : getOrder : 2013-06-01
 2017-11-27T22:48:18.844 : addOrder : 2017-11-27com.sg.flooringmastery.dto.Order@4a22f9e2
+2017-11-28T11:20:18.046 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@149e0f5d
+2017-11-28T12:29:49.627 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@1fc32e4f
+2017-11-28T13:27:24.529 : getOrder : 2013-06-01
+2017-11-28T13:38:09.850 : getOrder : 2013-06-01
+2017-11-28T13:41:25.699 : getOrder : 2013-06-01
+2017-11-28T13:42:44.407 : getOrder : 2013-06-01
+2017-11-28T13:47:30.269 : getOrder : 2013-06-01
+2017-11-28T13:49:14.278 : getOrder : 2013-06-01
+2017-11-28T13:50:39.005 : getOrder : 2013-06-01

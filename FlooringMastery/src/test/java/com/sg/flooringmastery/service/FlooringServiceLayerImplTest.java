@@ -282,8 +282,8 @@ public class FlooringServiceLayerImplTest {
         myOrders.add(currentOrder);
         daoOrder.addOrder(myDate, currentOrder);
 
-        Order fromDao = daoOrder.getOrderForEdit(myOrders, 1);
-        Order fromServ = service.getOrderForEdit(myOrders, 1);
+        Order fromDao = daoOrder.getOrderForEdit(myDate, myOrders, 1);
+        Order fromServ = service.getOrderForEdit(myDate, myOrders, 1);
              
         fromDao.setArea(BigDecimal.ONE);
         BigDecimal result = fromDao.getArea();
@@ -322,8 +322,8 @@ public class FlooringServiceLayerImplTest {
         
         List<Order> anOrder = new ArrayList<>();
         anOrder.add(currentOrder);
-        Order fromServ = service.getOrderForEdit(anOrder, orderNumber);
-        Order fromDao = daoOrder.getOrderForEdit(anOrder, orderNumber);
+        Order fromServ = service.getOrderForEdit(myDate, anOrder, orderNumber);
+        Order fromDao = daoOrder.getOrderForEdit(myDate, anOrder, orderNumber);
         BigDecimal fromS = fromServ.getArea();
         BigDecimal fromD = fromDao.getArea();
         assertEquals(fromS, fromD);

@@ -179,7 +179,7 @@ public class FlooringController {
             date = view.getOrderDate();
             orderNumber = view.getOrderNumberChoice();
             newList = service.getOrder(date);
-            currentOrder = service.getOrderForEdit(newList, orderNumber);
+            currentOrder = service.getOrderForEdit(date, newList, orderNumber);
 
             view.displayOrder(currentOrder);
             youSure = view.getAssurance();
@@ -215,7 +215,7 @@ public class FlooringController {
             date = view.getOrderDate();
             orderToday = service.getOrder(date);
             orderNumber = view.getOrderNumberChoice();
-            currentOrder = service.getOrderForEdit(orderToday, orderNumber);
+            currentOrder = service.getOrderForEdit(date, orderToday, orderNumber);
             currentOrder = view.getEdits(currentOrder, taxInfo, productInfo);
 
             youSure = view.getAssurance();

@@ -14,7 +14,7 @@ public interface FlooringOrderDao {
             throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException;
     
-    Order getOrderForEdit(List <Order> orderToday, int orderNumber) throws
+    Order getOrderForEdit(LocalDate date, List <Order> orderToday, int orderNumber) throws
             FlooringPersistenceException, 
             FlooringNoOrdersForThatDateException;
     

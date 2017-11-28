@@ -134,8 +134,8 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        return daoOrder.getOrderForEdit(orderToday, orderNumber);
+    public Order getOrderForEdit(LocalDate date, List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+        return daoOrder.getOrderForEdit(date, orderToday, orderNumber);
     }
     
     @Override
