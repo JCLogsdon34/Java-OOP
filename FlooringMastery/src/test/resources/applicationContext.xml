@@ -17,20 +17,21 @@
 
     <bean id="daoOrder" 
           class="com.sg.flooringmastery.dao.FlooringOrderDaoImpl"/>
+    
+    <bean id="daoProduct" 
+          class="com.sg.flooringmastery.dao.FlooringProductDaoImpl"/>
    
     <bean id="daoTax" 
           class="com.sg.flooringmastery.dao.FlooringTaxDaoImpl"/>
     
-    <bean id="daoProduct" 
-          class="com.sg.flooringmastery.dao.FlooringProductDaoImpl"/>
-    
-    <bean id="auditDao" 
-          class="com.sg.flooringmastery.dao.FlooringAuditDaoImpl"/>
+    <bean id = "daoOrderTraining"
+            class="com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl"/>
     
     <bean id="service" 
           class="com.sg.flooringmastery.service.FlooringServiceLayerImpl">
         <constructor-arg ref="daoOrder"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
+        <constructor-arg ref="daoOrderTraining"/> 
     </bean>
 </beans>

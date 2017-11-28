@@ -81,10 +81,10 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate = myOrder.substring(0, 2);
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
-        String theDateNow = newerDate + newerDate1 + newerDate2;
+        String theDateNow = newerDate +"-"+ newerDate1 +"-"+ newerDate2;
         
         loadOrder();
-        currentOrder.equals(ordersMap.get(theDateNow).get(orderNumber));
+        currentOrder = ordersMap.get(theDateNow).get(orderNumber);
         ordersMap.equals(ordersMap.remove(theDateNow).remove(orderNumber));
         return currentOrder;
     }
@@ -117,6 +117,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + newerDate1 + newerDate2;
+        loadOrder();
         
         newOrder.equals(ordersMap.get(theDateNow));
         return newOrder;
@@ -137,7 +138,6 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
     public void loadOrder() throws FlooringPersistenceException {
         Scanner scanner;
-        Order currentOrder;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
         for (int i = 0; i < listOfOrdersByDate.length; i++) {
@@ -147,12 +147,12 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                 if ((theFileWanted.startsWith("Orders_")) && (theFileWanted.endsWith(".txt"))) {
 
                     String newDate = theFileWanted.substring(7, theFileWanted.length() - 4);
-
-                        String newerDate = newDate.substring(0, 2);
+                    
+                       String newerDate = newDate.substring(0, 2);
                         String newerDate1 = newDate.substring(2, 4);
-                        String newerDate2 = newDate.substring(4, 8);
-                        String theDateNow = newerDate + "-" + newerDate1 + "-" + newerDate2;
-                            ORDERS_FILE = "Orders_"+theDateNow+".txt";
+                       String newerDate2 = newDate.substring(4, 8);
+                        String theDateNow = newerDate+"-"+newerDate1+"-"+newerDate2;
+                            ORDERS_FILE = "Orders_"+newDate+".txt";
                         try {
                             scanner = new Scanner(
                                     new BufferedReader(
@@ -162,13 +162,11 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                         }
                         String currentLine;
                         String[] currentTokens = new String[]{};
-                        while (scanner.hasNextLine()) {
-
+                        Order currentOrder = new Order();
+                        List<Order> currentDay = new ArrayList<>();                       
+                        while (scanner.hasNextLine()) {   
                             currentLine = scanner.nextLine();
                             currentTokens = currentLine.split(DELIMITER);
-                            currentOrder = new Order();
-                            currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
-                            List<Order> currentDay = new ArrayList<>();
                             currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
                             currentOrder.setOrderNumber(Integer.parseInt((currentTokens[0])));
                             currentOrder.setCustomerName(currentTokens[1]);

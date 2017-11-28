@@ -26,19 +26,20 @@ import static org.junit.Assert.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.sg.flooringmastery.dao.FlooringDaoOrderTraining;
+import com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
 
 public class FlooringServiceLayerImplTest {
 
-    FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
-    FlooringProductDao daoProduct = new FlooringProductDaoImpl();
-    FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
+    private FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
+    private FlooringProductDao daoProduct = new FlooringProductDaoImpl();
+    private FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
 
-    FlooringServiceLayer service;
+    private FlooringServiceLayer service;
+           
 
-    public FlooringServiceLayerImplTest(FlooringOrderDao daoOrder, FlooringProductDao daoProduct, 
-            FlooringTaxDao daoTax) {
+    public FlooringServiceLayerImplTest() {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("applicationContext.xml");
         service

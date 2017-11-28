@@ -12,3 +12,7 @@
 2017-11-26T20:42:15.285 : addOrder : 2017-11-26com.sg.flooringmastery.dto.Order@be64738
 2017-11-26T21:18:52.106 : addOrder : 2017-11-26com.sg.flooringmastery.dto.Order@6f96c77
 2017-11-26T21:19:05.984 : getOrder : 2017-11-26
+2017-11-27T22:43:04.595 : getOrder : 2013-06-01
+2017-11-27T22:45:53.041 : getOrder : 2013-06-01
+2017-11-27T22:47:42.448 : getOrder : 2013-06-01
+2017-11-27T22:48:18.844 : addOrder : 2017-11-27com.sg.flooringmastery.dto.Order@4a22f9e2
