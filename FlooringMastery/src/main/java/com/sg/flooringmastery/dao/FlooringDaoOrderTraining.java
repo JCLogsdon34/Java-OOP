@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-public interface FlooringDaoOrderStub {
+public interface FlooringDaoOrderTraining {
     Order addOrder(LocalDate date, Order currentOrder)
             throws FlooringPersistenceException;
     

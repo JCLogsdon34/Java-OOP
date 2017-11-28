@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FlooringDaoOrderStubImpl implements FlooringDaoOrderStub {
+public class FlooringDaoOrderTrainingImpl implements FlooringDaoOrderTraining {
 
     private static Map<String, List<Order>> ordersMap = new HashMap<String, List<Order>>();
     private static ArrayList<Integer> orderNums = new ArrayList<>();

@@ -1,9 +1,5 @@
 package com.sg.flooringmastery.service;
 
-import com.sg.flooringmastery.dao.FlooringAuditDao;
-import com.sg.flooringmastery.dao.FlooringAuditDaoImpl;
-import com.sg.flooringmastery.dao.FlooringDaoOrderStub;
-import com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dao.FlooringProductDao;
@@ -29,21 +25,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.sg.flooringmastery.dao.FlooringDaoOrderTraining;
+import com.sg.flooringmastery.dao.FlooringOrderDao;
+import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
 
 public class FlooringServiceLayerImplTest {
 
-    FlooringDaoOrderStub daoOrder = new FlooringDaoOrderStubImpl();
-    FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
+    FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
     FlooringProductDao daoProduct = new FlooringProductDaoImpl();
-    FlooringAuditDao auditDao = new FlooringAuditDaoImpl();
+    FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
 
-    FlooringServiceLayerTraining service;
+    FlooringServiceLayer service;
 
-    public FlooringServiceLayerImplTest() {
+    public FlooringServiceLayerImplTest(FlooringOrderDao daoOrder, FlooringProductDao daoProduct, 
+            FlooringTaxDao daoTax) {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("applicationContext.xml");
         service
-                = ctx.getBean("service", FlooringServiceLayerTraining.class);
+                = ctx.getBean("service", FlooringServiceLayerImpl.class);
     }
 
     @BeforeClass
@@ -59,9 +58,9 @@ public class FlooringServiceLayerImplTest {
     public void setUp() throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException {
 
-        //  List<Order>orderList = daoOrder.getOrder();
+        //  List<Order>orderList = daoOrderTraining.getOrder();
         //    for(Order currentOrder : orderList) {
-        //      daoOrder.removeOrder(currentOrder.getOrderDate(), currentOrder.getOrderNumber());
+        //      daoOrderTraining.removeOrder(currentOrder.getOrderDate(), currentOrder.getOrderNumber());
         //}
     }
 

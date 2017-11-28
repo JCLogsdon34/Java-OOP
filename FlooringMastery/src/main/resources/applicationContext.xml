@@ -25,8 +25,8 @@
     <bean id="daoOrder" 
           class="com.sg.flooringmastery.dao.FlooringOrderDaoImpl"/>
     
-    <bean id = "orderDao"
-            class="com.sg.flooringmastery.dao.FlooringDaoOrderStubImpl"/>
+    <bean id = "daoOrderTraining"
+            class="com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl"/>
     
     <bean id="daoTax" 
           class="com.sg.flooringmastery.dao.FlooringTaxDaoImpl"/>
@@ -42,14 +42,7 @@
         <constructor-arg ref="daoOrder"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
-        <constructor-arg ref="auditDao"/> 
-    </bean>
-    <bean id="serviceStub" 
-          class="com.sg.flooringmastery.service.FlooringServiceLayerStub">
-        <constructor-arg ref="orderDao"/> 
-        <constructor-arg ref="daoProduct"/> 
-        <constructor-arg ref="daoTax"/> 
-        <constructor-arg ref="auditDao"/> 
+        <constructor-arg ref="daoOrderTraining"/> 
     </bean>
     
     <bean id="controller" 
@@ -59,14 +52,10 @@
     </bean> 
     <bean id="trainingController" 
           class="com.sg.flooringmastery.controller.FlooringController">
-        <constructor-arg ref="serviceStub"/>
-        <constructor-arg ref="view"/>
-    </bean> 
-    <bean id="prodController" 
-          class="com.sg.flooringmastery.controller.FlooringController">
         <constructor-arg ref="service"/>
         <constructor-arg ref="view"/>
-    </bean>
+    </bean> 
+    
      <bean id="loggingAdvice" class="com.sg.flooringmastery.advice.LoggingAdvice">
         <constructor-arg ref="auditDao"/>
     </bean>

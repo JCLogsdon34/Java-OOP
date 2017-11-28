@@ -1,6 +1,8 @@
 package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.dao.FlooringAuditDao;
+import com.sg.flooringmastery.dao.FlooringDaoOrderTraining;
+import com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
@@ -23,16 +25,18 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
     
     FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
-    FlooringProductDao daoProduct;
-    FlooringTaxDao daoTax;
+    FlooringProductDao daoProduct = new FlooringProductDaoImpl();
+    FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
+    FlooringDaoOrderTraining daoOrderTraining = new FlooringDaoOrderTrainingImpl();
+    
 
     public FlooringServiceLayerImpl(FlooringOrderDao daoOrder,
-            FlooringProductDao daoProduct, FlooringTaxDao daoTax, FlooringAuditDao auditDao) throws FlooringPersistenceException {
-        this.daoTax = new FlooringTaxDaoImpl();
-        this.daoProduct = new FlooringProductDaoImpl();
+            FlooringProductDao daoProduct, FlooringTaxDao daoTax,
+            FlooringDaoOrderTraining daoOrderTraining) throws FlooringPersistenceException {
         this.daoOrder = daoOrder;
         this.daoProduct = daoProduct;
         this.daoTax = daoTax;
+        this.daoOrderTraining = daoOrderTraining;
     }
 
     @Override

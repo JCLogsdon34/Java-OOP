@@ -12,13 +12,14 @@ public class App {
 
         ApplicationContext ctx = 
            new ClassPathXmlApplicationContext("applicationContext.xml");
-        FlooringController controller; 
-        
+        FlooringController controller = ctx.getBean("controller", FlooringController.class);; 
+/*        
         if(args[0].equalsIgnoreCase("training")){
             controller = ctx.getBean("trainingController", FlooringController.class);
         } else { 
-            controller = ctx.getBean("prodController", FlooringController.class);
+            controller = ctx.getBean("controller", FlooringController.class);
         }
+   */     
         controller.run();
     }
 }
