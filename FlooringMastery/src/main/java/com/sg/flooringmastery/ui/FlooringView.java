@@ -20,7 +20,7 @@ public class FlooringView {
         this.io = io;
     }
 
-    public int printMenuAndGetSelection() {
+    public int printMenuAndGetSelection() throws FlooringInvalidEntryException{
         io.print("<<Flooring Main Menu>>");
         io.print("1. Display Orders");
         io.print("2. Add An Order");
@@ -187,7 +187,8 @@ public class FlooringView {
         return currentProduct;
     }
 
-    public BigDecimal getArea() {
+   
+    public BigDecimal getArea() throws FlooringInvalidEntryException {
         BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
         return area;
     }
@@ -200,11 +201,12 @@ public class FlooringView {
         });
     }
 
-    public int getOrderNumberChoice() {
+    public int getOrderNumberChoice() throws FlooringInvalidEntryException {
         String order;
         order = io.readString("Please enter an order number");
         int orderNumber;
         orderNumber = Integer.parseInt(order);
+   
         return orderNumber;
     }
 
@@ -221,9 +223,11 @@ public class FlooringView {
         return youSure;
     }
 
-    public LocalDate getOrderDate() {
+    public LocalDate getOrderDate() throws FlooringInvalidEntryException {
         LocalDate date;
+        
         date = io.readLocalDate("Please enter the date of your order");
+       
         return date;
     }
 

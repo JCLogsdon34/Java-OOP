@@ -25,3 +25,32 @@
 2017-11-28T13:47:30.269 : getOrder : 2013-06-01
 2017-11-28T13:49:14.278 : getOrder : 2013-06-01
 2017-11-28T13:50:39.005 : getOrder : 2013-06-01
+2017-11-28T18:16:42.073 : getOrder : 2013-06-01
+2017-11-28T18:18:55.183 : getOrder : 2013-06-01
+2017-11-28T18:19:11.557 : getOrder : 2013-06-01
+2017-11-28T18:22:14.299 : getOrder : 2013-06-01
+2017-11-28T18:24:57.248 : getOrder : 2013-06-01
+2017-11-28T18:28:32.150 : getOrder : 2013-06-01
+2017-11-28T21:17:33.434 : getOrder : 2013-06-01
+2017-11-28T21:34:15.259 : getOrder : 2013-06-01
+2017-11-28T21:35:48.410 : getOrder : 2013-06-01
+2017-11-28T21:38:23.945 : getOrder : 2013-06-01
+2017-11-28T21:50:48.728 : addOrder : com.sg.flooringmastery.dao.FlooringPersistenceException: -_- Could not load order data.2017-11-28com.sg.flooringmastery.dto.Order@7efaad5a
+2017-11-28T21:58:39.405 : addOrder : com.sg.flooringmastery.dao.FlooringPersistenceException: -_- Could not load order data.2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:03:41.995 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:07:12.220 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:17:06.653 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:22:05.457 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:28:08.638 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6cce16f4
+2017-11-28T22:31:58.541 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:44:14.703 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@61fe30
+2017-11-28T22:50:17.322 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:55:18.796 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T22:58:18.970 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T23:06:08.703 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T23:10:05.450 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T23:18:49.561 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T23:29:54.005 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T23:31:18.655 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-28T23:32:30.900 : getOrder : 2017-11-26
+2017-11-28T23:34:15.639 : getOrder : 2017-11-26

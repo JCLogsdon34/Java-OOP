@@ -6,6 +6,7 @@ import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dto.Order;
 import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
+import com.sg.flooringmastery.ui.FlooringInvalidEntryException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -17,10 +18,11 @@ public interface FlooringServiceLayer {
     Order addOrder(LocalDate dates, Order currentOrder) throws
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
-            FlooringPersistenceException;
+            FlooringPersistenceException,
+            FlooringInvalidEntryException;
     
     Order updateAnOrder(LocalDate date, Order currentOrder)
-            throws FlooringPersistenceException;
+            throws FlooringPersistenceException,FlooringInvalidEntryException ;
     
     Order  getOrderForEdit(LocalDate date, List<Order> orderToday, int orderNumber)
             throws FlooringPersistenceException,
@@ -40,14 +42,16 @@ public interface FlooringServiceLayer {
 
     List<Order> getOrder(LocalDate date) throws
             FlooringPersistenceException,
-            FlooringNoOrdersForThatDateException;
+            FlooringNoOrdersForThatDateException,
+           FlooringInvalidEntryException;
     
     Collection<Tax> getAllTaxes()throws
             FlooringPersistenceException;
 
     Order removeOrder(LocalDate date, int orderNumber) throws
             FlooringPersistenceException,
-            FlooringNoOrdersForThatDateException;
+            FlooringNoOrdersForThatDateException,
+            FlooringInvalidEntryException;
   
     Collection<Product> getAllTheProducts()
             throws FlooringPersistenceException;

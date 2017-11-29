@@ -10,7 +10,7 @@ public interface UserIo {
     
     LocalDate readLocalDate(String msg);
     
-    BigDecimal readBigDecimal(String msg);
+    BigDecimal readBigDecimal(String msg)throws FlooringInvalidEntryException;
 
     double readDouble(String prompt);
 
@@ -20,9 +20,9 @@ public interface UserIo {
 
     float readFloat(String prompt, float min, float max);
 
-    int readInt(String prompt);
+    int readInt(String prompt)throws FlooringInvalidEntryException;
 
-    int readInt(String prompt, int min, int max);
+    int readInt(String prompt, int min, int max)throws FlooringInvalidEntryException;
 
     long readLong(String prompt);
 

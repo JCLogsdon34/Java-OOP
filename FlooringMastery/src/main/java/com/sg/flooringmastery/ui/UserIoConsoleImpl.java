@@ -1,4 +1,3 @@
-
 package com.sg.flooringmastery.ui;
 
 import java.math.BigDecimal;
@@ -6,8 +5,8 @@ import java.math.RoundingMode;
 import static java.math.RoundingMode.HALF_UP;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 
 public class UserIoConsoleImpl implements UserIo {
 
@@ -26,15 +25,19 @@ public class UserIoConsoleImpl implements UserIo {
         LocalDate parsedDate = LocalDate.parse(userChoices, dateFormat);
         return parsedDate;
     }
-    
+
     @Override
-    public BigDecimal readBigDecimal(String msg){
+    public BigDecimal readBigDecimal(String msg) {
         String moneyInput;
         BigDecimal moneyInserted;
         Scanner inputReader = new Scanner(System.in);
         System.out.println("Please enter the area you want us to lay flooring for");
+        try{
         moneyInput = inputReader.nextLine();
         moneyInserted = new BigDecimal(moneyInput).setScale(2, RoundingMode.HALF_UP);
+        }catch(InputMismatchException e){
+                throw new FlooringInvalidEntryException("Invalid input");
+            }
         return moneyInserted;
     }
 
@@ -98,9 +101,14 @@ public class UserIoConsoleImpl implements UserIo {
         int myInt;
         Scanner inputReader = new Scanner(System.in);
         System.out.println(userPrompt);
-        number = inputReader.nextLine();
-        myInt = Integer.parseInt(number);
-        return myInt;
+        try {
+            number = inputReader.nextLine();
+            myInt = Integer.parseInt(number);
+
+            return myInt;
+        } catch (InputMismatchException e) {
+            throw new FlooringInvalidEntryException("Invalid input");
+        }
     }
 
     @Override
@@ -109,17 +117,21 @@ public class UserIoConsoleImpl implements UserIo {
         boolean keepGoing = true;
         String newString = null;
         int myInt = 0;
-        do {
-            System.out.println(userPrompt);
+
+        System.out.println(userPrompt);
+        try {
             newString = inputReader.next();
             myInt = Integer.parseInt(newString);
-            if (myInt > 6 || myInt < 1) {
-                keepGoing = true;
-            } else {
-                keepGoing = false;
-                return myInt;
-            }
-        } while (keepGoing = true);
+        } catch (InputMismatchException e) {
+            throw new FlooringInvalidEntryException("Invalid input");
+        }
+        if (myInt > 6 || myInt < 1) {
+            keepGoing = true;
+        } else {
+            keepGoing = false;
+            return myInt;
+        }
+
         return myInt;
     }
 
@@ -149,5 +161,5 @@ public class UserIoConsoleImpl implements UserIo {
         userSentence = inputReader.nextLine();
         return userSentence;
     }
-    
+
 }

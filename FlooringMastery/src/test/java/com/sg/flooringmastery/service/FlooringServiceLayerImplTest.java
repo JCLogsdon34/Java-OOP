@@ -25,7 +25,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.sg.flooringmastery.dao.FlooringDaoOrderTraining;
 import com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
@@ -293,12 +292,7 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Test
-    public void testUpdateAnOrder() {
-
-    }
-
-    @Test
-    public void testGetOneOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+    public void testUpdateAnOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "06-01-2013";
         Order currentOrder = new Order();
@@ -320,10 +314,18 @@ public class FlooringServiceLayerImplTest {
         
         daoOrder.addOrder(myDate, currentOrder);
         
+        
+        
         List<Order> anOrder = new ArrayList<>();
         anOrder.add(currentOrder);
         Order fromServ = service.getOrderForEdit(myDate, anOrder, orderNumber);
         Order fromDao = daoOrder.getOrderForEdit(myDate, anOrder, orderNumber);
+        
+         currentOrder.setCustomerName("John");
+        
+        Order fromSer = service.updateAnOrder(myDate, currentOrder);
+        Order fromDaoOrder = daoOrder.updateAnOrder(myDate, currentOrder);
+        
         BigDecimal fromS = fromServ.getArea();
         BigDecimal fromD = fromDao.getArea();
         assertEquals(fromS, fromD);

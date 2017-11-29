@@ -42,7 +42,13 @@
         <constructor-arg ref="daoOrder"/> 
         <constructor-arg ref="daoProduct"/> 
         <constructor-arg ref="daoTax"/> 
+    </bean>
+    
+    <bean id="serviceTrain" 
+          class="com.sg.flooringmastery.service.FlooringServiceLayerImpl">
         <constructor-arg ref="daoOrderTraining"/> 
+        <constructor-arg ref="daoProduct"/> 
+        <constructor-arg ref="daoTax"/> 
     </bean>
     
     <bean id="controller" 
@@ -52,7 +58,7 @@
     </bean> 
     <bean id="trainingController" 
           class="com.sg.flooringmastery.controller.FlooringController">
-        <constructor-arg ref="service"/>
+        <constructor-arg ref="serviceTrain"/>
         <constructor-arg ref="view"/>
     </bean> 
     

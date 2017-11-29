@@ -9,6 +9,7 @@ import com.sg.flooringmastery.service.FlooringDataValidationException;
 import com.sg.flooringmastery.service.FlooringDuplicateOrderException;
 import com.sg.flooringmastery.ui.FlooringView;
 import com.sg.flooringmastery.service.FlooringServiceLayer;
+import com.sg.flooringmastery.ui.FlooringInvalidEntryException;
 import java.math.BigDecimal;
 import static java.math.RoundingMode.HALF_UP;
 import java.time.LocalDate;
@@ -22,9 +23,9 @@ public class FlooringController {
     private FlooringServiceLayer service;
 
     public FlooringController(FlooringServiceLayer service,
-            FlooringView view) {
-        this.view = view;
+            FlooringView view) {  
         this.service = service;
+        this.view = view;
     }
 
     public void run() {
@@ -94,14 +95,15 @@ public class FlooringController {
         }
     }
 
-    private int getMenuSelection() throws FlooringPersistenceException {
+    private int getMenuSelection() throws FlooringPersistenceException, FlooringInvalidEntryException {
         return view.printMenuAndGetSelection();
     }
 
     private void addOrder() throws
             FlooringDataValidationException,
             FlooringDuplicateOrderException,
-            FlooringPersistenceException {
+            FlooringPersistenceException,
+            FlooringInvalidEntryException{
 
         Order currentOrder = new Order();
         Tax currentTax = new Tax();
@@ -153,16 +155,16 @@ public class FlooringController {
     }
 
     private void displayOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        LocalDate date;
+        LocalDate date = null;
         List <Order> newList = new ArrayList<>();
 
         view.displayDisplayOrderBanner();
-        date = view.getOrderDate();
+        date=view.getOrderDate();
         
-        newList = service.getOrder(date);
+        newList=service.getOrder(date);
         if(!newList.isEmpty()){
         view.displayOrderByDateList(newList);
-        } else if (newList.isEmpty()){
+        } else {
             System.out.print("No order for that date");
         }
     }

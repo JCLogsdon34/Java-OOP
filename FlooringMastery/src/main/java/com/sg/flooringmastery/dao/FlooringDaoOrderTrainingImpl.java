@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FlooringDaoOrderTrainingImpl implements FlooringDaoOrderTraining {
+public class FlooringDaoOrderTrainingImpl implements FlooringOrderDao {
 
     private static Map<String, List<Order>> ordersMap = new HashMap<String, List<Order>>();
     private static ArrayList<Integer> orderNums = new ArrayList<>();
@@ -46,9 +46,16 @@ public class FlooringDaoOrderTrainingImpl implements FlooringDaoOrderTraining {
     }
 
     @Override
-    public Order getOrderForEdit(List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+    public Order getOrderForEdit(LocalDate date, List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         Order currentOrder = new Order();
-        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        String dateForFile = date.format(formatter);
+        String myOrder = dateForFile.replace("-", "");
+        String newerDate = myOrder.substring(0, 2);
+        String newerDate1 = myOrder.substring(2, 4);
+        String newerDate2 = myOrder.substring(4, 8);       
+        String theDateNow = newerDate + newerDate1 + newerDate2;
+//        loadOrder(theDateNow);
         currentOrder.equals(orderToday.get(orderNumber));
         return currentOrder;
     }
@@ -97,5 +104,10 @@ public class FlooringDaoOrderTrainingImpl implements FlooringDaoOrderTraining {
         newList.equals(newList.add(currentOrder));
         ordersMap.equals(ordersMap.put(theDateNow, newList));
         return currentOrder;
+    }
+
+
+    @Override
+    public void saveOrder() throws FlooringPersistenceException {
     }
 }
