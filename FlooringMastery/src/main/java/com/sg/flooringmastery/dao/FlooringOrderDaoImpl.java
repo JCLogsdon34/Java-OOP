@@ -52,8 +52,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         Order currentOrder = new Order();
         newList.equals(ordersMap.get(theDateNow));
         newList.equals(newList.add(currentOrder));
-        
-        currentOrder.setOrderNumber(orderNumber);
+
         currentOrder = newList.get(orderNumber);
 
         return currentOrder;
@@ -69,7 +68,6 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + newerDate1 + newerDate2;
-
         newList.equals(ordersMap.get(theDateNow));
         newList.equals(newList.add(currentOrder));
         ordersMap.equals(ordersMap.put(date.toString(), newList));
@@ -132,6 +130,22 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
         newOrder = ordersMap.get(myOrder);
         return newOrder;
+    }
+    
+    public Set<String> getDates(){
+        return ordersMap.keySet();
+    }
+    
+    public Collection<List<Order>> getList(){
+        return ordersMap.values();
+    }
+    public List<Order> getAllOrders()
+            throws FlooringDaoException {
+            if(getList() != null){
+                
+  
+            }
+        return new ArrayList<>();
     }
 
     @Override
@@ -200,9 +214,11 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         //  String myOrder = dates.replace("-", "");
         //        String orderIWant = "Orders_" + dates + ".txt";
 
-        Order currentOrder = new Order();
+    //    Order currentOrder = new Order();
+        
         Set<String> date = ordersMap.keySet();
-        Collection<List<Order>> currentDay = ordersMap.values();
+        
+
         for (String day : date) {
             ORDERS_FILE = "Orders_" + day + ".txt";
             try {
@@ -211,27 +227,30 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                 throw new FlooringPersistenceException(
                         "Could not save Order data.", e);
             }
-           for (int k = 0; k < currentDay.size(); k++) {
+            /*      for (int k = 0; k < currentDay.size(); k++) {
                List<Order> orders = new ArrayList<>(k);
                         orders.equals(k);
                         currentOrder.equals(orders.get(k));
-
-                    out.println(currentOrder.getOrderNumber() + DELIMITER
-                            + currentOrder.getCustomerName() + DELIMITER
-                            + currentOrder.getTax().getState() + DELIMITER
-                            + currentOrder.getTax().getTaxRate() + DELIMITER
-                            + currentOrder.getProduct().getProductType() + DELIMITER
-                            + currentOrder.getArea() + DELIMITER
-                            + currentOrder.getProduct().getProductCostPerSqFt() + DELIMITER
-                            + currentOrder.getProduct().getLaborCostPerSqFt() + DELIMITER
-                            + currentOrder.getMaterialCost() + DELIMITER
-                            + currentOrder.getLaborCost() + DELIMITER
-                            + currentOrder.getTax().getTaxAmount() + DELIMITER
-                            + currentOrder.getTotal());
-                }
-                out.flush();
-
-                out.close();
+             */
+            Collection<List<Order>> currentDay = ordersMap.values();
+            for(List<Order> current : currentDay){
+            for(Order currentOrder : ordersMap.get(day)){
+            out.println(currentOrder.getOrderNumber() + DELIMITER
+                    + currentOrder.getCustomerName() + DELIMITER
+                    + currentOrder.getTax().getState() + DELIMITER
+                    + currentOrder.getTax().getTaxRate() + DELIMITER
+                    + currentOrder.getProduct().getProductType() + DELIMITER
+                    + currentOrder.getArea() + DELIMITER
+                    + currentOrder.getProduct().getProductCostPerSqFt() + DELIMITER
+                    + currentOrder.getProduct().getLaborCostPerSqFt() + DELIMITER
+                    + currentOrder.getMaterialCost() + DELIMITER
+                    + currentOrder.getLaborCost() + DELIMITER
+                    + currentOrder.getTax().getTaxAmount() + DELIMITER
+                    + currentOrder.getTotal());
             }
+            out.flush();
+            out.close();
         }
     }
+    }
+}

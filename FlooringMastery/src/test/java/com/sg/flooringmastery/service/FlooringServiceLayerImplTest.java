@@ -28,10 +28,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
+import com.sg.flooringmastery.dao.FlooringOrderDaoStubImpl;
 
 public class FlooringServiceLayerImplTest {
 
-    private FlooringOrderDao daoOrder = new FlooringOrderDaoImpl();
+    private FlooringOrderDao daoOrder = new FlooringOrderDaoStubImpl();
     private FlooringProductDao daoProduct = new FlooringProductDaoImpl();
     private FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
 
@@ -57,11 +58,15 @@ public class FlooringServiceLayerImplTest {
     @Before
     public void setUp() throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException {
-
-        //  List<Order>orderList = daoOrderTraining.getOrder();
-        //    for(Order currentOrder : orderList) {
-        //      daoOrderTraining.removeOrder(currentOrder.getOrderDate(), currentOrder.getOrderNumber());
-        //}
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        String theDateNow = "01-12-2017";
+        Order currentOrder = new Order();
+        LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
+          List<Order>orderList = daoOrder.getOrder(myDate);
+          orderList.add(currentOrder);
+            for(Order myOrder : orderList) {
+              daoOrder.removeOrder(currentOrder.getOrderDate(), currentOrder.getOrderNumber());
+        }
     }
 
     @After
@@ -159,39 +164,78 @@ public class FlooringServiceLayerImplTest {
     public void testRemoveOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "11-25-2017";
+        String date = "01-12-2017";
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
-        String orderNumberS = "3";
-        int orderNumber = Integer.parseInt(orderNumberS);
-        Order myOrder = daoOrder.removeOrder(myDate, orderNumber);
-        Order servOrder = service.removeOrder(myDate, orderNumber);
-        String customerName = myOrder.getCustomerName();
-        String expectedResult = servOrder.getCustomerName();
-        assertEquals(customerName, expectedResult);
+        LocalDate late = LocalDate.parse(date, dateFormat);
+        String orderNumberString = "3";
+        int orderNumber = Integer.parseInt(orderNumberString);
+
+        Order currentOrder = service.removeOrder(myDate, orderNumber);
+        assertNotNull(currentOrder);
+        Order myOrder = service.removeOrder(late, orderNumber);
+        assertNull(myOrder);
+    }
+    
+    @Test
+    public void getMaterial() {
+        Product currentProduct = new Product();
+        currentProduct.setProductType("Wood");
+        BigDecimal area = new BigDecimal("12").setScale(2, HALF_UP);
+        BigDecimal productCostPerSqFt = currentProduct.getProductCostPerSqFt().setScale(2, HALF_UP);
+        BigDecimal totalMaterial = productCostPerSqFt.multiply(area).setScale(2, HALF_UP);
+        
+       // BigDecimal expectedMaterial = new BigDecimal("")
+    }
+
+    @Test
+    public void getLabor() {
+        Product currentProduct = new Product();
+        currentProduct.setProductType("Wood");
+        BigDecimal area = new BigDecimal("12").setScale(2, HALF_UP);
+        BigDecimal laborCostPerSqFt = currentProduct.getLaborCostPerSqFt().setScale(2, HALF_UP);
+        BigDecimal totalLabor = laborCostPerSqFt.multiply(area).setScale(2, HALF_UP);
+ 
     }
 
     @Test
     public void testGetTotalSineTax() {
-
+        BigDecimal expectedResult = new BigDecimal("15").setScale(2, HALF_UP);
+        BigDecimal totalLabor = new BigDecimal("10").setScale(2, HALF_UP);
+        BigDecimal totalMaterial = new BigDecimal("5").setScale(2, HALF_UP);
+        BigDecimal totalSineTax = totalLabor.add(totalMaterial).setScale(2, HALF_UP);
+        assertEquals(expectedResult, totalSineTax);
     }
 
     @Test
     public void testGetTaxesForOrder() {
-
+        Tax currentTax = new Tax();
+        currentTax.setState("KY");
+        BigDecimal totalSineTax= new BigDecimal("10").setScale(2, HALF_UP);
+        BigDecimal expectedResult = new BigDecimal("57.50").setScale(2, HALF_UP);
+        BigDecimal taxRate = currentTax.getTaxRate().setScale(2, HALF_UP);
+        BigDecimal taxAmount = totalSineTax.multiply(taxRate).setScale(2, HALF_UP);
+        assertEquals(expectedResult, taxAmount);
     }
 
     @Test
     public void testGetOrderCapitalCost() {
-
+        BigDecimal expectedResult = new BigDecimal("12").setScale(2, HALF_UP);
+        BigDecimal totalSineTax= new BigDecimal("10").setScale(2, HALF_UP);
+        BigDecimal taxAmount = new BigDecimal("2").setScale(2, HALF_UP);
+        BigDecimal total = totalSineTax.add(taxAmount).setScale(2, HALF_UP);
+        assertEquals(expectedResult, total);
     }
 
     @Test
     public void testGetNewOrderNumber() throws FlooringPersistenceException {
-
+        int expectedResult = 4;
+        int orderNumber = daoOrder.getNewOrderNumber();
+        assertEquals(expectedResult, orderNumber);
     }
 
     @Test
-    public void testSaveOrder() {
-
+    public void testSaveOrder() throws FlooringPersistenceException {
+        daoOrder.saveOrder();
     }
 
     @Test

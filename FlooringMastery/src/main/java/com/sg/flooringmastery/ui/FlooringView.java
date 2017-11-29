@@ -144,6 +144,7 @@ public class FlooringView {
     }
 
     public Tax getTaxInformation(Collection<Tax> taxInfo) {
+        boolean stateTeller = false;
         Tax currentTax = new Tax();
         String myState;
         taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
@@ -153,8 +154,12 @@ public class FlooringView {
         io.print("These are the states we work in right now");
         myState = io.readString("Please enter from your choice from "
                 + "these postal abreiviations: ");
-
+       // taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
+       // if(myState.contains(stateChoice)){
         currentTax.setState(myState);
+        //}
+        //});
+
         for (Iterator<Tax> it = taxInfo.iterator(); it.hasNext();) {
             Tax ts = it.next();
             if (ts.getState().equals(myState)) {
@@ -173,8 +178,11 @@ public class FlooringView {
         }
         io.print("These are the product types we offer: ");
         String myProduct = io.readString("Please select from the above product types: ");
-
+        
+      //  for (Product stuff : productInfo) {
+    //    if(myProduct.contains(stuff.getProductType()))
         currentProduct.setProductType(myProduct);
+  //      }  
         for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
             Product ps = it.next();
             if (ps.getProductType().equals(myProduct)) {

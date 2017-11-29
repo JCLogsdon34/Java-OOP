@@ -54,3 +54,12 @@
 2017-11-28T23:31:18.655 : addOrder : 2017-11-28com.sg.flooringmastery.dto.Order@6af9fcb2
 2017-11-28T23:32:30.900 : getOrder : 2017-11-26
 2017-11-28T23:34:15.639 : getOrder : 2017-11-26
+2017-11-29T10:07:50.715 : getOrder : 2013-06-01
+2017-11-29T10:30:32.941 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-29T10:34:23.340 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-29T10:53:15.339 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-29T10:56:16.190 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af9fcb2
+2017-11-29T10:58:07.734 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af93788
+2017-11-29T10:58:52.586 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af93788
+2017-11-29T11:00:18.872 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af93788
+2017-11-29T11:04:00.760 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@6af93788

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public final class FlooringTaxDaoImpl implements FlooringTaxDao {
     
@@ -51,6 +52,7 @@ public final class FlooringTaxDaoImpl implements FlooringTaxDao {
         }
     }
 
+    
     @Override
     public Collection<Tax> getAllTaxes() throws FlooringPersistenceException {
         loadTax();
