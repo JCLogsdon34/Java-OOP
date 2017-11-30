@@ -8,7 +8,8 @@ import java.util.List;
 public interface FlooringOrderDao {
     
     Order addOrder(LocalDate date, Order currentOrder)
-            throws FlooringPersistenceException;
+            throws FlooringPersistenceException,
+            FlooringDaoException;
     
     List<Order> getOrder(LocalDate date)
             throws FlooringPersistenceException,

@@ -1,5 +1,6 @@
 package com.sg.flooringmastery.service;
 
+import com.sg.flooringmastery.dao.FlooringDaoException;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
 import com.sg.flooringmastery.dao.FlooringProductDao;
@@ -82,7 +83,8 @@ public class FlooringServiceLayerImplTest {
     public void testAddOrder() throws
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
-            FlooringPersistenceException {
+            FlooringPersistenceException,
+            FlooringDaoException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "01-12-2017";
         Order currentOrder = new Order();
@@ -301,7 +303,7 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Test
-    public void testGetOrderForEdit() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+    public void testGetOrderForEdit() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException, FlooringDaoException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "06-01-2013";
         Order currentOrder = new Order();
@@ -336,7 +338,7 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Test
-    public void testUpdateAnOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+    public void testUpdateAnOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException, FlooringDaoException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "06-01-2013";
         Order currentOrder = new Order();

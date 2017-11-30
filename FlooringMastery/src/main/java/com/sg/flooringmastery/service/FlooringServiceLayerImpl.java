@@ -2,6 +2,7 @@ package com.sg.flooringmastery.service;
 
 import com.sg.flooringmastery.controller.FlooringController;
 import com.sg.flooringmastery.dao.FlooringAuditDao;
+import com.sg.flooringmastery.dao.FlooringDaoException;
 import com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
 import com.sg.flooringmastery.dao.FlooringOrderDaoImpl;
@@ -21,6 +22,8 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
@@ -44,7 +47,12 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
         validateOrderData(currentOrder);
 
-        return daoOrder.addOrder(dates, currentOrder);
+        try {
+            currentOrder = daoOrder.addOrder(dates, currentOrder);
+        } catch (FlooringDaoException e) {
+          System.out.println("Error in memory");
+        }
+        return currentOrder;
     }
 
     @Override
