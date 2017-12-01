@@ -19,21 +19,31 @@ public class FlooringView {
         this.io = io;
     }
 
-    public int printMenuAndGetSelection() throws FlooringInvalidEntryException{
-        io.print("<<Flooring Main Menu>>");
-        io.print("1. Display Orders");
-        io.print("2. Add An Order");
-        io.print("3. Edit An Order");
-        io.print("4. Remove An Order");
-        io.print("5. Save Current Work");
-        io.print("6. Quit");
+    public int printMenuAndGetSelection() throws FlooringInvalidEntryException {
+        String menuChoice = null;
+        boolean inputTruth = false;
+        int menuItem = 0;
+        do {
+            io.print("<<Flooring Main Menu>>");
+            io.print("1. Display Orders");
+            io.print("2. Add An Order");
+            io.print("3. Edit An Order");
+            io.print("4. Remove An Order");
+            io.print("5. Save Current Work");
+            io.print("6. Quit");
 
-        return io.readInt("Please select from the above choices.");
+            menuChoice = io.readString("Please select from the above choices.");
+            if (menuChoice.matches(".*\\d+.*")) {
+                menuItem = Integer.parseInt(menuChoice);
+                inputTruth = true;
+            } else {
+                inputTruth = false;
+            }
+        } while (inputTruth == false);
+        return menuItem;
     }
 
     public Order getEdits(Order currentOrder, Collection<Tax> taxInfo, Collection<Product> productInfo) {
-        boolean newInput;
-        boolean keepOn;
         String originalName = currentOrder.getCustomerName();
         String customerName;
         Tax currentTax = new Tax();
@@ -42,7 +52,7 @@ public class FlooringView {
         io.print(currentOrder.getCustomerName());
         customerName = io.readString("Please enter customer's name");
 
-        if (customerName == null || (originalName.equalsIgnoreCase(customerName))) {
+        if (originalName.equalsIgnoreCase(customerName)) {
             io.print("No changes, got it");
         } else if (!originalName.equalsIgnoreCase(customerName)) {
             currentOrder.setCustomerName(customerName);
@@ -52,26 +62,27 @@ public class FlooringView {
         String newTax;
 
         io.print(currentOrder.getTax().getState());
-
+        int u = 0;
         io.print("The above was your State choice");
         taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
+
             io.print(stateChoice);
         });
 
         newTax = io.readString("Please enter your changes regarding the state we will be working.");
-     
-        if (!stateTax.equalsIgnoreCase(newTax)) {
+
+        if (stateTax.equalsIgnoreCase(newTax)) {
+            io.print("No changes made");
+        } else if (!stateTax.equalsIgnoreCase(newTax)) {
             currentTax = getTaxInformation(taxInfo);
             currentOrder.setTax(currentTax);
-        } else if ((stateTax.equalsIgnoreCase(newTax) || newTax == null)) {
-            io.print("No changes made");
         }
 
         io.print(currentOrder.getArea().toString());
         BigDecimal oldArea = currentOrder.getArea();
 
         BigDecimal newArea = io.readBigDecimal("Please enter your changes to the area");
-        if (oldArea.equals(newArea) || newArea == null) {
+        if (oldArea.equals(newArea)) {
             io.print("No changes here");
         } else if (!oldArea.equals(newArea)) {
             currentOrder.setArea(newArea);
@@ -80,14 +91,15 @@ public class FlooringView {
         io.print(currentOrder.getProduct().getProductType());
 
         String originalProduct = currentOrder.getProduct().getProductType();
-        String newProduct;
+        String newProduct = null;
         newProduct = io.readString("Please enter any changes you want to make to your product choice");
-        
-        if (newProduct.equalsIgnoreCase(originalProduct) || newProduct == null) {
+
+        if (newProduct.isEmpty() || newProduct.equals(originalProduct)) {
             io.print("No changes made");
         } else if (!newProduct.equalsIgnoreCase(originalProduct)) {
             currentProduct = getProductInformation(productInfo);
             currentOrder.setProduct(currentProduct);
+            return currentOrder;
         }
         return currentOrder;
     }
@@ -132,15 +144,18 @@ public class FlooringView {
     }
 
     public String getNewOrderNameInfo() {
-        boolean newInput;
+        boolean newInput = false;
+        String customerName = null;
 
-        String customerName;
-        customerName = io.readString("Please enter customer's name");
-        if (customerName != null && !customerName.isEmpty()) {
-            newInput = true;
-        } else {
-            newInput = false;
-        }
+        do {
+            customerName = io.readString("Please enter customer's name");
+            if (customerName != null && !customerName.isEmpty()) {
+                newInput = true;
+                return customerName;
+            } else {
+                newInput = false;
+            }
+        } while (newInput == false);
         return customerName;
     }
 
@@ -148,27 +163,26 @@ public class FlooringView {
         boolean stateTeller = false;
         Tax currentTax = new Tax();
         String myState;
-        do{
-        taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
-            io.print(stateChoice);
-        });
+        do {
+            taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
+                io.print(stateChoice);
+            });
 
-        io.print("These are the states we work in right now");
-        myState = io.readString("Please enter from your choice from "
-                + "these postal abreiviations: ");
-        
+            io.print("These are the states we work in right now");
+            myState = io.readString("Please enter from your choice from "
+                    + "these postal abreiviations: ");
+
             for (Tax s : taxInfo) {
 
                 String stateChoice = s.getState();
                 if (s.getState().contentEquals(myState)) {
-                   
+
                     stateTeller = true;
                 }
             }
         } while (stateTeller == false);
         currentTax.setState(myState);
-      
-        
+
         for (Iterator<Tax> it = taxInfo.iterator(); it.hasNext();) {
             Tax ts = it.next();
             if (ts.getState().equals(myState)) {
@@ -182,39 +196,35 @@ public class FlooringView {
     public Product getProductInformation(Collection<Product> productInfo) {
         Product currentProduct = new Product();
         boolean isLeft = false;
-        
-        do{
-        for (Product stuff : productInfo) {
-            io.print(stuff.getProductType());
-        }
-        io.print("These are the product types we offer: ");
-        String myProduct = io.readString("Please select from the above product types: ");
-        
-      
+
+        do {
+            for (Product stuff : productInfo) {
+                io.print(stuff.getProductType());
+            }
+            io.print("These are the product types we offer: ");
+            String myProduct = io.readString("Please select from the above product types: ");
+
             for (Product ps : productInfo) {
                 String myP = ps.getProductType();
-                if (ps.getProductType().contentEquals(myProduct))  {
+                if (ps.getProductType().contentEquals(myProduct)) {
                     currentProduct.setProductType(myProduct);
-                   isLeft = true;              
+                    isLeft = true;
                 }
             }
-                
-        
- 
-        for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
-            Product ps = it.next();
-            if (ps.getProductType().equals(myProduct)) {
-                BigDecimal prodCost = ps.getProductCostPerSqFt();
-                BigDecimal labCost = ps.getLaborCostPerSqFt();
-                currentProduct.setProductCostPerSqFt(prodCost);
-                currentProduct.setLaborCostPerSqFt(labCost);
+
+            for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
+                Product ps = it.next();
+                if (ps.getProductType().equals(myProduct)) {
+                    BigDecimal prodCost = ps.getProductCostPerSqFt();
+                    BigDecimal labCost = ps.getLaborCostPerSqFt();
+                    currentProduct.setProductCostPerSqFt(prodCost);
+                    currentProduct.setLaborCostPerSqFt(labCost);
+                }
             }
-        }
         } while (isLeft == false);
         return currentProduct;
     }
 
-   
     public BigDecimal getArea() throws FlooringInvalidEntryException {
         BigDecimal area = io.readBigDecimal("Please enter the area you want us to lay flooring for");
         return area;
@@ -229,32 +239,46 @@ public class FlooringView {
     }
 
     public int getOrderNumberChoice() throws FlooringInvalidEntryException {
-        String order;
-        order = io.readString("Please enter an order number");
-        int orderNumber;
-        orderNumber = Integer.parseInt(order);
-   
+        String order = null;
+        int orderNumber = 0;
+        boolean numberTeller = false;
+        do {
+            order = io.readString("Please enter an order number below: ");
+            if (order.matches(".*\\d+.*")) {
+                orderNumber = Integer.parseInt(order);
+                numberTeller = true;
+            } else {
+                numberTeller = false;
+            }
+        } while (numberTeller == false);
         return orderNumber;
     }
 
     public boolean getAssurance() {
         String assurance;
         boolean youSure = false;
-        assurance = io.readString("Are you sure you want to proceed? Y/N ");
+        boolean inputTeller = false;
+        do {
+            assurance = io.readString("Are you sure you want to proceed? Y/N ");
 
-        if (assurance.equalsIgnoreCase("y")) {
-            youSure = true;
-        } else if (assurance.equalsIgnoreCase("n")) {
-            youSure = false;
-        }
+            if (assurance.equalsIgnoreCase("y")) {
+                youSure = true;
+                inputTeller = true;
+            } else if (assurance.equalsIgnoreCase("n")) {
+                youSure = false;
+                inputTeller = true;
+            } else {
+                inputTeller = false;
+            }
+        } while (inputTeller == false);
         return youSure;
     }
 
     public LocalDate getOrderDate() throws FlooringInvalidEntryException {
         LocalDate date;
-        
+
         date = io.readLocalDate("Please enter the date of your order");
-       
+
         return date;
     }
 

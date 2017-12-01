@@ -112,3 +112,10 @@
 2017-11-30T22:31:42.115 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Laelius
 2017-11-30T22:32:40.466 : getOrder : 2017-11-30
 2017-11-30T22:49:21.375 : getOrder : 2017-11-30
+2017-12-01T14:04:47.986 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Orestes
+2017-12-01T14:29:23.071 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Porcius Cato
+2017-12-01T14:31:55.997 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Antonius
+2017-12-01T14:32:08.481 : getOrder : 2017-12-01
+2017-12-01T14:48:53.281 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Curtius
+2017-12-01T14:49:02.365 : getOrder : 2017-12-01
+2017-12-01T14:49:38.995 : getOrder : 2017-12-01

@@ -28,13 +28,22 @@ public class UserIoConsoleImpl implements UserIo {
 
     @Override
     public BigDecimal readBigDecimal(String msg) {
-        String moneyInput;
-        BigDecimal moneyInserted;
+        String moneyInput = null;
+        BigDecimal moneyInserted = new BigDecimal("0").setScale(2, RoundingMode.HALF_UP);
         Scanner inputReader = new Scanner(System.in);
         System.out.println("Please enter the area you want us to lay flooring for");
         try{
         moneyInput = inputReader.nextLine();
-        moneyInserted = new BigDecimal(moneyInput).setScale(2, RoundingMode.HALF_UP);
+        boolean numberTeller = false;
+        do {
+            if (moneyInput.matches(".*\\d+.*")) {
+                moneyInserted = new BigDecimal(moneyInput).setScale(2, RoundingMode.HALF_UP);
+                numberTeller = true;
+                return moneyInserted;
+            } else {
+                numberTeller = false;
+            }
+        } while (numberTeller == false);
         }catch(InputMismatchException e){
                 throw new FlooringInvalidEntryException("Invalid input");
             }
@@ -104,7 +113,6 @@ public class UserIoConsoleImpl implements UserIo {
         try {
             number = inputReader.nextLine();
             myInt = Integer.parseInt(number);
-
             return myInt;
         } catch (InputMismatchException e) {
             throw new FlooringInvalidEntryException("Invalid input");
@@ -155,11 +163,10 @@ public class UserIoConsoleImpl implements UserIo {
 
     @Override
     public String readString(String prompt) {
-        String userSentence;
+        String userSentence = null;
         Scanner inputReader = new Scanner(System.in);
         System.out.println(prompt);
         userSentence = inputReader.nextLine();
         return userSentence;
     }
-
 }

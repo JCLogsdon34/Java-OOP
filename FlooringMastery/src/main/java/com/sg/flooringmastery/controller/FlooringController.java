@@ -186,6 +186,7 @@ public class FlooringController {
             if (youSure == true) {
                 service.removeOrder(date, newList, orderNumber);
                 view.displayRemoveOrderSuccessBanner();
+                
             } else if (youSure != true) {
                 view.displayUnknownCommandBanner();
             }
