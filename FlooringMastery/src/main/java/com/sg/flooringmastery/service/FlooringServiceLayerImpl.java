@@ -1,7 +1,5 @@
 package com.sg.flooringmastery.service;
 
-import com.sg.flooringmastery.controller.FlooringController;
-import com.sg.flooringmastery.dao.FlooringAuditDao;
 import com.sg.flooringmastery.dao.FlooringDaoException;
 import com.sg.flooringmastery.dao.FlooringDaoOrderTrainingImpl;
 import com.sg.flooringmastery.dao.FlooringOrderDao;
@@ -23,8 +21,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringServiceLayerImpl implements FlooringServiceLayer {
 
@@ -63,8 +59,8 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
     }
 
     @Override
-    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        return daoOrder.removeOrder(date, orderNumber);
+    public Order removeOrder(LocalDate date, List<Order> newList, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+        return daoOrder.removeOrder(date, newList, orderNumber);
     }
 
     @Override
@@ -120,33 +116,20 @@ public class FlooringServiceLayerImpl implements FlooringServiceLayer {
             FlooringDataValidationException, FlooringPersistenceException {
         Collection<Product> thisCollection = getAllTheProducts();
         Collection<Tax> thisTax = getAllTaxes();
-        boolean isRight = false;
-        boolean isLeft = false;
-      //  do {            
-            for (Tax s : thisTax) {         
-                String stateChoice = s.getState();
-                if (stateChoice.equals(String.valueOf(currentOrder.getTax().getState()))) {
-                    isRight = true;
-                    
-                } else if (!stateChoice.equals(currentOrder.getTax().getState())) {
-                    throw new FlooringDataValidationException(
-                            "ERROR: All fields [Order number, order Date"
-                            + " product type, state, and area] are required.");
-                }
-            }
 
-            for (Product ps : thisCollection) {
-                
-                String myP = ps.getProductType();
-                if (myP.equals(currentOrder.getProduct().getProductType())) {
-                    //isLeft = true;                 
-                } else {
-                    throw new FlooringDataValidationException(
-                            "ERROR: All fields [Order number, order Date"
-                            + " product type, state, and area] are required.");
-                }
-            }
-    //    } while (isLeft == false);
+        if (currentOrder.getOrderDate() == null
+                || currentOrder.getOrderNumber() == 0
+                || currentOrder.getCustomerName() == null
+                || currentOrder.getTax().getState().trim().length() == 0
+                || currentOrder.getTax().getState() == null
+                || currentOrder.getTax().getState().length() > 2
+                || currentOrder.getProduct().getProductType() == null
+                || currentOrder.getArea() == null
+                || currentOrder.getArea() == ZERO) {
+            throw new FlooringDataValidationException(
+                    "ERROR: All fields [Order number, order Date"
+                    + " product type, state, and area] are required.");
+        }
     }
 
     @Override

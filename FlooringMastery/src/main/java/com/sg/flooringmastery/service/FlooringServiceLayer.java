@@ -48,7 +48,7 @@ public interface FlooringServiceLayer {
     Collection<Tax> getAllTaxes()throws
             FlooringPersistenceException;
 
-    Order removeOrder(LocalDate date, int orderNumber) throws
+    Order removeOrder(LocalDate date, List<Order> newList, int orderNumber) throws
             FlooringPersistenceException,
             FlooringNoOrdersForThatDateException,
             FlooringInvalidEntryException;

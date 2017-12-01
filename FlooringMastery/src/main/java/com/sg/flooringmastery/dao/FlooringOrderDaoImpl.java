@@ -51,11 +51,14 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + newerDate1 + newerDate2;
-        loadOrder(theDateNow);
-        Order currentOrder = new Order();
-        newList=ordersMap.get(theDateNow);
-        newList.add(currentOrder);
-        return newList.get(orderNumber);
+        int newListLength = newList.size();
+        newList = ordersMap.get(theDateNow);
+        for (int i = 0; i < newListLength; i++) {
+            if (newList.get(i).getOrderNumber() == orderNumber) {
+                return newList.get(i);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -85,8 +88,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     }
 
     @Override
-    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        Order currentOrder = new Order();
+    public Order removeOrder(LocalDate date, List<Order> newList, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
         String dateForFile = date.format(formatter);
@@ -95,23 +97,30 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + "-" + newerDate1 + "-" + newerDate2;
-
-        loadOrder(theDateNow);
-        currentOrder = ordersMap.get(theDateNow).get(orderNumber);
-        return ordersMap.remove(theDateNow).remove(orderNumber);
+         
+         int newListLength = newList.size();
+        newList = ordersMap.get(theDateNow);
+        for (int i = 0; i < newListLength; i++) {
+            if (newList.get(i).getOrderNumber() == orderNumber) {         
+                 newList.remove(i);
+                ordersMap.put(myOrder, newList);
+                return newList.get(i);
+            }     
+    }
+        return null;
     }
 
     @Override
     public Order addOrder(LocalDate date, Order currentOrder) throws FlooringPersistenceException, FlooringDaoException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
-        
-        loadOrder(myOrder); 
-        List<Order> orderList  = new ArrayList<>(ordersMap.get(myOrder));
-    //    orderList = ordersMap.get(myOrder);         
-     //   orderList.add(currentOrder);  
+        List<Order> orderList = new ArrayList<>();
+        if (ordersMap.get(myOrder) == null) {
+            orderList.add(currentOrder);
+        } else {
+            orderList = new ArrayList<>(ordersMap.get(myOrder));
+        }
         ordersMap.put(myOrder, orderList);
         return currentOrder;
     }
@@ -119,12 +128,11 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        
+
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
         loadOrder(myOrder);
-        List<Order> newOrder = new ArrayList<>(ordersMap.get(myOrder));
-        return newOrder;
+        return new ArrayList<>(ordersMap.get(myOrder));
     }
 
     @Override
@@ -194,23 +202,23 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                 throw new FlooringPersistenceException(
                         "Could not save Order data.", e);
             }
-                List<Order> myOrder = ordersMap.get(day);
-                
-                for(Order currentOrder: myOrder){
+            List<Order> myOrder = new ArrayList<>(ordersMap.get(day));
 
-                    out.println(currentOrder.getOrderNumber() + DELIMITER
-                            + currentOrder.getCustomerName() + DELIMITER
-                            + currentOrder.getTax().getState() + DELIMITER
-                            + currentOrder.getTax().getTaxRate() + DELIMITER
-                            + currentOrder.getProduct().getProductType() + DELIMITER
-                            + currentOrder.getArea() + DELIMITER
-                            + currentOrder.getProduct().getProductCostPerSqFt() + DELIMITER
-                            + currentOrder.getProduct().getLaborCostPerSqFt() + DELIMITER
-                            + currentOrder.getMaterialCost() + DELIMITER
-                            + currentOrder.getLaborCost() + DELIMITER
-                            + currentOrder.getTax().getTaxAmount() + DELIMITER
-                            + currentOrder.getTotal());
-                }
+            for (Order currentOrder : myOrder) {
+
+                out.println(currentOrder.getOrderNumber() + DELIMITER
+                        + currentOrder.getCustomerName() + DELIMITER
+                        + currentOrder.getTax().getState() + DELIMITER
+                        + currentOrder.getTax().getTaxRate() + DELIMITER
+                        + currentOrder.getProduct().getProductType() + DELIMITER
+                        + currentOrder.getArea() + DELIMITER
+                        + currentOrder.getProduct().getProductCostPerSqFt() + DELIMITER
+                        + currentOrder.getProduct().getLaborCostPerSqFt() + DELIMITER
+                        + currentOrder.getMaterialCost() + DELIMITER
+                        + currentOrder.getLaborCost() + DELIMITER
+                        + currentOrder.getTax().getTaxAmount() + DELIMITER
+                        + currentOrder.getTotal());
+            }
             out.flush();
             out.close();
         }

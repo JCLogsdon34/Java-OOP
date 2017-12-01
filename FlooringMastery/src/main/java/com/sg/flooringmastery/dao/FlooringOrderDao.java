@@ -19,7 +19,7 @@ public interface FlooringOrderDao {
             FlooringPersistenceException, 
             FlooringNoOrdersForThatDateException;
     
-    Order removeOrder(LocalDate date, int orderNumber)
+    Order removeOrder(LocalDate date, List<Order> newList, int orderNumber)
             throws FlooringPersistenceException
             ,FlooringNoOrdersForThatDateException; 
     

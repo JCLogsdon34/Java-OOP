@@ -77,15 +77,13 @@ public class FlooringOrderDaoStubImpl implements FlooringOrderDao {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
-        List<Order> orderList = new ArrayList<>(ordersMap.get(myOrder));
-        //ordersMap.get(myOrder);
+        List<Order> orderList = new ArrayList<>(ordersMap.get(myOrder));;
         orderList.add(oneOrder);
-        Order currentOrder = new Order();
         return oneOrder;
     }
 
     @Override
-    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
+    public Order removeOrder(LocalDate date, List<Order> newList, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "01-12-2017";
         Order currentOrder = new Order();

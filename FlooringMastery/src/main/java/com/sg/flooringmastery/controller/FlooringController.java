@@ -110,7 +110,6 @@ public class FlooringController {
         Product currentProduct = new Product();
         view.displayAddBanner();
         int orderNumber;
-        boolean hasErrors = false;
         boolean youSure = false;
         String customerName;
 
@@ -148,7 +147,6 @@ public class FlooringController {
             service.addOrder(dates, currentOrder);
             view.displayOrderPlacedBanner();
             view.displayOrderSuccessBanner();
-            //               hasErrors = true;
         } else if (youSure != true) {
             view.displayUnknownCommandBanner();
         }
@@ -173,7 +171,7 @@ public class FlooringController {
         try {
             LocalDate date;
             List<Order> newList;
-            Order currentOrder;
+            Order currentOrder = new Order();
             int orderNumber;
             boolean youSure;
 
@@ -186,12 +184,11 @@ public class FlooringController {
             view.displayOrder(currentOrder);
             youSure = view.getAssurance();
             if (youSure == true) {
-                service.addOrder(date, currentOrder);
+                service.removeOrder(date, newList, orderNumber);
                 view.displayRemoveOrderSuccessBanner();
             } else if (youSure != true) {
                 view.displayUnknownCommandBanner();
             }
-            service.removeOrder(date, orderNumber);
         } catch (FlooringNoOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
@@ -199,11 +196,7 @@ public class FlooringController {
 
     private void editOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException {
         try {
-            Tax currentTax;
-            Product currentProduct;
-            boolean hasErrors = false;
             boolean youSure = false;
-            String customerName;
             Collection<Tax> taxInfo;
             Collection<Product> productInfo;
             LocalDate date;

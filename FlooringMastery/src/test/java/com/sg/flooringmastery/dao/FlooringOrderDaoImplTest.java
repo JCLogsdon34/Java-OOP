@@ -52,7 +52,7 @@ public class FlooringOrderDaoImplTest {
         List<Order> orderList = daoOrder.getOrder(myDate);
         orderList.add(oneOrder);
         for (Order currentOrder : orderList) {
-            daoOrder.removeOrder(currentOrder.getOrderDate(), currentOrder.getOrderNumber());
+            daoOrder.removeOrder(currentOrder.getOrderDate(), orderList, currentOrder.getOrderNumber());
         }
     }
     
@@ -127,8 +127,8 @@ public class FlooringOrderDaoImplTest {
         Order mine = new Order();
         List<Order> theOrder = new ArrayList<>(daoOrder.getOrder(myDate));
         Order[] o = new Order[]{daoOrder.addOrder(myDate, currentOrder)};
-        Order[] p = new Order[]{daoOrder.removeOrder(myDate, orderNumber)};
-        daoOrder.removeOrder(myDate, orderNumber);
+        Order[] p = new Order[]{daoOrder.removeOrder(myDate, theOrder, orderNumber)};
+        daoOrder.removeOrder(myDate, theOrder, orderNumber);
 
         Assert.assertArrayEquals(o, p);
     

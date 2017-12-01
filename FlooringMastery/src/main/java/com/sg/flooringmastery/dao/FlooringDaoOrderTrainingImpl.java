@@ -13,67 +13,69 @@ public class FlooringDaoOrderTrainingImpl implements FlooringOrderDao {
     private static Map<String, List<Order>> ordersMap = new HashMap<String, List<Order>>();
     private static ArrayList<Integer> orderNums = new ArrayList<>();
 
-    @Override
-    public Order addOrder(LocalDate date, Order currentOrder) throws FlooringPersistenceException {
+       @Override
+    public Order addOrder(LocalDate date, Order currentOrder) throws FlooringPersistenceException, FlooringDaoException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
-        String newerDate = myOrder.substring(0, 2);
-        String newerDate1 = myOrder.substring(2, 4);
-        String newerDate2 = myOrder.substring(4, 8);       
-        String theDateNow = newerDate + newerDate1 + newerDate2;
-        
         List<Order> orderList = new ArrayList<>();
-        orderList.equals(ordersMap.get(theDateNow));
-        orderList.equals(orderList.add(currentOrder));
-        ordersMap.equals(ordersMap.put(theDateNow, orderList));
+        if (ordersMap.get(myOrder) == null) {
+            orderList.add(currentOrder);
+        } else {
+            orderList = new ArrayList<>(ordersMap.get(myOrder));
+        }
+        ordersMap.put(myOrder, orderList);
         return currentOrder;
     }
 
-    @Override
+   @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        List<Order> newOrder = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
-        String newerDate = myOrder.substring(0, 2);
-        String newerDate1 = myOrder.substring(2, 4);
-        String newerDate2 = myOrder.substring(4, 8);       
-        String theDateNow = newerDate + newerDate1 + newerDate2;
-        
-        newOrder.equals(ordersMap.get(theDateNow));
-        return newOrder;
+        return new ArrayList<>(ordersMap.get(myOrder));
     }
 
     @Override
-    public Order getOrderForEdit(LocalDate date, List<Order> orderToday, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        Order currentOrder = new Order();
+    public Order getOrderForEdit(LocalDate date, List<Order> newList, int orderNumber) throws FlooringPersistenceException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
         String newerDate = myOrder.substring(0, 2);
         String newerDate1 = myOrder.substring(2, 4);
-        String newerDate2 = myOrder.substring(4, 8);       
+        String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + newerDate1 + newerDate2;
-//        loadOrder(theDateNow);
-        currentOrder.equals(orderToday.get(orderNumber));
-        return currentOrder;
+        int newListLength = newList.size();
+        newList = ordersMap.get(theDateNow);
+        for (int i = 0; i < newListLength; i++) {
+            if (newList.get(i).getOrderNumber() == orderNumber) {
+                return newList.get(i);
+            }
+        }
+        return null;
     }
 
-    @Override
-    public Order removeOrder(LocalDate date, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        Order currentOrder = new Order();
+      @Override
+    public Order removeOrder(LocalDate date, List<Order> newList, int orderNumber) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
         String newerDate = myOrder.substring(0, 2);
         String newerDate1 = myOrder.substring(2, 4);
-        String newerDate2 = myOrder.substring(4, 8);       
-        String theDateNow = newerDate + newerDate1 + newerDate2;
-        
-        currentOrder.equals(ordersMap.get(theDateNow).get(orderNumber));
-        ordersMap.equals(ordersMap.remove(theDateNow).remove(orderNumber));
-        return currentOrder;
+        String newerDate2 = myOrder.substring(4, 8);
+        String theDateNow = newerDate + "-" + newerDate1 + "-" + newerDate2;
+         
+         int newListLength = newList.size();
+        newList = ordersMap.get(theDateNow);
+        for (int i = 0; i < newListLength; i++) {
+            if (newList.get(i).getOrderNumber() == orderNumber) {         
+                 newList.remove(i);
+                ordersMap.put(myOrder, newList);
+                return newList.get(i);
+            }     
+    }
+        return null;
     }
 
     @Override

@@ -99,3 +99,16 @@
 2017-11-29T21:38:33.590 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@cd3fee8
 2017-11-29T21:38:57 : addOrder : 2017-11-29com.sg.flooringmastery.dto.Order@3e2e18f2
 2017-11-29T21:39:22.797 : getOrder : 2017-11-29
+2017-11-30T21:38:51.172 : addOrder : com.sg.flooringmastery.dao.FlooringPersistenceException: -_- Could not load order data.2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Cicero
+2017-11-30T21:53:05.198 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Cataline
+2017-11-30T21:53:31.317 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 4 |Customer Name:Lucius Sergius Catalina
+2017-11-30T22:06:43.647 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Lentullus
+2017-11-30T22:07:04.661 : getOrder : 2013-06-01
+2017-11-30T22:07:37.355 : getOrder : 2017-11-30
+2017-11-30T22:23:56.898 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Logsdon
+2017-11-30T22:24:18.829 : getOrder : 2017-11-30
+2017-11-30T22:27:11.627 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Hirtius
+2017-11-30T22:29:53.826 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Decius
+2017-11-30T22:31:42.115 : addOrder : 2017-11-30|Date: 2017-11-30 |Order Number: 2 |Customer Name:Laelius
+2017-11-30T22:32:40.466 : getOrder : 2017-11-30
+2017-11-30T22:49:21.375 : getOrder : 2017-11-30
