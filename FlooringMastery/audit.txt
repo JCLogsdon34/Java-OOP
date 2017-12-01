@@ -119,3 +119,7 @@
 2017-12-01T14:48:53.281 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Curtius
 2017-12-01T14:49:02.365 : getOrder : 2017-12-01
 2017-12-01T14:49:38.995 : getOrder : 2017-12-01
+2017-12-01T17:31:47.690 : getOrder : 2013-06-01
+2017-12-01T17:32:22.714 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Publius Cornelius Scipio
+2017-12-01T17:40:43.238 : getOrder : 2013-06-01
+2017-12-01T17:41:09.510 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Vorenus

@@ -71,17 +71,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + newerDate1 + newerDate2;
-    /*
-        int newListLength = newList.size();
-        newList = ordersMap.get(theDateNow);
-        for (int i = 0; i < newListLength; i++) {
-            if (newList.get(i).getOrderNumber() == orderNumber) {
-                return newList.get(i);
-            }
-        }
-        return null;
-    }
-*/
+
         newList = ordersMap.get(theDateNow);
         if(newList == null){
         newList.add(currentOrder);
@@ -144,7 +134,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
-   //     loadOrder(myOrder);
+        loadOrder(myOrder);
         return new ArrayList<>(ordersMap.get(myOrder));
     }
 
