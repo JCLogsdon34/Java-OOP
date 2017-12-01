@@ -16,7 +16,7 @@
           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
     <bean id="daoOrder" 
-          class="com.sg.flooringmastery.dao.FlooringOrderDaoImpl"/>
+          class="com.sg.flooringmastery.dao.FlooringOrderDaoStubImpl"/>
     
     <bean id="daoProduct" 
           class="com.sg.flooringmastery.dao.FlooringProductDaoImpl"/>

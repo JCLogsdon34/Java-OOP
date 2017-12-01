@@ -33,12 +33,11 @@ import com.sg.flooringmastery.dao.FlooringOrderDaoStubImpl;
 
 public class FlooringServiceLayerImplTest {
 
-    private FlooringOrderDao daoOrder = new FlooringOrderDaoStubImpl();
-    private FlooringProductDao daoProduct = new FlooringProductDaoImpl();
-    private FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
+    private static FlooringOrderDao daoOrder = new FlooringOrderDaoStubImpl();
+    private static FlooringProductDao daoProduct = new FlooringProductDaoImpl();
+    private static FlooringTaxDao daoTax = new FlooringTaxDaoImpl();
 
-    private FlooringServiceLayer service;
-           
+    private static FlooringServiceLayer service;
 
     public FlooringServiceLayerImplTest() {
         ApplicationContext ctx
@@ -57,17 +56,8 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Before
-    public void setUp() throws FlooringPersistenceException,
-            FlooringNoOrdersForThatDateException {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "01-12-2017";
-        Order currentOrder = new Order();
-        LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
-          List<Order>orderList = daoOrder.getOrder(myDate);
-          orderList.add(currentOrder);
-            for(Order myOrder : orderList) {
-              daoOrder.removeOrder(currentOrder.getOrderDate(), currentOrder.getOrderNumber());
-        }
+    public void setUp() {
+        
     }
 
     @After
@@ -84,32 +74,37 @@ public class FlooringServiceLayerImplTest {
             FlooringDuplicateOrderException,
             FlooringDataValidationException,
             FlooringPersistenceException,
-            FlooringDaoException {
+            FlooringDaoException,
+            FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String theDateNow = "01-12-2017";
         Order currentOrder = new Order();
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
+        currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
+  
+        String dateForFile = myDate.format(dateFormat);
+        String myOrder = dateForFile.replace("-", "");
           currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
-        int orderNumber = service.getNewOrderNumber();
+        int orderNumber = 4;
         currentOrder.setOrderNumber((orderNumber));
         currentOrder.setCustomerName("Crockett");
         currentOrder.getTax().setState("TN");
-        currentOrder.getTax().setTaxRate(new BigDecimal(6.75));
+        currentOrder.getTax().setTaxRate(new BigDecimal("6.75").setScale(2, HALF_UP));
         currentOrder.getProduct().setProductType("Wood");
-        currentOrder.setArea(new BigDecimal(11));
-        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(55));
-        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal(22));
-        currentOrder.setMaterialCost(new BigDecimal(55));
-        currentOrder.setLaborCost(new BigDecimal(44));
-        currentOrder.getTax().setTaxAmount(new BigDecimal(322));
-        currentOrder.setTotal(new BigDecimal(22.11));
-
+        currentOrder.setArea(new BigDecimal("11").setScale(2, HALF_UP));
+        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal("55").setScale(2, HALF_UP));
+        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal("22").setScale(2, HALF_UP));
+        currentOrder.setMaterialCost(new BigDecimal("55").setScale(2, HALF_UP));
+        currentOrder.setLaborCost(new BigDecimal("44").setScale(2, HALF_UP));
+        currentOrder.getTax().setTaxAmount(new BigDecimal("322").setScale(2, HALF_UP));
+        currentOrder.setTotal(new BigDecimal("22.11").setScale(2, HALF_UP));
+        Order mine = new Order();
+        List<Order> theOrder = new ArrayList<>(service.getOrder(myDate));
         daoOrder.addOrder(myDate, currentOrder);
-
-        Order order = service.addOrder(myDate, currentOrder);
-        Order fromDao = daoOrder.addOrder(myDate, currentOrder);
-
-        assertEquals(order, fromDao);
+        mine = theOrder.get(0);
+        
+        String expectedName = "Crockett";
+        assertEquals(expectedName, String.valueOf(mine.getCustomerName()));
     }
 
     @Test
@@ -121,20 +116,20 @@ public class FlooringServiceLayerImplTest {
         String theDateNow = "01-12-2017";
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
         Order currentOrder = new Order();
-         currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
+        currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
         int orderNumber = service.getNewOrderNumber();
         currentOrder.setOrderNumber((orderNumber));
         currentOrder.setCustomerName("Crockett");
         currentOrder.getTax().setState("WVA");
-        currentOrder.getTax().setTaxRate(new BigDecimal(6.75));
-        currentOrder.getProduct().setProductType("Venetian Marble");
-        currentOrder.setArea(new BigDecimal(11));
-        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(55));
-        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal(22));
-        currentOrder.setMaterialCost(new BigDecimal(55));
-        currentOrder.setLaborCost(new BigDecimal(44));
-        currentOrder.getTax().setTaxAmount(new BigDecimal(322));
-        currentOrder.setTotal(new BigDecimal(22.11));
+        currentOrder.getTax().setTaxRate(new BigDecimal("6.75").setScale(2, HALF_UP));
+        currentOrder.getProduct().setProductType("Carpet");
+        currentOrder.setArea(new BigDecimal("11").setScale(2, HALF_UP));
+        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal("55").setScale(2, HALF_UP));
+        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal("22").setScale(2, HALF_UP));
+        currentOrder.setMaterialCost(new BigDecimal("55").setScale(2, HALF_UP));
+        currentOrder.setLaborCost(new BigDecimal("44").setScale(2, HALF_UP));
+        currentOrder.getTax().setTaxAmount(new BigDecimal("322").setScale(2, HALF_UP));
+        currentOrder.setTotal(new BigDecimal("22.11").setScale(2, HALF_UP));
         try {
             service.addOrder(myDate, currentOrder);
             fail("Expected FlooringDataValidationException was not thrown");
@@ -147,60 +142,72 @@ public class FlooringServiceLayerImplTest {
     public void testGetOrder() throws FlooringPersistenceException,
             FlooringNoOrdersForThatDateException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "11-25-2017";
+        String theDateNow = "01-12-2017";
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
         Order currentOrder = new Order();
-        
+
         currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
 
-        List<Order> servList = service.getOrder(myDate);
-        List<Order> fromDao = daoOrder.getOrder(myDate);
+        List<Order> servList = daoOrder.getOrder(myDate);
         
-        int orderNumber = servList.size();
-        int expectedOrderNumber = fromDao.size();
+        servList.stream().forEach((Order order) -> {
+            String name = order.getCustomerName();
         
-        assertEquals(orderNumber, expectedOrderNumber);
+        String expectedName = "Crockett";
+
+        assertEquals(expectedName, name);
+                });
     }
 
     @Test
-    public void testRemoveOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "11-25-2017";
-        String date = "01-12-2017";
-        LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
-        LocalDate late = LocalDate.parse(date, dateFormat);
-        String orderNumberString = "3";
-        int orderNumber = Integer.parseInt(orderNumberString);
-
-        Order currentOrder = service.removeOrder(myDate, orderNumber);
-        assertNotNull(currentOrder);
-        Order myOrder = service.removeOrder(late, orderNumber);
-        assertNull(myOrder);
-    }
-    
-    @Test
-    public void getMaterial() {
+    public void getMaterial() throws FlooringPersistenceException {
         Product currentProduct = new Product();
-        currentProduct.setProductType("Wood");
+        String myProduct = "Wood";
+        Collection<Product> prod = daoProduct.getAllProducts();
+        currentProduct.setProductType(myProduct);
         BigDecimal area = new BigDecimal("12").setScale(2, HALF_UP);
-        BigDecimal productCostPerSqFt = currentProduct.getProductCostPerSqFt().setScale(2, HALF_UP);
-        BigDecimal totalMaterial = productCostPerSqFt.multiply(area).setScale(2, HALF_UP);
-        
-       // BigDecimal expectedMaterial = new BigDecimal("")
+        for (Iterator<Product> it = prod.iterator(); it.hasNext();) {
+            Product ps = it.next();
+            if (ps.getProductType().equals(myProduct)) {
+                BigDecimal prodCost = ps.getProductCostPerSqFt();
+                BigDecimal labCost = ps.getLaborCostPerSqFt();
+                currentProduct.setProductCostPerSqFt(prodCost);
+                currentProduct.setLaborCostPerSqFt(labCost);
+
+                BigDecimal productCostPerSqFt = currentProduct.getProductCostPerSqFt().setScale(2, HALF_UP);
+                BigDecimal totalMaterial = productCostPerSqFt.multiply(area).setScale(2, HALF_UP);
+                BigDecimal expectedResult = new BigDecimal("61.8").setScale(2, HALF_UP);
+                assertEquals(totalMaterial, expectedResult);
+            }
+        }
     }
 
     @Test
-    public void getLabor() {
+    public void getLabor() throws FlooringPersistenceException {
         Product currentProduct = new Product();
-        currentProduct.setProductType("Wood");
+        String myProduct = "Wood";
+        Collection<Product> prod = daoProduct.getAllProducts();
+        currentProduct.setProductType(myProduct);
         BigDecimal area = new BigDecimal("12").setScale(2, HALF_UP);
-        BigDecimal laborCostPerSqFt = currentProduct.getLaborCostPerSqFt().setScale(2, HALF_UP);
-        BigDecimal totalLabor = laborCostPerSqFt.multiply(area).setScale(2, HALF_UP);
- 
+        for (Iterator<Product> it = prod.iterator(); it.hasNext();) {
+            Product ps = it.next();
+            if (ps.getProductType().equals(myProduct)) {
+                BigDecimal prodCost = ps.getProductCostPerSqFt().setScale(2, HALF_UP);
+                BigDecimal labCost = ps.getLaborCostPerSqFt().setScale(2, HALF_UP);
+                currentProduct.setProductCostPerSqFt(prodCost);
+                currentProduct.setLaborCostPerSqFt(labCost);
+
+                BigDecimal laborCostPerSqFt = currentProduct.getLaborCostPerSqFt().setScale(2, HALF_UP);
+                BigDecimal totalLabor = laborCostPerSqFt.multiply(area).setScale(2, HALF_UP);
+                BigDecimal expectedResult = new BigDecimal("57").setScale(2, HALF_UP);
+                assertEquals(totalLabor, expectedResult);
+            }
+        }
     }
 
     @Test
     public void testGetTotalSineTax() {
+
         BigDecimal expectedResult = new BigDecimal("15").setScale(2, HALF_UP);
         BigDecimal totalLabor = new BigDecimal("10").setScale(2, HALF_UP);
         BigDecimal totalMaterial = new BigDecimal("5").setScale(2, HALF_UP);
@@ -209,20 +216,30 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Test
-    public void testGetTaxesForOrder() {
+    public void testGetTaxesForOrder() throws FlooringPersistenceException {
         Tax currentTax = new Tax();
-        currentTax.setState("KY");
-        BigDecimal totalSineTax= new BigDecimal("10").setScale(2, HALF_UP);
+        Collection<Tax> fromServiceLayer = daoTax.getAllTaxes();
+        String state = "KY";
+        currentTax.setState(state);
+        for (Iterator<Tax> it = fromServiceLayer.iterator(); it.hasNext();) {
+            Tax ts = it.next();
+            if (ts.getState().equals(state)) {
+                BigDecimal taxs = ts.getTaxRate();
+                currentTax.setTaxRate(taxs);
+          
+        BigDecimal totalSineTax = new BigDecimal("10").setScale(2, HALF_UP);
         BigDecimal expectedResult = new BigDecimal("57.50").setScale(2, HALF_UP);
         BigDecimal taxRate = currentTax.getTaxRate().setScale(2, HALF_UP);
         BigDecimal taxAmount = totalSineTax.multiply(taxRate).setScale(2, HALF_UP);
         assertEquals(expectedResult, taxAmount);
     }
+        }
+    }
 
     @Test
     public void testGetOrderCapitalCost() {
         BigDecimal expectedResult = new BigDecimal("12").setScale(2, HALF_UP);
-        BigDecimal totalSineTax= new BigDecimal("10").setScale(2, HALF_UP);
+        BigDecimal totalSineTax = new BigDecimal("10").setScale(2, HALF_UP);
         BigDecimal taxAmount = new BigDecimal("2").setScale(2, HALF_UP);
         BigDecimal total = totalSineTax.add(taxAmount).setScale(2, HALF_UP);
         assertEquals(expectedResult, total);
@@ -236,37 +253,22 @@ public class FlooringServiceLayerImplTest {
     }
 
     @Test
-    public void testSaveOrder() throws FlooringPersistenceException {
-        daoOrder.saveOrder();
-    }
-
-    @Test
     public void testGetAllTaxes() throws FlooringPersistenceException {
         Collection<Tax> fromServiceLayer = service.getAllTaxes();
         String states = "KY";
         Order currentOrder = new Order();
-
+        
         for (Iterator<Tax> it = fromServiceLayer.iterator(); it.hasNext();) {
             Tax ts = it.next();
             if (ts.getState().equals(states)) {
                 BigDecimal taxs = ts.getTaxRate();
                 currentOrder.getTax().setTaxRate(taxs);
-            }
-        }
-
-        Collection<Tax> fromDao = daoTax.getAllTaxes();
-        Order myOrder = new Order();
-        String state = "KY";
-        for (Iterator<Tax> it = fromDao.iterator(); it.hasNext();) {
-            Tax ts = it.next();
-            if (ts.getState().equals(state)) {
-                BigDecimal tax = ts.getTaxRate();
-                myOrder.getTax().setTaxRate(tax);
-            }
-        }
-        BigDecimal expectedResult = currentOrder.getTax().getTaxRate();
-        BigDecimal myResult = myOrder.getTax().getTaxRate();
+          
+        BigDecimal expectedResult = new BigDecimal("5.75").setScale(2, HALF_UP);
+        BigDecimal myResult = currentOrder.getTax().getTaxRate().setScale(2, HALF_UP);
         assertEquals(expectedResult, myResult);
+            }
+        }
     }
 
     @Test
@@ -305,23 +307,26 @@ public class FlooringServiceLayerImplTest {
     @Test
     public void testGetOrderForEdit() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException, FlooringDaoException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "06-01-2013";
+        String theDateNow = "01-12-2017";
         Order currentOrder = new Order();
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
-        //   currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
-      //  int orderNumber = service.getNewOrderNumber();
-        currentOrder.setOrderNumber((1));
-        currentOrder.setCustomerName("Wise");
-        currentOrder.getTax().setState("OH");
-        currentOrder.getTax().setTaxRate(new BigDecimal(5.25));
+        currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
+        String dateForFile = myDate.format(dateFormat);
+        String myOrder = dateForFile.replace("-", "");
+        currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
+        int orderNumber = 4;
+        currentOrder.setOrderNumber((orderNumber));
+        currentOrder.setCustomerName("Crockett");
+        currentOrder.getTax().setState("TN");
+        currentOrder.getTax().setTaxRate(new BigDecimal("6.75").setScale(2, HALF_UP));
         currentOrder.getProduct().setProductType("Wood");
-        currentOrder.setArea(new BigDecimal(11));
-        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(55));
-        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal(22));
-        currentOrder.setMaterialCost(new BigDecimal(55));
-        currentOrder.setLaborCost(new BigDecimal(44));
-        currentOrder.getTax().setTaxAmount(new BigDecimal(322));
-        currentOrder.setTotal(new BigDecimal(22.11));
+        currentOrder.setArea(new BigDecimal("11").setScale(2, HALF_UP));
+        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal("55").setScale(2, HALF_UP));
+        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal("22").setScale(2, HALF_UP));
+        currentOrder.setMaterialCost(new BigDecimal("55").setScale(2, HALF_UP));
+        currentOrder.setLaborCost(new BigDecimal("44").setScale(2, HALF_UP));
+        currentOrder.getTax().setTaxAmount(new BigDecimal("322").setScale(2, HALF_UP));
+        currentOrder.setTotal(new BigDecimal("22.11").setScale(2, HALF_UP));
 
         List<Order> myOrders = new ArrayList<>();
         myOrders.add(currentOrder);
@@ -329,7 +334,7 @@ public class FlooringServiceLayerImplTest {
 
         Order fromDao = daoOrder.getOrderForEdit(myDate, myOrders, 1);
         Order fromServ = service.getOrderForEdit(myDate, myOrders, 1);
-             
+
         fromDao.setArea(BigDecimal.ONE);
         BigDecimal result = fromDao.getArea();
         fromServ.setArea(BigDecimal.ONE);
@@ -340,40 +345,33 @@ public class FlooringServiceLayerImplTest {
     @Test
     public void testUpdateAnOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException, FlooringDaoException {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        String theDateNow = "06-01-2013";
+        String theDateNow = "01-12-2017";
         Order currentOrder = new Order();
         LocalDate myDate = LocalDate.parse(theDateNow, dateFormat);
-        //   currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
+        currentOrder.setOrderDate(LocalDate.parse(theDateNow, dateFormat));
         int orderNumber = 1;
         currentOrder.setOrderNumber((orderNumber));
         currentOrder.setCustomerName("Wise");
         currentOrder.getTax().setState("OH");
-        currentOrder.getTax().setTaxRate(new BigDecimal(6.25));
+        currentOrder.getTax().setTaxRate(new BigDecimal("6.25").setScale(2, HALF_UP));
         currentOrder.getProduct().setProductType("Wood");
-        currentOrder.setArea(new BigDecimal(100.00));
-        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal(5.15));
-        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal(4.75));
-        currentOrder.setMaterialCost(new BigDecimal(515.00));
-        currentOrder.setLaborCost(new BigDecimal(475.00));
-        currentOrder.getTax().setTaxAmount(new BigDecimal(61.88));
-        currentOrder.setTotal(new BigDecimal(1051.88));
-        
+        currentOrder.setArea(new BigDecimal("100").setScale(2, HALF_UP));
+        currentOrder.getProduct().setProductCostPerSqFt(new BigDecimal("5.15").setScale(2, HALF_UP));
+        currentOrder.getProduct().setLaborCostPerSqFt(new BigDecimal("4.75").setScale(2, HALF_UP));
+        currentOrder.setMaterialCost(new BigDecimal("515").setScale(2, HALF_UP));
+        currentOrder.setLaborCost(new BigDecimal("475").setScale(2, HALF_UP));
+        currentOrder.getTax().setTaxAmount(new BigDecimal("61.88").setScale(2, HALF_UP));
+        currentOrder.setTotal(new BigDecimal("1051.88").setScale(2, HALF_UP));
+
         daoOrder.addOrder(myDate, currentOrder);
-        
-        
-        
+
         List<Order> anOrder = new ArrayList<>();
         anOrder.add(currentOrder);
         Order fromServ = service.getOrderForEdit(myDate, anOrder, orderNumber);
-        Order fromDao = daoOrder.getOrderForEdit(myDate, anOrder, orderNumber);
-        
-         currentOrder.setCustomerName("John");
-        
-        Order fromSer = service.updateAnOrder(myDate, currentOrder);
-        Order fromDaoOrder = daoOrder.updateAnOrder(myDate, currentOrder);
-        
-        BigDecimal fromS = fromServ.getArea();
-        BigDecimal fromD = fromDao.getArea();
-        assertEquals(fromS, fromD);
+
+        currentOrder.setCustomerName("John");
+        BigDecimal fromS = fromServ.getArea().setScale(2, HALF_UP);
+        BigDecimal expectedResult = new BigDecimal("11").setScale(2, HALF_UP);
+        assertEquals(fromS, expectedResult);
     }
 }

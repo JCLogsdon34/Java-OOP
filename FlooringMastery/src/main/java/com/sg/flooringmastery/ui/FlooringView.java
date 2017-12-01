@@ -3,6 +3,7 @@ package com.sg.flooringmastery.ui;
 import com.sg.flooringmastery.dto.Order;
 import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
+import com.sg.flooringmastery.service.FlooringDataValidationException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -60,6 +61,7 @@ public class FlooringView {
         });
 
         newTax = io.readString("Please enter your changes regarding the state we will be working.");
+     
         if (!stateTax.equalsIgnoreCase(newTax)) {
             currentTax = getTaxInformation(taxInfo);
             currentOrder.setTax(currentTax);
@@ -82,6 +84,7 @@ public class FlooringView {
         String originalProduct = currentOrder.getProduct().getProductType();
         String newProduct;
         newProduct = io.readString("Please enter any changes you want to make to your product choice");
+        
         if (newProduct.equalsIgnoreCase(originalProduct) || newProduct == null) {
             io.print("No changes made");
         } else if (!newProduct.equalsIgnoreCase(originalProduct)) {
@@ -147,6 +150,7 @@ public class FlooringView {
         boolean stateTeller = false;
         Tax currentTax = new Tax();
         String myState;
+        do{
         taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
             io.print(stateChoice);
         });
@@ -154,12 +158,19 @@ public class FlooringView {
         io.print("These are the states we work in right now");
         myState = io.readString("Please enter from your choice from "
                 + "these postal abreiviations: ");
-       // taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
-       // if(myState.contains(stateChoice)){
-        currentTax.setState(myState);
-        //}
-        //});
+        
+            for (Tax s : taxInfo) {
 
+                String stateChoice = s.getState();
+                if (s.getState().contentEquals(myState)) {
+                   
+                    stateTeller = true;
+                }
+            }
+        } while (stateTeller == false);
+        currentTax.setState(myState);
+      
+        
         for (Iterator<Tax> it = taxInfo.iterator(); it.hasNext();) {
             Tax ts = it.next();
             if (ts.getState().equals(myState)) {
@@ -172,17 +183,26 @@ public class FlooringView {
 
     public Product getProductInformation(Collection<Product> productInfo) {
         Product currentProduct = new Product();
-
+        boolean isLeft = false;
+        
+        do{
         for (Product stuff : productInfo) {
             io.print(stuff.getProductType());
         }
         io.print("These are the product types we offer: ");
         String myProduct = io.readString("Please select from the above product types: ");
         
-      //  for (Product stuff : productInfo) {
-    //    if(myProduct.contains(stuff.getProductType()))
-        currentProduct.setProductType(myProduct);
-  //      }  
+      
+            for (Product ps : productInfo) {
+                String myP = ps.getProductType();
+                if (ps.getProductType().contentEquals(myProduct))  {
+                    currentProduct.setProductType(myProduct);
+                   isLeft = true;              
+                }
+            }
+                
+        
+ 
         for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
             Product ps = it.next();
             if (ps.getProductType().equals(myProduct)) {
@@ -192,6 +212,7 @@ public class FlooringView {
                 currentProduct.setLaborCostPerSqFt(labCost);
             }
         }
+        } while (isLeft == false);
         return currentProduct;
     }
 

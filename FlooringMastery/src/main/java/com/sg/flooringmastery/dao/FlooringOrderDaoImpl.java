@@ -55,10 +55,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         Order currentOrder = new Order();
         newList=ordersMap.get(theDateNow);
         newList.add(currentOrder);
-
-        currentOrder = newList.get(orderNumber);
-
-        return currentOrder;
+        return newList.get(orderNumber);
     }
 
     @Override
@@ -101,29 +98,20 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
         loadOrder(theDateNow);
         currentOrder = ordersMap.get(theDateNow).get(orderNumber);
-        ordersMap.remove(theDateNow).remove(orderNumber);
-        return currentOrder;
+        return ordersMap.remove(theDateNow).remove(orderNumber);
     }
 
     @Override
     public Order addOrder(LocalDate date, Order currentOrder) throws FlooringPersistenceException, FlooringDaoException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        List<Order> orderList = new ArrayList<>();
+
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
         
-        try {
-            orderList = getOrder(date);
-        } catch (FlooringNoOrdersForThatDateException e) {
-            
-        }
-        loadOrder(myOrder);
-       
-        orderList = ordersMap.get(myOrder); 
-        if(orderList == null){
-            
-        orderList.add(currentOrder);  
-        }
+        loadOrder(myOrder); 
+        List<Order> orderList  = new ArrayList<>(ordersMap.get(myOrder));
+    //    orderList = ordersMap.get(myOrder);         
+     //   orderList.add(currentOrder);  
         ordersMap.put(myOrder, orderList);
         return currentOrder;
     }
@@ -131,37 +119,12 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
     @Override
     public List<Order> getOrder(LocalDate date) throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        List<Order> newOrder = new ArrayList<>();
+        
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
         loadOrder(myOrder);
-
-        newOrder = ordersMap.get(myOrder);
+        List<Order> newOrder = new ArrayList<>(ordersMap.get(myOrder));
         return newOrder;
-    }
-
-    public Set<String> getDates() {
-        return ordersMap.keySet();
-    }
-
-    public Collection<List<Order>> getList() {
-        return ordersMap.values();
-    }
-
-    public List<Order> getAllOrders()
-            throws FlooringDaoException {
-        if (getList() != null) {
-            Set<String> set = getDates();
-            Collection<List<Order>> theOrdersByDay = getList();
-            for (List L : theOrdersByDay) {
-
-                String[] daysOrder = set.toArray(new String[set.size()]);
-                String[] ordersD = theOrdersByDay.toArray(new String[theOrdersByDay.size()]);
-            }
-            return new ArrayList<>();
-
-        }
-        return null;
     }
 
     @Override
