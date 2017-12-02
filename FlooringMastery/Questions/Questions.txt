@@ -10,9 +10,9 @@ above that I had done a better job at planning this project than I had the previ
 I am able to improve. During this process, I had times where I did not stay on the agile checklist.
 It was too tempting at the time to start a different user story than what I should have been doing,
 like working on removeOrder() when I should have been working on addOrder() and displayOrder().
-I know I also jumped the gun by implementing Spring AOP, with the auditTrail. I did that because
-I thought it would help me understand some of the problems I have had in my order dao with 
-saving my orders. 
+I also struggled with verifying input in some place, which I did my best to change in what little time was left. 
+In fact, I would go as far as to say that time was what I struggled with the most. Somehome, I just could not
+get this project working as well as I wanted it to in the time I had. 
 
 How and where did you seek help with this assignment?
     The first place I look is my notes, followed by the lessons from past milestones. If that
@@ -23,6 +23,8 @@ have used those when I could not remember how something worked or why I was gett
 I write down any questions I am unable to find responses to, in order to ask on OOH, OOP, or 
 when I have a mentoring session with my mentor. If I need feedback 
 on an idea, or my charts and diagrams, I DM one of my instructors as needed and ask for feedback.
+I did everything I was able to do to finish this assignment. It is not as good as I would like it to be,
+ but I accomplished  what I was able in what time I had left to me. 
 
 What unanswered questions do you still have?
     Specifically, I want to have a better understanding of Marshalling and Unmarshalling data.
@@ -30,4 +32,5 @@ I also want to learn how to use the SpringFramework to make my code simpler. I h
 at the Spring website and glanced over what it may be used for, but only in passing. Each time
 I went to that website was for an ad hoc reason, such as trying to understand AOP, DI. I have tried to work
 out to learn how to use Spring to set the mode, but so far I do not understand how to accomplish that
-completely.
+completely.  I also would like to learn more about how more efficient ways to verify if the user is 
+putting in the correct kind of input.  
