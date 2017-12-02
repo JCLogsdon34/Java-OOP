@@ -4,6 +4,8 @@ import com.sg.flooringmastery.dto.Order;
 import com.sg.flooringmastery.dto.Product;
 import com.sg.flooringmastery.dto.Tax;
 import java.math.BigDecimal;
+import static java.math.BigDecimal.ZERO;
+import static java.math.RoundingMode.HALF_UP;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,46 +50,61 @@ public class FlooringView {
         String customerName;
         Tax currentTax = new Tax();
         Product currentProduct = new Product();
-
+        boolean stateTeller = false;
+        String myState = null;
+        String stateTax = currentOrder.getTax().getState();
         io.print(currentOrder.getCustomerName());
         customerName = io.readString("Please enter customer's name");
 
         if (originalName.equalsIgnoreCase(customerName)) {
             io.print("No changes, got it");
-        } else if (!originalName.equalsIgnoreCase(customerName)) {
-            currentOrder.setCustomerName(customerName);
         }
-
-        String stateTax = currentOrder.getTax().getState();
-        String newTax;
+        currentOrder.setCustomerName(customerName);
 
         io.print(currentOrder.getTax().getState());
-        int u = 0;
         io.print("The above was your State choice");
         taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
 
             io.print(stateChoice);
         });
-
+        String newTax = currentOrder.getTax().getState();
+        String oldTax = currentOrder.getTax().getState();
         newTax = io.readString("Please enter your changes regarding the state we will be working.");
-
-        if (stateTax.equalsIgnoreCase(newTax)) {
+         if (stateTax.equalsIgnoreCase(newTax) || newTax.isEmpty()) {
             io.print("No changes made");
-        } else if (!stateTax.equalsIgnoreCase(newTax)) {
-            currentTax = getTaxInformation(taxInfo);
-            currentOrder.setTax(currentTax);
+        currentOrder.getTax().setState(newTax);
+
+        for (Iterator<Tax> it = taxInfo.iterator(); it.hasNext();) {
+            Tax ts = it.next();
+            if (ts.getState().equals(myState)) {
+                BigDecimal taxs = ts.getTaxRate();
+                currentOrder.getTax().setTaxRate(taxs);
+            }
         }
+        } else {
+        do {
+            for (Tax s : taxInfo) {
+                String stateChoice = s.getState();
+                if (s.getState().contentEquals(newTax)) {
+                    currentOrder.getTax().setState(newTax);
+                    stateTeller = true;
+                }
+            }
+        } while (stateTeller == false);
+         }
+       
 
         io.print(currentOrder.getArea().toString());
-        BigDecimal oldArea = currentOrder.getArea();
+        BigDecimal oldArea = currentOrder.getArea().setScale(2, HALF_UP);
 
-        BigDecimal newArea = io.readBigDecimal("Please enter your changes to the area");
-        if (oldArea.equals(newArea)) {
+        BigDecimal newArea = io.readBigDecimal("Please enter your changes to the area").setScale(2, HALF_UP);
+        if (oldArea.equals(newArea) || (newArea.equals(ZERO))) {
             io.print("No changes here");
-        } else if (!oldArea.equals(newArea)) {
-            currentOrder.setArea(newArea);
-        }
-
+            currentOrder.setArea(oldArea);
+        } else {
+        currentOrder.setArea(newArea);
+    }
+        
         io.print(currentOrder.getProduct().getProductType());
 
         String originalProduct = currentOrder.getProduct().getProductType();
@@ -96,10 +113,39 @@ public class FlooringView {
 
         if (newProduct.isEmpty() || newProduct.equals(originalProduct)) {
             io.print("No changes made");
-        } else if (!newProduct.equalsIgnoreCase(originalProduct)) {
-            currentProduct = getProductInformation(productInfo);
-            currentOrder.setProduct(currentProduct);
-            return currentOrder;
+            currentOrder.getProduct().setProductType(originalProduct);
+            for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
+                Product ps = it.next();
+                if (ps.getProductType().equals(originalProduct)) {
+                    BigDecimal prodCost = ps.getProductCostPerSqFt();
+                    BigDecimal labCost = ps.getLaborCostPerSqFt();
+                    currentProduct.setProductCostPerSqFt(prodCost);
+                    currentProduct.setLaborCostPerSqFt(labCost);
+                }
+            }
+        } else {
+            currentOrder.getProduct().setProductType(newProduct);
+
+            boolean isLeft = false;
+            do {
+                for (Product ps : productInfo) {
+                    String myP = ps.getProductType();
+                    if (ps.getProductType().contentEquals(newProduct)) {
+                        currentProduct.setProductType(newProduct);
+                        isLeft = true;
+                    }
+                }
+
+                for (Iterator<Product> it = productInfo.iterator(); it.hasNext();) {
+                    Product ps = it.next();
+                    if (ps.getProductType().equals(newProduct)) {
+                        BigDecimal prodCost = ps.getProductCostPerSqFt();
+                        BigDecimal labCost = ps.getLaborCostPerSqFt();
+                        currentProduct.setProductCostPerSqFt(prodCost);
+                        currentProduct.setLaborCostPerSqFt(labCost);
+                    }
+                }
+            } while (isLeft == false);
         }
         return currentOrder;
     }
@@ -278,7 +324,7 @@ public class FlooringView {
         LocalDate date;
 
         date = io.readLocalDate("Please enter the date of your order");
-
+        
         return date;
     }
 

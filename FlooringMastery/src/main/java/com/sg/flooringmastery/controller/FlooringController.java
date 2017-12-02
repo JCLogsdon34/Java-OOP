@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -23,7 +25,7 @@ public class FlooringController {
     private FlooringServiceLayer service;
 
     public FlooringController(FlooringServiceLayer service,
-            FlooringView view) {  
+            FlooringView view) {
         this.service = service;
         this.view = view;
     }
@@ -71,7 +73,7 @@ public class FlooringController {
                         removeOrder();
                     } catch (FlooringPersistenceException e) {
                         view.displayErrorMessage(e.getMessage());
-                    } catch (FlooringDuplicateOrderException | FlooringDataValidationException e) {
+                    } catch (FlooringDuplicateOrderException | FlooringDataValidationException | FlooringNoOrdersForThatDateException e) {
                         view.displayErrorMessage(e.getMessage());
                     }
 
@@ -103,7 +105,7 @@ public class FlooringController {
             FlooringDataValidationException,
             FlooringDuplicateOrderException,
             FlooringPersistenceException,
-            FlooringInvalidEntryException{
+            FlooringInvalidEntryException {
 
         Order currentOrder = new Order();
         Tax currentTax = new Tax();
@@ -154,42 +156,37 @@ public class FlooringController {
 
     private void displayOrder() throws FlooringPersistenceException, FlooringNoOrdersForThatDateException {
         LocalDate date = null;
-        List <Order> newList = new ArrayList<>();
+        List<Order> newList = new ArrayList<>();
 
         view.displayDisplayOrderBanner();
-        date=view.getOrderDate();
-        
-        newList=service.getOrder(date);
-        if(!newList.isEmpty()){
-        view.displayOrderByDateList(newList);
+        date = view.getOrderDate();
+
+        newList = service.getOrder(date);
+        if (!newList.isEmpty()) {
+            view.displayOrderByDateList(newList);
         } else {
             System.out.print("No order for that date");
         }
     }
 
-    private void removeOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException {
+    private void removeOrder() throws FlooringPersistenceException, FlooringDuplicateOrderException, FlooringDataValidationException, FlooringNoOrdersForThatDateException {
+        LocalDate date;
+        Order currentOrder = new Order();
+        int orderNumber;
+        boolean youSure;
+
+        view.displayRemoveBanner();
+        date = view.getOrderDate();
+        orderNumber = view.getOrderNumberChoice();
         try {
-            LocalDate date;
-            List<Order> newList;
-            Order currentOrder = new Order();
-            int orderNumber;
-            boolean youSure;
-
-            view.displayRemoveBanner();
-            date = view.getOrderDate();
-            orderNumber = view.getOrderNumberChoice();
-            newList = service.getOrder(date);
+            List<Order> newList = new ArrayList<>(service.getOrder(date));
             currentOrder = service.getOrderForEdit(date, newList, orderNumber);
-
             view.displayOrder(currentOrder);
             youSure = view.getAssurance();
             if (youSure == true) {
                 service.removeOrder(date, newList, orderNumber);
                 view.displayRemoveOrderSuccessBanner();
-                
-            } else if (youSure != true) {
-                view.displayUnknownCommandBanner();
-            }
+            } 
         } catch (FlooringNoOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }
@@ -201,7 +198,8 @@ public class FlooringController {
             Collection<Tax> taxInfo;
             Collection<Product> productInfo;
             LocalDate date;
-            Order currentOrder;
+            Order currentOrder = new Order();
+            Order newOrder = new Order();
             int orderNumber;
             List<Order> orderToday = new ArrayList<>();
 
@@ -212,16 +210,16 @@ public class FlooringController {
             orderToday = service.getOrder(date);
             orderNumber = view.getOrderNumberChoice();
             currentOrder = service.getOrderForEdit(date, orderToday, orderNumber);
-            currentOrder = view.getEdits(currentOrder, taxInfo, productInfo);
+            newOrder = view.getEdits(currentOrder, taxInfo, productInfo);
 
             youSure = view.getAssurance();
             if (youSure == true) {
                 service.updateAnOrder(date, currentOrder);
+                view.displayOrder(currentOrder);
                 view.displayOrderPlacedBanner();
             } else if (youSure != true) {
                 view.displayUnknownCommandBanner();
-            }
-
+            }         
         } catch (FlooringNoOrdersForThatDateException e) {
             view.displayErrorMessage(e.getMessage());
         }

@@ -3,8 +3,10 @@ package com.sg.flooringmastery.ui;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import static java.math.RoundingMode.HALF_UP;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -18,11 +20,16 @@ public class UserIoConsoleImpl implements UserIo {
     @Override
     public LocalDate readLocalDate(String msg) {
         Scanner inputReader = new Scanner(System.in);
+        LocalDate parsedDate;
         String userChoices = null;
         System.out.println(msg);
+        try{
         userChoices = inputReader.next();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        LocalDate parsedDate = LocalDate.parse(userChoices, dateFormat);
+         parsedDate = LocalDate.parse(userChoices, dateFormat);
+        }catch(DateTimeParseException e){
+            throw new FlooringInvalidEntryException("Invalid input");
+        }
         return parsedDate;
     }
 

@@ -73,16 +73,13 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String theDateNow = newerDate + newerDate1 + newerDate2;
 
         newList = ordersMap.get(theDateNow);
-        if(newList == null){
-        newList.add(currentOrder);
-        }
+        newList.add(currentOrder);  
         ordersMap.put(date.toString(), newList);
         return currentOrder;
     }
 
     @Override
     public void saveOrder() throws FlooringPersistenceException {
-        //  loadOrder();
         try {
             writeOrder();
         } catch (FlooringNoOrdersForThatDateException e) {
@@ -96,21 +93,23 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
         String dateForFile = date.format(formatter);
         String myOrder = dateForFile.replace("-", "");
-        String newerDate = myOrder.substring(0, 2);
-        String newerDate1 = myOrder.substring(2, 4);
-        String newerDate2 = myOrder.substring(4, 8);
-        String theDateNow = newerDate + "-" + newerDate1 + "-" + newerDate2;
-         
-         int newListLength = newList.size();
-        newList = ordersMap.get(theDateNow);
-        for (int i = 0; i < newListLength; i++) {
-            if (newList.get(i).getOrderNumber() == orderNumber) {         
-                 newList.remove(i);
-                ordersMap.put(myOrder, newList);
-                return newList.get(i);
-            }     
-    }
-        return null;
+        
+        int newListLength = newList.size();
+        Order currentOrder = new Order();
+             currentOrder = getOrderForEdit(date, newList, orderNumber);
+        if (newListLength < 2) { 
+            currentOrder = newList.remove(0);
+            ordersMap.remove(date, newList);         
+        } else {
+            for (int i = 0; i < newListLength; i++) {
+                if (newList.get(i).getOrderNumber() == orderNumber) {
+                    newList.remove(i);
+                    ordersMap.put(myOrder, newList);
+                }
+                    
+            }
+        }
+        return currentOrder;
     }
 
     @Override
@@ -133,9 +132,9 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
         String dateForFile = date.format(formatter);
-        String myOrder = dateForFile.replace("-", "");
-        loadOrder(myOrder);
-        return new ArrayList<>(ordersMap.get(myOrder));
+        String myOrder = dateForFile.replace("-", "");       
+            loadOrder(myOrder);
+            return new ArrayList<>(ordersMap.get(myOrder));
     }
 
     @Override

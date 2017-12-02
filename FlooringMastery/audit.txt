@@ -123,3 +123,51 @@
 2017-12-01T17:32:22.714 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Publius Cornelius Scipio
 2017-12-01T17:40:43.238 : getOrder : 2013-06-01
 2017-12-01T17:41:09.510 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Vorenus
+2017-12-01T17:49:45.637 : getOrder : 2017-12-01
+2017-12-01T18:07:32.367 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Caelius Rufus
+2017-12-01T18:07:42.524 : getOrder : 2017-12-01
+2017-12-01T18:07:55.903 : getOrder : 2017-12-01
+2017-12-01T18:08:37.288 : getOrder : 2017-12-01
+2017-12-01T18:16:40.259 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Marcus Cato
+2017-12-01T18:17:06.025 : getOrder : 2017-12-01
+2017-12-01T18:22:16.186 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Cato
+2017-12-01T18:22:35.628 : getOrder : 2017-12-01
+2017-12-01T18:29:37.683 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Roscius
+2017-12-01T18:29:50.828 : getOrder : 2017-12-01
+2017-12-01T18:30:03.618 : getOrder : 2017-12-01
+2017-12-01T18:46:06.629 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Macro
+2017-12-01T18:46:28.466 : getOrder : 2017-12-01
+2017-12-01T18:51:29.512 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Marcus Sergius Macro
+2017-12-01T18:51:40.729 : getOrder : 2017-12-01
+2017-12-01T18:58:38.720 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Marcus Sergius Macro
+2017-12-01T18:58:46.378 : getOrder : 2017-12-01
+2017-12-01T19:03:18.001 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Publius Curtius Rufus
+2017-12-01T19:03:29.497 : getOrder : 2017-12-01
+2017-12-01T19:06:56.819 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius
+2017-12-01T19:07:09.227 : getOrder : 2017-12-01
+2017-12-01T19:32:10.177 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Macro
+2017-12-01T19:32:19.803 : getOrder : 2017-12-01
+2017-12-01T19:32:23.357 : removeOrder : 2017-12-01[|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Macro]2
+2017-12-01T19:32:30.247 : getOrder : 2017-12-01
+2017-12-01T19:32:48.378 : getOrder : 2017-12-01
+2017-12-01T19:33:26.123 : getOrder : 2017-12-01
+2017-12-01T19:33:28.659 : removeOrder : 2017-12-01[|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Macro]2
+2017-12-01T19:33:36.356 : getOrder : 2017-12-01
+2017-12-01T19:44:11.233 : getOrder : 2013-06-01
+2017-12-01T19:44:58.836 : getOrder : 2013-06-01
+2017-12-01T19:45:23.145 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Catalina
+2017-12-01T19:45:35.290 : getOrder : 2017-12-01
+2017-12-01T19:46:12.743 : getOrder : 2017-12-01
+2017-12-01T19:46:43.169 : getOrder : 2017-12-01
+2017-12-01T19:46:58.483 : getOrder : 2017-12-01
+2017-12-01T19:48:39.514 : getOrder : 2017-12-01
+2017-12-01T19:48:43.845 : removeOrder : 2017-12-01[|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Macro]2
+2017-12-01T19:48:52.276 : getOrder : 2017-12-01
+2017-12-01T20:04:11.150 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Vorrenus
+2017-12-01T20:04:27.121 : getOrder : 2017-12-01
+2017-12-01T20:04:31.392 : removeOrder : 2017-12-01[|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Sergius Vorrenus]2
+2017-12-01T20:04:44.047 : getOrder : 2017-12-01
+2017-12-01T20:09:14.343 : addOrder : 2017-12-01|Date: 2017-12-01 |Order Number: 2 |Customer Name:Lucius Vorrenus
+2017-12-01T20:09:27.421 : getOrder : 2017-12-01
+2017-12-01T20:10:00.121 : getOrder : 2017-12-01
+2017-12-01T20:10:11.361 : getOrder : 2017-12-01
