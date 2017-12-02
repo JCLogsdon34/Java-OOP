@@ -48,14 +48,11 @@ public class FlooringView {
     public Order getEdits(Order currentOrder, Collection<Tax> taxInfo, Collection<Product> productInfo) {
         String originalName = currentOrder.getCustomerName();
         String customerName;
-        Tax currentTax = new Tax();
-        Product currentProduct = new Product();
         boolean stateTeller = false;
         String myState = null;
         String stateTax = currentOrder.getTax().getState();
         io.print(currentOrder.getCustomerName());
         customerName = io.readString("Please enter customer's name");
-
         if (originalName.equalsIgnoreCase(customerName)) {
             io.print("No changes, got it");
         }
@@ -92,11 +89,8 @@ public class FlooringView {
             }
         } while (stateTeller == false);
          }
-       
-
         io.print(currentOrder.getArea().toString());
         BigDecimal oldArea = currentOrder.getArea().setScale(2, HALF_UP);
-
         BigDecimal newArea = io.readBigDecimal("Please enter your changes to the area").setScale(2, HALF_UP);
         if (oldArea.equals(newArea) || (newArea.equals(ZERO))) {
             io.print("No changes here");
@@ -104,9 +98,7 @@ public class FlooringView {
         } else {
         currentOrder.setArea(newArea);
     }
-        
         io.print(currentOrder.getProduct().getProductType());
-
         String originalProduct = currentOrder.getProduct().getProductType();
         String newProduct = null;
         newProduct = io.readString("Please enter any changes you want to make to your product choice");
@@ -119,19 +111,18 @@ public class FlooringView {
                 if (ps.getProductType().equals(originalProduct)) {
                     BigDecimal prodCost = ps.getProductCostPerSqFt();
                     BigDecimal labCost = ps.getLaborCostPerSqFt();
-                    currentProduct.setProductCostPerSqFt(prodCost);
-                    currentProduct.setLaborCostPerSqFt(labCost);
+                    currentOrder.getProduct().setProductCostPerSqFt(prodCost);
+                    currentOrder.getProduct().setLaborCostPerSqFt(labCost);
                 }
             }
         } else {
             currentOrder.getProduct().setProductType(newProduct);
-
             boolean isLeft = false;
             do {
                 for (Product ps : productInfo) {
                     String myP = ps.getProductType();
                     if (ps.getProductType().contentEquals(newProduct)) {
-                        currentProduct.setProductType(newProduct);
+                        currentOrder.getProduct().setProductType(newProduct);
                         isLeft = true;
                     }
                 }
@@ -141,8 +132,8 @@ public class FlooringView {
                     if (ps.getProductType().equals(newProduct)) {
                         BigDecimal prodCost = ps.getProductCostPerSqFt();
                         BigDecimal labCost = ps.getLaborCostPerSqFt();
-                        currentProduct.setProductCostPerSqFt(prodCost);
-                        currentProduct.setLaborCostPerSqFt(labCost);
+                        currentOrder.getProduct().setProductCostPerSqFt(prodCost);
+                        currentOrder.getProduct().setLaborCostPerSqFt(labCost);
                     }
                 }
             } while (isLeft == false);
@@ -213,22 +204,17 @@ public class FlooringView {
             taxInfo.stream().map((ta) -> (ta.getState())).forEach((stateChoice) -> {
                 io.print(stateChoice);
             });
-
             io.print("These are the states we work in right now");
             myState = io.readString("Please enter from your choice from "
                     + "these postal abreiviations: ");
-
             for (Tax s : taxInfo) {
-
                 String stateChoice = s.getState();
                 if (s.getState().contentEquals(myState)) {
-
                     stateTeller = true;
                 }
             }
         } while (stateTeller == false);
         currentTax.setState(myState);
-
         for (Iterator<Tax> it = taxInfo.iterator(); it.hasNext();) {
             Tax ts = it.next();
             if (ts.getState().equals(myState)) {
@@ -242,7 +228,6 @@ public class FlooringView {
     public Product getProductInformation(Collection<Product> productInfo) {
         Product currentProduct = new Product();
         boolean isLeft = false;
-
         do {
             for (Product stuff : productInfo) {
                 io.print(stuff.getProductType());
@@ -277,7 +262,7 @@ public class FlooringView {
     }
 
     public void displayOrderMap(Map<LocalDate, List<Order>> lambdaOrderMap) {
-        List<Order> orderList;
+        List<Order> orderList = new ArrayList<>();
         LocalDate date;
         lambdaOrderMap.entrySet().stream().forEach((Map.Entry<LocalDate, List<Order>> e) -> {
             io.print(e.getKey() + " " + e.getValue());
@@ -322,9 +307,7 @@ public class FlooringView {
 
     public LocalDate getOrderDate() throws FlooringInvalidEntryException {
         LocalDate date;
-
         date = io.readLocalDate("Please enter the date of your order");
-        
         return date;
     }
 

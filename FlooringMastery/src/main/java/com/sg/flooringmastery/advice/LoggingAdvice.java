@@ -3,10 +3,6 @@ package com.sg.flooringmastery.advice;
 import com.sg.flooringmastery.dao.FlooringAuditDao;
 import com.sg.flooringmastery.dao.FlooringNoOrdersForThatDateException;
 import com.sg.flooringmastery.dao.FlooringPersistenceException;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Scanner;
 import org.aspectj.lang.JoinPoint;
 
 public class LoggingAdvice {

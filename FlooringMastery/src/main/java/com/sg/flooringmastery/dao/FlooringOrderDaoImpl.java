@@ -1,8 +1,6 @@
 package com.sg.flooringmastery.dao;
 
 import com.sg.flooringmastery.dto.Order;
-import com.sg.flooringmastery.dto.Product;
-import com.sg.flooringmastery.dto.Tax;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,16 +12,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringOrderDaoImpl implements FlooringOrderDao {
 
@@ -71,7 +65,6 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         String newerDate1 = myOrder.substring(2, 4);
         String newerDate2 = myOrder.substring(4, 8);
         String theDateNow = newerDate + newerDate1 + newerDate2;
-
         newList = ordersMap.get(theDateNow);
         newList.add(currentOrder);  
         ordersMap.put(date.toString(), newList);
@@ -83,7 +76,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
         try {
             writeOrder();
         } catch (FlooringNoOrdersForThatDateException e) {
-            System.out.println("No orders to save for today");
+            System.out.println("No orders to save");
         }
     }
 
@@ -205,9 +198,7 @@ public class FlooringOrderDaoImpl implements FlooringOrderDao {
                         "Could not save Order data.", e);
             }
             List<Order> myOrder = new ArrayList<>(ordersMap.get(day));
-
             for (Order currentOrder : myOrder) {
-
                 out.println(currentOrder.getOrderNumber() + DELIMITER
                         + currentOrder.getCustomerName() + DELIMITER
                         + currentOrder.getTax().getState() + DELIMITER

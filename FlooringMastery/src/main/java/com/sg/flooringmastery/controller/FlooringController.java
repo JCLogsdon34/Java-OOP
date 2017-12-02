@@ -16,8 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FlooringController {
 
@@ -214,8 +212,8 @@ public class FlooringController {
 
             youSure = view.getAssurance();
             if (youSure == true) {
-                service.updateAnOrder(date, currentOrder);
-                view.displayOrder(currentOrder);
+                service.updateAnOrder(date, newOrder);
+                view.displayOrder(newOrder);
                 view.displayOrderPlacedBanner();
             } else if (youSure != true) {
                 view.displayUnknownCommandBanner();
