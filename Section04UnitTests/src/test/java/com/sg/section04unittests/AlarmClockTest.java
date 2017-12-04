@@ -14,6 +14,7 @@ public class AlarmClockTest {
     AlarmClock clock = new AlarmClock();
     
     public AlarmClockTest() {
+        
     }
     
     @BeforeClass
@@ -45,8 +46,30 @@ public class AlarmClockTest {
     
     @Test
     public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int day = 1;
+        boolean vacation = false;
+        String expectedResult = "7:00am";
+        
+        assertEquals(expectedResult, clock.alarmClock(day, vacation));
+    }
+
+
+    @Test
+    public void testAlarmClock() {
+        int day = 5;
+        boolean vacation = false;
+        String expectedResult = "7:00am";
+        
+        assertEquals(expectedResult, clock.alarmClock(day, vacation));
+    }
+    
+    @Test
+    public void testClock() {
+        int day = 0;
+        boolean vacation = false;
+        String expectedResult = "10:00am";
+        
+        assertEquals(expectedResult, clock.alarmClock(day, vacation));
     }
     
 }

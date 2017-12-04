@@ -14,6 +14,10 @@ public class FirstHalf {
     // firstHalf("HelloThere") -> "Hello"
     // firstHalf("abcdef") -> "abc"
     public String firstHalf(String str) {
-        throw new UnsupportedOperationException("Not implemented");
+        int len = str.length();
+        int half = len/2;
+        int end = half * 2;
+        String sFW = str.substring(0, Math.min(str.length(), end));
+        return sFW;
     }
 }

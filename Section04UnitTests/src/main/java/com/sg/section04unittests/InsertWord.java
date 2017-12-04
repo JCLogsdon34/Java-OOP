@@ -5,10 +5,7 @@
  */
 package com.sg.section04unittests;
 
-/**
- *
- * @author apprentice
- */
+
 public class InsertWord {
     // Given an "out" String length 4, such as "<<>>", and a 
     // word, return a new String where the word is in the middle 
@@ -20,9 +17,11 @@ public class InsertWord {
     // insertWord("<<>>", "WooHoo") -> "<<WooHoo>>"
     // insertWord("[[]]", "word") -> "[[word]]"
     public String insertWord(String container, String word) {
-        
-        String message = "<"+tag+">"+content+"</"+tag+">";
-        
-        return message;
+        String newWord = null;
+        String stringMaker [] = word.split(container);
+        for(String message : stringMaker){
+            newWord = (stringMaker[0] + word + stringMaker[1]);
+        }
+        return newWord;
     }
 }

@@ -43,8 +43,23 @@ public class FirstHalfTest {
     // firstHalf("abcdef") -> "abc"
     @Test
     public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String expectedResult = "Woo";
+        String word = "WooHoo";
+        assertEquals(expectedResult, Halfie.firstHalf(word));
+    }
+
+   
+    @Test
+    public void testFirstHalf() {
+        String expectedResult = "Hello";
+        String word = "HelloThere";
+        assertEquals(expectedResult, Halfie.firstHalf(word));
     }
     
+    @Test
+    public void testSecondHalf() {
+        String expectedResult = "abc";
+        String word = "abcdef";
+        assertEquals(expectedResult, Halfie.firstHalf(word));
+    }
 }

@@ -5,6 +5,9 @@
  */
 package com.sg.section04unittests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class AlarmClock {
      // Given a day of the week encoded as 
@@ -19,6 +22,34 @@ public class AlarmClock {
     // alarmClock(5, false) → "7:00"
     // alarmClock(0, false) → "10:00"
     public String alarmClock(int day, boolean vacation) {
-        throw new UnsupportedOperationException("Not implemented");
+        int hour = 0;
+        
+
+        String alarm = null;
+        
+         if (day <= 0) {
+            if(vacation == true){
+                 alarm = "off";
+            }else {
+                alarm = "10:00am";
+            }
+            
+         }else if ((day >= 1) && (day <= 6)){
+            if (vacation == true) {
+                 alarm = "10:00am";
+                 
+            }  else if (vacation == false){
+                alarm = "7:00am";
+            }
+        }else if (day > 6){
+                if(vacation == true){
+                    alarm = "off";
+                }else{ 
+                    alarm = "10:00am";
+            }
+         } else {
+            System.out.println("Invalid input");
+        }
+        return alarm;
     }
 }
